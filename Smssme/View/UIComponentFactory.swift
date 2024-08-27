@@ -49,6 +49,28 @@ class ContentLabel: BaseLabelFactory {
 
 // MARK: - 앱 전체에서 공통적으로 사용될 버튼
 
-//protocol ButtonFactory {
-//    func createButton() -> UIButton
-//}
+protocol ButtonFactory {
+    func createButton(text: String, color: UIColor, textColor: UIColor) -> UIButton
+}
+
+class BaseButton: ButtonFactory {
+    func createButton(text: String, color: UIColor, textColor: UIColor) -> UIButton {
+        let button = UIButton()
+        button.setTitle(text, for: .normal)
+        button.setTitleColor(textColor, for: .normal)
+        button.backgroundColor = color
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        button.layer.cornerRadius = 10
+        button.clipsToBounds = true
+        return button
+    }
+}
+
+
+// 사용예시
+
+// 라벨생성시 color는 텍스트 컬러값입니다
+//private let 자산플랜라벨 = LargeTitleLabel().createLabel(with: "자산플랜", color: UIColor.black)
+
+// 버튼생성시 color는 버튼 색상 , textColor는 글자 색상입니다
+//private let 테스트버튼 = BaseButton().createButton(text: "테스트", color: UIColor.systemBlue, textColor: UIColor.white)
