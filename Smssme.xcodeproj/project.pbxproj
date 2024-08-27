@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F3EAE192C7E182400FF15E5 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3EAE182C7E182400FF15E5 /* LoginView.swift */; };
+		5F3EAE1C2C7E1CC200FF15E5 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3EAE1B2C7E1CC200FF15E5 /* LoginVC.swift */; };
 		740350572C773E9B00122B2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740350562C773E9B00122B2E /* AppDelegate.swift */; };
 		740350592C773E9B00122B2E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740350582C773E9B00122B2E /* SceneDelegate.swift */; };
 		7403505B2C773E9B00122B2E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7403505A2C773E9B00122B2E /* ViewController.swift */; };
@@ -17,13 +19,17 @@
 		740350722C7740A400122B2E /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740350712C7740A400122B2E /* Model.swift */; };
 		740350762C7740CB00122B2E /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740350752C7740CB00122B2E /* View.swift */; };
 		E5FBA12C2C7C823C00D26E5F /* UIComponentFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FBA12B2C7C823C00D26E5F /* UIComponentFactory.swift */; };
-		E5FBA12E2C7C860200D26E5F /* FinancialPlanSelectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FBA12D2C7C860200D26E5F /* FinancialPlanSelectionVC.swift */; };
-		E5FBA1302C7C862700D26E5F /* FinancialPlanSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FBA12F2C7C862700D26E5F /* FinancialPlanSelectView.swift */; };
 		E5FBA1332C7CCCBE00D26E5F /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = E5FBA1322C7CCCBE00D26E5F /* SnapKit */; };
-		E5FBA1352C7CD4A700D26E5F /* FinancialPlanCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FBA1342C7CD4A700D26E5F /* FinancialPlanCell.swift */; };
+		E5FBA13B2C7E095300D26E5F /* FinancialPlanSelectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FBA13A2C7E095300D26E5F /* FinancialPlanSelectionVC.swift */; };
+		E5FBA13D2C7E099B00D26E5F /* FinancialPlanCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FBA13C2C7E099B00D26E5F /* FinancialPlanCell.swift */; };
+		E5FBA13F2C7E0A0800D26E5F /* FinancialPlanSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FBA13E2C7E0A0800D26E5F /* FinancialPlanSelectView.swift */; };
+		E5FBA1412C7E0B4600D26E5F /* FinancialPlanCreateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FBA1402C7E0B4600D26E5F /* FinancialPlanCreateVC.swift */; };
+		E5FBA1432C7E0B8B00D26E5F /* FinancialPlanCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FBA1422C7E0B8B00D26E5F /* FinancialPlanCreateView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5F3EAE182C7E182400FF15E5 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		5F3EAE1B2C7E1CC200FF15E5 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		740350532C773E9B00122B2E /* Smssme.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Smssme.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		740350562C773E9B00122B2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		740350582C773E9B00122B2E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -36,9 +42,11 @@
 		740350712C7740A400122B2E /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		740350752C7740CB00122B2E /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		E5FBA12B2C7C823C00D26E5F /* UIComponentFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIComponentFactory.swift; sourceTree = "<group>"; };
-		E5FBA12D2C7C860200D26E5F /* FinancialPlanSelectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FinancialPlanSelectionVC.swift; path = Smssme/Controller/FinancialPlanSelectionVC.swift; sourceTree = SOURCE_ROOT; };
-		E5FBA12F2C7C862700D26E5F /* FinancialPlanSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FinancialPlanSelectView.swift; path = Smssme/View/FinancialPlanSelectView.swift; sourceTree = SOURCE_ROOT; };
-		E5FBA1342C7CD4A700D26E5F /* FinancialPlanCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanCell.swift; sourceTree = "<group>"; };
+		E5FBA13A2C7E095300D26E5F /* FinancialPlanSelectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FinancialPlanSelectionVC.swift; path = Smssme/Controller/FinancialPlanSelectionVC.swift; sourceTree = SOURCE_ROOT; };
+		E5FBA13C2C7E099B00D26E5F /* FinancialPlanCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FinancialPlanCell.swift; path = Smssme/View/FinancialPlanCell.swift; sourceTree = SOURCE_ROOT; };
+		E5FBA13E2C7E0A0800D26E5F /* FinancialPlanSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanSelectView.swift; sourceTree = "<group>"; };
+		E5FBA1402C7E0B4600D26E5F /* FinancialPlanCreateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanCreateVC.swift; sourceTree = "<group>"; };
+		E5FBA1422C7E0B8B00D26E5F /* FinancialPlanCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FinancialPlanCreateView.swift; path = Smssme/View/FinancialPlanCreateView.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +61,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5F3EAE172C7E180200FF15E5 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				5F3EAE182C7E182400FF15E5 /* LoginView.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		5F3EAE1A2C7E1AD100FF15E5 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				5F3EAE1B2C7E1CC200FF15E5 /* LoginVC.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		7403504A2C773E9B00122B2E = {
 			isa = PBXGroup;
 			children = (
@@ -105,8 +129,10 @@
 		740350732C7740AA00122B2E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				5F3EAE1A2C7E1AD100FF15E5 /* Login */,
 				7403505A2C773E9B00122B2E /* ViewController.swift */,
-				E5FBA12D2C7C860200D26E5F /* FinancialPlanSelectionVC.swift */,
+				E5FBA1402C7E0B4600D26E5F /* FinancialPlanCreateVC.swift */,
+				E5FBA13A2C7E095300D26E5F /* FinancialPlanSelectionVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -114,10 +140,12 @@
 		740350742C7740BE00122B2E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				5F3EAE172C7E180200FF15E5 /* Login */,
 				740350752C7740CB00122B2E /* View.swift */,
 				E5FBA12B2C7C823C00D26E5F /* UIComponentFactory.swift */,
-				E5FBA12F2C7C862700D26E5F /* FinancialPlanSelectView.swift */,
-				E5FBA1342C7CD4A700D26E5F /* FinancialPlanCell.swift */,
+				E5FBA13E2C7E0A0800D26E5F /* FinancialPlanSelectView.swift */,
+				E5FBA13C2C7E099B00D26E5F /* FinancialPlanCell.swift */,
+				E5FBA1422C7E0B8B00D26E5F /* FinancialPlanCreateView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -200,15 +228,19 @@
 			files = (
 				7403505B2C773E9B00122B2E /* ViewController.swift in Sources */,
 				7403506F2C77408400122B2E /* DataManager.swift in Sources */,
+				E5FBA13F2C7E0A0800D26E5F /* FinancialPlanSelectView.swift in Sources */,
 				740350572C773E9B00122B2E /* AppDelegate.swift in Sources */,
-				E5FBA1302C7C862700D26E5F /* FinancialPlanSelectView.swift in Sources */,
 				740350722C7740A400122B2E /* Model.swift in Sources */,
-				E5FBA12E2C7C860200D26E5F /* FinancialPlanSelectionVC.swift in Sources */,
 				740350592C773E9B00122B2E /* SceneDelegate.swift in Sources */,
 				E5FBA12C2C7C823C00D26E5F /* UIComponentFactory.swift in Sources */,
-				E5FBA1352C7CD4A700D26E5F /* FinancialPlanCell.swift in Sources */,
+				E5FBA1412C7E0B4600D26E5F /* FinancialPlanCreateVC.swift in Sources */,
+				5F3EAE192C7E182400FF15E5 /* LoginView.swift in Sources */,
+				E5FBA13B2C7E095300D26E5F /* FinancialPlanSelectionVC.swift in Sources */,
 				740350762C7740CB00122B2E /* View.swift in Sources */,
+				E5FBA1432C7E0B8B00D26E5F /* FinancialPlanCreateView.swift in Sources */,
+				E5FBA13D2C7E099B00D26E5F /* FinancialPlanCell.swift in Sources */,
 				740350612C773E9B00122B2E /* Smssme.xcdatamodeld in Sources */,
+				5F3EAE1C2C7E1CC200FF15E5 /* LoginVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
