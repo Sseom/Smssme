@@ -73,7 +73,7 @@ final class LoginView: UIView {
 //    }()
     
     //비회원 로그인
-    private let unLoginLabel = SmallTitleLabel().createLabel(with: "로그인 없이 둘러보기", color: UIColor.gray)
+    private let unLoginButton = BaseButton().createButton(text: "로그인 없이 둘러보기", color: .clear, textColor: UIColor.gray)
     
     
     // TODO: - 자동로그인, 아이디 저장 추가 예정
@@ -96,7 +96,7 @@ final class LoginView: UIView {
         [userIdTextField, passwordTextField, loginButton].forEach {loginStackView.addArrangedSubview($0)}
         
         //view에 추가
-        [logoImageView,loginStackView, joinButton, unLoginLabel].forEach {self.addSubview($0)}
+        [logoImageView,loginStackView, joinButton, unLoginButton].forEach {self.addSubview($0)}
         
     }
     
@@ -121,7 +121,7 @@ final class LoginView: UIView {
             $0.height.equalTo(textFieldHeight)
         }
         
-        unLoginLabel.snp.makeConstraints {
+        unLoginButton.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.top.equalTo(joinButton.snp.bottom).offset(24)
         }
