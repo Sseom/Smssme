@@ -5,8 +5,8 @@
 //  Created by ahnzihyeon on 8/27/24.
 //
 
-import UIKit
 import SnapKit
+import UIKit
 
 final class LoginView: UIView {
     
