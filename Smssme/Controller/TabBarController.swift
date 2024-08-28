@@ -19,7 +19,7 @@ class TabBarController: UITabBarController {
         guard let unselectImage = UIImage(systemName: "multiply.circle.fill") else { return }
         guard let selectImage = UIImage(systemName: "multiply.circle.fill") else { return }
         
-        let mainPage = tabBarNavigationController(unselectedImage: unselectImage, selectedImage: selectImage, isNavigationBarHidden: true, rootViewController: FinancialPlanSelectionVC(financialPlanSelectionView: FinancialPlanSelectionView()))
+        let mainPage = tabBarNavigationController(unselectedImage: unselectImage, selectedImage: selectImage, isNavigationBarHidden: true, rootViewController: LoginVC())
         let diary = tabBarNavigationController(unselectedImage: unselectImage, selectedImage: selectImage, isNavigationBarHidden: false, rootViewController: FinancialPlanSelectionVC(financialPlanSelectionView: FinancialPlanSelectionView()))
         let financialPlan = tabBarNavigationController(unselectedImage: unselectImage, selectedImage: selectImage, isNavigationBarHidden: false, rootViewController: FinancialPlanSelectionVC(financialPlanSelectionView: FinancialPlanSelectionView()))
         //        let myPage = tabBarNavigationController(unselectedImage: unselectImage, selectedImage: selectImage, isNavigationBarHidden: false, rootViewController: FinancialPlanSelectionVC(financialPlanSelectionView: FinancialPlanSelectionView()))
