@@ -74,7 +74,7 @@ extension FinancialPlanSelectionVC: UICollectionViewDelegate {
             return
         }
         
-        let createPlanVC = FinancialPlanCreateVC()
+        let createPlanVC = FinancialPlanCreateVC(financialPlanCreateView: FinancialPlanCreateView())
         navigationController.pushViewController(createPlanVC, animated: true)
         
     }
