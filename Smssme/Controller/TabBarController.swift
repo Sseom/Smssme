@@ -22,7 +22,10 @@ class TabBarController: UITabBarController {
         let mainPage = tabBarNavigationController(unselectedImage: unselectImage, selectedImage: selectImage, isNavigationBarHidden: true, rootViewController: FinancialPlanSelectionVC(financialPlanSelectionView: FinancialPlanSelectionView()))
         let diary = tabBarNavigationController(unselectedImage: unselectImage, selectedImage: selectImage, isNavigationBarHidden: false, rootViewController: FinancialPlanSelectionVC(financialPlanSelectionView: FinancialPlanSelectionView()))
         let financialPlan = tabBarNavigationController(unselectedImage: unselectImage, selectedImage: selectImage, isNavigationBarHidden: false, rootViewController: FinancialPlanSelectionVC(financialPlanSelectionView: FinancialPlanSelectionView()))
-        let myPage = tabBarNavigationController(unselectedImage: unselectImage, selectedImage: selectImage, isNavigationBarHidden: false, rootViewController: FinancialPlanSelectionVC(financialPlanSelectionView: FinancialPlanSelectionView()))
+        //        let myPage = tabBarNavigationController(unselectedImage: unselectImage, selectedImage: selectImage, isNavigationBarHidden: false, rootViewController: FinancialPlanSelectionVC(financialPlanSelectionView: FinancialPlanSelectionView()))
+        
+        //로그인 기능 추가 중이라 로그인뷰컨으로 임시 교체-지현
+        let myPage = tabBarNavigationController(unselectedImage: unselectImage, selectedImage: selectImage, isNavigationBarHidden: false, rootViewController: LoginVC())
         viewControllers = [mainPage, diary, financialPlan, myPage]
     }
     
