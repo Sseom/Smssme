@@ -43,14 +43,7 @@ final class LoginView: UIView {
     }()
     
     // 로그인 버튼
-//    private let loginButton: UIButton = {
-//        let button = UIButton()
-//        button.setTitle("로그인", for: .normal)
-//        button.backgroundColor = .systemBlue
-//        button.layer.cornerRadius = 5
-//        return button
-//    }()
-    private let loginButton = BaseButton().createButton(text: "로그인", color: UIColor.systemBlue, textColor: UIColor.white)
+    let loginButton = BaseButton().createButton(text: "로그인", color: UIColor.systemBlue, textColor: UIColor.white)
     
     // 아이디, 비밀번호, 로그인 stackView
     private var loginStackView: UIStackView = {
@@ -62,18 +55,11 @@ final class LoginView: UIView {
     }()
     
     //회원가입 버튼
-    private let joinButton = BaseButton().createButton(text: "회원가입", color: #colorLiteral(red: 0.9121415615, green: 0.9536862969, blue: 1, alpha: 1), textColor: UIColor.systemBlue)
-//    private let joinButton: UIButton = {
-//        let button = UIButton()
-//        button.setTitle("회원가입", for: .normal)
-//        button.setTitleColor(.systemBlue, for: .normal)
-//        button.backgroundColor = #colorLiteral(red: 0.9121415615, green: 0.9536862969, blue: 1, alpha: 1)
-//        button.layer.cornerRadius = 5
-//        return button
-//    }()
+    let joinButton = BaseButton().createButton(text: "회원가입", color: #colorLiteral(red: 0.9121415615, green: 0.9536862969, blue: 1, alpha: 1), textColor: UIColor.systemBlue)
+    
     
     //비회원 로그인
-    private let unLoginButton = BaseButton().createButton(text: "로그인 없이 둘러보기", color: .clear, textColor: UIColor.gray)
+    let unLoginButton = BaseButton().createButton(text: "로그인 없이 둘러보기", color: .clear, textColor: UIColor.gray)
     
     
     // TODO: - 자동로그인, 아이디 저장 추가 예정
@@ -87,6 +73,7 @@ final class LoginView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     
     //MARK: - setupUI
     private func configureUI() {
@@ -125,7 +112,7 @@ final class LoginView: UIView {
             $0.centerX.equalToSuperview()
             $0.top.equalTo(joinButton.snp.bottom).offset(24)
         }
-
+        
     }
     
     
