@@ -42,6 +42,12 @@ class LoginVC: UIViewController {
     
     
     func setupAddtarget() {
+        //체크박스 버튼 클릭 시
+        loginVeiw.autoLoginCheckBox.addTarget(self, action: #selector(checkBoxTapped), for: .touchUpInside)
+        
+        loginVeiw.rememberIDCheckBox.addTarget(self, action: #selector(checkBoxTapped), for: .touchUpInside)
+        
+        
         // 로그인 버튼 클릭 시
         loginVeiw.loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
         
@@ -114,13 +120,13 @@ class LoginVC: UIViewController {
             guard let self = self else { return }
             // 에러가 나거나 유저가 없을 경우
             if let error = error, user == nil {
-
-               showAlert(message: "\(error)", AlertTitle: "로그인 실패", buttonClickTitle: "확인")
- 
+                
+                showAlert(message: "\(error)", AlertTitle: "로그인 실패", buttonClickTitle: "확인")
+                
             } else {
                 // 성공이면 화면전환하고 프로필 가져오기
                 //                self.getUserProfile()
-                showAlert(message: "안녕하세요,\n 로그인되었습니다.", AlertTitle: "로그인 성공", buttonClickTitle: <#T##String#>)
+                showAlert(message: "안녕하세요,\n 로그인되었습니다.", AlertTitle: "로그인 성공", buttonClickTitle: "확인")
                 
                 let MypageVC = MypageViewController()
                 print("로그인하고 페이지 전환")
@@ -130,7 +136,16 @@ class LoginVC: UIViewController {
     }
     
     
-
+    //MARK: - 로그인 체크박스
+    @objc func checkBoxTapped(_ sender: UIButton) {
+        sender.isSelected.toggle() // 선택 상태를 반전시킴
+        // 선택 상태에 따라 동작 추가 가능
+        if sender.isSelected {
+            print("체크박스 선택됨")
+        } else {
+            print("체크박스 선택 해제됨")
+        }
+    }
     
     
     //MARK: - @objc 회원가입
