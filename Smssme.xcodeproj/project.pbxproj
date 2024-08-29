@@ -41,6 +41,7 @@
 		E5FBA1432C7E0B8B00D26E5F /* FinancialPlanCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FBA1422C7E0B8B00D26E5F /* FinancialPlanCreateView.swift */; };
 		E5FBA1482C7EC68700D26E5F /* PlanCustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FBA1472C7EC68700D26E5F /* PlanCustomTextField.swift */; };
 		E5FBA14A2C7EF75100D26E5F /* FinancialPlanConfirmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FBA1492C7EF75000D26E5F /* FinancialPlanConfirmVC.swift */; };
+		E5FBA1502C804FBA00D26E5F /* UIColorSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FBA14F2C804FBA00D26E5F /* UIColorSet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +76,7 @@
 		E5FBA1422C7E0B8B00D26E5F /* FinancialPlanCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FinancialPlanCreateView.swift; path = Smssme/View/FinancialPlan/FinancialPlanCreateView.swift; sourceTree = SOURCE_ROOT; };
 		E5FBA1472C7EC68700D26E5F /* PlanCustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanCustomTextField.swift; sourceTree = "<group>"; };
 		E5FBA1492C7EF75000D26E5F /* FinancialPlanConfirmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanConfirmVC.swift; sourceTree = "<group>"; };
+		E5FBA14F2C804FBA00D26E5F /* UIColorSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorSet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +193,7 @@
 				5F3EAE172C7E180200FF15E5 /* Login */,
 				9F06D3082C7EE41A00DFF5B0 /* MoneyDiary */,
 				740350752C7740CB00122B2E /* View.swift */,
+				E5FBA14F2C804FBA00D26E5F /* UIColorSet.swift */,
 				E5FBA12B2C7C823C00D26E5F /* UIComponentFactory.swift */,
 				E5FBA1462C7EC64500D26E5F /* FinancialPlan */,
 			);
@@ -351,6 +354,7 @@
 				5F3EAE562C7EFAFA00FF15E5 /* SignUpView.swift in Sources */,
 				E5FBA13D2C7E099B00D26E5F /* FinancialPlanCell.swift in Sources */,
 				740350612C773E9B00122B2E /* Smssme.xcdatamodeld in Sources */,
+				E5FBA1502C804FBA00D26E5F /* UIColorSet.swift in Sources */,
 				9F06D3182C801CFB00DFF5B0 /* FinancialPlanCreateVC.swift in Sources */,
 				5F3EAE1C2C7E1CC200FF15E5 /* LoginVC.swift in Sources */,
 			);
