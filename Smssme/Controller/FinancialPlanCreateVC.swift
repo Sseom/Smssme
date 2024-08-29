@@ -30,8 +30,8 @@ class FinancialPlanCreateVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        print("플랜 기입창입니다")
         setupDatePicker()
+        buttonAction()
     }
     
     override func loadView() {
@@ -62,5 +62,12 @@ extension FinancialPlanCreateVC {
     
     @objc func dismissKeyboard() {
         resignFirstResponder()
+    }
+    func buttonAction() {
+        financialPlanCreateView.confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
+    }
+    @objc func confirmButtonTapped() {
+        let financialPlanConfirmVC = FinancialPlanConfirmVC(financialPlanConfirmView: FinancialPlanConfirmView())
+        navigationController?.pushViewController(financialPlanConfirmVC, animated: true)
     }
 }
