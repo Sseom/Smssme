@@ -63,7 +63,7 @@ final class SignUpView: UIView {
     //생년월일 -> birthdatePicker 사용할지
     let birthdayTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "생년월일"
+        textField.placeholder = "생년월일 8자리 입력(예:  1900/01/31)"
         textField.textColor = UIColor.lightGray
         textField.borderStyle = .roundedRect
         textField.layer.cornerRadius = 5

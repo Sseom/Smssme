@@ -17,6 +17,9 @@
 		5F3EAE562C7EFAFA00FF15E5 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3EAE552C7EFAFA00FF15E5 /* SignUpView.swift */; };
 		5F3EAE5B2C7F36E500FF15E5 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3EAE5A2C7F36E500FF15E5 /* SignUpVC.swift */; };
 		5F413EFA2C7F3D9800004703 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F3EAE542C7EF7E000FF15E5 /* GoogleService-Info.plist */; };
+		5F413EFF2C805CC200004703 /* Mypage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F413EFE2C805CC200004703 /* Mypage.swift */; };
+		5F413F012C805CED00004703 /* MypageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F413F002C805CED00004703 /* MypageViewController.swift */; };
+		5FA88FEF2C80760E00549363 /* CommonAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA88FEE2C80760E00549363 /* CommonAlert.swift */; };
 		740350572C773E9B00122B2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740350562C773E9B00122B2E /* AppDelegate.swift */; };
 		740350592C773E9B00122B2E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740350582C773E9B00122B2E /* SceneDelegate.swift */; };
 		740350612C773E9B00122B2E /* Smssme.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7403505F2C773E9B00122B2E /* Smssme.xcdatamodeld */; };
@@ -53,6 +56,9 @@
 		5F3EAE542C7EF7E000FF15E5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5F3EAE552C7EFAFA00FF15E5 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		5F3EAE5A2C7F36E500FF15E5 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
+		5F413EFE2C805CC200004703 /* Mypage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mypage.swift; sourceTree = "<group>"; };
+		5F413F002C805CED00004703 /* MypageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewController.swift; sourceTree = "<group>"; };
+		5FA88FEE2C80760E00549363 /* CommonAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonAlert.swift; sourceTree = "<group>"; };
 		740350532C773E9B00122B2E /* Smssme.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Smssme.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		740350562C773E9B00122B2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		740350582C773E9B00122B2E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -128,6 +134,22 @@
 			path = Firebase;
 			sourceTree = "<group>";
 		};
+		5F413F022C8066AF00004703 /* Mypage */ = {
+			isa = PBXGroup;
+			children = (
+				5F413EFE2C805CC200004703 /* Mypage.swift */,
+			);
+			path = Mypage;
+			sourceTree = "<group>";
+		};
+		5F413F032C8066EA00004703 /* Mypage */ = {
+			isa = PBXGroup;
+			children = (
+				5F413F002C805CED00004703 /* MypageViewController.swift */,
+			);
+			path = Mypage;
+			sourceTree = "<group>";
+		};
 		7403504A2C773E9B00122B2E = {
 			isa = PBXGroup;
 			children = (
@@ -166,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				740350A62C7E186600122B2E /* Common.swift */,
+				5FA88FEE2C80760E00549363 /* CommonAlert.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -182,10 +205,11 @@
 		740350732C7740AA00122B2E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				5F3EAE1A2C7E1AD100FF15E5 /* Login */,
+				5F413F032C8066EA00004703 /* Mypage */,
 				74707F7B2C80699400F7000C /* MainPage */,
 				9F06D3072C7EE3D200DFF5B0 /* MoneyDiary */,
 				740350A72C7E229100122B2E /* TabBarController.swift */,
-				5F3EAE1A2C7E1AD100FF15E5 /* Login */,
 				E5FBA1452C7EC62300D26E5F /* FinancialPlan */,
 			);
 			path = Controller;
@@ -197,6 +221,7 @@
 				74707F782C80697100F7000C /* MainPage */,
 				740350B32C805FB900122B2E /* Util */,
 				5F3EAE172C7E180200FF15E5 /* Login */,
+				5F413F022C8066AF00004703 /* Mypage */,
 				9F06D3082C7EE41A00DFF5B0 /* MoneyDiary */,
 				E5FBA1462C7EC64500D26E5F /* FinancialPlan */,
 			);
@@ -369,10 +394,12 @@
 				9F06D3102C7EE6F200DFF5B0 /* MoneyDiaryCalendarView.swift in Sources */,
 				9F06D3122C7EFF9D00DFF5B0 /* DateModel.swift in Sources */,
 				9F06D31A2C801D1F00DFF5B0 /* FinancialPlanConfirmVC.swift in Sources */,
+				5FA88FEF2C80760E00549363 /* CommonAlert.swift in Sources */,
 				740350592C773E9B00122B2E /* SceneDelegate.swift in Sources */,
 				E5FBA12C2C7C823C00D26E5F /* UIComponentFactory.swift in Sources */,
 				9F06D30E2C7EE6B300DFF5B0 /* MoneyDiaryCalendarCell.swift in Sources */,
 				E5F344D82C806A58006F9A91 /* FinancialPlanCurrentPlanVC.swift in Sources */,
+				5F413EFF2C805CC200004703 /* Mypage.swift in Sources */,
 				5F3EAE192C7E182400FF15E5 /* LoginView.swift in Sources */,
 				5F3EAE5B2C7F36E500FF15E5 /* SignUpVC.swift in Sources */,
 				E5FBA13B2C7E095300D26E5F /* FinancialPlanSelectionVC.swift in Sources */,
@@ -380,6 +407,7 @@
 				E5FBA1432C7E0B8B00D26E5F /* FinancialPlanCreateView.swift in Sources */,
 				5F3EAE562C7EFAFA00FF15E5 /* SignUpView.swift in Sources */,
 				E5FBA13D2C7E099B00D26E5F /* FinancialPlanCell.swift in Sources */,
+				5F413F012C805CED00004703 /* MypageViewController.swift in Sources */,
 				740350612C773E9B00122B2E /* Smssme.xcdatamodeld in Sources */,
 				74707F7D2C8069A600F7000C /* MainPageVC.swift in Sources */,
 				E5FBA1502C804FBA00D26E5F /* UIColorSet.swift in Sources */,
