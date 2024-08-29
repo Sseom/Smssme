@@ -10,7 +10,7 @@ import UIKit
 class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
+        view.backgroundColor = .white
         configureController()
     }
     
@@ -20,14 +20,34 @@ class TabBarController: UITabBarController {
         guard let selectImage = UIImage(systemName: "multiply.circle.fill") else { return }
         
 
-        let mainPage = tabBarNavigationController(unselectedImage: unselectImage, selectedImage: selectImage, isNavigationBarHidden: true, rootViewController: FinancialPlanSelectionVC(financialPlanSelectionView: FinancialPlanSelectionView()))
-        let diary = tabBarNavigationController(unselectedImage: unselectImage, selectedImage: selectImage, isNavigationBarHidden: false, rootViewController: MoneyDiaryVC(moneyDiaryView: MoneyDiaryView()))
-
-        let financialPlan = tabBarNavigationController(unselectedImage: unselectImage, selectedImage: selectImage, isNavigationBarHidden: false, rootViewController: FinancialPlanSelectionVC(financialPlanSelectionView: FinancialPlanSelectionView()))
-        //        let myPage = tabBarNavigationController(unselectedImage: unselectImage, selectedImage: selectImage, isNavigationBarHidden: false, rootViewController: FinancialPlanSelectionVC(financialPlanSelectionView: FinancialPlanSelectionView()))
-        
+        //메인페이지
+        let mainPage = tabBarNavigationController(
+            unselectedImage: UIImage(systemName: "house.fill") ?? UIImage(),
+            selectedImage: UIImage(systemName: "house.fill") ?? UIImage(),
+            isNavigationBarHidden: true,
+            rootViewController: MainPageVC(mainPageView: MainPageView())
+        )
+        //머니다이어리
+        let diary = tabBarNavigationController(
+            unselectedImage: unselectImage,
+            selectedImage: selectImage,
+            isNavigationBarHidden: false,
+            rootViewController: FinancialPlanSelectionVC(financialPlanSelectionView: FinancialPlanSelectionView())
+        )
+        //재무플랜
+        let financialPlan = tabBarNavigationController(
+            unselectedImage: unselectImage,
+            selectedImage: selectImage,
+            isNavigationBarHidden: false,
+            rootViewController: FinancialPlanSelectionVC(financialPlanSelectionView: FinancialPlanSelectionView())
+        )
         //로그인 기능 추가 중이라 로그인뷰컨으로 임시 교체-지현
-        let myPage = tabBarNavigationController(unselectedImage: unselectImage, selectedImage: selectImage, isNavigationBarHidden: false, rootViewController: LoginVC())
+        let myPage = tabBarNavigationController(
+            unselectedImage: unselectImage,
+            selectedImage: selectImage,
+            isNavigationBarHidden: false,
+            rootViewController: LoginVC()
+        )
         viewControllers = [mainPage, diary, financialPlan, myPage]
     }
     
