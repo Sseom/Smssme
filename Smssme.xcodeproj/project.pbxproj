@@ -30,6 +30,9 @@
 		9F06D3122C7EFF9D00DFF5B0 /* DateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F06D3112C7EFF9D00DFF5B0 /* DateModel.swift */; };
 		9F06D3182C801CFB00DFF5B0 /* FinancialPlanCreateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F06D3172C801CFA00DFF5B0 /* FinancialPlanCreateVC.swift */; };
 		9F06D31A2C801D1F00DFF5B0 /* FinancialPlanConfirmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F06D3192C801D1F00DFF5B0 /* FinancialPlanConfirmVC.swift */; };
+		9F1E1ABF2C80A6BA00765D52 /* DailyTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1E1ABE2C80A6BA00765D52 /* DailyTransactionView.swift */; };
+		9F1E1AC12C80A6C800765D52 /* DailyTransactionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1E1AC02C80A6C800765D52 /* DailyTransactionVC.swift */; };
+		9F1E1AC32C80A6FB00765D52 /* DailyTransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1E1AC22C80A6FB00765D52 /* DailyTransactionCell.swift */; };
 		9FE549BF2C801E4D00E6075E /* FinancialPlanConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE549BE2C801E4D00E6075E /* FinancialPlanConfirmView.swift */; };
 		E5FBA12C2C7C823C00D26E5F /* UIComponentFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FBA12B2C7C823C00D26E5F /* UIComponentFactory.swift */; };
 		E5FBA1332C7CCCBE00D26E5F /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = E5FBA1322C7CCCBE00D26E5F /* SnapKit */; };
@@ -63,6 +66,9 @@
 		9F06D3112C7EFF9D00DFF5B0 /* DateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateModel.swift; sourceTree = "<group>"; };
 		9F06D3172C801CFA00DFF5B0 /* FinancialPlanCreateVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FinancialPlanCreateVC.swift; path = Smssme/Controller/FinancialPlan/FinancialPlanCreateVC.swift; sourceTree = SOURCE_ROOT; };
 		9F06D3192C801D1F00DFF5B0 /* FinancialPlanConfirmVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanConfirmVC.swift; sourceTree = "<group>"; };
+		9F1E1ABE2C80A6BA00765D52 /* DailyTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTransactionView.swift; sourceTree = "<group>"; };
+		9F1E1AC02C80A6C800765D52 /* DailyTransactionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTransactionVC.swift; sourceTree = "<group>"; };
+		9F1E1AC22C80A6FB00765D52 /* DailyTransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTransactionCell.swift; sourceTree = "<group>"; };
 		9FE549BE2C801E4D00E6075E /* FinancialPlanConfirmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanConfirmView.swift; sourceTree = "<group>"; };
 		E5FBA12B2C7C823C00D26E5F /* UIComponentFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIComponentFactory.swift; sourceTree = "<group>"; };
 		E5FBA13A2C7E095300D26E5F /* FinancialPlanSelectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FinancialPlanSelectionVC.swift; path = Smssme/Controller/FinancialPlan/FinancialPlanSelectionVC.swift; sourceTree = SOURCE_ROOT; };
@@ -201,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				9F06D3092C7EE44300DFF5B0 /* MoneyDiaryVC.swift */,
+				9F1E1ABD2C80A67800765D52 /* DailyTransaction */,
 			);
 			name = MoneyDiary;
 			path = ../View/MoneyDiary;
@@ -212,9 +219,27 @@
 				9F06D30B2C7EE49500DFF5B0 /* MoneyDiaryView.swift */,
 				9F06D30F2C7EE6F200DFF5B0 /* MoneyDiaryCalendarView.swift */,
 				9F06D30D2C7EE6B300DFF5B0 /* MoneyDiaryCalendarCell.swift */,
+				9F1E1ABC2C80A65D00765D52 /* DailyTransaction */,
 			);
 			name = MoneyDiary;
 			path = ../Controller/MoneyDiary;
+			sourceTree = "<group>";
+		};
+		9F1E1ABC2C80A65D00765D52 /* DailyTransaction */ = {
+			isa = PBXGroup;
+			children = (
+				9F1E1ABE2C80A6BA00765D52 /* DailyTransactionView.swift */,
+				9F1E1AC22C80A6FB00765D52 /* DailyTransactionCell.swift */,
+			);
+			path = DailyTransaction;
+			sourceTree = "<group>";
+		};
+		9F1E1ABD2C80A67800765D52 /* DailyTransaction */ = {
+			isa = PBXGroup;
+			children = (
+				9F1E1AC02C80A6C800765D52 /* DailyTransactionVC.swift */,
+			);
+			path = DailyTransaction;
 			sourceTree = "<group>";
 		};
 		E5FBA1452C7EC62300D26E5F /* FinancialPlan */ = {
@@ -323,6 +348,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				740350A82C7E229100122B2E /* TabBarController.swift in Sources */,
+				9F1E1ABF2C80A6BA00765D52 /* DailyTransactionView.swift in Sources */,
 				E5FBA13F2C7E0A0800D26E5F /* FinancialPlanSelectView.swift in Sources */,
 				E5FBA1482C7EC68700D26E5F /* PlanCustomTextField.swift in Sources */,
 				740350572C773E9B00122B2E /* AppDelegate.swift in Sources */,
@@ -331,6 +357,7 @@
 				9F06D3102C7EE6F200DFF5B0 /* MoneyDiaryCalendarView.swift in Sources */,
 				9F06D3122C7EFF9D00DFF5B0 /* DateModel.swift in Sources */,
 				9F06D31A2C801D1F00DFF5B0 /* FinancialPlanConfirmVC.swift in Sources */,
+				9F1E1AC12C80A6C800765D52 /* DailyTransactionVC.swift in Sources */,
 				740350592C773E9B00122B2E /* SceneDelegate.swift in Sources */,
 				E5FBA12C2C7C823C00D26E5F /* UIComponentFactory.swift in Sources */,
 				9F06D30E2C7EE6B300DFF5B0 /* MoneyDiaryCalendarCell.swift in Sources */,
@@ -344,6 +371,7 @@
 				740350612C773E9B00122B2E /* Smssme.xcdatamodeld in Sources */,
 				E5FBA1502C804FBA00D26E5F /* UIColorSet.swift in Sources */,
 				9F06D3182C801CFB00DFF5B0 /* FinancialPlanCreateVC.swift in Sources */,
+				9F1E1AC32C80A6FB00765D52 /* DailyTransactionCell.swift in Sources */,
 				5F3EAE1C2C7E1CC200FF15E5 /* LoginVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
