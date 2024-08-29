@@ -169,8 +169,8 @@
 		740350732C7740AA00122B2E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				9F06D3072C7EE3D200DFF5B0 /* MoneyDiary */,
 				740350A72C7E229100122B2E /* TabBarController.swift */,
+				9F06D3072C7EE3D200DFF5B0 /* MoneyDiary */,
 				5F3EAE1A2C7E1AD100FF15E5 /* Login */,
 				E5FBA1452C7EC62300D26E5F /* FinancialPlan */,
 			);
