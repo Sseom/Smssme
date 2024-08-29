@@ -5,8 +5,8 @@
 //  Created by ahnzihyeon on 8/27/24.
 //
 
-import UIKit
 import SnapKit
+import UIKit
 
 final class LoginView: UIView {
     
@@ -21,24 +21,27 @@ final class LoginView: UIView {
         return imageView
     }()
     
-    // 아이디 입력
-    private var userIdTextField: UITextField = {
+    // 아이디(이메일) 입력
+    var emailTextField: UITextField = {
         var textField = UITextField()
-        textField.placeholder = "아이디"
+        textField.placeholder = "아이디(이메일)"
         textField.textColor = .black
         textField.borderStyle = .roundedRect
         textField.layer.cornerRadius = 5
+        textField.keyboardType = UIKeyboardType.emailAddress
+        textField.clearButtonMode = .always
         return textField
     }()
     
     // 비밀번호 입력
-    private var passwordTextField: UITextField = {
+    var passwordTextField: UITextField = {
         var textField = UITextField()
         textField.placeholder = "비밀번호"
         textField.textColor = .black
         textField.backgroundColor = .clear
         textField.borderStyle = .roundedRect
         textField.layer.cornerRadius = 5
+        textField.clearButtonMode = .always
         return textField
     }()
     
@@ -55,7 +58,7 @@ final class LoginView: UIView {
     }()
     
     //회원가입 버튼
-    let joinButton = BaseButton().createButton(text: "회원가입", color: #colorLiteral(red: 0.9121415615, green: 0.9536862969, blue: 1, alpha: 1), textColor: UIColor.systemBlue)
+    let signupButton = BaseButton().createButton(text: "회원가입", color: #colorLiteral(red: 0.9121415615, green: 0.9536862969, blue: 1, alpha: 1), textColor: UIColor.systemBlue)
     
     
     //비회원 로그인
@@ -63,6 +66,11 @@ final class LoginView: UIView {
     
     
     // TODO: - 자동로그인, 아이디 저장 추가 예정
+    
+    // 빈 화면 터치 시 키보드 내려감ㅋ
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.endEditing(true)
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -80,10 +88,10 @@ final class LoginView: UIView {
         self.backgroundColor = .white
         
         //loginStackView에 추가
-        [userIdTextField, passwordTextField, loginButton].forEach {loginStackView.addArrangedSubview($0)}
+        [emailTextField, passwordTextField, loginButton].forEach {loginStackView.addArrangedSubview($0)}
         
         //view에 추가
-        [logoImageView,loginStackView, joinButton, unLoginButton].forEach {self.addSubview($0)}
+        [logoImageView,loginStackView, signupButton, unLoginButton].forEach {self.addSubview($0)}
         
     }
     
@@ -101,7 +109,7 @@ final class LoginView: UIView {
             $0.horizontalEdges.equalToSuperview().inset(30)
         }
         
-        joinButton.snp.makeConstraints {
+        signupButton.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.top.equalTo(loginStackView.snp.bottom).offset(10)
             $0.horizontalEdges.equalToSuperview().inset(30)
@@ -110,7 +118,7 @@ final class LoginView: UIView {
         
         unLoginButton.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(joinButton.snp.bottom).offset(24)
+            $0.top.equalTo(signupButton.snp.bottom).offset(24)
         }
         
     }
@@ -119,6 +127,6 @@ final class LoginView: UIView {
     //MARK: - @objc
     @objc
     func passwordSecureMode() {
-        //.isSecureTextEntry.toggle()
+        passwordTextField.isSecureTextEntry.toggle()
     }
 }
