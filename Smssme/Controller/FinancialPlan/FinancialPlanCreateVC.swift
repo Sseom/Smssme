@@ -8,6 +8,7 @@
 import UIKit
 
 class FinancialPlanCreateVC: UIViewController {
+    
     private let financialPlanCreateView: FinancialPlanCreateView
     
     init(financialPlanCreateView: FinancialPlanCreateView) {
@@ -31,7 +32,7 @@ class FinancialPlanCreateVC: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         setupDatePicker()
-        buttonAction()
+        financialPlanCreateView.confirmButton.addTarget(self, action: #selector(confirmButtomTapped), for: .touchUpInside)
     }
     
     override func loadView() {
@@ -63,10 +64,8 @@ extension FinancialPlanCreateVC {
     @objc func dismissKeyboard() {
         resignFirstResponder()
     }
-    func buttonAction() {
-        financialPlanCreateView.confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
-    }
-    @objc func confirmButtonTapped() {
+    
+    @objc func confirmButtomTapped() {
         let financialPlanConfirmVC = FinancialPlanConfirmVC(financialPlanConfirmView: FinancialPlanConfirmView())
         navigationController?.pushViewController(financialPlanConfirmVC, animated: true)
     }

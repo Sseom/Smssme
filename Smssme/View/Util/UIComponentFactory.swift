@@ -54,7 +54,6 @@ protocol ButtonFactory {
 }
 
 class BaseButton: ButtonFactory {
-    
     func createButton(text: String, color: UIColor, textColor: UIColor) -> UIButton {
         let button = UIButton()
         button.setTitle(text, for: .normal)
@@ -66,6 +65,8 @@ class BaseButton: ButtonFactory {
         return button
     }
 }
+
+
 
 // 사용예시
 

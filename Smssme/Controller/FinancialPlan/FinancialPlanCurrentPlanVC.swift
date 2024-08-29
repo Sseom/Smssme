@@ -21,9 +21,19 @@ final class FinancialPlanCurrentPlanVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
     }
     
     override func loadView() {
         view = financialPlanCurrentView
     }
+    
+    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+        if viewController is FinancialPlanCurrentPlanVC {
+            if let index = navigationController.viewControllers.firstIndex(of: viewController) {
+                navigationController.viewControllers.removeSubrange(0..<index)
+            }
+        }
+    }
+    
 }
