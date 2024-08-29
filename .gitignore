@@ -141,4 +141,7 @@ iOSInjectionProject/
 /*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
 
+# Firebase 
+GoogleService-Info.plist
+
 # End of https://www.toptal.com/developers/gitignore/api/macos,swift,xcode,cocoapods

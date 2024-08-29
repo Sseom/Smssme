@@ -54,6 +54,7 @@ protocol ButtonFactory {
 }
 
 class BaseButton: ButtonFactory {
+    
     func createButton(text: String, color: UIColor, textColor: UIColor) -> UIButton {
         let button = UIButton()
         button.setTitle(text, for: .normal)
@@ -66,7 +67,6 @@ class BaseButton: ButtonFactory {
     }
 }
 
-
 // 사용예시
 
 // 라벨생성시 color는 텍스트 컬러값입니다
@@ -74,3 +74,23 @@ class BaseButton: ButtonFactory {
 
 // 버튼생성시 color는 버튼 색상 , textColor는 글자 색상입니다
 //private let 테스트버튼 = BaseButton().createButton(text: "테스트", color: UIColor.systemBlue, textColor: UIColor.white)
+
+// MARK: - 텍스트 필드 생성기
+
+protocol TextFieldFactory {
+    func createTextField(placeholder: String, textColor: UIColor) -> UITextField
+}
+
+// 공용
+class BaseTextField: TextFieldFactory {
+    func createTextField(placeholder: String, textColor: UIColor) -> UITextField {
+        let textField = UITextField()
+        textField.placeholder = placeholder
+        textField.textColor = textColor
+        textField.borderStyle = .roundedRect
+        textField.layer.cornerRadius = 5
+        return textField
+    }
+}
+
+
