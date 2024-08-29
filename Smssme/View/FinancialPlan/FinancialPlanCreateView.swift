@@ -25,7 +25,7 @@ class FinancialPlanCreateView: UIView {
     let datePicker = createDatePicker()
     let datePicker2 = createDatePicker()
     
-    private let confirmButton = BaseButton().createButton(text: "확인", color: UIColor.systemBlue, textColor: UIColor.white)
+    let confirmButton = BaseButton().createButton(text: "확인", color: UIColor.systemBlue, textColor: UIColor.white)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
