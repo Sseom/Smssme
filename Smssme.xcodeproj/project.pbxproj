@@ -26,6 +26,10 @@
 		740350632C773E9C00122B2E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 740350622C773E9C00122B2E /* Assets.xcassets */; };
 		740350662C773E9C00122B2E /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 740350652C773E9C00122B2E /* Base */; };
 		740350A82C7E229100122B2E /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740350A72C7E229100122B2E /* TabBarController.swift */; };
+		74707F7A2C80698C00F7000C /* MainPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707F792C80698C00F7000C /* MainPageView.swift */; };
+		74707F7D2C8069A600F7000C /* MainPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707F7C2C8069A600F7000C /* MainPageVC.swift */; };
+		74707F802C806A5900F7000C /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = 74707F7F2C806A5900F7000C /* DGCharts */; };
+		74707F822C806DA300F7000C /* TodayFinancia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707F812C806DA300F7000C /* TodayFinancia.swift */; };
 		9F06D30A2C7EE44300DFF5B0 /* MoneyDiaryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F06D3092C7EE44300DFF5B0 /* MoneyDiaryVC.swift */; };
 		9F06D30C2C7EE49500DFF5B0 /* MoneyDiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F06D30B2C7EE49500DFF5B0 /* MoneyDiaryView.swift */; };
 		9F06D30E2C7EE6B300DFF5B0 /* MoneyDiaryCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F06D30D2C7EE6B300DFF5B0 /* MoneyDiaryCalendarCell.swift */; };
@@ -62,6 +66,9 @@
 		740350672C773E9C00122B2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		740350A62C7E186600122B2E /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		740350A72C7E229100122B2E /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		74707F792C80698C00F7000C /* MainPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPageView.swift; sourceTree = "<group>"; };
+		74707F7C2C8069A600F7000C /* MainPageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPageVC.swift; sourceTree = "<group>"; };
+		74707F812C806DA300F7000C /* TodayFinancia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayFinancia.swift; sourceTree = "<group>"; };
 		9F06D3092C7EE44300DFF5B0 /* MoneyDiaryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDiaryVC.swift; sourceTree = "<group>"; };
 		9F06D30B2C7EE49500DFF5B0 /* MoneyDiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDiaryView.swift; sourceTree = "<group>"; };
 		9F06D30D2C7EE6B300DFF5B0 /* MoneyDiaryCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDiaryCalendarCell.swift; sourceTree = "<group>"; };
@@ -89,6 +96,7 @@
 				5F3EAE502C7EF73500FF15E5 /* FirebaseFunctions in Frameworks */,
 				5F3EAE4C2C7EF73500FF15E5 /* FirebaseAuth in Frameworks */,
 				E5FBA1332C7CCCBE00D26E5F /* SnapKit in Frameworks */,
+				74707F802C806A5900F7000C /* DGCharts in Frameworks */,
 				5F3EAE522C7EF73500FF15E5 /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -185,6 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				9F06D3112C7EFF9D00DFF5B0 /* DateModel.swift */,
+				74707F812C806DA300F7000C /* TodayFinancia.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -194,6 +203,7 @@
 			children = (
 				5F3EAE1A2C7E1AD100FF15E5 /* Login */,
 				5F413F032C8066EA00004703 /* Mypage */,
+				74707F7B2C80699400F7000C /* MainPage */,
 				9F06D3072C7EE3D200DFF5B0 /* MoneyDiary */,
 				740350A72C7E229100122B2E /* TabBarController.swift */,
 				E5FBA1452C7EC62300D26E5F /* FinancialPlan */,
@@ -204,6 +214,7 @@
 		740350742C7740BE00122B2E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				74707F782C80697100F7000C /* MainPage */,
 				740350B32C805FB900122B2E /* Util */,
 				5F3EAE172C7E180200FF15E5 /* Login */,
 				5F413F022C8066AF00004703 /* Mypage */,
@@ -220,6 +231,22 @@
 				E5FBA12B2C7C823C00D26E5F /* UIComponentFactory.swift */,
 			);
 			path = Util;
+			sourceTree = "<group>";
+		};
+		74707F782C80697100F7000C /* MainPage */ = {
+			isa = PBXGroup;
+			children = (
+				74707F792C80698C00F7000C /* MainPageView.swift */,
+			);
+			path = MainPage;
+			sourceTree = "<group>";
+		};
+		74707F7B2C80699400F7000C /* MainPage */ = {
+			isa = PBXGroup;
+			children = (
+				74707F7C2C8069A600F7000C /* MainPageVC.swift */,
+			);
+			path = MainPage;
 			sourceTree = "<group>";
 		};
 		9F06D3072C7EE3D200DFF5B0 /* MoneyDiary */ = {
@@ -287,6 +314,7 @@
 				5F3EAE4D2C7EF73500FF15E5 /* FirebaseFirestore */,
 				5F3EAE4F2C7EF73500FF15E5 /* FirebaseFunctions */,
 				5F3EAE512C7EF73500FF15E5 /* FirebaseStorage */,
+				74707F7F2C806A5900F7000C /* DGCharts */,
 			);
 			productName = Smssme;
 			productReference = 740350532C773E9B00122B2E /* Smssme.app */;
@@ -319,6 +347,7 @@
 			packageReferences = (
 				E5FBA1312C7CCCBE00D26E5F /* XCRemoteSwiftPackageReference "SnapKit" */,
 				5F3EAE482C7EF73400FF15E5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				74707F7E2C806A5900F7000C /* XCRemoteSwiftPackageReference "Charts" */,
 			);
 			productRefGroup = 740350542C773E9B00122B2E /* Products */;
 			projectDirPath = "";
@@ -349,6 +378,8 @@
 			files = (
 				740350A82C7E229100122B2E /* TabBarController.swift in Sources */,
 				E5FBA13F2C7E0A0800D26E5F /* FinancialPlanSelectView.swift in Sources */,
+				74707F822C806DA300F7000C /* TodayFinancia.swift in Sources */,
+				74707F7A2C80698C00F7000C /* MainPageView.swift in Sources */,
 				E5FBA1482C7EC68700D26E5F /* PlanCustomTextField.swift in Sources */,
 				740350572C773E9B00122B2E /* AppDelegate.swift in Sources */,
 				9F06D30A2C7EE44300DFF5B0 /* MoneyDiaryVC.swift in Sources */,
@@ -370,6 +401,7 @@
 				E5FBA13D2C7E099B00D26E5F /* FinancialPlanCell.swift in Sources */,
 				5F413F012C805CED00004703 /* MypageViewController.swift in Sources */,
 				740350612C773E9B00122B2E /* Smssme.xcdatamodeld in Sources */,
+				74707F7D2C8069A600F7000C /* MainPageVC.swift in Sources */,
 				E5FBA1502C804FBA00D26E5F /* UIColorSet.swift in Sources */,
 				9F06D3182C801CFB00DFF5B0 /* FinancialPlanCreateVC.swift in Sources */,
 				5F3EAE1C2C7E1CC200FF15E5 /* LoginVC.swift in Sources */,
@@ -595,6 +627,14 @@
 				minimumVersion = 11.1.0;
 			};
 		};
+		74707F7E2C806A5900F7000C /* XCRemoteSwiftPackageReference "Charts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ChartsOrg/Charts";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.0;
+			};
+		};
 		E5FBA1312C7CCCBE00D26E5F /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -630,6 +670,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5F3EAE482C7EF73400FF15E5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		74707F7F2C806A5900F7000C /* DGCharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 74707F7E2C806A5900F7000C /* XCRemoteSwiftPackageReference "Charts" */;
+			productName = DGCharts;
 		};
 		E5FBA1322C7CCCBE00D26E5F /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
