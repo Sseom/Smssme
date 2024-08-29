@@ -13,6 +13,12 @@ extension UIViewController {
      사용예시)
      showAlert(message: "\(error)", AlertTitle: "로그인 실패", buttonClickTitle: "확인")
      
+     동기 사용예시)
+     showSnycAlert(message: "테스트", AlertTitle: "테스트", buttonClickTitle: "테스트", method: testt)
+     
+     func testt() {
+         print("얼럿창 테스트입니다. ")
+     }
      */
     
     /// 비동기처리 Alert 호출 함수

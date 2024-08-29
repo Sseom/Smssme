@@ -116,6 +116,9 @@ class LoginVC: UIViewController {
             return
         }
         
+
+
+        
         FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { [weak self] user, error in
             guard let self = self else { return }
             // 에러가 나거나 유저가 없을 경우
@@ -127,6 +130,8 @@ class LoginVC: UIViewController {
                 // 성공이면 화면전환하고 프로필 가져오기
                 //                self.getUserProfile()
                 showAlert(message: "안녕하세요,\n 로그인되었습니다.", AlertTitle: "로그인 성공", buttonClickTitle: "확인")
+                
+   
                 
                 let MypageVC = MypageViewController()
                 print("로그인하고 페이지 전환")
