@@ -15,6 +15,8 @@
 		5F3EAE502C7EF73500FF15E5 /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 5F3EAE4F2C7EF73500FF15E5 /* FirebaseFunctions */; };
 		5F3EAE522C7EF73500FF15E5 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 5F3EAE512C7EF73500FF15E5 /* FirebaseStorage */; };
 		5F3EAE562C7EFAFA00FF15E5 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3EAE552C7EFAFA00FF15E5 /* SignUpView.swift */; };
+		5F3EAE5B2C7F36E500FF15E5 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3EAE5A2C7F36E500FF15E5 /* SignUpVC.swift */; };
+		5F413EFA2C7F3D9800004703 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F3EAE542C7EF7E000FF15E5 /* GoogleService-Info.plist */; };
 		740350572C773E9B00122B2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740350562C773E9B00122B2E /* AppDelegate.swift */; };
 		740350592C773E9B00122B2E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740350582C773E9B00122B2E /* SceneDelegate.swift */; };
 		7403505B2C773E9B00122B2E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7403505A2C773E9B00122B2E /* ViewController.swift */; };
@@ -39,6 +41,7 @@
 		5F3EAE1B2C7E1CC200FF15E5 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		5F3EAE542C7EF7E000FF15E5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5F3EAE552C7EFAFA00FF15E5 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		5F3EAE5A2C7F36E500FF15E5 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		740350532C773E9B00122B2E /* Smssme.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Smssme.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		740350562C773E9B00122B2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		740350582C773E9B00122B2E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -90,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				5F3EAE1B2C7E1CC200FF15E5 /* LoginVC.swift */,
+				5F3EAE5A2C7F36E500FF15E5 /* SignUpVC.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -264,6 +268,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F413EFA2C7F3D9800004703 /* GoogleService-Info.plist in Resources */,
 				740350632C773E9C00122B2E /* Assets.xcassets in Resources */,
 				740350662C773E9C00122B2E /* Base in Resources */,
 			);
@@ -286,6 +291,7 @@
 				E5FBA12C2C7C823C00D26E5F /* UIComponentFactory.swift in Sources */,
 				E5FBA1412C7E0B4600D26E5F /* FinancialPlanCreateVC.swift in Sources */,
 				5F3EAE192C7E182400FF15E5 /* LoginView.swift in Sources */,
+				5F3EAE5B2C7F36E500FF15E5 /* SignUpVC.swift in Sources */,
 				E5FBA13B2C7E095300D26E5F /* FinancialPlanSelectionVC.swift in Sources */,
 				740350762C7740CB00122B2E /* View.swift in Sources */,
 				E5FBA1432C7E0B8B00D26E5F /* FinancialPlanCreateView.swift in Sources */,
