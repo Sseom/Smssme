@@ -67,7 +67,7 @@ final class LoginView: UIView {
     
     // TODO: - 자동로그인, 아이디 저장 추가 예정
     
-    // 빈 화면 터치 시 키보드 내려감ㅋ
+    // 빈 화면 터치 시 키보드 내려감
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.endEditing(true)
     }
