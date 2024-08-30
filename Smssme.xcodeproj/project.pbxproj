@@ -356,8 +356,8 @@
 			isa = PBXGroup;
 			children = (
 				9F06D3092C7EE44300DFF5B0 /* MoneyDiaryVC.swift */,
-				9F1E1ABD2C80A67800765D52 /* DailyTransaction */,
 				74707FB02C81BDFD00F7000C /* MoneyDiaryEditVC.swift */,
+				9F1E1ABD2C80A67800765D52 /* DailyTransaction */,
 			);
 			name = MoneyDiary;
 			path = ../View/MoneyDiary;
@@ -369,8 +369,8 @@
 				9F06D30B2C7EE49500DFF5B0 /* MoneyDiaryView.swift */,
 				9F06D30F2C7EE6F200DFF5B0 /* MoneyDiaryCalendarView.swift */,
 				9F06D30D2C7EE6B300DFF5B0 /* MoneyDiaryCalendarCell.swift */,
-				9F1E1ABC2C80A65D00765D52 /* DailyTransaction */,
 				74707FB22C81BE1F00F7000C /* MoneyDiaryEditView.swift */,
+				9F1E1ABC2C80A65D00765D52 /* DailyTransaction */,
 			);
 			name = MoneyDiary;
 			path = ../Controller/MoneyDiary;
