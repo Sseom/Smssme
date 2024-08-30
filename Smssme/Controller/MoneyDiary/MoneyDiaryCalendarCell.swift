@@ -7,9 +7,9 @@
 
 import UIKit
 
-final class CalendarCollectionViewCell: UICollectionViewCell {
+final class CalendarCollectionViewCell: UICollectionViewCell, CellReusable {
     
-    static let identifier = "CalendarCollectionViewCell"
+    
     
     let dayLabel = SmallTitleLabel().createLabel(with: "1", color: .black)
     let incomeLabel = SmallTitleLabel().createLabel(with: "10", color: .blue)
