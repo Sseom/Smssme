@@ -6,7 +6,6 @@
 //
 
 import UIKit
-
 import SnapKit
 
 final class MoneyDiaryVC: UIViewController {
@@ -92,11 +91,16 @@ final class MoneyDiaryVC: UIViewController {
 }
 
 extension MoneyDiaryVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        self.showHalfModel()
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         42//셀개수 고정 (6주 * 7일)
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarCollectionViewCell.identifier, for: indexPath) as? CalendarCollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarCollectionViewCell.reuseIdentifier, for: indexPath) as? CalendarCollectionViewCell else { return UICollectionViewCell() }
         cell.layer.borderColor = UIColor.gray.cgColor
         cell.layer.borderWidth = 0.7
         cell.updateDate(item: self.calendarItems[indexPath.item])
@@ -219,6 +223,18 @@ extension MoneyDiaryVC {
 }
 
 extension MoneyDiaryVC {
+    func showHalfModel() {
+        let modalVc = DailyTransactionVC()
+        modalVc.modalPresentationStyle = .pageSheet
+        
+        if let sheet = modalVc.sheetPresentationController {
+            sheet.detents = [.medium()]
+            sheet.prefersGrabberVisible = true
+        }
+        
+        
+        self.present(modalVc, animated: true, completion: nil)
+    }
 //objc method
     @objc private func didPreviousButtonTouched(_ sender: UIButton) {
         self.moveToSomeDate(-1)
@@ -237,7 +253,14 @@ extension MoneyDiaryVC {
 }
 
 
-
+protocol CellReusable {
+    static var reuseIdentifier: String { get }
+}
+extension CellReusable {
+    static var reuseIdentifier: String {
+        String(describing: Self.self)
+    }
+}
 
 
 
