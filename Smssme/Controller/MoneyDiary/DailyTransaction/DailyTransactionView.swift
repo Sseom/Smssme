@@ -63,4 +63,13 @@ class DailyTransactionView: UIView {
             $0.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
         }
     }
+    
+
+    
+    func moneyToString(dailyIncome: Int, dailyExpense: Int ) {// 당일 총합산을 받아서 그 값을 레이블에 전달
+        let incomeString = "수입: \(dailyIncome)"
+        let expenseString = "지출: \(dailyExpense)"
+        self.dailyIncome.text = incomeString
+        self.dailyExpense.text = expenseString
+    }
 }

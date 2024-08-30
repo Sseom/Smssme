@@ -29,10 +29,10 @@ class TabBarController: UITabBarController {
         )
         //머니다이어리
         let diary = tabBarNavigationController(
-            unselectedImage: unselectImage,
-            selectedImage: selectImage,
+            unselectedImage: UIImage(systemName: "calendar") ?? UIImage(),
+            selectedImage: UIImage(systemName: "calendar") ?? UIImage(),
             isNavigationBarHidden: false,
-            rootViewController: FinancialPlanSelectionVC(financialPlanSelectionView: FinancialPlanSelectionView())
+            rootViewController: MoneyDiaryVC(moneyDiaryView: MoneyDiaryView())
         )
         //재무플랜
         let financialPlan = tabBarNavigationController(

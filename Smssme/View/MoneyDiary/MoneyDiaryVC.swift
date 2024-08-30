@@ -224,14 +224,13 @@ extension MoneyDiaryVC {
 
 extension MoneyDiaryVC {
     func showHalfModel() {
-        let modalVc = DailyTransactionVC()
+        let modalVc = DailyTransactionVC(transactionView: DailyTransactionView())
         modalVc.modalPresentationStyle = .pageSheet
         
         if let sheet = modalVc.sheetPresentationController {
             sheet.detents = [.medium()]
             sheet.prefersGrabberVisible = true
         }
-        
         
         self.present(modalVc, animated: true, completion: nil)
     }
