@@ -66,7 +66,21 @@ class BaseButton: ButtonFactory {
     }
 }
 
-
+class ActionButton {
+    func createButton(text: String, color: UIColor, textColor: UIColor, method: @escaping () -> Void) -> UIButton {
+        let button = UIButton()
+        button.setTitle(text, for: .normal)
+        button.setTitleColor(textColor, for: .normal)
+        button.backgroundColor = color
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        button.layer.cornerRadius = 10
+        button.clipsToBounds = true
+        button.addAction(UIAction(handler: { _ in
+            method()
+        }), for: .touchUpInside)
+        return button
+    }
+}
 
 // 사용예시
 
@@ -93,5 +107,4 @@ class BaseTextField: TextFieldFactory {
         return textField
     }
 }
-
 

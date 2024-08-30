@@ -17,7 +17,7 @@ final class FinancialPlanCurrentPlanView: UIView {
         return stackView
     }()
     
-    private let addPlanButton = BaseButton().createButton(text: "플랜 추가", color: UIColor.systemBlue, textColor: UIColor.white)
+    private lazy var addPlanButton = ActionButton().createButton(text: "플랜 추가", color: UIColor.blue, textColor: UIColor.white, method: FinancialPlanCreateVC().confirmButtomTapped)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
