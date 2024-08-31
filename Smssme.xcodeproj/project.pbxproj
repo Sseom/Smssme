@@ -30,6 +30,21 @@
 		74707F7D2C8069A600F7000C /* MainPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707F7C2C8069A600F7000C /* MainPageVC.swift */; };
 		74707F802C806A5900F7000C /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = 74707F7F2C806A5900F7000C /* DGCharts */; };
 		74707F822C806DA300F7000C /* TodayFinancia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707F812C806DA300F7000C /* TodayFinancia.swift */; };
+		74707F942C81B5DF00F7000C /* Assets+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707F922C81B5DF00F7000C /* Assets+CoreDataClass.swift */; };
+		74707F952C81B5DF00F7000C /* Assets+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707F932C81B5DF00F7000C /* Assets+CoreDataProperties.swift */; };
+		74707F982C81B79500F7000C /* Budget+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707F962C81B79500F7000C /* Budget+CoreDataClass.swift */; };
+		74707F992C81B79500F7000C /* Budget+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707F972C81B79500F7000C /* Budget+CoreDataProperties.swift */; };
+		74707F9C2C81B7E800F7000C /* Diary+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707F9A2C81B7E800F7000C /* Diary+CoreDataClass.swift */; };
+		74707F9D2C81B7E800F7000C /* Diary+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707F9B2C81B7E800F7000C /* Diary+CoreDataProperties.swift */; };
+		74707FA02C81B80400F7000C /* Goal+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707F9E2C81B80400F7000C /* Goal+CoreDataClass.swift */; };
+		74707FA12C81B80400F7000C /* Goal+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707F9F2C81B80400F7000C /* Goal+CoreDataProperties.swift */; };
+		74707FA42C81B82600F7000C /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707FA22C81B82600F7000C /* User+CoreDataClass.swift */; };
+		74707FA52C81B82600F7000C /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707FA32C81B82600F7000C /* User+CoreDataProperties.swift */; };
+		74707FA72C81B84D00F7000C /* AssetsCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707FA62C81B84D00F7000C /* AssetsCoreDataManager.swift */; };
+		74707FA92C81B85800F7000C /* BudgetCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707FA82C81B85800F7000C /* BudgetCoreDataManager.swift */; };
+		74707FAB2C81B85B00F7000C /* DiaryCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707FAA2C81B85B00F7000C /* DiaryCoreDataManager.swift */; };
+		74707FAD2C81B85E00F7000C /* GoalCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707FAC2C81B85E00F7000C /* GoalCoreDataManager.swift */; };
+		74707FAF2C81B86100F7000C /* UserCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707FAE2C81B86100F7000C /* UserCoreDataManager.swift */; };
 		9F06D30A2C7EE44300DFF5B0 /* MoneyDiaryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F06D3092C7EE44300DFF5B0 /* MoneyDiaryVC.swift */; };
 		9F06D30C2C7EE49500DFF5B0 /* MoneyDiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F06D30B2C7EE49500DFF5B0 /* MoneyDiaryView.swift */; };
 		9F06D30E2C7EE6B300DFF5B0 /* MoneyDiaryCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F06D30D2C7EE6B300DFF5B0 /* MoneyDiaryCalendarCell.swift */; };
@@ -74,6 +89,21 @@
 		74707F792C80698C00F7000C /* MainPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPageView.swift; sourceTree = "<group>"; };
 		74707F7C2C8069A600F7000C /* MainPageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPageVC.swift; sourceTree = "<group>"; };
 		74707F812C806DA300F7000C /* TodayFinancia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayFinancia.swift; sourceTree = "<group>"; };
+		74707F922C81B5DF00F7000C /* Assets+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Assets+CoreDataClass.swift"; sourceTree = "<group>"; };
+		74707F932C81B5DF00F7000C /* Assets+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Assets+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		74707F962C81B79500F7000C /* Budget+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Budget+CoreDataClass.swift"; sourceTree = "<group>"; };
+		74707F972C81B79500F7000C /* Budget+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Budget+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		74707F9A2C81B7E800F7000C /* Diary+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Diary+CoreDataClass.swift"; sourceTree = "<group>"; };
+		74707F9B2C81B7E800F7000C /* Diary+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Diary+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		74707F9E2C81B80400F7000C /* Goal+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Goal+CoreDataClass.swift"; sourceTree = "<group>"; };
+		74707F9F2C81B80400F7000C /* Goal+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Goal+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		74707FA22C81B82600F7000C /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
+		74707FA32C81B82600F7000C /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		74707FA62C81B84D00F7000C /* AssetsCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsCoreDataManager.swift; sourceTree = "<group>"; };
+		74707FA82C81B85800F7000C /* BudgetCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetCoreDataManager.swift; sourceTree = "<group>"; };
+		74707FAA2C81B85B00F7000C /* DiaryCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCoreDataManager.swift; sourceTree = "<group>"; };
+		74707FAC2C81B85E00F7000C /* GoalCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCoreDataManager.swift; sourceTree = "<group>"; };
+		74707FAE2C81B86100F7000C /* UserCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCoreDataManager.swift; sourceTree = "<group>"; };
 		9F06D3092C7EE44300DFF5B0 /* MoneyDiaryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDiaryVC.swift; sourceTree = "<group>"; };
 		9F06D30B2C7EE49500DFF5B0 /* MoneyDiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDiaryView.swift; sourceTree = "<group>"; };
 		9F06D30D2C7EE6B300DFF5B0 /* MoneyDiaryCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDiaryCalendarCell.swift; sourceTree = "<group>"; };
@@ -202,6 +232,7 @@
 		740350702C77408900122B2E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				74707F882C81B4D000F7000C /* CoreData */,
 				9F06D3112C7EFF9D00DFF5B0 /* DateModel.swift */,
 				74707F812C806DA300F7000C /* TodayFinancia.swift */,
 			);
@@ -257,6 +288,68 @@
 				74707F7C2C8069A600F7000C /* MainPageVC.swift */,
 			);
 			path = MainPage;
+			sourceTree = "<group>";
+		};
+		74707F882C81B4D000F7000C /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				74707F892C81B4E900F7000C /* Assets */,
+				74707F8A2C81B50800F7000C /* Budget */,
+				74707F8B2C81B52400F7000C /* Diary */,
+				74707F8C2C81B54300F7000C /* Goal */,
+				74707F8D2C81B58000F7000C /* User */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		74707F892C81B4E900F7000C /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				74707F922C81B5DF00F7000C /* Assets+CoreDataClass.swift */,
+				74707F932C81B5DF00F7000C /* Assets+CoreDataProperties.swift */,
+				74707FA62C81B84D00F7000C /* AssetsCoreDataManager.swift */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		74707F8A2C81B50800F7000C /* Budget */ = {
+			isa = PBXGroup;
+			children = (
+				74707F962C81B79500F7000C /* Budget+CoreDataClass.swift */,
+				74707F972C81B79500F7000C /* Budget+CoreDataProperties.swift */,
+				74707FA82C81B85800F7000C /* BudgetCoreDataManager.swift */,
+			);
+			path = Budget;
+			sourceTree = "<group>";
+		};
+		74707F8B2C81B52400F7000C /* Diary */ = {
+			isa = PBXGroup;
+			children = (
+				74707F9A2C81B7E800F7000C /* Diary+CoreDataClass.swift */,
+				74707F9B2C81B7E800F7000C /* Diary+CoreDataProperties.swift */,
+				74707FAA2C81B85B00F7000C /* DiaryCoreDataManager.swift */,
+			);
+			path = Diary;
+			sourceTree = "<group>";
+		};
+		74707F8C2C81B54300F7000C /* Goal */ = {
+			isa = PBXGroup;
+			children = (
+				74707F9E2C81B80400F7000C /* Goal+CoreDataClass.swift */,
+				74707F9F2C81B80400F7000C /* Goal+CoreDataProperties.swift */,
+				74707FAC2C81B85E00F7000C /* GoalCoreDataManager.swift */,
+			);
+			path = Goal;
+			sourceTree = "<group>";
+		};
+		74707F8D2C81B58000F7000C /* User */ = {
+			isa = PBXGroup;
+			children = (
+				74707FA22C81B82600F7000C /* User+CoreDataClass.swift */,
+				74707FA32C81B82600F7000C /* User+CoreDataProperties.swift */,
+				74707FAE2C81B86100F7000C /* UserCoreDataManager.swift */,
+			);
+			path = User;
 			sourceTree = "<group>";
 		};
 		9F06D3072C7EE3D200DFF5B0 /* MoneyDiary */ = {
@@ -407,24 +500,34 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74707F942C81B5DF00F7000C /* Assets+CoreDataClass.swift in Sources */,
+				74707F952C81B5DF00F7000C /* Assets+CoreDataProperties.swift in Sources */,
+				74707FA42C81B82600F7000C /* User+CoreDataClass.swift in Sources */,
+				74707FA52C81B82600F7000C /* User+CoreDataProperties.swift in Sources */,
 				740350A82C7E229100122B2E /* TabBarController.swift in Sources */,
 				9F1E1ABF2C80A6BA00765D52 /* DailyTransactionView.swift in Sources */,
 				E5FBA13F2C7E0A0800D26E5F /* FinancialPlanSelectView.swift in Sources */,
+				74707F982C81B79500F7000C /* Budget+CoreDataClass.swift in Sources */,
+				74707F992C81B79500F7000C /* Budget+CoreDataProperties.swift in Sources */,
+				74707F9C2C81B7E800F7000C /* Diary+CoreDataClass.swift in Sources */,
+				74707F9D2C81B7E800F7000C /* Diary+CoreDataProperties.swift in Sources */,
 				74707F822C806DA300F7000C /* TodayFinancia.swift in Sources */,
 				74707F7A2C80698C00F7000C /* MainPageView.swift in Sources */,
 				E5FBA1482C7EC68700D26E5F /* PlanCustomTextField.swift in Sources */,
 				740350572C773E9B00122B2E /* AppDelegate.swift in Sources */,
 				9F06D30A2C7EE44300DFF5B0 /* MoneyDiaryVC.swift in Sources */,
+				74707FAB2C81B85B00F7000C /* DiaryCoreDataManager.swift in Sources */,
+				74707FA72C81B84D00F7000C /* AssetsCoreDataManager.swift in Sources */,
 				9FE549BF2C801E4D00E6075E /* FinancialPlanConfirmView.swift in Sources */,
 				E5F344DA2C806A75006F9A91 /* FinancialPlanCurrentPlanView.swift in Sources */,
 				9F06D3102C7EE6F200DFF5B0 /* MoneyDiaryCalendarView.swift in Sources */,
 				9F06D3122C7EFF9D00DFF5B0 /* DateModel.swift in Sources */,
 				9F06D31A2C801D1F00DFF5B0 /* FinancialPlanConfirmVC.swift in Sources */,
-
-				9F1E1AC12C80A6C800765D52 /* DailyTransactionVC.swift in Sources */,
-
+				74707FAD2C81B85E00F7000C /* GoalCoreDataManager.swift in Sources */,
 				5FA88FEF2C80760E00549363 /* CommonAlert.swift in Sources */,
-
+				74707FAF2C81B86100F7000C /* UserCoreDataManager.swift in Sources */,
+				9F1E1AC12C80A6C800765D52 /* DailyTransactionVC.swift in Sources */,
+				5FA88FEF2C80760E00549363 /* CommonAlert.swift in Sources */,
 				740350592C773E9B00122B2E /* SceneDelegate.swift in Sources */,
 				E5FBA12C2C7C823C00D26E5F /* UIComponentFactory.swift in Sources */,
 				9F06D30E2C7EE6B300DFF5B0 /* MoneyDiaryCalendarCell.swift in Sources */,
@@ -440,7 +543,10 @@
 				5F413F012C805CED00004703 /* MypageViewController.swift in Sources */,
 				740350612C773E9B00122B2E /* Smssme.xcdatamodeld in Sources */,
 				74707F7D2C8069A600F7000C /* MainPageVC.swift in Sources */,
+				74707FA02C81B80400F7000C /* Goal+CoreDataClass.swift in Sources */,
+				74707FA12C81B80400F7000C /* Goal+CoreDataProperties.swift in Sources */,
 				E5FBA1502C804FBA00D26E5F /* UIColorSet.swift in Sources */,
+				74707FA92C81B85800F7000C /* BudgetCoreDataManager.swift in Sources */,
 				9F06D3182C801CFB00DFF5B0 /* FinancialPlanCreateVC.swift in Sources */,
 				9F1E1AC32C80A6FB00765D52 /* DailyTransactionCell.swift in Sources */,
 				5F3EAE1C2C7E1CC200FF15E5 /* LoginVC.swift in Sources */,
