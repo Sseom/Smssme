@@ -8,17 +8,8 @@
 import UIKit
 
 final class FinancialPlanSelectionVC: UIViewController {
-    private let financialPlanSelectionView: FinancialPlanSelectionView
+    private let financialPlanSelectionView = FinancialPlanSelectionView()
     private var planItems: [PlanItem] = []
-
-    init(financialPlanSelectionView: FinancialPlanSelectionView) {
-        self.financialPlanSelectionView = financialPlanSelectionView
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,7 +65,7 @@ extension FinancialPlanSelectionVC: UICollectionViewDelegate {
             return
         }
         
-        let createPlanVC = FinancialPlanCreateVC(financialPlanCreateView: FinancialPlanCreateView())
+        let createPlanVC = FinancialPlanCreateVC()
         navigationController.pushViewController(createPlanVC, animated: true)
         
     }

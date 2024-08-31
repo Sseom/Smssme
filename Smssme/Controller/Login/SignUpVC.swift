@@ -67,7 +67,7 @@ class SignUpVC: UIViewController {
             self.showAlert(message: "회원가입되었습니다.\n 감사합니다.", AlertTitle: "회원가입 완료", buttonClickTitle: "확인")
             
             // 아직 메인 페이지 뷰컨이 없는 상태라 혜정님 뷰컨으로 임시 연결
-            let vc = FinancialPlanSelectionVC(financialPlanSelectionView: FinancialPlanSelectionView())
+            let vc = FinancialPlanSelectionVC()
             print("로그인하고 페이지 전환")
             self.navigationController?.pushViewController(vc, animated: true)
                 

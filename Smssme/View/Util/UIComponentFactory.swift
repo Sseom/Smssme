@@ -54,7 +54,6 @@ protocol ButtonFactory {
 }
 
 class BaseButton: ButtonFactory {
-    
     func createButton(text: String, color: UIColor, textColor: UIColor) -> UIButton {
         let button = UIButton()
         button.setTitle(text, for: .normal)
@@ -63,6 +62,22 @@ class BaseButton: ButtonFactory {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
+        return button
+    }
+}
+
+class ActionButton {
+    func createButton(text: String, color: UIColor, textColor: UIColor, method: @escaping () -> Void) -> UIButton {
+        let button = UIButton()
+        button.setTitle(text, for: .normal)
+        button.setTitleColor(textColor, for: .normal)
+        button.backgroundColor = color
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        button.layer.cornerRadius = 10
+        button.clipsToBounds = true
+        button.addAction(UIAction(handler: { _ in
+            method()
+        }), for: .touchUpInside)
         return button
     }
 }
@@ -92,5 +107,4 @@ class BaseTextField: TextFieldFactory {
         return textField
     }
 }
-
 
