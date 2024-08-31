@@ -32,14 +32,14 @@ class TabBarController: UITabBarController {
             unselectedImage: unselectImage,
             selectedImage: selectImage,
             isNavigationBarHidden: false,
-            rootViewController: FinancialPlanSelectionVC(financialPlanSelectionView: FinancialPlanSelectionView())
+            rootViewController: MoneyDiaryVC(moneyDiaryView: MoneyDiaryView())
         )
         //재무플랜
         let financialPlan = tabBarNavigationController(
             unselectedImage: unselectImage,
             selectedImage: selectImage,
             isNavigationBarHidden: false,
-            rootViewController: FinancialPlanSelectionVC(financialPlanSelectionView: FinancialPlanSelectionView())
+            rootViewController: FinancialPlanSelectionVC()
         )
         //로그인 기능 추가 중이라 로그인뷰컨으로 임시 교체-지현
         let myPage = tabBarNavigationController(
