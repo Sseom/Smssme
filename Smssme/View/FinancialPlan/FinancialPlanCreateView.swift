@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 
 class FinancialPlanCreateView: UIView {
+    weak var viewController: FinancialPlanCreateVC?
     private let planCreateTitle = LargeTitleLabel().createLabel(with: "세부자금플랜", color: UIColor.black)
     
     private let amountGoalLabel = ContentLabel().createLabel(with: "목표금액", color: UIColor.systemGray5)
@@ -25,7 +26,7 @@ class FinancialPlanCreateView: UIView {
     let datePicker = createDatePicker()
     let datePicker2 = createDatePicker()
     
-    let confirmButton = BaseButton().createButton(text: "확인", color: UIColor.systemBlue, textColor: UIColor.white)
+    lazy var confirmButton = BaseButton().createButton(text: "확인", color: UIColor.black, textColor: UIColor.white) 
     
     override init(frame: CGRect) {
         super.init(frame: frame)
