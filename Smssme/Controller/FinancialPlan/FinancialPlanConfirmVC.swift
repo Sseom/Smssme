@@ -27,7 +27,7 @@ class FinancialPlanConfirmVC: UIViewController {
     }
     
     func buttonTapped() {
-        let financialPlanCurrentPlanVC = FinancialPlanCurrentPlanVC(financialPlanCurrentView: FinancialPlanCurrentPlanView())
+        let financialPlanCurrentPlanVC = FinancialPlanCurrentPlanVC()
         navigationController?.pushViewController(financialPlanCurrentPlanVC, animated: true)
     }
     

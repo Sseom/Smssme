@@ -32,7 +32,7 @@ class TabBarController: UITabBarController {
             unselectedImage: unselectImage,
             selectedImage: selectImage,
             isNavigationBarHidden: false,
-            rootViewController: FinancialPlanSelectionVC()
+            rootViewController: MoneyDiaryVC(moneyDiaryView: MoneyDiaryView())
         )
         //재무플랜
         let financialPlan = tabBarNavigationController(
