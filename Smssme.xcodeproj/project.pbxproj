@@ -47,6 +47,8 @@
 		74707FAF2C81B86100F7000C /* UserCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707FAE2C81B86100F7000C /* UserCoreDataManager.swift */; };
 		74707FB12C81BDFD00F7000C /* MoneyDiaryEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707FB02C81BDFD00F7000C /* MoneyDiaryEditVC.swift */; };
 		74707FB32C81BE1F00F7000C /* MoneyDiaryEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707FB22C81BE1F00F7000C /* MoneyDiaryEditView.swift */; };
+		74707FB62C84C6C300F7000C /* AssetsEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707FB52C84C6C300F7000C /* AssetsEditView.swift */; };
+		74707FBA2C84CD7A00F7000C /* AssetsEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707FB92C84CD7A00F7000C /* AssetsEditVC.swift */; };
 		9F06D30A2C7EE44300DFF5B0 /* MoneyDiaryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F06D3092C7EE44300DFF5B0 /* MoneyDiaryVC.swift */; };
 		9F06D30C2C7EE49500DFF5B0 /* MoneyDiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F06D30B2C7EE49500DFF5B0 /* MoneyDiaryView.swift */; };
 		9F06D30E2C7EE6B300DFF5B0 /* MoneyDiaryCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F06D30D2C7EE6B300DFF5B0 /* MoneyDiaryCalendarCell.swift */; };
@@ -109,6 +111,8 @@
 		74707FAE2C81B86100F7000C /* UserCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCoreDataManager.swift; sourceTree = "<group>"; };
 		74707FB02C81BDFD00F7000C /* MoneyDiaryEditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDiaryEditVC.swift; sourceTree = "<group>"; };
 		74707FB22C81BE1F00F7000C /* MoneyDiaryEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDiaryEditView.swift; sourceTree = "<group>"; };
+		74707FB52C84C6C300F7000C /* AssetsEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsEditView.swift; sourceTree = "<group>"; };
+		74707FB92C84CD7A00F7000C /* AssetsEditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsEditVC.swift; sourceTree = "<group>"; };
 		9F06D3092C7EE44300DFF5B0 /* MoneyDiaryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDiaryVC.swift; sourceTree = "<group>"; };
 		9F06D30B2C7EE49500DFF5B0 /* MoneyDiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDiaryView.swift; sourceTree = "<group>"; };
 		9F06D30D2C7EE6B300DFF5B0 /* MoneyDiaryCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDiaryCalendarCell.swift; sourceTree = "<group>"; };
@@ -248,6 +252,7 @@
 		740350732C7740AA00122B2E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				74707FB72C84C80E00F7000C /* Assets */,
 				5F3EAE1A2C7E1AD100FF15E5 /* Login */,
 				5F413F032C8066EA00004703 /* Mypage */,
 				74707F7B2C80699400F7000C /* MainPage */,
@@ -261,6 +266,7 @@
 		740350742C7740BE00122B2E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				74707FB42C84C2BE00F7000C /* Assets */,
 				74707F782C80697100F7000C /* MainPage */,
 				740350B32C805FB900122B2E /* Util */,
 				5F3EAE172C7E180200FF15E5 /* Login */,
@@ -356,6 +362,22 @@
 				74707FAE2C81B86100F7000C /* UserCoreDataManager.swift */,
 			);
 			path = User;
+			sourceTree = "<group>";
+		};
+		74707FB42C84C2BE00F7000C /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				74707FB52C84C6C300F7000C /* AssetsEditView.swift */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		74707FB72C84C80E00F7000C /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				74707FB92C84CD7A00F7000C /* AssetsEditVC.swift */,
+			);
+			path = Assets;
 			sourceTree = "<group>";
 		};
 		9F06D3072C7EE3D200DFF5B0 /* MoneyDiary */ = {
@@ -521,9 +543,11 @@
 				74707F992C81B79500F7000C /* Budget+CoreDataProperties.swift in Sources */,
 				74707F9C2C81B7E800F7000C /* Diary+CoreDataClass.swift in Sources */,
 				74707F9D2C81B7E800F7000C /* Diary+CoreDataProperties.swift in Sources */,
+				74707FBA2C84CD7A00F7000C /* AssetsEditVC.swift in Sources */,
 				74707F822C806DA300F7000C /* TodayFinancia.swift in Sources */,
 				74707F7A2C80698C00F7000C /* MainPageView.swift in Sources */,
 				E5FBA1482C7EC68700D26E5F /* PlanCustomTextField.swift in Sources */,
+				74707FB62C84C6C300F7000C /* AssetsEditView.swift in Sources */,
 				740350572C773E9B00122B2E /* AppDelegate.swift in Sources */,
 				9F06D30A2C7EE44300DFF5B0 /* MoneyDiaryVC.swift in Sources */,
 				74707FAB2C81B85B00F7000C /* DiaryCoreDataManager.swift in Sources */,
