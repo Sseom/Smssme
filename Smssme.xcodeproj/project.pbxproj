@@ -45,6 +45,8 @@
 		74707FAB2C81B85B00F7000C /* DiaryCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707FAA2C81B85B00F7000C /* DiaryCoreDataManager.swift */; };
 		74707FAD2C81B85E00F7000C /* GoalCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707FAC2C81B85E00F7000C /* GoalCoreDataManager.swift */; };
 		74707FAF2C81B86100F7000C /* UserCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707FAE2C81B86100F7000C /* UserCoreDataManager.swift */; };
+		74707FB12C81BDFD00F7000C /* MoneyDiaryEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707FB02C81BDFD00F7000C /* MoneyDiaryEditVC.swift */; };
+		74707FB32C81BE1F00F7000C /* MoneyDiaryEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707FB22C81BE1F00F7000C /* MoneyDiaryEditView.swift */; };
 		9F06D30A2C7EE44300DFF5B0 /* MoneyDiaryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F06D3092C7EE44300DFF5B0 /* MoneyDiaryVC.swift */; };
 		9F06D30C2C7EE49500DFF5B0 /* MoneyDiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F06D30B2C7EE49500DFF5B0 /* MoneyDiaryView.swift */; };
 		9F06D30E2C7EE6B300DFF5B0 /* MoneyDiaryCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F06D30D2C7EE6B300DFF5B0 /* MoneyDiaryCalendarCell.swift */; };
@@ -105,6 +107,8 @@
 		74707FAA2C81B85B00F7000C /* DiaryCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCoreDataManager.swift; sourceTree = "<group>"; };
 		74707FAC2C81B85E00F7000C /* GoalCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCoreDataManager.swift; sourceTree = "<group>"; };
 		74707FAE2C81B86100F7000C /* UserCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCoreDataManager.swift; sourceTree = "<group>"; };
+		74707FB02C81BDFD00F7000C /* MoneyDiaryEditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDiaryEditVC.swift; sourceTree = "<group>"; };
+		74707FB22C81BE1F00F7000C /* MoneyDiaryEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDiaryEditView.swift; sourceTree = "<group>"; };
 		9F06D3092C7EE44300DFF5B0 /* MoneyDiaryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDiaryVC.swift; sourceTree = "<group>"; };
 		9F06D30B2C7EE49500DFF5B0 /* MoneyDiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDiaryView.swift; sourceTree = "<group>"; };
 		9F06D30D2C7EE6B300DFF5B0 /* MoneyDiaryCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDiaryCalendarCell.swift; sourceTree = "<group>"; };
@@ -358,6 +362,7 @@
 			isa = PBXGroup;
 			children = (
 				9F06D3092C7EE44300DFF5B0 /* MoneyDiaryVC.swift */,
+				74707FB02C81BDFD00F7000C /* MoneyDiaryEditVC.swift */,
 				9F1E1ABD2C80A67800765D52 /* DailyTransaction */,
 			);
 			name = MoneyDiary;
@@ -370,6 +375,7 @@
 				9F06D30B2C7EE49500DFF5B0 /* MoneyDiaryView.swift */,
 				9F06D30F2C7EE6F200DFF5B0 /* MoneyDiaryCalendarView.swift */,
 				9F06D30D2C7EE6B300DFF5B0 /* MoneyDiaryCalendarCell.swift */,
+				74707FB22C81BE1F00F7000C /* MoneyDiaryEditView.swift */,
 				9F1E1ABC2C80A65D00765D52 /* DailyTransaction */,
 			);
 			name = MoneyDiary;
@@ -532,6 +538,7 @@
 				74707FAF2C81B86100F7000C /* UserCoreDataManager.swift in Sources */,
 				9F1E1AC12C80A6C800765D52 /* DailyTransactionVC.swift in Sources */,
 				5FA88FEF2C80760E00549363 /* CommonAlert.swift in Sources */,
+				74707FB12C81BDFD00F7000C /* MoneyDiaryEditVC.swift in Sources */,
 				740350592C773E9B00122B2E /* SceneDelegate.swift in Sources */,
 				E5FBA12C2C7C823C00D26E5F /* UIComponentFactory.swift in Sources */,
 				9F06D30E2C7EE6B300DFF5B0 /* MoneyDiaryCalendarCell.swift in Sources */,
@@ -554,6 +561,7 @@
 				9F06D3182C801CFB00DFF5B0 /* FinancialPlanCreateVC.swift in Sources */,
 				9F1E1AC32C80A6FB00765D52 /* DailyTransactionCell.swift in Sources */,
 				5F3EAE1C2C7E1CC200FF15E5 /* LoginVC.swift in Sources */,
+				74707FB32C81BE1F00F7000C /* MoneyDiaryEditView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
