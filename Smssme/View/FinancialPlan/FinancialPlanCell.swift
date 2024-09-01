@@ -12,8 +12,8 @@ class FinancialPlanCell: UICollectionViewCell {
     static let ID = "FinancialPlanCell"
     
     private let titleLabel = SmallTitleLabel().createLabel(with: "", color: UIColor.black)
-    private let descriptionLabel = ContentLabel().createLabel(with: "", color: UIColor.systemGray2)
-    private let selectButton = BaseButton().createButton(text: "시작하기", color: UIColor.systemGray2, textColor: UIColor.white)
+    private let descriptionLabel = ContentLabel().createLabel(with: "", color: UIColor.white)
+    private let selectButton = BaseButton().createButton(text: "시작하기", color: UIColor(hex: "#777777"), textColor: UIColor.white)
 
     override init(frame: CGRect) {
         super.init(frame: frame)

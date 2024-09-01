@@ -40,7 +40,7 @@ final class FinancialPlanCurrentPlanVC: UIViewController, UICollectionViewDelega
     
     private func fetchItems() {
         currentItems = [
-            CurrentItem(title: "planName", completionRate: "76%", graphValue: 0.5),
+            CurrentItem(title: "PlanName", completionRate: "76%", graphValue: 0.5),
             CurrentItem(title: "PlanItem2", completionRate: "76%", graphValue: 0.5),
             CurrentItem(title: "PlanItem3", completionRate: "76%", graphValue: 0.5),
             CurrentItem(title: "PlanItem4", completionRate: "76%", graphValue: 0.5),
@@ -57,7 +57,6 @@ final class FinancialPlanCurrentPlanVC: UIViewController, UICollectionViewDelega
     }
     
 }
-
 
 extension FinancialPlanCurrentPlanVC {
     func actionAddPlanButton() {

@@ -10,12 +10,9 @@ import SnapKit
 
 class FinancialPlanCreateView: UIView {
     private let textFieldArea: CreateTextView
-    
     private let planCreateTitle = LargeTitleLabel().createLabel(with: "세부자금플랜", color: UIColor.black)
-    
     lazy var confirmButton = BaseButton().createButton(text: "확인", color: UIColor.black, textColor: UIColor.white)
     
-
     init(textFieldArea: CreateTextView) {
         self.textFieldArea = textFieldArea
         super.init(frame: .zero)
@@ -52,14 +49,13 @@ class FinancialPlanCreateView: UIView {
     }
 }
 
-
 class CreateTextView: UIView {
     var onDatePickerValueChanged: (() -> Void)?
     
-    private let amountGoalLabel = ContentLabel().createLabel(with: "목표금액", color: UIColor.systemGray5)
-    private let currentSavedLabel = ContentLabel().createLabel(with: "현재저축금액", color: UIColor.systemGray5)
-    private let startDateLabel = ContentLabel().createLabel(with: "시작날짜", color: UIColor.systemGray5)
-    private let endDateLabel = ContentLabel().createLabel(with: "종료날짜", color: UIColor.systemGray5)
+    private let amountGoalLabel = ContentLabel().createLabel(with: "목표금액", color: UIColor(hex: "#333333"))
+    private let currentSavedLabel = ContentLabel().createLabel(with: "현재저축금액", color: UIColor(hex: "#333333"))
+    private let startDateLabel = ContentLabel().createLabel(with: "시작날짜", color: UIColor(hex: "#333333"))
+    private let endDateLabel = ContentLabel().createLabel(with: "종료날짜", color: UIColor(hex: "#333333"))
     
     lazy var targetAmountField = AmountTextField.createTextField(placeholder: "", keyboard: .numberPad)
     lazy var currentSavedField = AmountTextField.createTextField(placeholder: "", keyboard: .numberPad)
@@ -141,6 +137,7 @@ class CreateTextView: UIView {
         }
     }
 }
+
 // 재활용 고민중..
 
 //class EditTextView {
