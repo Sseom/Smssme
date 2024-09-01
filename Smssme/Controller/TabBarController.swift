@@ -25,7 +25,8 @@ class TabBarController: UITabBarController {
             unselectedImage: UIImage(systemName: "house.fill") ?? UIImage(),
             selectedImage: UIImage(systemName: "house.fill") ?? UIImage(),
             isNavigationBarHidden: true,
-            rootViewController: MoneyDiaryEditVC()
+//            rootViewController: MainPageVC()
+            rootViewController: AssetsVC()
         )
         //머니다이어리
         let diary = tabBarNavigationController(
