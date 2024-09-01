@@ -13,7 +13,7 @@ final class FinancialPlanConfirmView: UIView {
     
     private let imageStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.backgroundColor = UIColor(hex: "e9e9e9")
+        stackView.backgroundColor = UIColor(hex: "#e9e9e9")
         return stackView
     }()
     

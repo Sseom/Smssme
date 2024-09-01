@@ -26,6 +26,8 @@ class FinancialPlanCell: UICollectionViewCell {
     }
     
     private func setupUI() {
+        contentView.layer.cornerRadius = 10
+        contentView.layer.masksToBounds = true
         [titleLabel, descriptionLabel, selectButton].forEach {
             contentView.addSubview($0)
         }
@@ -57,3 +59,26 @@ class FinancialPlanCell: UICollectionViewCell {
         descriptionLabel.text = item.description
     }
 }
+
+class AddButtonCell: UICollectionViewCell {
+    static let ID = "AddButtonCell"
+    let addButton = BaseButton().createButton(text: "+ 추가하기", color: .black, textColor: .white)
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupUI() {
+        contentView.addSubview(addButton)
+        
+        addButton.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+    }
+}
+

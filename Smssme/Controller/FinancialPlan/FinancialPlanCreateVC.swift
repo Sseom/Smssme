@@ -8,7 +8,8 @@
 import UIKit
 
 class FinancialPlanCreateVC: UIViewController {
-    private let financialPlanCreateView = FinancialPlanCreateView()
+    private var financialPlanCreateView = FinancialPlanCreateView(textFieldArea: CreateTextView())
+    private let textFieldArea = CreateTextView()
     
     // 임시. 아마도 캘린더 구현 작업물에 한국날짜 변환 부분이 있을 것 같은데..리인님 병합 후에 있다면 그것으로 쓰고 없다면 분리해줄 예정
     private let dateFormatter: DateFormatter = {
@@ -18,48 +19,54 @@ class FinancialPlanCreateVC: UIViewController {
         return formatter
     }()
     
+    init(textFieldArea: CreateTextView) {
+        self.financialPlanCreateView = FinancialPlanCreateView(textFieldArea: textFieldArea)
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        setupDatePicker()
-        financialPlanCreateView.confirmButton.addTarget(self, action: #selector(confirmButtomTapped), for: .touchUpInside)
+        setupActions()
     }
     
     override func loadView() {
         view = financialPlanCreateView
     }
     
-    private func setupDatePicker() {
-        financialPlanCreateView.startDateField.inputView = financialPlanCreateView.datePicker
-        financialPlanCreateView.endDateField.inputView = financialPlanCreateView.datePicker2
-        financialPlanCreateView.datePicker.addTarget(self, action: #selector(dateChanged), for: .valueChanged)
-        financialPlanCreateView.datePicker2.addTarget(self, action: #selector(dateChanged), for: .valueChanged)
+    private func setupActions() {
+        financialPlanCreateView.confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
+        
+        let datePicker = textFieldArea.datePicker
+        datePicker.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
-        updateDateTextField()
     }
-    
-    private func updateDateTextField() {
-        financialPlanCreateView.startDateField.text = dateFormatter.string(from: financialPlanCreateView.datePicker.date)
-        financialPlanCreateView.endDateField.text = dateFormatter.string(from: financialPlanCreateView.datePicker2.date)
+    @objc private func datePickerValueChanged(_ sender: UIDatePicker) {
+        let dateString = dateFormatter.string(from: sender.date)
+        if textFieldArea.startDateField.isFirstResponder {
+            textFieldArea.startDateField.text = dateString
+        } else if textFieldArea.endDateField.isFirstResponder {
+            textFieldArea.endDateField.text = dateString
+        }
     }
 }
 
 extension FinancialPlanCreateVC {
-    @objc private func dateChanged() {
-        updateDateTextField()
-    }
-    
+ 
     @objc func dismissKeyboard() {
         resignFirstResponder()
     }
     
-    @objc func confirmButtomTapped() {
+    @objc func confirmButtonTapped() {
         print("탭뜨")
         let financialPlanConfirmVC = FinancialPlanConfirmVC()
         navigationController?.pushViewController(financialPlanConfirmVC, animated: true)
-//        let financialPlanConfirmVC = FinancialPlanConfirmVC()
-//        present(financialPlanConfirmVC, animated: true, completion: nil)
     }
 }
+
