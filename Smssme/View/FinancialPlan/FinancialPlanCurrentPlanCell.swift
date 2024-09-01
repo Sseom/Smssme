@@ -73,7 +73,6 @@ class ProgressBarView2: UIView {
         return view
     }()
     
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
