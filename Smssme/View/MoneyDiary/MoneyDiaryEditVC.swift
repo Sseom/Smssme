@@ -8,8 +8,10 @@
 import UIKit
 
 class MoneyDiaryEditVC: UIViewController {
+    //MARK: - Properties
     private let moneyDiaryEditView: MoneyDiaryEditView = MoneyDiaryEditView()
     
+    // MARK: - ViewController Init
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -18,6 +20,7 @@ class MoneyDiaryEditVC: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -26,4 +29,13 @@ class MoneyDiaryEditVC: UIViewController {
         super.loadView()
         self.view = moneyDiaryEditView
     }
+    
+    // MARK: - Method
+    
+    // MARK: - Private Method
+    //    private func setupSegmentEvent() {
+    //        moneyDiaryEditView
+    //    }
+    
+    //MARK: - Objc
 }
