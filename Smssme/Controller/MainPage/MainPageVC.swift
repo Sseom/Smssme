@@ -8,10 +8,9 @@
 import UIKit
 
 class MainPageVC: UIViewController {
-    private let mainPageView: MainPageView
+    private let mainPageView: MainPageView = MainPageView()
     
-    init(mainPageView: MainPageView) {
-        self.mainPageView = mainPageView
+    init() {
         super.init(nibName: nil, bundle: nil)
     }
     
