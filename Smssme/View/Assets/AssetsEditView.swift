@@ -1,5 +1,5 @@
 //
-//  MoneyDiaryEditView.swift
+//  AssetsEditView.swift
 //  Smssme
 //
 //  Created by 전성진 on 8/30/24.
@@ -10,28 +10,20 @@ import UIKit
 
 class AssetsEditView: UIView {
     //MARK: - Factory Component Properties
-    private let dateLabel = ContentLabel().createLabel(with: "수입일", color: .black)
-    private let priceLabel = ContentLabel().createLabel(with: "수입금액", color: .black)
-    private let titleLabel = ContentLabel().createLabel(with: "수입명", color: .black)
     private let categoryLabel = ContentLabel().createLabel(with: "카테고리", color: .black)
+    private let titleLabel = ContentLabel().createLabel(with: "항목", color: .black)
+    private let priceLabel = ContentLabel().createLabel(with: "금액", color: .black)
     private let noteLabel = ContentLabel().createLabel(with: "메모", color: .black)
     
-    private let priceTextField = BaseTextField().createTextField(placeholder: "금액", textColor: .black)
-    private let titleTextField = BaseTextField().createTextField(placeholder: "수입명", textColor: .black)
     private let categoryTextField = BaseTextField().createTextField(placeholder: "카테고리", textColor: .black)
+    private let titleTextField = BaseTextField().createTextField(placeholder: "항목", textColor: .black)
+    private let priceTextField = BaseTextField().createTextField(placeholder: "금액", textColor: .black)
     private let noteTextField = BaseTextField().createTextField(placeholder: "메모", textColor: .black)
     
     private let cancelButton = BaseButton().createButton(text: "취소", color: .lightGray, textColor: .white)
     private let saveButton = BaseButton().createButton(text: "저장", color: .systemBlue, textColor: .white)
     
     //MARK: - Component Properties
-    lazy var segmentControl: UISegmentedControl = {
-        let segmentControl = UISegmentedControl(items: ["수입", "지출"])
-        segmentControl.selectedSegmentIndex = 0
-        segmentControl.addTarget(self, action: #selector(viewChange(segment:)), for: .valueChanged)
-        return segmentControl
-    }()
-    
     private let contentsView: UIView = {
         let view = UIView()
         return view
@@ -46,13 +38,7 @@ class AssetsEditView: UIView {
 //        stackView.isLayoutMarginsRelativeArrangement = true
         return stackView
     }()
-    
-    private let datePicker: UIDatePicker = {
-        let datePicker = UIDatePicker()
         
-        return datePicker
-    }()
-    
     // MARK: - View Init
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -78,7 +64,7 @@ class AssetsEditView: UIView {
     }
     
     private func setupUI() {
-        [segmentControl, contentsView].forEach {
+        [contentsView].forEach {
             self.addSubview($0)
         }
         
@@ -87,21 +73,14 @@ class AssetsEditView: UIView {
         }
         
         // horizontalStackView 세팅
-        setHorizontalStackView(components: [dateLabel, datePicker], distrbution: .fill)
-        setHorizontalStackView(components: [priceLabel, priceTextField], distrbution: .fill)
-        setHorizontalStackView(components: [titleLabel, titleTextField], distrbution: .fill)
         setHorizontalStackView(components: [categoryLabel, categoryTextField], distrbution: .fill)
+        setHorizontalStackView(components: [titleLabel, titleTextField], distrbution: .fill)
+        setHorizontalStackView(components: [priceLabel, priceTextField], distrbution: .fill)
         setHorizontalStackView(components: [noteLabel, noteTextField], distrbution: .fill)
         setHorizontalStackView(components: [cancelButton, saveButton], distrbution: .fillEqually)
         
-        segmentControl.snp.makeConstraints {
-            $0.top.equalTo(self.safeAreaLayoutGuide)
-            $0.left.right.equalTo(self.safeAreaLayoutGuide).inset(30)
-        }
-        
         contentsView.snp.makeConstraints {
-            $0.top.equalTo(segmentControl.snp.bottom)
-            $0.left.right.bottom.equalTo(self.safeAreaLayoutGuide)
+            $0.edges.equalTo(self.safeAreaLayoutGuide)
         }
         
         contentsVerticalStackView.snp.makeConstraints {
@@ -109,10 +88,9 @@ class AssetsEditView: UIView {
         }
         
         // label 길이 정렬
-        [dateLabel,
+        [categoryLabel,
          priceLabel,
-         titleLabel,
-         categoryLabel].forEach {
+         titleLabel].forEach {
             $0.snp.makeConstraints {
                 $0.width.equalTo(70)
                 $0.height.equalTo(34)
@@ -123,28 +101,10 @@ class AssetsEditView: UIView {
             $0.width.equalTo(70)
         }
         
-        datePicker.snp.makeConstraints {
-            $0.height.equalTo(40)
-        }
-        
         cancelButton.snp.makeConstraints {
             $0.height.equalTo(40)
         }
     }
     
     //MARK: - Objc
-    //FIXME: View가 바뀌는 이벤트라 View에 넣는게 맞지 않을까
-    @objc func viewChange(segment: UISegmentedControl) {
-        if segment.selectedSegmentIndex == 0 {
-            dateLabel.text = "지출일"
-            priceLabel.text = "지출금액"
-            titleLabel.text = "지출명"
-            titleTextField.placeholder = "지출명"
-        } else {
-            dateLabel.text = "수입일"
-            priceLabel.text = "수입금액"
-            titleLabel.text = "수입명"
-            titleTextField.placeholder = "수입명"
-        }
-    }
 }

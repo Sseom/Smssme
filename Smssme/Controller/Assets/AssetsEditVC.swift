@@ -1,15 +1,15 @@
 //
-//  MoneyDiaryEditVC.swift
+//  AssetsEditVC.swift
 //  Smssme
 //
-//  Created by 전성진 on 8/30/24.
+//  Created by 전성진 on 9/2/24.
 //
 
 import UIKit
 
 class AssetsEditVC: UIViewController {
     //MARK: - Properties
-    private let moneyDiaryEditView: AssetsEditView = AssetsEditView()
+    private let assetsEditView: AssetsEditView = AssetsEditView()
     
     // MARK: - ViewController Init
     init() {
@@ -27,7 +27,7 @@ class AssetsEditVC: UIViewController {
     
     override func loadView() {
         super.loadView()
-        self.view = moneyDiaryEditView
+        self.view = assetsEditView
     }
     
     // MARK: - Method
@@ -37,5 +37,6 @@ class AssetsEditVC: UIViewController {
     //        moneyDiaryEditView
     //    }
     
-    //MARK: - Objc
+    // MARK: - Objc
+
 }
