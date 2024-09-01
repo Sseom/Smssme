@@ -19,7 +19,7 @@ class AmountTextField {
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         
-        let doneButton = UIBarButtonItem(title: "입력완료", style: .done, target: textField, action: #selector(textField.dismissKeyboard)) //분리를 위해 delegate 패턴을 쓸것인가..?
+        let doneButton = UIBarButtonItem(title: "입력완료", style: .done, target: textField, action: #selector(textField.dismissKeyboard))
         toolbar.setItems([doneButton], animated: true)
         textField.inputAccessoryView = toolbar
         
@@ -63,7 +63,7 @@ class CustomTextField: UITextField {
         bottomBorder.backgroundColor = UIColor.black.cgColor
     }
     
-    @objc func dismissKeyboard() { //분리를 위해 delegate 패턴을 쓸것인가..?
+    @objc func dismissKeyboard() {
         resignFirstResponder()
     }
 }

@@ -21,8 +21,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         self.window = window
         
-        
-        
         //MARK: - 혜정 / ui작업 확인용 코드 , 완료 시 삭제
 //        window = UIWindow(windowScene: windowScene)
 //        
@@ -40,7 +38,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
-
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
