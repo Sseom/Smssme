@@ -50,6 +50,7 @@ final class LoginView: UIView {
         let button = UIButton()
         button.setBackgroundImage(UIImage(systemName: "square"), for: .normal)
            button.setBackgroundImage(UIImage(systemName: "checkmark.square.fill"), for: .selected)
+        button.tag = 1
         return button
     }()
     
@@ -73,6 +74,7 @@ final class LoginView: UIView {
         let button = UIButton()
         button.setBackgroundImage(UIImage(systemName: "square"), for: .normal)
            button.setBackgroundImage(UIImage(systemName: "checkmark.square.fill"), for: .selected)
+        button.tag = 2
         return button
     }()
     

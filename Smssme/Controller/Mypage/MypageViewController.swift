@@ -34,12 +34,15 @@ class MypageViewController: UIViewController {
     @objc func logOutButtonTapped() {
         do {
             try FirebaseAuth.Auth.auth().signOut()
+            print("로그아웃하고 페이지 전환")
             showAlert(message: "로그아웃되었습니다.", AlertTitle: "로그아웃", buttonClickTitle: "확인")
+            let loginVC = LoginVC()
+//            self.navigationController?.popViewController(animated: true)
         } catch let error {
             print(error.localizedDescription)
         }
     }
-    
+   
     @objc func deleteUserButtonTapped() {
         
         if  let user = Auth.auth().currentUser {

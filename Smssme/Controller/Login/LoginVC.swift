@@ -145,13 +145,13 @@ class LoginVC: UIViewController {
     }
     
     //MARK: - 자동로그인/ 아이디저장 체크박스
-    @objc func checkBoxTapped(_ sender: UIButton) {
-        sender.isSelected.toggle() // 선택 상태를 반전시킴
+    @objc func checkBoxTapped(_ checkBox: UIButton) {
+        checkBox.isSelected.toggle() // 선택 상태를 반전시킴
         // 선택 상태에 따라 동작 추가 가능
-        if sender.isSelected {
-            print("체크박스 선택됨")
+        if checkBox.isSelected {
+            print("tag \(checkBox.tag) 체크박스 선택됨")
         } else {
-            print("체크박스 선택 해제됨")
+            print("tag \(checkBox.tag) 체크박스 선택 해제됨")
         }
     }
     
