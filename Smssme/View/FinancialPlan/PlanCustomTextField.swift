@@ -9,10 +9,11 @@ import UIKit
 
 // MARK: - bottomBorder 커스텀 텍스트필드
 class AmountTextField {
-    static func createTextField(placeholder: String, keyboard: UIKeyboardType) -> CustomTextField {
+    static func createTextField(keyboard: UIKeyboardType, defaultValue: Int) -> CustomTextField {
         let textField = CustomTextField()
         textField.textColor = UIColor.black
         textField.borderStyle = .none
+        textField.text = "\(defaultValue)"
         textField.keyboardType = keyboard
         textField.clipsToBounds = false
         
@@ -37,10 +38,11 @@ class AmountTextField {
 }
 
 class GoalDateTextField {
-    static func createTextField(placeholder: String, keyboard: UIKeyboardType) -> CustomTextField {
+    static func createTextField(keyboard: UIKeyboardType) -> CustomTextField {
         let textField = CustomTextField()
         textField.textColor = UIColor.black
         textField.borderStyle = .none
+        
         textField.keyboardType = keyboard
         textField.clipsToBounds = false
         
@@ -56,7 +58,7 @@ class GoalDateTextField {
         
         let today = Date()
         datePicker.date = today
-        textField.text = dateFormatter.string(from: today)
+        textField.text = dateFormatter.string(from: today) // 기본으로 보여지는 부분, 여기에 저장된데이터
         
         // DatePicker의 값이 변경될 때 텍스트 필드 업데이트
         datePicker.addTarget(textField, action: #selector(CustomTextField.datePickerValueChanged(_:)), for: .valueChanged)
@@ -114,7 +116,6 @@ class CustomTextField: UITextField {
     }
     
     @objc func dismissKeyboard() {
-        
         resignFirstResponder()
     }
 }

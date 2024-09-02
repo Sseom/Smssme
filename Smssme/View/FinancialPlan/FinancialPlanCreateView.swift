@@ -57,11 +57,11 @@ class CreateTextView: UIView {
     private let startDateLabel = ContentLabel().createLabel(with: "시작날짜", color: UIColor(hex: "#333333"))
     private let endDateLabel = ContentLabel().createLabel(with: "종료날짜", color: UIColor(hex: "#333333"))
     
-    lazy var targetAmountField = AmountTextField.createTextField(placeholder: "", keyboard: .numberPad)
-    lazy var currentSavedField = AmountTextField.createTextField(placeholder: "", keyboard: .numberPad)
+    lazy var targetAmountField = AmountTextField.createTextField(keyboard: .numberPad, defaultValue: 0)
+    lazy var currentSavedField = AmountTextField.createTextField(keyboard: .numberPad, defaultValue: 0)
     
-    let startDateField = GoalDateTextField.createTextField(placeholder: "", keyboard: .numberPad)
-    let endDateField = GoalDateTextField.createTextField(placeholder: "", keyboard: .numberPad)
+    let startDateField = GoalDateTextField.createTextField(keyboard: .numberPad)
+    let endDateField = GoalDateTextField.createTextField(keyboard: .numberPad)
     
     override init(frame: CGRect) {
         super.init(frame: frame)

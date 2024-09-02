@@ -1,13 +1,13 @@
 //
-//  FinancialPlanCreateVC.swift
+//  FinancialPlanEditPlanVC.swift
 //  Smssme
 //
-//  Created by 임혜정 on 8/27/24.
+//  Created by 임혜정 on 9/2/24.
 //
 
 import UIKit
 
-class FinancialPlanCreateVC: UIViewController {
+class FinancialPlanEditPlanVC: UIViewController {
     private var financialPlanCreateView: FinancialPlanCreateView
     
     init(textFieldArea: CreateTextView) {
@@ -31,7 +31,7 @@ class FinancialPlanCreateVC: UIViewController {
 }
 
 // MARK: - 화면전환관련
-extension FinancialPlanCreateVC {
+extension FinancialPlanEditPlanVC {
     private func setupActions() {
         financialPlanCreateView.confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
     }
