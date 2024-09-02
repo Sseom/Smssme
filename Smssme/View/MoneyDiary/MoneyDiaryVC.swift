@@ -93,8 +93,26 @@ final class MoneyDiaryVC: UIViewController {
         moneyDiaryView.segmentController.addTarget(self, action: #selector(segmentChanged), for: .valueChanged)
         moneyDiaryView.todayButton.addTarget(self, action: #selector(self.didTodayButtonTouched), for: .touchUpInside)
         moneyDiaryView.budgetPlanButton.addTarget(self, action: #selector(didTapMoveButton), for: .touchUpInside)
+        datePicker.confirmButton.addTarget(self, action: #selector(didTapMove), for: .touchUpInside)
     }
 
+    @objc func didTapMove() {
+        let selectedyear = datePicker.pickerView.selectedRow(inComponent: 0)
+        let selectedYearValue = datePicker.years[selectedyear]
+        let selectedMonth = datePicker.pickerView.selectedRow(inComponent: 1) + 1
+        let selectedMonthValue = datePicker.years[selectedMonth]
+        
+        let selectedDate = "20\(selectedyear)-0\(selectedMonth)-01"
+        print(selectedyear,selectedMonth,selectedDate)
+        
+        var dateformatter1 = DateFormatter()
+        dateformatter1.dateFormat = "yyyy-MM-dd"
+        
+        let temp1 = dateformatter1.date(from: selectedDate)
+        self.dismiss(animated: true)
+        
+        moveToSomeDate(temp1)
+    }
 
     
 }
@@ -163,36 +181,36 @@ extension MoneyDiaryVC {
             if thisMonth == 12 { return 1 }
             else { return thisMonth + 1 }
                                      }
-        var lastMonthOfEndDate = calendarDate.addingTimeInterval(-86400)
-        print(lastMonthOfEndDate)
+        var lastMonthDate = calendar.date(byAdding:DateComponents(month: -1), to: self.calendarDate)
+        
+        let temp2 = self.calendar.range(of: .day, in: .month, for: lastMonthDate!)?.count ?? Int()
+        //print(temp2)
         dateForm.dateFormat = "dd"
         
-        let temp2 = dateForm.string(from: lastMonthOfEndDate)
-        print(temp2)
+        
+        
         let startDayOfTheWeek = self.startDayOfTheWeek()
         let totalDaysInMonth = self.endDate()
         
         let totalCells = 42
         let emptyCells = startDayOfTheWeek
-        
-        
+
+        var lastMonthStartDay = temp2 - emptyCells + 1
+        //print(lastMonthStartDay)
         let remainingCells = totalCells - emptyCells - totalDaysInMonth
         
         var nextMonthCount = 1
         
         var dates = [String]()
-        var lastMonthDays: [Date] = []
-        for i in 0..<emptyCells {
-            let temp = lastMonthOfEndDate.addingTimeInterval(-86400 * Double(i) )
-            print(dateForm.string(from: temp))
-            lastMonthDays.append(temp)
-        }
-        print(lastMonthDays)
-        for i in 0..<emptyCells {
+//        var lastMonthDays: [Date] = []
+
+        
+        for _ in 0..<emptyCells {
             
 //            lastMonthDays.append(lastMonthOfEndDate)
             
-            dates.append("")
+            dates.append("\(lastMonthStartDay)")
+            lastMonthStartDay += 1
         }
         
         
@@ -261,7 +279,7 @@ extension MoneyDiaryVC {
     
     @objc private func didNextButtonTouched(_ sender: UIButton) {
         
-        self.moveToSomeDate(calendar.date(byAdding: DateComponents(month: -1), to: self.calendarDate))
+        self.moveToSomeDate(calendar.date(byAdding: DateComponents(month: 1), to: self.calendarDate))
     }
     @objc private func didTodayButtonTouched(_ sender: UIButton) {
         self.moveToSomeDate(Date())
@@ -277,7 +295,7 @@ extension MoneyDiaryVC {
             
         let currentMonth = calendar.component(.month, from: calendarDate)
         let currentYear = calendar.component(.year, from: calendarDate)
-        print(currentMonth,currentYear)
+        
         if let temp = datePicker.years.firstIndex(of: currentYear) {
             datePicker.pickerView.selectRow(temp, inComponent: 0, animated: true)
         }
