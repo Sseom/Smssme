@@ -6,13 +6,14 @@
 //
 
 import FirebaseAuth
+import FirebaseFirestore
 import UIKit
 
 class MypageVC: UIViewController {
     
     private let mypageView = MypageView()
     
-    
+    let db = Firestore.firestore()
     
     
     override func viewDidLoad() {
@@ -52,10 +53,68 @@ class MypageVC: UIViewController {
     private func checkLoginStatus() {
         if let user  = Auth.auth().currentUser {
             // 로그인 상태라면
+            print("사용자 uid: \(user.uid)")
+            
+            loadUserData(uid: user.uid)
+            
             mypageView.userEmailLabel.text = "로그인 정보: \(user.email ?? "알 수 없는 이메일입니다.)")"
+            
         } else {
             // 비로그인 상태라면
             mypageView.userEmailLabel.text = "로그인해주세요."
+        }
+    }
+    
+    
+    //MARK: - loadUserData: 파이어베이스 사용자 회원가입 정보 읽기
+    func loadUserData(uid: String) {
+        //        db.collection("users").getDocuments { (snapshot, error) in
+        //            if error == nil && snapshot != nil {
+        //                for document in snapshot!.documents {
+        //                    print(document.documentID)
+        //                }
+        //            } else {
+        //                print("loadUserData 실패. \(error)")
+        //            }
+        //        }
+
+        
+        if let user  = Auth.auth().currentUser {
+            db.collection("users").document(uid).getDocument { (snapshot, error) in
+                if let error = error {
+                    print("Error fetching user data: \(error.localizedDescription)")
+                    return
+                }
+                
+                guard let data = snapshot?.data() else {
+                    print("No data found")
+                    return
+                }
+                
+                self.updateLabels(with: data)
+            }
+        }
+    }
+    
+    func updateLabels(with data: [String: Any]) {
+        if let nickname = data["nickname"] as? String {
+            mypageView.nicknameLabel.text = "닉네임: \(nickname)"
+        }
+        
+        if let birthday = data["birthday"] as? String {
+            mypageView.birthdayLabel.text = "생년월일: \(birthday)"
+        }
+        
+        if let gender = data["gender"] as? String {
+            mypageView.genderLabel.text = "성별: \(gender)"
+        }
+        
+        if let income = data["income"] as? String {
+            mypageView.incomeLabel.text = "소득: \(income)"
+        }
+        
+        if let location = data["location"] as? String {
+            mypageView.locationLabel.text = "지역: \(location)"
         }
     }
     

@@ -24,6 +24,8 @@
 		5FA890002C8581B200549363 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5FA88FFF2C8581B200549363 /* GoogleService-Info.plist */; };
 		5FA890022C859F6300549363 /* EditUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA890012C859F6300549363 /* EditUserInfo.swift */; };
 		5FA890052C85B21100549363 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA890042C85B21100549363 /* FirebaseManager.swift */; };
+		5FA890072C85B2AA00549363 /* FirebaseAuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA890062C85B2AA00549363 /* FirebaseAuthenticationManager.swift */; };
+		5FA890092C85B30800549363 /* FirebaseFirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA890082C85B30700549363 /* FirebaseFirestoreManager.swift */; };
 		740350572C773E9B00122B2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740350562C773E9B00122B2E /* AppDelegate.swift */; };
 		740350592C773E9B00122B2E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740350582C773E9B00122B2E /* SceneDelegate.swift */; };
 		740350612C773E9B00122B2E /* Smssme.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7403505F2C773E9B00122B2E /* Smssme.xcdatamodeld */; };
@@ -90,6 +92,8 @@
 		5FA88FFF2C8581B200549363 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5FA890012C859F6300549363 /* EditUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserInfo.swift; sourceTree = "<group>"; };
 		5FA890042C85B21100549363 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		5FA890062C85B2AA00549363 /* FirebaseAuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthenticationManager.swift; sourceTree = "<group>"; };
+		5FA890082C85B30700549363 /* FirebaseFirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseFirestoreManager.swift; sourceTree = "<group>"; };
 		740350532C773E9B00122B2E /* Smssme.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Smssme.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		740350562C773E9B00122B2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		740350582C773E9B00122B2E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -201,6 +205,8 @@
 			isa = PBXGroup;
 			children = (
 				5FA890042C85B21100549363 /* FirebaseManager.swift */,
+				5FA890062C85B2AA00549363 /* FirebaseAuthenticationManager.swift */,
+				5FA890082C85B30700549363 /* FirebaseFirestoreManager.swift */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -551,6 +557,7 @@
 				740350A82C7E229100122B2E /* TabBarController.swift in Sources */,
 				9F1E1ABF2C80A6BA00765D52 /* DailyTransactionView.swift in Sources */,
 				E5FBA13F2C7E0A0800D26E5F /* FinancialPlanSelectView.swift in Sources */,
+				5FA890092C85B30800549363 /* FirebaseFirestoreManager.swift in Sources */,
 				74707F982C81B79500F7000C /* Budget+CoreDataClass.swift in Sources */,
 				74707F992C81B79500F7000C /* Budget+CoreDataProperties.swift in Sources */,
 				74707F9C2C81B7E800F7000C /* Diary+CoreDataClass.swift in Sources */,
@@ -566,6 +573,7 @@
 				74707FAB2C81B85B00F7000C /* DiaryCoreDataManager.swift in Sources */,
 				74707FA72C81B84D00F7000C /* AssetsCoreDataManager.swift in Sources */,
 				9FE549BF2C801E4D00E6075E /* FinancialPlanConfirmView.swift in Sources */,
+				5FA890072C85B2AA00549363 /* FirebaseAuthenticationManager.swift in Sources */,
 				E5F344DA2C806A75006F9A91 /* FinancialPlanCurrentPlanView.swift in Sources */,
 				9F06D3102C7EE6F200DFF5B0 /* MoneyDiaryCalendarView.swift in Sources */,
 				9F06D3122C7EFF9D00DFF5B0 /* DateModel.swift in Sources */,

@@ -136,6 +136,7 @@ class LoginVC: UIViewController {
         }
     }
     
+    //MARK: - 로그인 하고 탭바컨트롤러로 전환
     func switchToTabBarController() {
         let tabBarController = TabBarController()
         print("로그인하고 페이지 전환")

@@ -9,7 +9,16 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 
+
 class SignUpVC: UIViewController, KeyboardEvader {
+    
+    // 파이어베이스매니저로 뺄 프로퍼티
+    var userSession: FirebaseAuth.User? = Auth.auth().currentUser //파이어베이스의 유저 정보를 가져옴(로그인 되있는 상태가 아니면 nil)
+    var currentUser: User? // 유저 모델
+    // Firestore의 users 컬렉션 참조
+    let db = Firestore.firestore()
+    
+    
     // 키보드가 화면 가릴 시 내려가기 위한 설정
     var keyboardScrollView: UIScrollView { return signupView.scrollView}
     
@@ -62,61 +71,83 @@ class SignUpVC: UIViewController, KeyboardEvader {
     
     
     
-    //MARK: - @objc 회원 가입
-    @objc private func signupViewButtonTapped() {
-        print("회원가입 클릭!!!!")
-        guard let email = signupView.emaiTextField.text, !email.isEmpty,
-              let password = signupView.passwordTextField.text, !password.isEmpty,
-              let nickname = signupView.nicknameTextField.text, !nickname.isEmpty,
-              let birthday = signupView.birthdayTextField.text, !birthday.isEmpty,
-              //              let genders = signupView.check.text, !genders.isEmpty,
-              let income = signupView.incomeTextField.text, !income.isEmpty,
-              let location = signupView.locationTextField.text, !location.isEmpty
-        else {
-            showAlert(message: "모든 항목을 입력해주세요.", AlertTitle: "입력 오류", buttonClickTitle: "확인")
-            return }
+    //MARK: - registerUser: 파이어베이스 회원가입
+    func registerUser(email: String, password: String, nickname: String, birthday: String, gender: String, income: String, location: String) {
         
-        ///파이어베이스 회원가입
-        Auth.auth().createUser(withEmail: email, password: password) { result, error in
+        // 회원가입
+        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             
             if let error = error {
                 print("회원가입에 실패했습니다. 에러명 : \(error.localizedDescription)")
                 return
             } else {
                 print("로그인 성공!!!")
-                // 데이터 추가
-                //                let db = Firestore.firestore()
-                //                var ref: DocumentReference? = nil
-                //                ref = db.collection("users").addDocument(data: ["아이디(이메일)": email,
-                //                                                                "닉네임": nickname,
-                //                                                                "이메일": email,
-                //                                                                "uid": result!.user.uid]) { (error) in
-                //
-                //                    if error != nil {
-                //                        print(error?.localizedDescription ?? "사용자 데이터 저장 오류")
-                //                    } else {
-                //                        print("데이터 추가", ref!.documentID)
-                //                    }
-                //                }
+                
+                // 파이어베이스 유저 객체를 가져옴
+                guard let uid = authResult?.user.uid else { return }
+                
+                self.saveUserInfo(uid: uid, nickname: nickname, birthday: birthday, gender: gender, income: income, location: location)
             }
             
-            //TODO: - 회원가입 완료 시 alert 띄우고 화면 전환
+            
             self.showAlert(message: "회원가입되었습니다.\n 감사합니다.", AlertTitle: "회원가입 완료", buttonClickTitle: "확인")
             
             let loginVC = LoginVC()
             print("로그인 페이지로 전환")
             self.navigationController?.popToRootViewController(animated: true)
-            
-            //action //유저 회원가입 정보 로그인 여부에 전달
-            //                let data = ["email":email,"name":name,"password":password,"uid":user.uid]    //회원가입 정보를 데이터에 저장
-            //                Firestore.firestore().collection("user")    //"user" 데이터베이스에 저장
-            //                    .document(user.uid)                     //문서명 유저.uid로 설정
-            //                    .setData(data) { _ in                   //데이터 저장 시 변경 사항
-            //                        print("DEBUG : 유저정보가 업로드 되었습니다. 프로필 사진 변경")
-            //                    }
         }
     }
-    //    }
+    
+    //MARK: - saveUserInfo: 사용자 정보 저장 파이어베이스에 저장
+    func saveUserInfo(uid: String, nickname: String, birthday: String, gender: String, income: String, location: String) {
+        
+        
+        
+        // 저장할 데이터 정의
+        let userData: [String: Any] = [
+            "nickname": nickname,
+            "birthday": birthday,
+            "gender": gender,
+            "income": income,
+            "location": location,
+            "email": Auth.auth().currentUser?.email ?? "" // 이메일도 같이 저장 가능
+        ]
+        
+        //                self.userSession = user // 가입하면 바로 로그인 되도록 세션 등록
+        
+        // users 컬렉션에 UID를 키로 데이터 저장
+        // let db = Firestore.firestore()
+        db.collection("users").document(uid).setData(userData) { error in
+            if let error = error {
+                print("Error saving user data: \(error.localizedDescription)")
+            } else {
+                print("User data saved successfully!")
+            }
+        }
+    }
+
+    
+    
+    //MARK: - @objc 회원 가입 버튼 클릭
+    @objc private func signupViewButtonTapped() {
+        print("회원가입 클릭!!!!")
+        
+        guard let email = signupView.emaiTextField.text, !email.isEmpty,
+              let password = signupView.passwordTextField.text, !password.isEmpty,
+              let nickname = signupView.nicknameTextField.text, !nickname.isEmpty,
+              let birthday = signupView.birthdayTextField.text, !birthday.isEmpty,
+              //              let genders = signupView.femaleCheckBox., !genders.isEmpty,
+              let income = signupView.incomeTextField.text, !income.isEmpty,
+              let location = signupView.locationTextField.text, !location.isEmpty
+                
+        else {
+            showAlert(message: "모든 항목을 입력해주세요.", AlertTitle: "입력 오류", buttonClickTitle: "확인")
+            return }
+        
+        registerUser(email: email, password: password, nickname: nickname, birthday: birthday, gender: "확인 중", income: income, location: location)
+        
+        navigationController?.popViewController(animated: true)
+    }
     
     
     //MARK: - 성별 체크박스
