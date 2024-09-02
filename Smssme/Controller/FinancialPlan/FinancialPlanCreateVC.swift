@@ -9,10 +9,17 @@ import UIKit
 
 class FinancialPlanCreateVC: UIViewController {
     private var financialPlanCreateView: FinancialPlanCreateView
+    private var textField: CustomTextField
+    private var datePicker: UIDatePicker
     
-    init(textFieldArea: CreateTextView) {
+    init(textFieldArea: CreatePlanTextFieldView) {
         self.financialPlanCreateView = FinancialPlanCreateView(textFieldArea: textFieldArea)
+        textField = GoalDateTextField.createTextField()
+        datePicker = GoalDateTextField.createDatePicker()
         super.init(nibName: nil, bundle: nil)
+        
+        setupInitialDate()
+        setupDatePickerTarget()
     }
     
     required init?(coder: NSCoder) {
@@ -30,6 +37,25 @@ class FinancialPlanCreateVC: UIViewController {
     }
 }
 
+// MARK: - 날짜 기본값 = 한국 시간 오늘로 설정
+extension FinancialPlanCreateVC {
+    private func setupInitialDate() {
+        let today = Date()
+        datePicker.date = today
+        textField.text = FinancialPlanDateModel.dateFormatter.string(from: today)
+    }
+    
+    private func setupDatePickerTarget() {
+        let today = Date()
+        datePicker.date = today
+        textField.text = FinancialPlanDateModel.dateFormatter.string(from: today)
+    }
+    
+    @objc func datePickerValueChanged(_ sender: UIDatePicker) {
+        textField.text = FinancialPlanDateModel.dateFormatter.string(from: sender.date)
+    }
+}
+
 // MARK: - 화면전환관련
 extension FinancialPlanCreateVC {
     private func setupActions() {
@@ -37,8 +63,9 @@ extension FinancialPlanCreateVC {
     }
     
     @objc func confirmButtonTapped() {
-        let financialPlanConfirmVC = FinancialPlanConfirmVC()
-        navigationController?.pushViewController(financialPlanConfirmVC, animated: true)
+        let financialPlanCurrentPlanVC = FinancialPlanCurrentPlanVC()
+        navigationController?.pushViewController(financialPlanCurrentPlanVC, animated: true)
     }
 }
+
 

@@ -9,11 +9,11 @@ import UIKit
 import SnapKit
 
 class FinancialPlanCreateView: UIView {
-    private let textFieldArea: CreateTextView
+    let textFieldArea: CreatePlanTextFieldView
     private let planCreateTitle = LargeTitleLabel().createLabel(with: "세부자금플랜", color: UIColor.black)
     lazy var confirmButton = BaseButton().createButton(text: "확인", color: UIColor.black, textColor: UIColor.white)
     
-    init(textFieldArea: CreateTextView) {
+    init(textFieldArea: CreatePlanTextFieldView) {
         self.textFieldArea = textFieldArea
         super.init(frame: .zero)
         setupUI()
@@ -49,7 +49,7 @@ class FinancialPlanCreateView: UIView {
     }
 }
 
-class CreateTextView: UIView {
+class CreatePlanTextFieldView: UIView {
     var onDatePickerValueChanged: (() -> Void)?
     
     private let amountGoalLabel = ContentLabel().createLabel(with: "목표금액", color: UIColor(hex: "#333333"))
@@ -57,11 +57,11 @@ class CreateTextView: UIView {
     private let startDateLabel = ContentLabel().createLabel(with: "시작날짜", color: UIColor(hex: "#333333"))
     private let endDateLabel = ContentLabel().createLabel(with: "종료날짜", color: UIColor(hex: "#333333"))
     
-    lazy var targetAmountField = AmountTextField.createTextField(keyboard: .numberPad, defaultValue: 0)
-    lazy var currentSavedField = AmountTextField.createTextField(keyboard: .numberPad, defaultValue: 0)
+    lazy var targetAmountField = AmountTextField.createTextField(keyboard: .numberPad)
+    lazy var currentSavedField = AmountTextField.createTextField(keyboard: .numberPad)
     
-    let startDateField = GoalDateTextField.createTextField(keyboard: .numberPad)
-    let endDateField = GoalDateTextField.createTextField(keyboard: .numberPad)
+    let startDateField = GoalDateTextField.createTextField()
+    let endDateField = GoalDateTextField.createTextField()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -126,12 +126,3 @@ class CreateTextView: UIView {
         }
     }
 }
-
-// 재활용 고민중..
-
-//class EditTextView {
-//    private let amountGoalLabel = ContentLabel().createLabel(with: "목표금액", color: UIColor.systemGray5)
-//    private let currentSavedLabel = ContentLabel().createLabel(with: "현재저축금액", color: UIColor.systemGray5)
-//    private let startDateLabel = ContentLabel().createLabel(with: "시작날짜", color: UIColor.systemGray5)
-//    private let endDateLabel = ContentLabel().createLabel(with: "종료날짜", color: UIColor.systemGray5)
-//}

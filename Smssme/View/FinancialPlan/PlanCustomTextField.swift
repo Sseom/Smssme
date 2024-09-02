@@ -9,11 +9,10 @@ import UIKit
 
 // MARK: - bottomBorder 커스텀 텍스트필드
 class AmountTextField {
-    static func createTextField(keyboard: UIKeyboardType, defaultValue: Int) -> CustomTextField {
+    static func createTextField(keyboard: UIKeyboardType) -> CustomTextField {
         let textField = CustomTextField()
         textField.textColor = UIColor.black
         textField.borderStyle = .none
-        textField.text = "\(defaultValue)"
         textField.keyboardType = keyboard
         textField.clipsToBounds = false
         
@@ -35,15 +34,17 @@ class AmountTextField {
         
         return textField
     }
+    
+    static func setValue(for textField: CustomTextField, value: Int) {
+        textField.text = "\(value)"
+    }
 }
 
 class GoalDateTextField {
-    static func createTextField(keyboard: UIKeyboardType) -> CustomTextField {
+    static func createTextField() -> CustomTextField {
         let textField = CustomTextField()
         textField.textColor = UIColor.black
         textField.borderStyle = .none
-        
-        textField.keyboardType = keyboard
         textField.clipsToBounds = false
         
         let toolbar = UIToolbar()
@@ -52,16 +53,6 @@ class GoalDateTextField {
         let doneButton = UIBarButtonItem(title: "입력완료", style: .done, target: textField, action: #selector(textField.dismissKeyboard))
         toolbar.setItems([doneButton], animated: true)
         textField.inputAccessoryView = toolbar
-        
-        let datePicker = createDatePicker()
-        textField.inputView = datePicker
-        
-        let today = Date()
-        datePicker.date = today
-        textField.text = dateFormatter.string(from: today) // 기본으로 보여지는 부분, 여기에 저장된데이터
-        
-        // DatePicker의 값이 변경될 때 텍스트 필드 업데이트
-        datePicker.addTarget(textField, action: #selector(CustomTextField.datePickerValueChanged(_:)), for: .valueChanged)
         
         return textField
     }
@@ -72,19 +63,6 @@ class GoalDateTextField {
         picker.preferredDatePickerStyle = .wheels
         picker.locale = Locale(identifier: "ko_KR")
         return picker
-    }
-    
-    static let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy년 MM월 dd일"
-        formatter.locale = Locale(identifier: "ko_KR")
-        return formatter
-    }()
-}
-
-extension CustomTextField {
-    @objc func datePickerValueChanged(_ sender: UIDatePicker) {
-        self.text = GoalDateTextField.dateFormatter.string(from: sender.date)
     }
 }
 
