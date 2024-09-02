@@ -82,7 +82,7 @@ extension FinancialPlanSelectionVC: UICollectionViewDataSource {
 extension FinancialPlanSelectionVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.item < planItems.count {
-            let createPlanVC = FinancialPlanCreateVC(textFieldArea: CreateTextView())
+            let createPlanVC = FinancialPlanCreateVC(textFieldArea: CreatePlanTextFieldView())
             navigationController?.pushViewController(createPlanVC, animated: true)
         }
     }

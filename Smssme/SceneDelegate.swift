@@ -16,22 +16,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: windowScene)
-//        window.rootViewController = SplashViewController()
         window.rootViewController = TabBarController()
+//        window.rootViewController = SplashViewController()
         window.makeKeyAndVisible()
         
         self.window = window
-        
-        //MARK: - 혜정 / ui작업 확인용 코드 , 완료 시 삭제
-//        window = UIWindow(windowScene: windowScene)
-//        
-//        let financialPlanSelectionView = FinancialPlanSelectionView()
-//        let financialPlanSelectionVC = FinancialPlanSelectionVC(financialPlanSelectionView: financialPlanSelectionView)
-//        
-//        let navigationController = UINavigationController(rootViewController: financialPlanSelectionVC)
-//        
-//        window?.rootViewController = navigationController
-//        window?.makeKeyAndVisible()
         
     }
 
