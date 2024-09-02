@@ -25,7 +25,7 @@ class TabBarController: UITabBarController {
             unselectedImage: UIImage(systemName: "house.fill") ?? UIImage(),
             selectedImage: UIImage(systemName: "house.fill") ?? UIImage(),
             isNavigationBarHidden: true,
-            rootViewController: MainPageVC(mainPageView: MainPageView())
+            rootViewController: MainPageVC()
         )
         //머니다이어리
         let diary = tabBarNavigationController(
@@ -39,14 +39,14 @@ class TabBarController: UITabBarController {
             unselectedImage: UIImage(systemName: "note.text.badge.plus") ?? UIImage(),
             selectedImage: UIImage(systemName: "note.text.badge.plus") ?? UIImage(),
             isNavigationBarHidden: false,
-            rootViewController: FinancialPlanSelectionVC(financialPlanSelectionView: FinancialPlanSelectionView())
+            rootViewController: FinancialPlanSelectionVC()
         )
         //로그인 기능 추가 중이라 로그인뷰컨으로 임시 교체-지현
         let myPage = tabBarNavigationController(
             unselectedImage: UIImage(systemName: "person.and.background.striped.horizontal") ?? UIImage(),
             selectedImage: UIImage(systemName: "person.and.background.striped.horizontal") ?? UIImage(),
             isNavigationBarHidden: false,
-            rootViewController: LoginVC()
+            rootViewController: MypageViewController()
         )
         viewControllers = [mainPage, diary, financialPlan, myPage]
     }

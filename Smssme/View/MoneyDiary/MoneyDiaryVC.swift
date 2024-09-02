@@ -261,7 +261,9 @@ extension MoneyDiaryVC {
 
 extension MoneyDiaryVC {
     func showHalfModel() {
+
         let modalVc = DailyTransactionVC(transactionView: DailyTransactionView())
+
         modalVc.modalPresentationStyle = .pageSheet
         
         if let sheet = modalVc.sheetPresentationController {
@@ -269,6 +271,7 @@ extension MoneyDiaryVC {
             sheet.prefersGrabberVisible = true
         }
         
+
         self.present(modalVc, animated: true, completion: nil)
     }
 //objc method
@@ -334,7 +337,14 @@ extension MoneyDiaryVC:  UIPickerViewDelegate,UIPickerViewDataSource {
 }
 
 
-
+protocol CellReusable {
+    static var reuseIdentifier: String { get }
+}
+extension CellReusable {
+    static var reuseIdentifier: String {
+        String(describing: Self.self)
+    }
+}
 
 
 

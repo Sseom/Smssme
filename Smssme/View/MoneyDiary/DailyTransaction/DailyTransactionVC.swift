@@ -8,6 +8,7 @@
 import UIKit
 
 class DailyTransactionVC: UIViewController {
+
     let transactionView: DailyTransactionView
     var dailyTransactionList: [TransactionItem] = []
     var dailyIncome = 0
@@ -53,14 +54,14 @@ class DailyTransactionVC: UIViewController {
     
     
     
-    
+
 }
 
 extension DailyTransactionVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 10
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DailyTransactionCell.reuseIdentifier, for: indexPath) as? DailyTransactionCell

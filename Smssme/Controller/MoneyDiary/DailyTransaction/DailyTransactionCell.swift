@@ -10,7 +10,9 @@ import UIKit
 class DailyTransactionCell: UICollectionViewCell, CellReusable {
     let categoryImage: UIImageView = {
         let image = UIImageView()
+
         image.image = UIImage(systemName: "bitcoinsign.circle")
+
         return image
     }()
     
@@ -61,8 +63,7 @@ class DailyTransactionCell: UICollectionViewCell, CellReusable {
             $0.centerY.equalTo(self)
         }
     }
-    
-    
+
     func transformToText(transactionItem: TransactionItem){
         self.nameLabel.text = transactionItem.name
         self.amountLabel.text = "\(transactionItem.Amount) 원"
@@ -78,4 +79,5 @@ class DailyTransactionCell: UICollectionViewCell, CellReusable {
         self.categoryImage.image = UIImage(systemName: "bitcoinsign.circle")
         
     }
+
 }

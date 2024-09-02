@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 
 final class CalendarCollectionViewCell: UICollectionViewCell, CellReusable {
+
     
     let dayLabel = SmallTitleLabel().createLabel(with: "1", color: .black)
     let incomeLabel = SmallTitleLabel().createLabel(with: "10", color: .blue)
