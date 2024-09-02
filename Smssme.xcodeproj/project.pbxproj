@@ -17,9 +17,11 @@
 		5F3EAE562C7EFAFA00FF15E5 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3EAE552C7EFAFA00FF15E5 /* SignUpView.swift */; };
 		5F3EAE5B2C7F36E500FF15E5 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3EAE5A2C7F36E500FF15E5 /* SignUpVC.swift */; };
 		5F413EFA2C7F3D9800004703 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F3EAE542C7EF7E000FF15E5 /* GoogleService-Info.plist */; };
-		5F413EFF2C805CC200004703 /* Mypage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F413EFE2C805CC200004703 /* Mypage.swift */; };
+		5F413EFF2C805CC200004703 /* MypageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F413EFE2C805CC200004703 /* MypageView.swift */; };
 		5F413F012C805CED00004703 /* MypageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F413F002C805CED00004703 /* MypageViewController.swift */; };
 		5FA88FEF2C80760E00549363 /* CommonAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA88FEE2C80760E00549363 /* CommonAlert.swift */; };
+		5FA88FF12C842D0A00549363 /* KeyboardEvader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA88FF02C842D0A00549363 /* KeyboardEvader.swift */; };
+		5FA88FFE2C8544DB00549363 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA88FFD2C8544DB00549363 /* SplashViewController.swift */; };
 		740350572C773E9B00122B2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740350562C773E9B00122B2E /* AppDelegate.swift */; };
 		740350592C773E9B00122B2E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740350582C773E9B00122B2E /* SceneDelegate.swift */; };
 		740350612C773E9B00122B2E /* Smssme.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7403505F2C773E9B00122B2E /* Smssme.xcdatamodeld */; };
@@ -76,12 +78,14 @@
 /* Begin PBXFileReference section */
 		5F3EAE182C7E182400FF15E5 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		5F3EAE1B2C7E1CC200FF15E5 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
-		5F3EAE542C7EF7E000FF15E5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5F3EAE542C7EF7E000FF15E5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "Firebase/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5F3EAE552C7EFAFA00FF15E5 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		5F3EAE5A2C7F36E500FF15E5 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
-		5F413EFE2C805CC200004703 /* Mypage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mypage.swift; sourceTree = "<group>"; };
+		5F413EFE2C805CC200004703 /* MypageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageView.swift; sourceTree = "<group>"; };
 		5F413F002C805CED00004703 /* MypageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewController.swift; sourceTree = "<group>"; };
 		5FA88FEE2C80760E00549363 /* CommonAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonAlert.swift; sourceTree = "<group>"; };
+		5FA88FF02C842D0A00549363 /* KeyboardEvader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardEvader.swift; sourceTree = "<group>"; };
+		5FA88FFD2C8544DB00549363 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		740350532C773E9B00122B2E /* Smssme.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Smssme.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		740350562C773E9B00122B2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		740350582C773E9B00122B2E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -157,6 +161,7 @@
 		5F3EAE172C7E180200FF15E5 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				5FA88FFD2C8544DB00549363 /* SplashViewController.swift */,
 				5F3EAE182C7E182400FF15E5 /* LoginView.swift */,
 				5F3EAE552C7EFAFA00FF15E5 /* SignUpView.swift */,
 			);
@@ -175,7 +180,6 @@
 		5F3EAE532C7EF7CD00FF15E5 /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
-				5F3EAE542C7EF7E000FF15E5 /* GoogleService-Info.plist */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -183,7 +187,7 @@
 		5F413F022C8066AF00004703 /* Mypage */ = {
 			isa = PBXGroup;
 			children = (
-				5F413EFE2C805CC200004703 /* Mypage.swift */,
+				5F413EFE2C805CC200004703 /* MypageView.swift */,
 			);
 			path = Mypage;
 			sourceTree = "<group>";
@@ -215,6 +219,7 @@
 		740350552C773E9B00122B2E /* Smssme */ = {
 			isa = PBXGroup;
 			children = (
+				5F3EAE542C7EF7E000FF15E5 /* GoogleService-Info.plist */,
 				5F3EAE532C7EF7CD00FF15E5 /* Firebase */,
 				740350742C7740BE00122B2E /* View */,
 				740350732C7740AA00122B2E /* Controller */,
@@ -234,7 +239,6 @@
 			isa = PBXGroup;
 			children = (
 				740350A62C7E186600122B2E /* Common.swift */,
-				5FA88FEE2C80760E00549363 /* CommonAlert.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -282,6 +286,8 @@
 			children = (
 				E5FBA14F2C804FBA00D26E5F /* UIColorSet.swift */,
 				E5FBA12B2C7C823C00D26E5F /* UIComponentFactory.swift */,
+				5FA88FEE2C80760E00549363 /* CommonAlert.swift */,
+				5FA88FF02C842D0A00549363 /* KeyboardEvader.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -566,13 +572,16 @@
 				740350592C773E9B00122B2E /* SceneDelegate.swift in Sources */,
 				E5FBA12C2C7C823C00D26E5F /* UIComponentFactory.swift in Sources */,
 				9F06D30E2C7EE6B300DFF5B0 /* MoneyDiaryCalendarCell.swift in Sources */,
+				5FA88FF12C842D0A00549363 /* KeyboardEvader.swift in Sources */,
+				5F413EFF2C805CC200004703 /* MypageView.swift in Sources */,
 				E5F344D82C806A58006F9A91 /* FinancialPlanCurrentPlanVC.swift in Sources */,
-				5F413EFF2C805CC200004703 /* Mypage.swift in Sources */,
+				5F413EFF2C805CC200004703 /* MypageView.swift in Sources */,
 				5F3EAE192C7E182400FF15E5 /* LoginView.swift in Sources */,
 				5F3EAE5B2C7F36E500FF15E5 /* SignUpVC.swift in Sources */,
 				E5FBA13B2C7E095300D26E5F /* FinancialPlanSelectionVC.swift in Sources */,
 				9F06D30C2C7EE49500DFF5B0 /* MoneyDiaryView.swift in Sources */,
 				E5FBA1432C7E0B8B00D26E5F /* FinancialPlanCreateView.swift in Sources */,
+				5FA88FFE2C8544DB00549363 /* SplashViewController.swift in Sources */,
 				5F3EAE562C7EFAFA00FF15E5 /* SignUpView.swift in Sources */,
 				E5FBA13D2C7E099B00D26E5F /* FinancialPlanCell.swift in Sources */,
 				5F413F012C805CED00004703 /* MypageViewController.swift in Sources */,

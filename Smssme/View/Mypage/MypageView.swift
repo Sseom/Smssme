@@ -7,13 +7,13 @@
 
 import UIKit
 
-class Mypage: UIView {
+class MypageView: UIView {
     
     // 로그아웃 버튼
-    private let logoutButton = BaseButton().createButton(text: "로그아웃", color: .systemBlue, textColor: .white)
+    let logoutButton = BaseButton().createButton(text: "로그아웃", color: .systemBlue, textColor: .white)
     
     // 회원탈퇴 버튼
-    private let deleteUserButton = BaseButton().createButton(text: "회원탈퇴", color: .systemGray4, textColor: .systemBlue)
+    let deleteUserButton = BaseButton().createButton(text: "회원탈퇴", color: .systemGray4, textColor: .systemBlue)
     
     
     override init(frame: CGRect) {
@@ -36,12 +36,14 @@ class Mypage: UIView {
         logoutButton.snp.makeConstraints {
             $0.center.equalToSuperview()
             $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
+            $0.height.equalTo(48)
         }
         
         deleteUserButton.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(logoutButton.snp.bottom).inset(18)
+            $0.top.equalTo(logoutButton.snp.bottom).offset(30)
             $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
+            $0.height.equalTo(48)
         }
     }
 }
