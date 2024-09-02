@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class FinancialPlanCurrentPlanVC: UIViewController, UICollectionViewDelegate {
+final class FinancialPlanCurrentPlanVC: UIViewController {
     private let financialPlanCurrentView = FinancialPlanCurrentPlanView()
     private var currentItems: [CurrentItem] = []
     
@@ -50,8 +50,8 @@ final class FinancialPlanCurrentPlanVC: UIViewController, UICollectionViewDelega
 
 extension FinancialPlanCurrentPlanVC {
     func actionAddPlanButton() {
-        let financialPlanConfirmVC = FinancialPlanEditPlanVC(textFieldArea: CreatePlanTextFieldView())
-        navigationController?.pushViewController(financialPlanConfirmVC, animated: true)
+        let financialPlanSelectionVC = FinancialPlanSelectionVC()
+        navigationController?.pushViewController(financialPlanSelectionVC, animated: true)
     }
 }
 
@@ -71,10 +71,17 @@ extension FinancialPlanCurrentPlanVC: UICollectionViewDataSource {
     }
 }
 
+extension FinancialPlanCurrentPlanVC: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let editPlanVC = FinancialPlanConfirmVC()
+        navigationController?.pushViewController(editPlanVC, animated: true)
+    }
+}
+
 // 이전 화면부터 여기까지 뎁스가 4단계까지 깊어져서 이 페이지까지 온다면 이전 쌓인 뷰들을 제거해줄 필요가 있었음. 회의로 뎁스가 조정되었고 추후 확실히 안정적이라 판단되면 삭제될 부분
 extension FinancialPlanCurrentPlanVC {
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-        if viewController is FinancialPlanEditPlanVC {
+        if viewController is FinancialPlanCurrentPlanVC {
             if let index = navigationController.viewControllers.firstIndex(of: viewController) {
                 navigationController.viewControllers.removeSubrange(0..<index)
             }
