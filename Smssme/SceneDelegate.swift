@@ -13,28 +13,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-//        guard let windowScene = (scene as? UIWindowScene) else { return }
-//        
-//        let window = UIWindow(windowScene: windowScene)
-//        window.rootViewController = TabBarController()
-//        window.makeKeyAndVisible()
-//        
-//        self.window = window
+        guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        // 지현
-        if let windowScene = scene as? UIWindowScene {
-            
-            let window = UIWindow(windowScene: windowScene)
-            self.window = window
-
-            let navigationController = UINavigationController()
-            self.window?.rootViewController = navigationController
-            
-            let coordinator = AppCoordinator(navigationController: navigationController)
-            coordinator.start()
-            
-            self.window?.makeKeyAndVisible()
-        }
+        let window = UIWindow(windowScene: windowScene)
+        window.rootViewController = SplashViewController()
+        window.makeKeyAndVisible()
+        
+        self.window = window
+        
         
         
         //MARK: - 혜정 / ui작업 확인용 코드 , 완료 시 삭제

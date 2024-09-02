@@ -130,19 +130,22 @@ class LoginVC: UIViewController {
                 //                self.getUserProfile()
 //                showAlert(message: "안녕하세요,\n 로그인되었습니다.", AlertTitle: "로그인 성공", buttonClickTitle: "확인")
                 
-                showSnycAlert(message: "안녕하세요,\n 로그인되었습니다.", AlertTitle: "로그인 성공", buttonClickTitle: "확인", method: piushMypageVC)
+                showSnycAlert(message: "안녕하세요,\n 로그인되었습니다.", AlertTitle: "로그인 성공", buttonClickTitle: "확인", method: switchToTabBarController)
                 
-//                let MypageVC = MypageViewController()
-//                print("로그인하고 페이지 전환")
-//                navigationController?.pushViewController(MypageVC, animated: true)
             }
         }
     }
     
-    func piushMypageVC() {
-        let MypageVC = MypageViewController()
+    func switchToTabBarController() {
+        let tabBarController = TabBarController()
         print("로그인하고 페이지 전환")
-        navigationController?.pushViewController(MypageVC, animated: true)
+        guard let window = UIApplication.shared.windows.first else { return }
+              window.rootViewController = tabBarController
+              UIView.transition(with: window,
+                                duration: 0.5,
+                                options: [.transitionCrossDissolve],
+                                animations: nil,
+                                completion: nil)
     }
     
     //MARK: - 자동로그인/ 아이디저장 체크박스
