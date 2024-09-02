@@ -36,6 +36,7 @@ final class FinancialPlanSelectionVC: UIViewController {
             PlanItem(title: "내집 마련의 꿈", description: "미래의 나의 보금자리를 위한 첫걸음, 내집마련 플랜"),
             PlanItem(title: "로맨틱 결혼식", description: "새로운 삶의 시작인 그 행복한 순간을 위한 결혼자금 플랜"),
             PlanItem(title: "황금빛 은퇴자금", description: "편안한 은퇴를 위한 준비, 빨리 시작할수록 든든합니다!"),
+            PlanItem(title: "나만의 플랜 설정", description: "편안한 은퇴를 위한 준비, 빨리 시작할수록 든든합니다!"),
             
         ]
         financialPlanSelectionView.collectionView.reloadData()
