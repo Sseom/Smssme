@@ -18,3 +18,16 @@ struct CalendarItem {
         self.isHol = isHol
     }
 }
+struct TransactionItem {
+    let name: String
+    let Amount: Int
+    let isIncom: Bool
+    let transactionDate: Date
+    
+    init(name: String = "", Amount: Int = 0, isIncom: Bool = true, transactionDate: Date = Date()) {
+        self.name = name
+        self.Amount = Amount
+        self.isIncom = isIncom
+        self.transactionDate = transactionDate
+    }
+}
