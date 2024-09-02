@@ -18,3 +18,15 @@ struct CalendarItem {
         self.isHol = isHol
     }
 }
+
+struct BudgetItem {
+    var amount: Int64
+    var statement: Bool
+    var category: String?
+    var isAssetPlan: Bool
+}
+
+struct BudgetList {
+    let title: String
+    var items: [BudgetItem]
+}

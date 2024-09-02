@@ -8,33 +8,31 @@
 import UIKit
 
 class MoneyDiaryBudgetEditVC: UIViewController {
-    //MARK: - Properties
+    // MARK: - Properties
     private let moneyDiaryBudgetEditView: MoneyDiaryBudgetEditView = MoneyDiaryBudgetEditView()
     
-    // 데이터 모델
-    var financialPlans = [
-        FinancialPlan(title: "수입 플랜", items: [FinancialItem(name: "월급", amount: "3000000"), FinancialItem(name: "보너스", amount: "500000")]),
-        FinancialPlan(title: "재무 목표 플랜", items: [FinancialItem(name: "비상금", amount: "1000000"), FinancialItem(name: "투자", amount: "2000000")]),
-        FinancialPlan(title: "소비 플랜", items: [FinancialItem(name: "식비", amount: "500000"), FinancialItem(name: "교통비", amount: "200000")])
-    ]
+    // 더미 데이터
+    var dummyList: [BudgetList] = []
+    
     // MARK: - ViewController Init
     init() {
         super.init(nibName: nil, bundle: nil)
+        setupList()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Life Cycle
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // 네비게이션 바에 플러스 버튼 추가
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
-        
-        // 데이터소스 및 델리게이트 설정
         moneyDiaryBudgetEditView.tableView.dataSource = self
         moneyDiaryBudgetEditView.tableView.delegate = self
+        moneyDiaryBudgetEditView.tableView.register(MoneyDiaryBudgetEditCell.self, forCellReuseIdentifier: "MoneyDiaryBudgetEditCell")
+        moneyDiaryBudgetEditView.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "AssetPlanCell") // 등록
+        let saveButton = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonTapped))
+                navigationItem.rightBarButtonItem = saveButton
     }
     
     override func loadView() {
@@ -45,57 +43,136 @@ class MoneyDiaryBudgetEditVC: UIViewController {
     // MARK: - Method
     
     func calculateTotalAmount(forSection section: Int) -> String {
-        let total = financialPlans[section].items.reduce(0) { sum, item in
-            return sum + (Int(item.amount) ?? 0)
+        let total = dummyList[section].items.reduce(0) { sum, item in
+            return sum + Int(item.amount)
         }
         return "\(total) 원"
     }
     
     func addNewItem(toSection section: Int) {
-        let newItem = FinancialItem(name: "", amount: "")
-        financialPlans[section].items.append(newItem)
-        financialPlanView.tableView.reloadSections(IndexSet(integer: section), with: .automatic)
+        let item = BudgetItem(amount: 0, statement: true, category: "", isAssetPlan: section == 0 ? true : false)
+        dummyList[section].items.append(item)
+        let indexPath = IndexPath(row: dummyList[section].items.count - 1, section: section)
+        moneyDiaryBudgetEditView.tableView.insertRows(at: [indexPath], with: .automatic)
     }
     
     // MARK: - Private Method
+    private func setupList() {
+        dummyList = [
+            BudgetList(title: "수입 플랜", items: [
+                BudgetItem(amount: 500000, statement: true, category: "월급", isAssetPlan: false),
+                BudgetItem(amount: 5000000, statement: true, category: "보너스", isAssetPlan: false)
+            ]),
+            BudgetList(title: "수입 플랜", items: [
+                BudgetItem(amount: 500000, statement: true, category: "월급", isAssetPlan: false),
+                BudgetItem(amount: 5000000, statement: true, category: "보너스", isAssetPlan: false)
+            ]),
+            BudgetList(title: "수입 플랜", items: [
+                BudgetItem(amount: 500000, statement: true, category: "월급", isAssetPlan: false),
+                BudgetItem(amount: 5000000, statement: true, category: "보너스", isAssetPlan: false)
+            ])
+        ]
+    }
+    
+    private func collectDataFromTextFields() -> [BudgetList] {
+        var collectedData: [BudgetList] = []
+        
+        for section in 0..<dummyList.count {
+            if section != 1 {
+                var budgetItems: [BudgetItem] = []
+                for row in 0..<dummyList[section].items.count {
+                    let indexPath = IndexPath(row: row, section: section)
+                    if let cell = moneyDiaryBudgetEditView.tableView.cellForRow(at: indexPath) as? MoneyDiaryBudgetEditCell {
+                        let category = cell.categoryTextField.text ?? ""
+                        let amountText = cell.amountTextField.text ?? ""
+                        let amount = Int64(amountText) ?? 0
+                        
+                        let item = dummyList[section].items[row]
+                        let budgetItem = BudgetItem(amount: amount, statement: item.statement, category: category, isAssetPlan: item.isAssetPlan)
+                        budgetItems.append(budgetItem)
+                    }
+                }
+                
+                let budgetList = BudgetList(title: dummyList[section].title, items: budgetItems)
+                collectedData.append(budgetList)
+            }
+        }
+        
+        return collectedData
+    }
     
     // MARK: - Objc
+    @objc private func addButtonTapped(_ sender: UIButton) {
+        let section = dummyList.count - 1
+        addNewItem(toSection: section)
+    }
+    
+    @objc private func deleteButtonTapped(_ sender: UIButton) {
+        let section = sender.tag / 1000
+        let row = sender.tag % 1000
+        
+        guard section < dummyList.count, row < dummyList[section].items.count else {
+            print("잘못된 인덱스 접근: section \(section), row \(row)")
+            return
+        }
+        
+        dummyList[section].items.remove(at: row)
+        moneyDiaryBudgetEditView.tableView.deleteRows(at: [IndexPath(row: row, section: section)], with: .automatic)
+    }
+    
+    @objc private func saveButtonTapped() {
+        let collectedData = collectDataFromTextFields()
+        print("Collected Data: \(collectedData)")
+        
+        // 데이터 저장 로직 추가
+//        saveDataToCoreData(data: collectedData)
+    }
 }
 
 // MARK: - UITableViewDataSource
 extension MoneyDiaryBudgetEditVC: UITableViewDataSource {
-
+    
     func numberOfSections(in tableView: UITableView) -> Int {
-        return financialPlans.count
+        return dummyList.count
     }
-
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let planTitle = financialPlans[section].title
+        let planTitle = dummyList[section].title
         let totalAmount = calculateTotalAmount(forSection: section)
         return "\(planTitle) - 총 금액: \(totalAmount)"
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return financialPlans[section].items.count + 1
+        if section == 1 {
+            return dummyList[section].items.count
+        }
+        return dummyList[section].items.count + 1
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let plan = financialPlans[indexPath.section]
-
-        if indexPath.row < plan.items.count {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "FinancialItemCell", for: indexPath) as! FinancialItemCell
-            let item = plan.items[indexPath.row]
+        let list = dummyList[indexPath.section]
+        
+        if indexPath.row < list.items.count {
+            let item = list.items[indexPath.row]
             
-            cell.nameTextField.text = item.name
-            cell.amountTextField.text = item.amount
-            
-            cell.nameTextField.delegate = self
-            cell.amountTextField.delegate = self
-            
-            cell.nameTextField.tag = indexPath.section * 1000 + indexPath.row
-            cell.amountTextField.tag = indexPath.section * 1000 + indexPath.row + 100
-            
-            return cell
+            if indexPath.section == 1 {
+                // 섹션 1은 수정 불가능하도록 UILabel을 사용
+                let cell = tableView.dequeueReusableCell(withIdentifier: "AssetPlanCell", for: indexPath)
+                cell.textLabel?.text = "\(item.category ?? ""): \(item.amount) 원"
+                cell.textLabel?.font = UIFont.systemFont(ofSize: 16)
+                cell.textLabel?.textColor = .black
+                return cell
+            } else {
+                // 다른 섹션은 수정 가능하도록 UITextField를 사용
+                let cell = tableView.dequeueReusableCell(withIdentifier: "MoneyDiaryBudgetEditCell", for: indexPath) as! MoneyDiaryBudgetEditCell
+                cell.categoryTextField.text = item.category
+                cell.amountTextField.text = "\(item.amount)"
+                
+                cell.categoryTextField.tag = indexPath.section * 1000 + indexPath.row
+                cell.amountTextField.tag = indexPath.section * 1000 + indexPath.row + 100
+                
+                return cell
+            }
         } else {
             let addCell = UITableViewCell(style: .default, reuseIdentifier: "addCell")
             addCell.textLabel?.text = "항목 추가하기"
@@ -104,50 +181,16 @@ extension MoneyDiaryBudgetEditVC: UITableViewDataSource {
             return addCell
         }
     }
-
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        if indexPath.row == financialPlans[indexPath.section].items.count {
+        if indexPath.row == dummyList[indexPath.section].items.count {
             addNewItem(toSection: indexPath.section)
-        }
-    }
-
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            financialPlans[indexPath.section].items.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
 }
 
 // MARK: - UITableViewDelegate
 extension MoneyDiaryBudgetEditVC: UITableViewDelegate {
-    // UITableViewDelegate 관련 메서드는 현재 추가적인 기능이 없으므로 비워둡니다.
-}
-
-// MARK: - UITextFieldDelegate
-extension MoneyDiaryBudgetEditVC: UITextFieldDelegate {
-
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        let section = textField.tag / 1000
-        let row = textField.tag % 1000
-        
-        if textField.tag % 100 == 0 {
-            financialPlans[section].items[row].name = textField.text ?? ""
-        } else {
-            financialPlans[section].items[row].amount = textField.text ?? ""
-            moneyDiaryBudgetEditView.tableView.reloadSections(IndexSet(integer: section), with: .automatic)
-        }
-    }
-}
-
-struct FinancialItem {
-    var name: String    // 항목명
-    var amount: String  // 금액
-}
-
-struct FinancialPlan {
-    let title: String      // 큰 항목의 제목
-    var items: [FinancialItem]    // 하위 항목들의 목록
+    // 추가예정
 }
