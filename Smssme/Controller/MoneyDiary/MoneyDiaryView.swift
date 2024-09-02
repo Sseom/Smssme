@@ -35,7 +35,7 @@ class MoneyDiaryView: UIView {
     
     
     
-    let budgetPlanButton = BaseButton().createButton(text: "예산안", color: .blue, textColor: .white)
+    let budgetPlanButton = BaseButton().createButton(text: "날짜로 이동", color: .blue, textColor: .white)
     
     let todayButton = BaseButton().createButton(text: "오늘", color: .blue, textColor: .white)
     

@@ -25,5 +25,13 @@ extension UIColor {
         self.init(red: r, green: g, blue: b, alpha: a)
     }
 }
+protocol CellReusable {
+    static var reuseIdentifier: String { get }
+}
+extension CellReusable {
+    static var reuseIdentifier: String {
+        String(describing: Self.self)
+    }
+}
 
 
