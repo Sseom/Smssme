@@ -50,7 +50,7 @@ final class FinancialPlanCurrentPlanVC: UIViewController, UICollectionViewDelega
 
 extension FinancialPlanCurrentPlanVC {
     func actionAddPlanButton() {
-        let financialPlanConfirmVC = FinancialPlanSelectionVC()
+        let financialPlanConfirmVC = FinancialPlanEditPlanVC()
         navigationController?.pushViewController(financialPlanConfirmVC, animated: true)
     }
 }
