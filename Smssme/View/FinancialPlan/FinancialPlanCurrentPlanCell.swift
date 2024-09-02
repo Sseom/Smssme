@@ -52,7 +52,6 @@ class FinancialPlanCurrentPlanCell: UICollectionViewCell {
         completionRateLabel.text = "달성률 \(item.completionRate)"
         graphBarArea.setProgress(CGFloat(item.graphValue))
     }
-    
 }
 
 class ProgressBarView2: UIView {

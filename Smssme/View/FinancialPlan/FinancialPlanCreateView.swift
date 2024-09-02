@@ -60,16 +60,12 @@ class CreateTextView: UIView {
     lazy var targetAmountField = AmountTextField.createTextField(placeholder: "", keyboard: .numberPad)
     lazy var currentSavedField = AmountTextField.createTextField(placeholder: "", keyboard: .numberPad)
     
-    let startDateField = AmountTextField.createTextField(placeholder: "", keyboard: .numberPad)
-    let endDateField = AmountTextField.createTextField(placeholder: "", keyboard: .numberPad)
-    
-    let datePicker = createDatePicker()
-    let datePicker2 = createDatePicker()
+    let startDateField = GoalDateTextField.createTextField(placeholder: "", keyboard: .numberPad)
+    let endDateField = GoalDateTextField.createTextField(placeholder: "", keyboard: .numberPad)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
-        setupDatePickers()
     }
     
     required init?(coder: NSCoder) {
@@ -127,13 +123,6 @@ class CreateTextView: UIView {
             $0.height.equalTo(40)
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().offset(-20)
-        }
-    }
-    
-    private func setupDatePickers() {
-        [startDateField, endDateField].forEach {
-            $0.inputView = datePicker
-            $0.tintColor = .clear
         }
     }
 }

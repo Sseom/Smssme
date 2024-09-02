@@ -41,9 +41,9 @@ final class FinancialPlanCurrentPlanVC: UIViewController, UICollectionViewDelega
     private func fetchItems() {
         currentItems = [
             CurrentItem(title: "PlanName", completionRate: "76%", graphValue: 0.5),
-            CurrentItem(title: "PlanItem2", completionRate: "76%", graphValue: 0.5),
-            CurrentItem(title: "PlanItem3", completionRate: "76%", graphValue: 0.5),
-            CurrentItem(title: "PlanItem4", completionRate: "76%", graphValue: 0.5),
+            CurrentItem(title: "PlanItem2", completionRate: "76%", graphValue: 0.3),
+            CurrentItem(title: "PlanItem3", completionRate: "76%", graphValue: 0.7),
+            CurrentItem(title: "PlanItem4", completionRate: "76%", graphValue: 0.2),
         ]
         financialPlanCurrentView.currentPlanCollectionView.reloadData()
     }

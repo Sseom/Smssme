@@ -40,12 +40,6 @@ class FinancialPlanCreateVC: UIViewController {
     
     private func setupActions() {
         financialPlanCreateView.confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
-        
-        let datePicker = textFieldArea.datePicker
-        datePicker.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tapGesture)
     }
     @objc private func datePickerValueChanged(_ sender: UIDatePicker) {
         let dateString = dateFormatter.string(from: sender.date)
@@ -58,10 +52,7 @@ class FinancialPlanCreateVC: UIViewController {
 }
 
 extension FinancialPlanCreateVC {
- 
-    @objc func dismissKeyboard() {
-        resignFirstResponder()
-    }
+    
     
     @objc func confirmButtonTapped() {
         print("탭뜨")
