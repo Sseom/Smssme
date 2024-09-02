@@ -9,10 +9,11 @@ import SnapKit
 import UIKit
 
 class FinancialPlanCurrentPlanCell: UICollectionViewCell {
+    private var item: FinancialPlanCurrentPlanVC.CurrentItem?
     static let ID = "FinancialPlanCurrentPlanCell"
-    private let graphBarArea = ProgressBarView2()
-    private let currentPlanTitlaLabel = ContentLabel().createLabel(with: "임시플랜", color: UIColor.gray)
+    private let graphBarArea = ProgressBarView()
     
+    private let currentPlanTitlaLabel = ContentLabel().createLabel(with: "임시플랜", color: UIColor.gray)
     private let completionRateLabel = ContentLabel().createLabel(with: "", color: UIColor.gray)
     
     override init(frame: CGRect) {
@@ -51,11 +52,12 @@ class FinancialPlanCurrentPlanCell: UICollectionViewCell {
         currentPlanTitlaLabel.text = item.title
         completionRateLabel.text = "달성률 \(item.completionRate)"
         graphBarArea.setProgress(CGFloat(item.graphValue))
+        
     }
-    
 }
 
-class ProgressBarView2: UIView {
+// MARK: - 그래프막대 뷰, 변경사항이 있을 수 있어 변경가능성 없는 부분과 분리해둠
+class ProgressBarView: UIView {
     private var progressWidthConstraint: Constraint?
     
     private let backgroundView: UIView = {
@@ -87,7 +89,7 @@ class ProgressBarView2: UIView {
         [backgroundView, progressView].forEach {
             addSubview($0)
         }
-
+        
         setupConstraints()
     }
     
@@ -103,11 +105,13 @@ class ProgressBarView2: UIView {
     }
     
     func setProgress(_ progress: CGFloat) {
-        layoutIfNeeded()
-        let targetProgress = min(max(progress, 0), 1)
-        UIView.animate(withDuration: 0.9, delay: 0.5, options: [.curveEaseInOut], animations: {
-            self.progressWidthConstraint?.update(offset: self.bounds.width * targetProgress)
+        DispatchQueue.main.async {
             self.layoutIfNeeded()
-        }, completion: nil)
+            let targetProgress = min(max(progress, 0), 1)
+            UIView.animate(withDuration: 0.9, delay: 0, options: [.curveEaseInOut], animations: {
+                self.progressWidthConstraint?.update(offset: self.bounds.width * targetProgress)
+                self.layoutIfNeeded()
+            }, completion: nil)
+        }
     }
 }

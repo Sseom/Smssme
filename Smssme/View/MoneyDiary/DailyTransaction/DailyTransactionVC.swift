@@ -8,26 +8,53 @@
 import UIKit
 
 class DailyTransactionVC: UIViewController {
-    let transactionView = DailyTransactionView()
 
+    let transactionView: DailyTransactionView
+    var dailyTransactionList: [TransactionItem] = []
+    var dailyIncome = 0
+    var dailyExpense = 0
+    
+    init(transactionView: DailyTransactionView) {
+        self.transactionView = transactionView
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureBasicSetting()
-        self.configureUI()
+        self.setupUI()
     }
-
-    func configureBasicSetting() {
+    
+    private func setupUI() {
         transactionView.listCollectionView.dataSource = self
         transactionView.listCollectionView.delegate = self
         transactionView.listCollectionView.register(DailyTransactionCell.self, forCellWithReuseIdentifier: DailyTransactionCell.reuseIdentifier)
-    }
-
-    private func configureUI() {
         self.view.addSubview(transactionView)
+        
         transactionView.snp.makeConstraints {
             $0.edges.equalTo(self.view.safeAreaLayoutGuide)
         }
+        
     }
+    
+    private func calculateTodayTransaction(TransactionList: [TransactionItem]) {
+        var incomeList = 0
+        var expesneList = 0
+        
+        for Transaction in TransactionList {
+            if Transaction.isIncom { incomeList += Transaction.Amount}
+            else { expesneList += Transaction.Amount}
+        }
+        
+        self.dailyIncome = incomeList
+        self.dailyExpense = expesneList
+    }
+    
+    
+    
+
 }
 
 extension DailyTransactionVC: UICollectionViewDataSource {
