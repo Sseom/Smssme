@@ -15,6 +15,7 @@ class LoginVC: UIViewController {
     
     override func loadView() {
         view = loginVeiw
+
     }
     
     override func viewDidLoad() {
@@ -41,7 +42,13 @@ class LoginVC: UIViewController {
     }
     
     
-    func setupAddtarget() {
+    private func setupAddtarget() {
+        //체크박스 버튼 클릭 시
+        loginVeiw.autoLoginCheckBox.addTarget(self, action: #selector(checkBoxTapped), for: .touchUpInside)
+        
+        loginVeiw.rememberIDCheckBox.addTarget(self, action: #selector(checkBoxTapped), for: .touchUpInside)
+        
+        
         // 로그인 버튼 클릭 시
         loginVeiw.loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
         
@@ -106,41 +113,49 @@ class LoginVC: UIViewController {
     @objc func loginButtonTapped() {
         guard let email = loginVeiw.emailTextField.text, !email.isEmpty,
               let password = loginVeiw.passwordTextField.text, !password.isEmpty else {
-            print("이메일과 패스워드를 입력해주세요.")
+            showAlert(message: "이메일과 패스워드를 입력해주세요.", AlertTitle: "입력 정보 오류", buttonClickTitle: "확인")
             return
         }
+        
         
         FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { [weak self] user, error in
             guard let self = self else { return }
             // 에러가 나거나 유저가 없을 경우
             if let error = error, user == nil {
-                let alert = UIAlertController(
-                    title: "로그인 실패",
-                    message: error.localizedDescription,
-                    preferredStyle: .alert)
                 
-                alert.addAction(UIAlertAction(title: "확인", style: .default))
-                self.present(alert, animated: true, completion: nil)
+                showAlert(message: "\(error)", AlertTitle: "로그인 실패", buttonClickTitle: "확인")
                 
             } else {
                 // 성공이면 화면전환하고 프로필 가져오기
                 //                self.getUserProfile()
-                // 아직 메인 페이지 뷰컨이 없는 상태라 혜정님 뷰컨으로 임시 연결
-                let vc = FinancialPlanSelectionVC(financialPlanSelectionView: FinancialPlanSelectionView())
-                print("로그인하고 페이지 전환")
-                navigationController?.pushViewController(vc, animated: true)
+//                showAlert(message: "안녕하세요,\n 로그인되었습니다.", AlertTitle: "로그인 성공", buttonClickTitle: "확인")
+                
+                showSnycAlert(message: "안녕하세요,\n 로그인되었습니다.", AlertTitle: "로그인 성공", buttonClickTitle: "확인", method: switchToTabBarController)
+                
             }
         }
     }
     
+    func switchToTabBarController() {
+        let tabBarController = TabBarController()
+        print("로그인하고 페이지 전환")
+        guard let window = UIApplication.shared.windows.first else { return }
+              window.rootViewController = tabBarController
+              UIView.transition(with: window,
+                                duration: 0.5,
+                                options: [.transitionCrossDissolve],
+                                animations: nil,
+                                completion: nil)
+    }
     
-    //MARK: - @objc 로그아웃
-    @objc func logOutButtonTapped() {
-        do {
-            try FirebaseAuth.Auth.auth().signOut()
-            navigationController?.popViewController(animated: true)
-        } catch let error {
-            print(error.localizedDescription)
+    //MARK: - 자동로그인/ 아이디저장 체크박스
+    @objc func checkBoxTapped(_ checkBox: UIButton) {
+        checkBox.isSelected.toggle() // 선택 상태를 반전시킴
+        // 선택 상태에 따라 동작 추가 가능
+        if checkBox.isSelected {
+            print("tag \(checkBox.tag) 체크박스 선택됨")
+        } else {
+            print("tag \(checkBox.tag) 체크박스 선택 해제됨")
         }
     }
     
@@ -155,7 +170,7 @@ class LoginVC: UIViewController {
     //MARK: - @objc 비회원 로그인
     @objc private func unloginButtonTapped() {
         // 아직 메인 페이지 뷰컨이 없는 상태라 혜정님 뷰컨으로 임시 연결
-        let vc = FinancialPlanSelectionVC(financialPlanSelectionView: FinancialPlanSelectionView())
+        let vc = FinancialPlanSelectionVC()
         navigationController?.pushViewController(vc, animated: true)
         
     }

@@ -9,7 +9,7 @@ import UIKit
 
 // MARK: - bottomBorder 커스텀 텍스트필드
 class AmountTextField {
-    static func createTextField(placeholder: String, keyboard: UIKeyboardType) -> CustomTextField {
+    static func createTextField(keyboard: UIKeyboardType) -> CustomTextField {
         let textField = CustomTextField()
         textField.textColor = UIColor.black
         textField.borderStyle = .none
@@ -19,7 +19,7 @@ class AmountTextField {
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         
-        let doneButton = UIBarButtonItem(title: "입력완료", style: .done, target: textField, action: #selector(textField.dismissKeyboard)) //분리를 위해 delegate 패턴을 쓸것인가..?
+        let doneButton = UIBarButtonItem(title: "입력완료", style: .done, target: textField, action: #selector(textField.dismissKeyboard))
         toolbar.setItems([doneButton], animated: true)
         textField.inputAccessoryView = toolbar
         
@@ -33,6 +33,36 @@ class AmountTextField {
         textField.rightViewMode = .always
         
         return textField
+    }
+    
+    static func setValue(for textField: CustomTextField, value: Int) {
+        textField.text = "\(value)"
+    }
+}
+
+class GoalDateTextField {
+    static func createTextField() -> CustomTextField {
+        let textField = CustomTextField()
+        textField.textColor = UIColor.black
+        textField.borderStyle = .none
+        textField.clipsToBounds = false
+        
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "입력완료", style: .done, target: textField, action: #selector(textField.dismissKeyboard))
+        toolbar.setItems([doneButton], animated: true)
+        textField.inputAccessoryView = toolbar
+        
+        return textField
+    }
+    
+    static func createDatePicker() -> UIDatePicker {
+        let picker = UIDatePicker()
+        picker.datePickerMode = .date
+        picker.preferredDatePickerStyle = .wheels
+        picker.locale = Locale(identifier: "ko_KR")
+        return picker
     }
 }
 
@@ -63,15 +93,8 @@ class CustomTextField: UITextField {
         bottomBorder.backgroundColor = UIColor.black.cgColor
     }
     
-    @objc func dismissKeyboard() { //분리를 위해 delegate 패턴을 쓸것인가..?
+    @objc func dismissKeyboard() {
         resignFirstResponder()
     }
 }
 
-func createDatePicker() -> UIDatePicker {
-    let picker = UIDatePicker()
-    picker.datePickerMode = .date
-    picker.preferredDatePickerStyle = .wheels
-    picker.locale = Locale(identifier: "ko_KR")
-    return picker
-}

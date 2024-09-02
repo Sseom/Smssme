@@ -17,22 +17,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
         window.rootViewController = TabBarController()
+//        window.rootViewController = SplashViewController()
         window.makeKeyAndVisible()
         
         self.window = window
-        
-        
-        
-        //MARK: - 혜정 / ui작업 확인용 코드 , 완료 시 삭제
-//        window = UIWindow(windowScene: windowScene)
-//        
-//        let financialPlanSelectionView = FinancialPlanSelectionView()
-//        let financialPlanSelectionVC = FinancialPlanSelectionVC(financialPlanSelectionView: financialPlanSelectionView)
-//        
-//        let navigationController = UINavigationController(rootViewController: financialPlanSelectionVC)
-//        
-//        window?.rootViewController = navigationController
-//        window?.makeKeyAndVisible()
         
     }
 
@@ -40,7 +28,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
-
     }
 
     func sceneWillResignActive(_ scene: UIScene) {

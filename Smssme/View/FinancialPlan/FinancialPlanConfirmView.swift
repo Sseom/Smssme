@@ -13,7 +13,7 @@ final class FinancialPlanConfirmView: UIView {
     
     private let imageStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.backgroundColor = UIColor(hex: "e9e9e9")
+        stackView.backgroundColor = UIColor(hex: "#e9e9e9")
         return stackView
     }()
     
@@ -27,9 +27,9 @@ final class FinancialPlanConfirmView: UIView {
         return stackView
     }()
     
-    private let editButton = BaseButton().createButton(text: "수정", color: UIColor.lightGray, textColor: UIColor.black)
+    let editButton = BaseButton().createButton(text: "수정", color: UIColor.lightGray, textColor: UIColor.black)
     
-    private let confirmButton = BaseButton().createButton(text: "확인", color: UIColor.systemBlue, textColor: UIColor.white)
+    let confirmButton = BaseButton().createButton(text: "확인", color: UIColor.systemBlue, textColor: UIColor.white)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -92,5 +92,4 @@ final class FinancialPlanConfirmView: UIView {
             contentStackView.addArrangedSubview(label)
         }
     }
-    
 }

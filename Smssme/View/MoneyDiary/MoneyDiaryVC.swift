@@ -6,10 +6,13 @@
 //
 
 import UIKit
-
 import SnapKit
 
 final class MoneyDiaryVC: UIViewController {
+
+    
+    
+    
     
     private lazy var scrollView = UIScrollView()
     let moneyDiaryView: MoneyDiaryView
@@ -17,6 +20,8 @@ final class MoneyDiaryVC: UIViewController {
     private let dateFormatter = DateFormatter()
     private var calendarDate = Date()
     private var calendarItems = [CalendarItem]()
+    
+    let datePicker = DatePickerView()
     
     init(moneyDiaryView: MoneyDiaryView) {
         self.moneyDiaryView = moneyDiaryView
@@ -33,14 +38,13 @@ final class MoneyDiaryVC: UIViewController {
         self.setupUI()
         self.setupLayout()
         self.setupActions()
+        
     }
 
     private func updateView(selectedIndex: Int) {
         moneyDiaryView.calendarView.isHidden = selectedIndex != 0
     }
-    
-    
-    
+
     private func setupUI() {
         self.view.addSubview(self.scrollView)
         [
@@ -51,6 +55,8 @@ final class MoneyDiaryVC: UIViewController {
         self.configureWeekLabel()
         moneyDiaryView.calendarView.calendarCollectionView.dataSource = self
         moneyDiaryView.calendarView.calendarCollectionView.delegate = self
+        datePicker.pickerView.delegate = self
+        datePicker.pickerView.dataSource = self
     }
     
     private func setupLayout() {
@@ -86,17 +92,42 @@ final class MoneyDiaryVC: UIViewController {
         moneyDiaryView.nextButton.addTarget(self, action: #selector(self.didNextButtonTouched), for: .touchUpInside)
         moneyDiaryView.segmentController.addTarget(self, action: #selector(segmentChanged), for: .valueChanged)
         moneyDiaryView.todayButton.addTarget(self, action: #selector(self.didTodayButtonTouched), for: .touchUpInside)
+        moneyDiaryView.budgetPlanButton.addTarget(self, action: #selector(didTapMoveButton), for: .touchUpInside)
+        datePicker.confirmButton.addTarget(self, action: #selector(didTapMove), for: .touchUpInside)
+    }
+
+    @objc func didTapMove() {
+        let selectedyear = datePicker.pickerView.selectedRow(inComponent: 0)
+        let selectedYearValue = datePicker.years[selectedyear]
+        let selectedMonth = datePicker.pickerView.selectedRow(inComponent: 1) + 1
+        let selectedMonthValue = datePicker.years[selectedMonth]
+        
+        let selectedDate = "20\(selectedyear)-0\(selectedMonth)-01"
+        print(selectedyear,selectedMonth,selectedDate)
+        
+        var dateformatter1 = DateFormatter()
+        dateformatter1.dateFormat = "yyyy-MM-dd"
+        
+        let temp1 = dateformatter1.date(from: selectedDate)
+        self.dismiss(animated: true)
+        
+        moveToSomeDate(temp1)
     }
 
     
 }
 
 extension MoneyDiaryVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        self.showHalfModel()
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         42//셀개수 고정 (6주 * 7일)
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarCollectionViewCell.identifier, for: indexPath) as? CalendarCollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarCollectionViewCell.reuseIdentifier, for: indexPath) as? CalendarCollectionViewCell else { return UICollectionViewCell() }
         cell.layer.borderColor = UIColor.gray.cgColor
         cell.layer.borderWidth = 0.7
         cell.updateDate(item: self.calendarItems[indexPath.item])
@@ -120,7 +151,7 @@ extension MoneyDiaryVC {
     
     private func configureCalendar() {
         self.dateFormatter.dateFormat = "yyyy년 MM월"
-        self.today()
+        self.moveToSomeDate(Date())
     }
     
     private func startDayOfTheWeek() -> Int {
@@ -143,29 +174,43 @@ extension MoneyDiaryVC {
     
     private func updateDays() {
         self.calendarItems.removeAll()
-        
+        let dateForm = DateFormatter()
         let thisMonth = calendar.component(.month, from: self.calendarDate)
         var lastMonth: Int { thisMonth - 1 }
         var nextMonth: Int { 
             if thisMonth == 12 { return 1 }
             else { return thisMonth + 1 }
                                      }
+        var lastMonthDate = calendar.date(byAdding:DateComponents(month: -1), to: self.calendarDate)
+        
+        let temp2 = self.calendar.range(of: .day, in: .month, for: lastMonthDate!)?.count ?? Int()
+        //print(temp2)
+        dateForm.dateFormat = "dd"
+        
+        
         
         let startDayOfTheWeek = self.startDayOfTheWeek()
         let totalDaysInMonth = self.endDate()
         
         let totalCells = 42
         let emptyCells = startDayOfTheWeek
-        print(lastMonth)
-        print(emptyCells)
+
+        var lastMonthStartDay = temp2 - emptyCells + 1
+        //print(lastMonthStartDay)
         let remainingCells = totalCells - emptyCells - totalDaysInMonth
+        
         var nextMonthCount = 1
         
         var dates = [String]()
-        
+//        var lastMonthDays: [Date] = []
+
         
         for _ in 0..<emptyCells {
-            dates.append("")
+            
+//            lastMonthDays.append(lastMonthOfEndDate)
+            
+            dates.append("\(lastMonthStartDay)")
+            lastMonthStartDay += 1
         }
         
         
@@ -182,8 +227,6 @@ extension MoneyDiaryVC {
             }
             nextMonthCount += 1
         }
-        
-        
         for (index, date) in dates.enumerated() {
             let isSat = (index + 1) % 7 == 0
             let isHol = index == 0 || index % 7 == 0
@@ -192,52 +235,116 @@ extension MoneyDiaryVC {
         
         self.moneyDiaryView.calendarView.calendarCollectionView.reloadData()
     }
-    private func moveToSomeDate(_ when: Int ){
-        self.calendarDate = self.calendar.date(byAdding: DateComponents(month: when), to: self.calendarDate) ?? Date()
-        self.updateCalendar()
-    }
-    
-    private func today() {
-        let components = self.calendar.dateComponents([.year, .month], from: Date())
+    private func moveToSomeDate(_ when: Date? ){
+        guard let safeDate = when
+        else { return }
+        let components = self.calendar.dateComponents([.year, .month], from: safeDate)
         self.calendarDate = self.calendar.date(from: components) ?? Date()
         self.updateCalendar()
     }
-    //    func showHalfModel() {
-    //        let modalVc = TransactionListViewController()
-    //        modalVc.modalPresentationStyle = .pageSheet
-    //
-    //        if let sheet = modalVc.sheetPresentationController {
-    //            sheet.detents = [.medium()]
-    //            sheet.prefersGrabberVisible = true
-    //        }
-    //
-    //
-    //        self.present(modalVc, animated: true, completion: nil)
-    //    }
+    
+    
+
+    
+    
+    private func transformToAble(date: Date) -> Date? {
+        let componenets = calendar.dateComponents([.year, .month, .day], from: date)
+        let temp = calendar.date(from: componenets)
+        return temp
+        
+    }
+
+
         
     
 }
 
 extension MoneyDiaryVC {
+    func showHalfModel() {
+
+        let modalVc = DailyTransactionVC(transactionView: DailyTransactionView())
+
+        modalVc.modalPresentationStyle = .pageSheet
+        
+        if let sheet = modalVc.sheetPresentationController {
+            sheet.detents = [.medium()]
+            sheet.prefersGrabberVisible = true
+        }
+        
+
+        self.present(modalVc, animated: true, completion: nil)
+    }
 //objc method
     @objc private func didPreviousButtonTouched(_ sender: UIButton) {
-        self.moveToSomeDate(-1)
+        
+        self.moveToSomeDate(self.calendar.date(byAdding: DateComponents(month: -1), to: self.calendarDate))
     }
     
     @objc private func didNextButtonTouched(_ sender: UIButton) {
-        self.moveToSomeDate(+1)
+        
+        self.moveToSomeDate(calendar.date(byAdding: DateComponents(month: 1), to: self.calendarDate))
     }
     @objc private func didTodayButtonTouched(_ sender: UIButton) {
-        self.today()
+        self.moveToSomeDate(Date())
     }
     @objc private func segmentChanged(_ sender: UISegmentedControl) {
         updateView(selectedIndex: sender.selectedSegmentIndex)
+    }
+    @objc private func didTapMoveButton(){
+        
+            let modalVc = UIViewController()
+        modalVc.view = datePicker
+            modalVc.modalPresentationStyle = .pageSheet
+            
+        let currentMonth = calendar.component(.month, from: calendarDate)
+        let currentYear = calendar.component(.year, from: calendarDate)
+        
+        if let temp = datePicker.years.firstIndex(of: currentYear) {
+            datePicker.pickerView.selectRow(temp, inComponent: 0, animated: true)
+        }
+        if let temp2 = datePicker.months.firstIndex(of: currentMonth) {
+            datePicker.pickerView.selectRow(temp2, inComponent: 1, animated: true)
+        }
+            
+            
+            
+            if let sheet = modalVc.sheetPresentationController {
+                sheet.detents = [.medium()]
+                sheet.prefersGrabberVisible = true
+            }
+            
+            self.present(modalVc, animated: true, completion: nil)
+        }
+    
+    
+}
+
+extension MoneyDiaryVC:  UIPickerViewDelegate,UIPickerViewDataSource {
+    
+
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        2
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return component == 0 ? datePicker.years.count : datePicker.months.count
+        
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return component == 0 ? "\(datePicker.years[row])년" : "\(datePicker.months[row])월"
     }
     
 }
 
 
-
+protocol CellReusable {
+    static var reuseIdentifier: String { get }
+}
+extension CellReusable {
+    static var reuseIdentifier: String {
+        String(describing: Self.self)
+    }
+}
 
 
 
