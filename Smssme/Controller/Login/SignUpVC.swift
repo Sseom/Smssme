@@ -103,10 +103,9 @@ class SignUpVC: UIViewController, KeyboardEvader {
             //TODO: - 회원가입 완료 시 alert 띄우고 화면 전환
             self.showAlert(message: "회원가입되었습니다.\n 감사합니다.", AlertTitle: "회원가입 완료", buttonClickTitle: "확인")
             
-            // 아직 메인 페이지 뷰컨이 없는 상태라 혜정님 뷰컨으로 임시 연결
-            let vc = FinancialPlanSelectionVC()
-            print("로그인하고 페이지 전환")
-            self.navigationController?.pushViewController(vc, animated: true)
+            let loginVC = LoginVC()
+            print("로그인 페이지로 전환")
+            self.navigationController?.popToRootViewController(animated: true)
             
             //action //유저 회원가입 정보 로그인 여부에 전달
             //                let data = ["email":email,"name":name,"password":password,"uid":user.uid]    //회원가입 정보를 데이터에 저장

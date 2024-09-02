@@ -46,7 +46,7 @@ class TabBarController: UITabBarController {
             unselectedImage: unselectImage,
             selectedImage: selectImage,
             isNavigationBarHidden: false,
-            rootViewController: MypageViewController()
+            rootViewController: MypageVC()
         )
         viewControllers = [mainPage, diary, financialPlan, myPage]
     }
