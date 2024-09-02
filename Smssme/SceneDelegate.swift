@@ -16,12 +16,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: windowScene)
+//        window.rootViewController = SplashViewController()
         window.rootViewController = TabBarController()
         window.makeKeyAndVisible()
         
         self.window = window
-        
-        
         
         //MARK: - 혜정 / ui작업 확인용 코드 , 완료 시 삭제
 //        window = UIWindow(windowScene: windowScene)
@@ -40,7 +39,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
-
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
