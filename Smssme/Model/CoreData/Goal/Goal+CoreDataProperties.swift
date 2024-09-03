@@ -9,23 +9,21 @@
 import Foundation
 import CoreData
 
-
-extension Goal {
-
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<Goal> {
-        return NSFetchRequest<Goal>(entityName: "Goal")
+extension FinancialPlan {
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<FinancialPlan> {
+        return NSFetchRequest<FinancialPlan>(entityName: FinancialPlan.entityName)
     }
 
+    @NSManaged public var id: String
     @NSManaged public var key: UUID?
     @NSManaged public var title: String?
     @NSManaged public var startDate: Date?
     @NSManaged public var endDate: Date?
     @NSManaged public var amount: Int64
     @NSManaged public var deposit: Int64
-    @NSManaged public var userId: String?
+    @NSManaged public var user: User?
 
-}
-
-extension Goal : Identifiable {
-
+    public enum Key: String {
+        case id, key, title, startDate, endDate, amount, deposit, user
+    }
 }

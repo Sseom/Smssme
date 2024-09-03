@@ -33,7 +33,7 @@ extension FinancialPlanConfirmVC {
     }
     
     private func editButtonTapped() {
-        let financialPlanEditPlanVC = FinancialPlanEditPlanVC(textFieldArea: CreatePlanTextFieldView())
+        let financialPlanEditPlanVC = FinancialPlanEditPlanVC(financialPlanManager: FinancialPlanManager.shared, textFieldArea: CreatePlanTextFieldView())
         navigationController?.pushViewController(financialPlanEditPlanVC, animated: true)
     }
     
