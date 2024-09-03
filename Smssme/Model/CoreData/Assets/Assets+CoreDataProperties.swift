@@ -21,7 +21,8 @@ extension Assets {
     @NSManaged public var title: String?
     @NSManaged public var amount: Int64
     @NSManaged public var note: String?
-    @NSManaged public var userId: String?
+    @NSManaged public var id: String?
+    @NSManaged public var user: User?
 
 }
 
