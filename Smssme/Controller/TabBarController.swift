@@ -46,7 +46,7 @@ class TabBarController: UITabBarController {
             unselectedImage: UIImage(systemName: "person.and.background.striped.horizontal") ?? UIImage(),
             selectedImage: UIImage(systemName: "person.and.background.striped.horizontal") ?? UIImage(),
             isNavigationBarHidden: false,
-            rootViewController: MypageViewController()
+            rootViewController: MypageVC()
         )
         viewControllers = [mainPage, diary, financialPlan, myPage]
     }
