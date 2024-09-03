@@ -12,7 +12,7 @@ import SnapKit
 class MoneyDiaryView: UIView {
     lazy var calendarView = CalendarView()
     
-    let titleLabel = LargeTitleLabel().createLabel(with: "", color: .black)
+    let currentDateLabel = LargeTitleLabel().createLabel(with: "", color: .black)
     let previousButton = {
         let button = UIButton()
         button.tintColor = .label
@@ -32,48 +32,68 @@ class MoneyDiaryView: UIView {
         segmentController.selectedSegmentIndex = 0
         return segmentController
     }()
-    
-    
-    
-    let budgetPlanButton = BaseButton().createButton(text: "날짜로 이동", color: .blue, textColor: .white)
+
+    let moveDateButton = BaseButton().createButton(text: "날짜이동", color: .blue, textColor: .white)
     
     let todayButton = BaseButton().createButton(text: "오늘", color: .blue, textColor: .white)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.configureUI()
+        configureUI()
+        configureWeekLabel()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func configureWeekLabel() {
+        calendarView.weekStackView.distribution = .fillEqually
+        let dayOfTheWeek = ["일", "월", "화", "수", "목", "금", "토"]
+        for i in 0...6 {
+            let label = UILabel()
+            label.text = dayOfTheWeek[i]
+            switch label.text {
+            case "토": label.textColor = .blue
+            case "일": label.textColor = .red
+            default: label.textColor = .black
+            }
+            label.backgroundColor = .systemGray.withAlphaComponent(0.2)
+            label.font = .systemFont(ofSize: 13, weight: .bold)
+            label.layer.borderColor = UIColor.systemGray.cgColor
+            label.layer.borderWidth = 1.0
+            label.textAlignment = .center
+            calendarView.weekStackView.addArrangedSubview(label)
+        }
+    }
+    
     private func configureUI() {
         
         [
-            self.titleLabel,
-            self.previousButton,
-            self.nextButton,
-            self.calendarView,
-            self.todayButton,
-            self.segmentController,
-            self.budgetPlanButton
+            currentDateLabel,
+            previousButton,
+            nextButton,
+            calendarView,
+            todayButton,
+            segmentController,
+            moveDateButton
         ].forEach { self.addSubview($0) }
         
-        self.titleLabel.snp.makeConstraints {
+        
+        self.currentDateLabel.snp.makeConstraints {
             $0.top.equalTo(self).offset(10)
             $0.height.equalTo(30)
             $0.centerX.equalTo(self)
         }
         self.previousButton.snp.makeConstraints {
-            $0.trailing.equalTo(self.titleLabel.snp.leading).offset(-10)
-            $0.centerY.equalTo(self.titleLabel)
+            $0.trailing.equalTo(self.currentDateLabel.snp.leading).offset(-10)
+            $0.centerY.equalTo(self.currentDateLabel)
             $0.width.equalTo(30)
             
         }
         self.nextButton.snp.makeConstraints {
-            $0.leading.equalTo(self.titleLabel.snp.trailing).offset(10)
-            $0.centerY.equalTo(self.titleLabel)
+            $0.leading.equalTo(self.currentDateLabel.snp.trailing).offset(10)
+            $0.centerY.equalTo(self.currentDateLabel)
             $0.width.equalTo(30)
             
         }
@@ -83,15 +103,15 @@ class MoneyDiaryView: UIView {
             $0.height.equalTo(nextButton.snp.height)
             $0.width.equalTo(50)
         }
-        self.budgetPlanButton.snp.makeConstraints {
+        self.moveDateButton.snp.makeConstraints {
             $0.leading.equalTo(nextButton.snp.trailing).offset(20)
             $0.top.equalTo(nextButton.snp.top)
             $0.height.equalTo(nextButton.snp.height)
-            $0.width.equalTo(60)
+            $0.width.equalTo(80)
         }
         self.segmentController.snp.makeConstraints {
             $0.centerX.equalTo(self)
-            $0.top.equalTo(titleLabel.snp.bottom).offset(10)
+            $0.top.equalTo(currentDateLabel.snp.bottom).offset(10)
             $0.height.equalTo(30)
             $0.leading.trailing.equalTo(self.safeAreaLayoutGuide).inset(20)
         }
@@ -103,3 +123,4 @@ class MoneyDiaryView: UIView {
     }
     
 }
+
