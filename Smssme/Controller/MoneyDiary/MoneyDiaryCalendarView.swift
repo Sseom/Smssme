@@ -17,13 +17,13 @@ class CalendarView: UIView {
                 flowLayout.sectionInset = UIEdgeInsets.zero
         flowLayout.minimumLineSpacing = 0
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        
         collectionView.register(CalendarCollectionViewCell.self, forCellWithReuseIdentifier: CalendarCollectionViewCell.reuseIdentifier)
         return collectionView
     }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.makeConstraints()
+        self.setupUIWithAutoLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -31,18 +31,18 @@ class CalendarView: UIView {
     }
     
     
-    private func makeConstraints(){
+    private func setupUIWithAutoLayout(){
         [
             weekStackView,
             calendarCollectionView
         ].forEach { self.addSubview($0) }
      
-        self.weekStackView.snp.makeConstraints {
+        weekStackView.snp.makeConstraints {
             $0.top.equalTo(self.snp.top)
             $0.horizontalEdges.equalTo(self.snp.horizontalEdges)
             $0.height.equalTo(18)
         }
-        self.calendarCollectionView.snp.makeConstraints {
+        calendarCollectionView.snp.makeConstraints {
             $0.top.equalTo(self.weekStackView.snp.bottom)
             $0.width.equalTo(self.snp.width)
             $0.height.equalTo(self.snp.width).multipliedBy(1.5)
