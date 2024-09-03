@@ -16,16 +16,54 @@ class MypageVC: UIViewController {
     let db = Firestore.firestore()
     
     
+    
+    
+    // section headers
+    private let headers: [String] = ["회원정보", "설정", "서비스 안내", "계정"]
+    
+    // 각 cell에 들어갈 정보
+    private let data = [
+        ["내 정보 관리"],
+        ["알림 설정"],
+        ["개인정보처리 방침"],
+        ["로그아웃", "회원탈퇴"]
+    ]
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view = mypageView
         
-        setupAddtarget()
+        mypageView.tableView.dataSource = self
+        mypageView.tableView.delegate = self
         
+        view.addSubview(mypageView.tableView)
+        mypageView.tableView.frame = view.bounds // 테이블뷰를 부모 뷰의 크기에 맞게 조정해주어, 화면 전체에 테이블뷰가 잘 보이도록 설정
+        
+        tableViewHeaderSetUp()
+        
+        setupAddtarget()
         checkLoginStatus()
         
     }
+    
+    // 헤더 관련 설정
+    private func tableViewHeaderSetUp() {
+        let header = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 150))
+        
+        header.backgroundColor = .white
+        
+        let nicknameLabel = LargeTitleLabel().createLabel(with: "춤추는 닭강정님", color: .black)
+        
+        let emailabel = BaseLabelFactory().createLabel(with: "dkswlgus0314@naver.com", color: .lightGray)
+        
+        [nicknameLabel, emailabel].forEach { header.addSubview($0)}
+        
+        mypageView.tableView.tableHeaderView = header
+    }
+    
     
     
     //MARK: - func
@@ -46,6 +84,7 @@ class MypageVC: UIViewController {
         window.rootViewController = loginVC
         window.makeKeyAndVisible()
     }
+    
     
     // TODO: 파베에서 현재 사용자를 가져올 때 권장하는 방법은 다음과 같이 Auth 객체에 리스너를 설정 해볼 것.
     
@@ -77,7 +116,7 @@ class MypageVC: UIViewController {
         //                print("loadUserData 실패. \(error)")
         //            }
         //        }
-
+        
         
         if let user  = Auth.auth().currentUser {
             db.collection("users").document(uid).getDocument { (snapshot, error) in
@@ -146,5 +185,64 @@ class MypageVC: UIViewController {
         }
         
     }
+    
+}
+
+
+
+//MARK: - 마이페이지 테이블뷰 델리게이트
+// 행의 높이, 선택 시의 동작, 헤더와 푸터의 커스터마이징 등
+extension MypageVC: UITableViewDelegate {
+    // 셀 터치 효과 없애기
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        mypageView.tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    // 각 섹션의 헤더 타이틀 정의
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return headers[section]
+    }
+    
+    // 테이블뷰의 특정 셀을 선택했을 때 호출됨. 이 메서드에서 선택된 셀에 따라 동작을 정의할 수 있음
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("섹션 \(indexPath.section), 행 \(indexPath.row) 선택됨")
+        // 테스터
+        if indexPath.section == 3 && indexPath.row == 0 {
+            print("셀이 선택되었을 때, 계정 - 로그아웃 일 것으로 예상됩니다만?  ")
+        }
+    }
+    
+    // 특정 셀의 높이를 설정
+    //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    //        <#code#>
+    //    }
+    
+    
+}
+
+//MARK: - 마이페이지 테이블뷰 데이터소스
+//테이블뷰에 표시될 데이터를 관리
+extension MypageVC: UITableViewDataSource {
+    
+    // 테이블뷰가 몇 개의 섹션을 가질지를 반환
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return headers.count
+    }
+    
+    // 각 섹션에 몇 개의 행이 있을지를 반환
+    // -> 첫 번째 섹션(회원정보)에는 한 개의 행이 있고, 네 번째 섹션(계정)에는 두 개의 행이 있으므로 섹션 인덱스에 따라 다른 값을 반환
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        data[section].count
+    }
+    
+    // 특정 섹션의 특정 행에 표시될 셀을 구성하고 반환
+    // indexPath.section과 indexPath.row를 사용해 해당 위치의 데이터를 찾아 셀에 설정
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = mypageView.tableView.dequeueReusableCell(withIdentifier: "MypageViewCell", for: indexPath)
+        cell.textLabel?.text = data[indexPath.section][indexPath.row]
+        return cell
+    }
+    
     
 }
