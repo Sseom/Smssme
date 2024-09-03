@@ -14,7 +14,6 @@ final class FinancialPlanSelectionView: UIView {
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCollectionViewLayout())
         collectionView.register(FinancialPlanCell.self, forCellWithReuseIdentifier: FinancialPlanCell.ID)
-        collectionView.register(AddButtonCell.self, forCellWithReuseIdentifier: AddButtonCell.ID)
         collectionView.backgroundColor = .white
         return collectionView
     }()
