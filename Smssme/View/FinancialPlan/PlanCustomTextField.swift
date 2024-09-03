@@ -40,33 +40,71 @@ class AmountTextField {
     }
 }
 
-class GoalDateTextField {
-    static func createTextField() -> CustomTextField {
-        let textField = CustomTextField()
-        textField.textColor = UIColor.black
-        textField.borderStyle = .none
-        textField.clipsToBounds = false
-        let datePicker = createDatePicker()
-        textField.inputView = datePicker
 
-        let toolbar = UIToolbar()
-        toolbar.sizeToFit()
-        
-        let doneButton = UIBarButtonItem(title: "입력완료", style: .done, target: textField, action: #selector(textField.dismissKeyboard))
-        toolbar.setItems([doneButton], animated: true)
-        textField.inputAccessoryView = toolbar
-        
-        return textField
+class DateTextField: CustomTextField {
+    private let datePicker = UIDatePicker()
+    private let dateFormatter = DateFormatter()
+    
+    var date: Date? {
+        didSet {
+            updateText()
+        }
     }
     
-    static func createDatePicker() -> UIDatePicker {
-        let picker = UIDatePicker()
-        picker.datePickerMode = .date
-        picker.preferredDatePickerStyle = .wheels
-        picker.locale = Locale(identifier: "ko_KR")
-        return picker
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupTextField()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setupTextField()
+    }
+    
+    private func setupTextField() {
+        textColor = .black
+        borderStyle = .none
+        clipsToBounds = false
+        
+        datePicker.datePickerMode = .date
+        datePicker.preferredDatePickerStyle = .wheels
+        datePicker.locale = Locale(identifier: "ko_KR")
+        datePicker.addTarget(self, action: #selector(dateChanged), for: .valueChanged)
+        inputView = datePicker
+        
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        let doneButton = UIBarButtonItem(title: "입력완료", style: .done, target: self, action: #selector(dismissKeyboard))
+        toolbar.setItems([doneButton], animated: true)
+        inputAccessoryView = toolbar
+        
+        dateFormatter.dateFormat = "yyyy년 MM월 dd일"
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        
+        // 초기 날짜 설정
+        date = Date()
+    }
+    
+    @objc private func dateChanged() {
+        date = datePicker.date
+    }
+    
+    private func updateText() {
+        if let date = date {
+            text = dateFormatter.string(from: date)
+        } else {
+            text = nil
+        }
     }
 }
+
+class GoalDateTextField {
+    static func createTextField() -> DateTextField {
+        return DateTextField()
+    }
+}
+
+
 
 class CustomTextField: UITextField {
     private let bottomBorder = CALayer()

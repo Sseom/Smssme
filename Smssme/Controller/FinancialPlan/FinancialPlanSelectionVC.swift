@@ -16,7 +16,6 @@ final class FinancialPlanSelectionVC: UIViewController {
         super.viewDidLoad()
         financialPlanSelectionView.collectionView.dataSource = self
         financialPlanSelectionView.collectionView.delegate = self
-        
     }
     
     override func loadView() {
@@ -30,7 +29,8 @@ final class FinancialPlanSelectionVC: UIViewController {
     }
 
     @objc private func addButtonTapped() {
-        planItemStore.planItems.append(PlanItem(title: "나만의 플랜 설정", description: "나만의 자산목표를 설정하고 체계적으로 이루어 보세요", imageName: "trip", isPreset: false))
+        let newPlan = PlanItem(title: "나만의 플랜 설정", description: "나만의 자산목표를 설정하고 체계적으로 이루어 보세요", imageName: "trip", isPreset: false)
+                planItemStore.addCustomPlan(newPlan)
         financialPlanSelectionView.collectionView.reloadData()
     }
 }
@@ -68,13 +68,18 @@ extension FinancialPlanSelectionVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.item == planItemStore.getTotalItemCount() {
             addButtonTapped()
-        } else if indexPath.item < planItemStore.getPresetPlansCount() {
-            let createPlanVC = FinancialPlanCreateVC(financialPlanManager: FinancialPlanManager.shared, textFieldArea: CreatePlanTextFieldView())
-            navigationController?.pushViewController(createPlanVC, animated: true)
         } else {
-            // 커스텀 플랜
-            let createPlanVC = FinancialPlanCreateVC(financialPlanManager: FinancialPlanManager.shared, textFieldArea: CreatePlanTextFieldView())
-            navigationController?.pushViewController(createPlanVC, animated: true)
+            var selectedPlan: PlanItem?
+            if indexPath.item < planItemStore.getPresetPlansCount() {
+                selectedPlan = planItemStore.getPresetPlanAt(index: indexPath.item)
+            } else {
+                selectedPlan = planItemStore.getCustomPlanAt(index: indexPath.item - planItemStore.getPresetPlansCount())
+            }
+            
+            if let plan = selectedPlan {
+                let createPlanVC = FinancialPlanCreateVC(financialPlanManager: FinancialPlanManager.shared, textFieldArea: CreatePlanTextFieldView(), selectedPlan: plan)
+                navigationController?.pushViewController(createPlanVC, animated: true)
+            }
         }
     }
 }
