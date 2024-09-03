@@ -24,7 +24,7 @@ class SplashViewController: UIViewController {
         }
         
         // 0.5초 후에 로그인 상태 확인
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.checkLoginStatus()
         }
     }
@@ -55,15 +55,16 @@ class SplashViewController: UIViewController {
     
     private func showLoginVC() {
         let loginVC = LoginVC()
+        let navController = UINavigationController(rootViewController: loginVC) // UINavigationController로 감싸기 -> 회원가입 버튼 클릭 식 push로 화면 전환할 수 있게.
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                      let window = windowScene.windows.first else { return }
-                
-                window.rootViewController = loginVC
-                UIView.transition(with: window,
-                                  duration: 0.5,
-                                  options: [.transitionCrossDissolve],
-                                  animations: nil,
-                                  completion: nil)
+              let window = windowScene.windows.first else { return }
+        
+        window.rootViewController = navController // UINavigationController를 rootViewController로 설정
+        UIView.transition(with: window,
+                          duration: 0.5,
+                          options: [.transitionCrossDissolve],
+                          animations: nil,
+                          completion: nil)
     }
     
     

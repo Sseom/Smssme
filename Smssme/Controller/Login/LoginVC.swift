@@ -136,10 +136,13 @@ class LoginVC: UIViewController {
         }
     }
     
+    //MARK: - 로그인 하고 탭바컨트롤러로 전환
     func switchToTabBarController() {
         let tabBarController = TabBarController()
         print("로그인하고 페이지 전환")
-        guard let window = UIApplication.shared.windows.first else { return }
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let window = windowScene.windows.first else {return}
+        
               window.rootViewController = tabBarController
               UIView.transition(with: window,
                                 duration: 0.5,
@@ -170,8 +173,8 @@ class LoginVC: UIViewController {
     //MARK: - @objc 비회원 로그인
     @objc private func unloginButtonTapped() {
         // 아직 메인 페이지 뷰컨이 없는 상태라 혜정님 뷰컨으로 임시 연결
-        let vc = FinancialPlanSelectionVC()
-        navigationController?.pushViewController(vc, animated: true)
+        let mainPageVC = MainPageVC()
+        navigationController?.pushViewController(mainPageVC, animated: true)
         
     }
     
