@@ -46,7 +46,9 @@ class GoalDateTextField {
         textField.textColor = UIColor.black
         textField.borderStyle = .none
         textField.clipsToBounds = false
-        
+        let datePicker = createDatePicker()
+        textField.inputView = datePicker
+
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         

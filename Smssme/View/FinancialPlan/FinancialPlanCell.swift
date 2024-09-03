@@ -11,6 +11,14 @@ import SnapKit
 class FinancialPlanCell: UICollectionViewCell {
     static let ID = "FinancialPlanCell"
     
+// 셀 배경 이미지를 적용할 경우의 회의되어야할 점. 대안을 생각해야함
+//    private let cellBackImage: UIImageView = {
+//        let backImage = UIImageView()
+//        backImage.contentMode = .scaleAspectFill
+//        backImage.clipsToBounds = true
+//        return backImage
+//    }()
+    
     private let titleLabel = SmallTitleLabel().createLabel(with: "", color: UIColor.black)
     private let descriptionLabel = ContentLabel().createLabel(with: "", color: UIColor(hex: "#333333"))
     private let selectButton = BaseButton().createButton(text: "시작하기", color: UIColor(hex: "#777777"), textColor: UIColor.white)
@@ -31,6 +39,10 @@ class FinancialPlanCell: UICollectionViewCell {
         [titleLabel, descriptionLabel, selectButton].forEach {
             contentView.addSubview($0)
         }
+// 셀 배경 이미지를 적용할 경우의 회의되어야할 점. 대안을 생각해야함
+//        cellBackImage.snp.makeConstraints {
+//            $0.edges.equalToSuperview()
+//        }
         
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(32)
@@ -57,6 +69,7 @@ class FinancialPlanCell: UICollectionViewCell {
     }
     
     func configure(with item: FinancialPlanSelectionVC.PlanItem) {
+//        cellBackImage.image = UIImage(named: item.imageName)
         titleLabel.text = item.title
         descriptionLabel.text = item.description
     }
