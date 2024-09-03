@@ -10,7 +10,9 @@ import DGCharts
 
 class MainPageVC: UIViewController {
     private let mainPageView: MainPageView = MainPageView()
-    var lastSelectedIndex: Int? = nil
+    private let assetsCoreDataManager = AssetsCoreDataManager()
+    var dataEntries: [PieChartDataEntry] = []
+    var uuids: [UUID?] = []
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -27,36 +29,76 @@ class MainPageVC: UIViewController {
     override func loadView() {
         super.loadView()
         self.view = mainPageView
-        mainPageView.pieChartView.delegate = self
+        
+//        mainPageView.chartCenterButton.addTarget(self, action: #selector(editViewPush), for: .touchUpInside)
     }
-//    // 터치 이벤트 처리
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        if let touch = touches.first {
-//            let location = touch.location(in: mainPageView.pieChartView)
-//            if isPointInCenter(location: location) {
-//                print("중앙 텍스트가 클릭되었습니다.")
-//                // 중앙 텍스트 클릭 시 수행할 동작
-//            }
-//        }
-//    }
-//    
-//    private func isPointInCenter(location: CGPoint) -> Bool {
-//        let center = CGPoint(x: mainPageView.pieChartView.bounds.width / 2, y: mainPageView.pieChartView.bounds.height / 2)
-//        let radius = mainPageView.pieChartView.bounds.width / 4 // 중앙 영역의 반경
-//        let distance = sqrt(pow(location.x - center.x, 2) + pow(location.y - center.y, 2))
-//        return distance < radius
-//    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setChartData()
+    }
+    
+    private func setChart() {
+        mainPageView.pieChartView.delegate = self
+        let dataSet = PieChartDataSet(entries: dataEntries)
+        
+        dataSet.colors = dataEntries.map { _ in
+            return UIColor(red: CGFloat.random(in: 0.5...1),
+                           green: CGFloat.random(in: 0.5...1),
+                           blue: CGFloat.random(in: 0.5...1),
+                           alpha: 1.0)
+        }
+        dataSet.valueColors = dataSet.colors.map { _ in
+            return .darkGray
+        }
+        let data = PieChartData(dataSet: dataSet)
+        mainPageView.pieChartView.data = data
+    }
+    
+    func setChartData() {
+        assetsCoreDataManager.selectAllAssets().forEach {
+            dataEntries.append(PieChartDataEntry(value: Double($0.amount), label: "\($0.title ?? "")"))
+            uuids.append($0.key)
+        }
+        
+        dataEntries = assetsCoreDataManager.selectAllAssets().map {
+            PieChartDataEntry(value: Double($0.amount), label: "\($0.title ?? "")")
+        }
+        
+        uuids = assetsCoreDataManager.selectAllAssets().map {
+            $0.key
+        }
+        
+        setChart()
+    }
+    
+    @objc func editViewPush() {
+        navigationController?.pushViewController(AssetsEditVC(), animated: true)
+    }
 }
 
 extension MainPageVC: ChartViewDelegate {
-    // ChartViewDelegate 메서드
+//    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+//        if let lastIndex = lastSelectedIndex, lastIndex == Int(highlight.x) {
+//            mainPageView.pieChartView.highlightValues(nil)
+//            lastSelectedIndex = nil
+//        } else {
+//            lastSelectedIndex = Int(highlight.x)
+//        }
+//    }
+    
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        if let lastIndex = lastSelectedIndex, lastIndex == Int(highlight.x) {
-            // 같은 섹터를 다시 클릭했을 때
-            mainPageView.pieChartView.highlightValues(nil)  // 하이라이트 해제
-            lastSelectedIndex = nil
-        } else {
-            lastSelectedIndex = Int(highlight.x)
+        if entry is PieChartDataEntry {
+            mainPageView.pieChartView.highlightValues(nil)
+            guard let index = dataEntries.firstIndex(of: entry as! PieChartDataEntry) else { return }
+            let uuid = uuids[index]
+            
+            // 새로운 뷰 컨트롤러로 값 전달
+            let assetsEditVC = AssetsEditVC()
+            assetsEditVC.uuid = uuid
+            
+            // 화면 전환
+            self.navigationController?.pushViewController(assetsEditVC, animated: true)
         }
     }
 }
