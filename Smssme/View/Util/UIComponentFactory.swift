@@ -42,6 +42,7 @@ class ContentLabel: BaseLabelFactory {
     override func createLabel(with text: String, color: UIColor) -> UILabel {
         let label = super.createLabel(with: text, color: color)
         label.font = UIFont.systemFont(ofSize: 16)
+        label.numberOfLines = 0
         return label
     }
 }

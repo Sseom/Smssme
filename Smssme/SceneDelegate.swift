@@ -22,17 +22,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         self.window = window
         
-        //MARK: - 혜정 / ui작업 확인용 코드 , 완료 시 삭제
-//        window = UIWindow(windowScene: windowScene)
-//        
-//        let financialPlanSelectionView = FinancialPlanSelectionView()
-//        let financialPlanSelectionVC = FinancialPlanSelectionVC(financialPlanSelectionView: financialPlanSelectionView)
-//        
-//        let navigationController = UINavigationController(rootViewController: financialPlanSelectionVC)
-//        
-//        window?.rootViewController = navigationController
-//        window?.makeKeyAndVisible()
-        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

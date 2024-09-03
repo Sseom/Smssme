@@ -8,20 +8,18 @@
 import UIKit
 
 class FinancialPlanCreateVC: UIViewController {
-    private var financialPlanCreateView = FinancialPlanCreateView(textFieldArea: CreateTextView())
-    private let textFieldArea = CreateTextView()
+    private var financialPlanCreateView: FinancialPlanCreateView
+    private var textField: CustomTextField
+    private var datePicker: UIDatePicker
     
-    // 임시. 아마도 캘린더 구현 작업물에 한국날짜 변환 부분이 있을 것 같은데..리인님 병합 후에 있다면 그것으로 쓰고 없다면 분리해줄 예정
-    private let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy년 MM월 dd일"
-        formatter.locale = Locale(identifier: "ko_KR")
-        return formatter
-    }()
-    
-    init(textFieldArea: CreateTextView) {
+    init(textFieldArea: CreatePlanTextFieldView) {
         self.financialPlanCreateView = FinancialPlanCreateView(textFieldArea: textFieldArea)
+        textField = GoalDateTextField.createTextField()
+        datePicker = GoalDateTextField.createDatePicker()
         super.init(nibName: nil, bundle: nil)
+        
+        setupInitialDate()
+        setupDatePickerTarget()
     }
     
     required init?(coder: NSCoder) {
@@ -37,36 +35,37 @@ class FinancialPlanCreateVC: UIViewController {
     override func loadView() {
         view = financialPlanCreateView
     }
-    
-    private func setupActions() {
-        financialPlanCreateView.confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
-        
-        let datePicker = textFieldArea.datePicker
-        datePicker.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tapGesture)
+}
+
+// MARK: - 날짜 기본값 = 한국 시간 오늘로 설정
+extension FinancialPlanCreateVC {
+    private func setupInitialDate() {
+        let today = Date()
+        datePicker.date = today
+        textField.text = FinancialPlanDateModel.dateFormatter.string(from: today)
     }
-    @objc private func datePickerValueChanged(_ sender: UIDatePicker) {
-        let dateString = dateFormatter.string(from: sender.date)
-        if textFieldArea.startDateField.isFirstResponder {
-            textFieldArea.startDateField.text = dateString
-        } else if textFieldArea.endDateField.isFirstResponder {
-            textFieldArea.endDateField.text = dateString
-        }
+    
+    private func setupDatePickerTarget() {
+        let today = Date()
+        datePicker.date = today
+        textField.text = FinancialPlanDateModel.dateFormatter.string(from: today)
+    }
+    
+    @objc func datePickerValueChanged(_ sender: UIDatePicker) {
+        textField.text = FinancialPlanDateModel.dateFormatter.string(from: sender.date)
     }
 }
 
+// MARK: - 화면전환관련
 extension FinancialPlanCreateVC {
- 
-    @objc func dismissKeyboard() {
-        resignFirstResponder()
+    private func setupActions() {
+        financialPlanCreateView.confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
     }
     
     @objc func confirmButtonTapped() {
-        print("탭뜨")
-        let financialPlanConfirmVC = FinancialPlanConfirmVC()
-        navigationController?.pushViewController(financialPlanConfirmVC, animated: true)
+        let financialPlanCurrentPlanVC = FinancialPlanCurrentPlanVC()
+        navigationController?.pushViewController(financialPlanCurrentPlanVC, animated: true)
     }
 }
+
 
