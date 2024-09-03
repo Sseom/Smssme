@@ -12,6 +12,7 @@ import Firebase
 final class FirebaseManager {
     static let shared = FirebaseManager()
 
+    
     private init() {
         FirebaseApp.configure()
     }
