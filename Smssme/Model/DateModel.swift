@@ -19,6 +19,13 @@ struct CalendarItem {
     }
 }
 
+struct AssetsItem {
+    var category: String?
+    var title: String?
+    var amount: Int64
+    var note: String?
+}
+
 struct BudgetItem {
     var amount: Int64
     var statement: Bool
