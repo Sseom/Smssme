@@ -12,17 +12,15 @@ class MoneyDiaryBudgetEditView: UIView {
     //MARK: - Factory Component Properties
     
     
-    //MARK: - Component Properties
-//    private let scrollView: UIScrollView = {
-//       let scrollView = UIScrollView()
-//        return scrollView
-//    }()
+    //MARK: - Component Properties    
     let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         return tableView
     }()
+    
+    let totalView: MoneyDiaryBudgetEditHeaderView = MoneyDiaryBudgetEditHeaderView(section: 3, text: "잉여금액 - 총 금액: ")
     
     // MARK: - View Init
     override init(frame: CGRect) {
@@ -35,16 +33,23 @@ class MoneyDiaryBudgetEditView: UIView {
     }
     
     // MARK: - Method
-    
+
     // MARK: - Private Method
         
     private func setupUI() {
-        [tableView].forEach {
+        [tableView, totalView].forEach {
             self.addSubview($0)
         }
 
         tableView.snp.makeConstraints {
-            $0.edges.equalTo(self.safeAreaLayoutGuide)
+            $0.top.left.right.equalTo(self.safeAreaLayoutGuide)
+            $0.bottom.equalTo(totalView.snp.top)
+        }
+        
+        totalView.snp.makeConstraints {
+            $0.height.equalTo(60)
+            $0.left.right.equalTo(self.safeAreaLayoutGuide)
+            $0.bottom.equalTo(self.safeAreaLayoutGuide)
         }
     }
     

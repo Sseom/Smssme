@@ -28,7 +28,7 @@
 		740350632C773E9C00122B2E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 740350622C773E9C00122B2E /* Assets.xcassets */; };
 		740350662C773E9C00122B2E /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 740350652C773E9C00122B2E /* Base */; };
 		740350A82C7E229100122B2E /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740350A72C7E229100122B2E /* TabBarController.swift */; };
-		746F806E2C8616B500BBAEAF /* MoneyDiaryBudgetEditHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746F806D2C8616B500BBAEAF /* MoneyDiaryBudgetEditHeaderView.swift */; };
+		746F80702C87003C00BBAEAF /* MoneyDiaryBudgetEditHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746F806F2C87003C00BBAEAF /* MoneyDiaryBudgetEditHeaderView.swift */; };
 		74707F7A2C80698C00F7000C /* MainPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707F792C80698C00F7000C /* MainPageView.swift */; };
 		74707F7D2C8069A600F7000C /* MainPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707F7C2C8069A600F7000C /* MainPageVC.swift */; };
 		74707F802C806A5900F7000C /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = 74707F7F2C806A5900F7000C /* DGCharts */; };
@@ -102,7 +102,7 @@
 		740350672C773E9C00122B2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		740350A62C7E186600122B2E /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		740350A72C7E229100122B2E /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		746F806D2C8616B500BBAEAF /* MoneyDiaryBudgetEditHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDiaryBudgetEditHeaderView.swift; sourceTree = "<group>"; };
+		746F806F2C87003C00BBAEAF /* MoneyDiaryBudgetEditHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDiaryBudgetEditHeaderView.swift; sourceTree = "<group>"; };
 		74707F792C80698C00F7000C /* MainPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPageView.swift; sourceTree = "<group>"; };
 		74707F7C2C8069A600F7000C /* MainPageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPageVC.swift; sourceTree = "<group>"; };
 		74707F812C806DA300F7000C /* TodayFinancia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayFinancia.swift; sourceTree = "<group>"; };
@@ -268,7 +268,6 @@
 				74707FB72C84C80E00F7000C /* Assets */,
 				5F413F032C8066EA00004703 /* Mypage */,
 				74707F7B2C80699400F7000C /* MainPage */,
-				9F06D3072C7EE3D200DFF5B0 /* MoneyDiary */,
 				740350A72C7E229100122B2E /* TabBarController.swift */,
 				9F06D3072C7EE3D200DFF5B0 /* MoneyDiary */,
 				5F3EAE1A2C7E1AD100FF15E5 /* Login */,
@@ -418,8 +417,8 @@
 				74707FB22C81BE1F00F7000C /* MoneyDiaryEditView.swift */,
 				74707FBD2C855C4500F7000C /* MoneyDiaryBudgetEditView.swift */,
 				74707FBF2C85746500F7000C /* MoneyDiaryBudgetEditCell.swift */,
+				746F806F2C87003C00BBAEAF /* MoneyDiaryBudgetEditHeaderView.swift */,
 				9F1E1ABC2C80A65D00765D52 /* DailyTransaction */,
-				746F806D2C8616B500BBAEAF /* MoneyDiaryBudgetEditHeaderView.swift */,
 			);
 			name = MoneyDiary;
 			path = ../Controller/MoneyDiary;
@@ -594,7 +593,6 @@
 				5FA88FF12C842D0A00549363 /* KeyboardEvader.swift in Sources */,
 				5F413EFF2C805CC200004703 /* MypageView.swift in Sources */,
 				E5F344D82C806A58006F9A91 /* FinancialPlanCurrentPlanVC.swift in Sources */,
-				746F806E2C8616B500BBAEAF /* MoneyDiaryBudgetEditHeaderView.swift in Sources */,
 				5F413EFF2C805CC200004703 /* MypageView.swift in Sources */,
 				5F3EAE192C7E182400FF15E5 /* LoginView.swift in Sources */,
 				5F3EAE5B2C7F36E500FF15E5 /* SignUpVC.swift in Sources */,
@@ -607,6 +605,7 @@
 				5F413F012C805CED00004703 /* MypageViewController.swift in Sources */,
 				740350612C773E9B00122B2E /* Smssme.xcdatamodeld in Sources */,
 				74707FBC2C85585800F7000C /* MoneyDiaryBudgetEditVC.swift in Sources */,
+				746F80702C87003C00BBAEAF /* MoneyDiaryBudgetEditHeaderView.swift in Sources */,
 				74707F7D2C8069A600F7000C /* MainPageVC.swift in Sources */,
 				74707FA02C81B80400F7000C /* Goal+CoreDataClass.swift in Sources */,
 				74707FA12C81B80400F7000C /* Goal+CoreDataProperties.swift in Sources */,
