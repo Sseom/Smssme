@@ -27,9 +27,9 @@ final class FinancialPlanConfirmView: UIView {
         return stackView
     }()
     
-    private let editButton = BaseButton().createButton(text: "수정", color: UIColor.lightGray, textColor: UIColor.black)
+    let editButton = BaseButton().createButton(text: "수정", color: UIColor.lightGray, textColor: UIColor.black)
     
-    lazy var confirmButton = BaseButton().createButton(text: "확인", color: UIColor.systemBlue, textColor: UIColor.white)
+    let confirmButton = BaseButton().createButton(text: "확인", color: UIColor.systemBlue, textColor: UIColor.white)
     
     override init(frame: CGRect) {
         super.init(frame: frame)

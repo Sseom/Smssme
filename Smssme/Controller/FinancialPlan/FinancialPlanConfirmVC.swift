@@ -19,23 +19,35 @@ class FinancialPlanConfirmVC: UIViewController {
         view = financialPlanConfirmView
         setupActions()
     }
-    
+}
+
+// MARK: - 버튼 액션 관련
+extension FinancialPlanConfirmVC {
     private func setupActions() {
         financialPlanConfirmView.confirmButton.addAction(UIAction(handler: { [weak self] _ in
-            self?.buttonTapped()
+            self?.confirmButtonTapped()
+        }), for: .touchUpInside)
+        financialPlanConfirmView.editButton.addAction(UIAction(handler: { [weak self] _ in
+            self?.editButtonTapped()
         }), for: .touchUpInside)
     }
     
-    func buttonTapped() {
+    private func editButtonTapped() {
+        let financialPlanEditPlanVC = FinancialPlanEditPlanVC(textFieldArea: CreatePlanTextFieldView())
+        navigationController?.pushViewController(financialPlanEditPlanVC, animated: true)
+    }
+    
+    private func confirmButtonTapped() {
         let financialPlanCurrentPlanVC = FinancialPlanCurrentPlanVC()
         navigationController?.pushViewController(financialPlanCurrentPlanVC, animated: true)
     }
-    
-    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-        if viewController is FinancialPlanConfirmVC {
-            if let index = navigationController.viewControllers.firstIndex(of: viewController) {
-                navigationController.viewControllers.removeSubrange(0..<index)
-            }
+}
+
+// 이전 올라온 화면들 제거
+func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+    if viewController is FinancialPlanConfirmVC {
+        if let index = navigationController.viewControllers.firstIndex(of: viewController) {
+            navigationController.viewControllers.removeSubrange(0..<index)
         }
     }
 }
