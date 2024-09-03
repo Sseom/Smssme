@@ -13,11 +13,13 @@ class MypageView: UIView {
     // 마이페이지 라벨
     var myPageTitleLabel = LargeTitleLabel().createLabel(with: "마이페이지", color: .black)
     
+    // 닉네임 라벨
+    var nicknameLabel = BaseLabelFactory().createLabel(with: "닉네임", color: .black)
+    
     // 유저 아이디(이메일) 라벨
     var userEmailLabel = BaseLabelFactory().createLabel(with: "아이디", color: .black)
     
-    // 닉네임 라벨
-    var nicknameLabel = BaseLabelFactory().createLabel(with: "닉네임", color: .black)
+    // Section1 - 프로필 정보 담는 스택뷰
     
     // 생년월일 라벨
     var birthdayLabel = BaseLabelFactory().createLabel(with: "생년월일", color: .black)
