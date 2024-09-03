@@ -52,7 +52,6 @@ extension FinancialPlanCreateVC {
     }
 }
 
-
 extension FinancialPlanCreateVC {
     private func setupInitialDate() {
         // 시작 날짜 설정
