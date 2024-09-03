@@ -8,14 +8,12 @@
 import UIKit
 
 class FinancialPlanEditPlanVC: UIViewController {
+    private var financialPlanManager: FinancialPlanManager
     private var financialPlanCreateView: FinancialPlanCreateView
-    private var textField: CustomTextField
-    private var datePicker: UIDatePicker
     
-    init(textFieldArea: CreatePlanTextFieldView) {
+    init(financialPlanManager: FinancialPlanManager, textFieldArea: CreatePlanTextFieldView) {
         self.financialPlanCreateView = FinancialPlanCreateView(textFieldArea: textFieldArea)
-        textField = GoalDateTextField.createTextField()
-        datePicker = GoalDateTextField.createDatePicker()
+        self.financialPlanManager = financialPlanManager
         super.init(nibName: nil, bundle: nil)
         
         setupInitialDate()
@@ -52,8 +50,12 @@ extension FinancialPlanEditPlanVC {
     }
     
     @objc func confirmButtonTapped() {
-        let financialPlanConfirmVC = FinancialPlanConfirmVC()
-        navigationController?.pushViewController(financialPlanConfirmVC, animated: true)
+        if validateAmount() && validateEndDate() {
+            let financialPlanCurrentPlanVC = FinancialPlanCurrentPlanVC()
+            navigationController?.pushViewController(financialPlanCurrentPlanVC, animated: true)
+        } else {
+            print("입력값 오류")
+        }
     }
 }
 
@@ -85,6 +87,47 @@ extension FinancialPlanEditPlanVC {
     }
     
     @objc func datePickerValueChanged(_ sender: UIDatePicker) {
-        textField.text = FinancialPlanDateModel.dateFormatter.string(from: sender.date)
+        if sender == financialPlanCreateView.textFieldArea.startDateField.inputView as? UIDatePicker {
+            financialPlanCreateView.textFieldArea.startDateField.text = FinancialPlanDateModel.dateFormatter.string(from: sender.date)
+        } else if sender == financialPlanCreateView.textFieldArea.endDateField.inputView as? UIDatePicker {
+            financialPlanCreateView.textFieldArea.endDateField.text = FinancialPlanDateModel.dateFormatter.string(from: sender.date)
+        }
+    }
+}
+
+// MARK: - 필드 입력값 유효성 검사
+extension FinancialPlanEditPlanVC {
+    private func validateAmount() -> Bool {
+        guard let amountText = financialPlanCreateView.textFieldArea.targetAmountField.text,
+              let amount = Int64(amountText) else {
+//            financialPlanCreateView.textFieldArea.targetAmountField.text = "유효한 금액을 입력하세요"
+            print("양수여야 합니다")
+            return false
+        }
+        
+        do {
+            try financialPlanManager.validateAmount(amount)
+            return true
+        } catch {
+            print("양수여야 합니다")
+            return false
+        }
+    }
+    
+    private func validateEndDate() -> Bool {
+        guard let endDateString = financialPlanCreateView.textFieldArea.endDateField.text,
+                  let startDateString = financialPlanCreateView.textFieldArea.startDateField.text,
+                  let endDate = FinancialPlanDateModel.dateFormatter.date(from: endDateString),
+                  let startDate = FinancialPlanDateModel.dateFormatter.date(from: startDateString) else {
+                print("날짜 형식이 올바르지 않습니다")
+                return false
+            }
+        do {
+            try financialPlanManager.validateDates(start: startDate, end: endDate)
+            return true
+        } catch {
+            print("안돼요")
+            return false
+        }
     }
 }

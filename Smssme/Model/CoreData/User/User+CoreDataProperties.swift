@@ -16,7 +16,7 @@ extension User {
         return NSFetchRequest<User>(entityName: "User")
     }
 
-    @NSManaged public var id: String?
+    @NSManaged public var id: String
     @NSManaged public var password: String?
     @NSManaged public var gender: String?
     @NSManaged public var birth: Date?
@@ -24,9 +24,25 @@ extension User {
     @NSManaged public var nickname: String?
     @NSManaged public var region: String?
     @NSManaged public var email: String?
-
+    @NSManaged public var financialPlans: NSSet?
 }
 
 extension User : Identifiable {
 
+}
+
+// 자산플랜
+
+extension User {
+    @objc(addFinancialPlansObject:)
+    @NSManaged public func addToFinancialPlans(_ value: FinancialPlan)
+
+    @objc(removeFinancialPlansObject:)
+    @NSManaged public func removeFromFinancialPlans(_ value: FinancialPlan)
+
+    @objc(addFinancialPlans:)
+    @NSManaged public func addToFinancialPlans(_ values: NSSet)
+
+    @objc(removeFinancialPlans:)
+    @NSManaged public func removeFromFinancialPlans(_ values: NSSet)
 }

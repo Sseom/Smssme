@@ -60,8 +60,8 @@ class CreatePlanTextFieldView: UIView {
     lazy var targetAmountField = AmountTextField.createTextField(keyboard: .numberPad)
     lazy var currentSavedField = AmountTextField.createTextField(keyboard: .numberPad)
     
-    let startDateField = GoalDateTextField.createTextField()
-    let endDateField = GoalDateTextField.createTextField()
+    lazy var startDateField = GoalDateTextField.createTextField()
+    lazy var endDateField = GoalDateTextField.createTextField()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
