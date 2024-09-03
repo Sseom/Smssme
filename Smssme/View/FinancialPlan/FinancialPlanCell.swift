@@ -11,22 +11,21 @@ import SnapKit
 class FinancialPlanCell: UICollectionViewCell {
     static let ID = "FinancialPlanCell"
     
-// 셀 배경 이미지를 적용할 경우의 회의되어야할 점. 대안을 생각해야함
-//    private let cellBackImage: UIImageView = {
-//        let backImage = UIImageView()
-//        backImage.contentMode = .scaleAspectFill
-//        backImage.clipsToBounds = true
-//        return backImage
-//    }()
+    // 셀 배경 이미지를 적용할 경우의 회의되어야할 점. 대안을 생각해야함
+    //    private let cellBackImage: UIImageView = {
+    //        let backImage = UIImageView()
+    //        backImage.contentMode = .scaleAspectFill
+    //        backImage.clipsToBounds = true
+    //        return backImage
+    //    }()
     
     private let titleLabel = SmallTitleLabel().createLabel(with: "", color: UIColor.black)
     private let descriptionLabel = ContentLabel().createLabel(with: "", color: UIColor(hex: "#333333"))
     private let selectButton = BaseButton().createButton(text: "시작하기", color: UIColor(hex: "#777777"), textColor: UIColor.white)
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
-        cellBackgroundColor()
     }
     
     required init?(coder: NSCoder) {
@@ -39,10 +38,10 @@ class FinancialPlanCell: UICollectionViewCell {
         [titleLabel, descriptionLabel, selectButton].forEach {
             contentView.addSubview($0)
         }
-// 셀 배경 이미지를 적용할 경우의 회의되어야할 점. 대안을 생각해야함
-//        cellBackImage.snp.makeConstraints {
-//            $0.edges.equalToSuperview()
-//        }
+        // 셀 배경 이미지를 적용할 경우의 회의되어야할 점. 대안을 생각해야함
+        //        cellBackImage.snp.makeConstraints {
+        //            $0.edges.equalToSuperview()
+        //        }
         
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(32)
@@ -64,37 +63,19 @@ class FinancialPlanCell: UICollectionViewCell {
         }
     }
     
-    private func cellBackgroundColor() {
-        contentView.backgroundColor = UIColor(hex: "#c0c0c0")
+    func cellBackgroundColor(_ color: UIColor) {
+        contentView.backgroundColor = color
     }
     
-    func configure(with item: FinancialPlanSelectionVC.PlanItem) {
-//        cellBackImage.image = UIImage(named: item.imageName)
+    func configure(with item: PlanItem) {
+        //        cellBackImage.image = UIImage(named: item.imageName)
         titleLabel.text = item.title
         descriptionLabel.text = item.description
-    }
-}
-
-class AddButtonCell: UICollectionViewCell {
-    static let ID = "AddButtonCell"
-    
-    let addButton = BaseButton().createButton(text: "+ 추가하기", color: .black, textColor: .white)
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupUI()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setupUI() {
-        contentView.addSubview(addButton)
         
-        addButton.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+        // 사용자 정의 플랜인 경우
+        if let uuid = item.uuid {
+            // UUID를 사용한 추가
+            self.tag = uuid.hashValue
         }
     }
 }
-
