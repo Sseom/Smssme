@@ -16,7 +16,7 @@ final class MoneyDiaryVC: UIViewController {
     
     private lazy var scrollView = UIScrollView()
     let moneyDiaryView: MoneyDiaryView
-    private let calendar = Calendar.current
+    var calendar = Calendar.current
     private let dateFormatter = DateFormatter()
     private var calendarDate = Date()
     private var calendarItems = [CalendarItem]()
@@ -26,6 +26,7 @@ final class MoneyDiaryVC: UIViewController {
     init(moneyDiaryView: MoneyDiaryView) {
         self.moneyDiaryView = moneyDiaryView
         super.init(nibName: nil, bundle: nil)
+        calendar.timeZone = TimeZone.init(secondsFromGMT: 9)!
     }
     
     required init?(coder: NSCoder) {
@@ -54,7 +55,7 @@ final class MoneyDiaryVC: UIViewController {
             self.moneyDiaryView
         ].forEach { self.scrollView.addSubview($0) }
 
-        self.configureCalendar()
+        moveToSomeDate(Date())
         
         moneyDiaryView.calendarView.calendarCollectionView.dataSource = self
         moneyDiaryView.calendarView.calendarCollectionView.delegate = self
@@ -73,6 +74,7 @@ final class MoneyDiaryVC: UIViewController {
 
     
     private func setupActions() {
+        
         moneyDiaryView.previousButton.addTarget(self, action: #selector(self.didPreviousButtonTouched), for: .touchUpInside)
         moneyDiaryView.nextButton.addTarget(self, action: #selector(self.didNextButtonTouched), for: .touchUpInside)
         moneyDiaryView.segmentController.addTarget(self, action: #selector(segmentChanged), for: .valueChanged)
@@ -133,25 +135,15 @@ extension MoneyDiaryVC: UICollectionViewDataSource, UICollectionViewDelegate, UI
 
 extension MoneyDiaryVC {
     
-    private func configureCalendar() {
-        self.dateFormatter.dateFormat = "yyyy년 MM월"
-        self.moveToSomeDate(Date())
-    }
-    
-    private func startDayOfTheWeek() -> Int {
-        return self.calendar.component(.weekday, from: self.calendarDate) - 1
-    }
-    
-    private func endDate() -> Int {
-        return self.calendar.range(of: .day, in: .month, for: self.calendarDate)?.count ?? Int()
-    }
-    
+
+        
     private func updateCalendar() {
         self.updateTitle()
         self.updateDays()
     }
     
     private func updateTitle() {
+        self.dateFormatter.dateFormat = "yyyy년 MM월"
         let date = self.dateFormatter.string(from: self.calendarDate)
         self.moneyDiaryView.currentDateLabel.text = date
     }
@@ -175,11 +167,13 @@ extension MoneyDiaryVC {
        
         
         
-        let startDayOfTheWeek = self.startDayOfTheWeek()
-        let totalDaysInMonth = self.endDate()
-
+        let startDayOfTheWeek = DateManager.shared.weekdayToString(month: self.calendarDate)
+        
+        guard let totalDaysInMonth = DateManager.shared.endOfDateNumber(month: self.calendarDate) else{ return }
+        
         let emptyCells = startDayOfTheWeek
 
+        
         var lastMonthStartDay = temp2 - emptyCells + 1
         //print(lastMonthStartDay)
         let remainingCells = 42 - emptyCells - totalDaysInMonth
@@ -229,7 +223,7 @@ extension MoneyDiaryVC {
             if i < startDayOfWeek {
                 // 전달 날짜 계산
                 date = transformToAble(date:
-                                        calendar.date(byAdding: .day, value: i - startDayOfWeek, to: startOfMonth)!)
+                                        calendar.date(byAdding: .day, value: i - startDayOfWeek - 1, to: startOfMonth)!)
                 
             } else if i < startDayOfWeek + daysInCurrentMonth {
                 // 현재 달의 날짜 계산
@@ -260,9 +254,11 @@ extension MoneyDiaryVC {
     
     
     private func transformToAble(date: Date) -> Date? {
+        
         var components = calendar.dateComponents([.year, .month, .day], from: date)
         //20241201->Int : Id 처럼
 //        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
 //        dateFormatter.
         components.hour = 0
         components.minute = 0
@@ -289,6 +285,7 @@ extension MoneyDiaryVC {
         self.present(modalVc, animated: true, completion: nil)
     }
 //objc method
+    
     @objc private func didPreviousButtonTouched(_ sender: UIButton) {
         self.moveToSomeDate(self.calendar.date(byAdding: DateComponents(month: -1), to: self.calendarDate))
     }
@@ -356,6 +353,7 @@ extension CellReusable {
         String(describing: Self.self)
     }
 }
+
 
 
 
