@@ -44,9 +44,14 @@ class MainPageView: UIView {
         return stackView
     }()
     
-    private let pieChartView: PieChartView = {
+    let pieChartView: PieChartView = {
         let pieChartView = PieChartView()
         return pieChartView
+    }()
+    
+    let chartCenterButton: UIButton = {
+        let button = UIButton()
+        return button
     }()
     
     private let benefitVerticalStackView: UIStackView = {
@@ -122,6 +127,7 @@ class MainPageView: UIView {
     private func setChartData(chartView: PieChartView, chartDataEntries: [ChartDataEntry]) {
         let data = PieChartDataSet(entries: chartDataEntries, label: "자산1")
         let chartData = PieChartData(dataSet: data)
+        chartView.centerText = "총 자산\n2,000,000 원"
         chartView.data = chartData
     }
     
