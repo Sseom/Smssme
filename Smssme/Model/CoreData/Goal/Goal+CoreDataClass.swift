@@ -9,7 +9,8 @@
 import Foundation
 import CoreData
 
-@objc(Goal)
-public class Goal: NSManagedObject {
-
+@objc(FinancialPlan)
+public class FinancialPlan: NSManagedObject, Identifiable {
+    
+    public static let entityName = "FinancialPlan"
 }
