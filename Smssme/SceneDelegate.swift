@@ -21,7 +21,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        window.rootViewController = TestTableViewController()
 
 //        window.rootViewController = SplashViewController()
-        window.rootViewController = UINavigationController(rootViewController: FinancialPlanCurrentPlanVC())
+
+        window.rootViewController = UINavigationController(rootViewController: TabBarController())
+
         window.makeKeyAndVisible()
         
         self.window = window

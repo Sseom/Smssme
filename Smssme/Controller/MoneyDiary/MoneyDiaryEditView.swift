@@ -16,17 +16,17 @@ class MoneyDiaryEditView: UIView {
     private let categoryLabel = ContentLabel().createLabel(with: "카테고리", color: .black)
     private let noteLabel = ContentLabel().createLabel(with: "메모", color: .black)
     
-    private let priceTextField = BaseTextField().createTextField(placeholder: "금액", textColor: .black)
-    private let titleTextField = BaseTextField().createTextField(placeholder: "수입명", textColor: .black)
-    private let categoryTextField = BaseTextField().createTextField(placeholder: "카테고리", textColor: .black)
-    private let noteTextField = BaseTextField().createTextField(placeholder: "메모", textColor: .black)
+    let priceTextField = BaseTextField().createTextField(placeholder: "금액", textColor: .black)
+    let titleTextField = BaseTextField().createTextField(placeholder: "수입명", textColor: .black)
+    let categoryTextField = BaseTextField().createTextField(placeholder: "카테고리", textColor: .black)
+    let noteTextField = BaseTextField().createTextField(placeholder: "메모", textColor: .black)
     
-    private let cancelButton = BaseButton().createButton(text: "취소", color: .lightGray, textColor: .white)
-    private let saveButton = BaseButton().createButton(text: "저장", color: .systemBlue, textColor: .white)
+    let cancelButton = BaseButton().createButton(text: "취소", color: .lightGray, textColor: .white)
+     let saveButton = BaseButton().createButton(text: "저장", color: .systemBlue, textColor: .white)
     
     //MARK: - Component Properties
     lazy var segmentControl: UISegmentedControl = {
-        let segmentControl = UISegmentedControl(items: ["수입", "지출"])
+        let segmentControl = UISegmentedControl(items: ["지출", "수입"])
         segmentControl.selectedSegmentIndex = 0
         segmentControl.addTarget(self, action: #selector(viewChange(segment:)), for: .valueChanged)
         return segmentControl
@@ -47,7 +47,7 @@ class MoneyDiaryEditView: UIView {
         return stackView
     }()
     
-    private let datePicker: UIDatePicker = {
+     let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         
         return datePicker
@@ -56,10 +56,12 @@ class MoneyDiaryEditView: UIView {
     // MARK: - View Init
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.backgroundColor = .white
         setupUI()
     }
     
     required init?(coder: NSCoder) {
+        
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -130,6 +132,10 @@ class MoneyDiaryEditView: UIView {
         cancelButton.snp.makeConstraints {
             $0.height.equalTo(40)
         }
+        dateLabel.text = "지출일"
+        priceLabel.text = "지출금액"
+        titleLabel.text = "지출명"
+        titleTextField.placeholder = "지출명"
     }
     
     //MARK: - Objc

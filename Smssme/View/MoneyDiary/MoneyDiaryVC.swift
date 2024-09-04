@@ -242,7 +242,7 @@ extension MoneyDiaryVC {
             
             dateDates.append(date)
         }
-        print(dateDates)
+//        print(dateDates)
         
         self.moneyDiaryView.calendarView.calendarCollectionView.reloadData()
     }
