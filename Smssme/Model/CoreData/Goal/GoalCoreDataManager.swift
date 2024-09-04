@@ -5,80 +5,124 @@
 //  Created by 전성진 on 8/30/24.
 //
 
-import Foundation
 import CoreData
-import UIKit
+import Foundation
 
-class FinancialPlanManager {
-    static let shared = FinancialPlanManager()
-    
+class FinancialPlanRepository {
     private let context: NSManagedObjectContext
     
-    private init() {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        self.context = appDelegate.persistentContainer.viewContext
+    init(context: NSManagedObjectContext = FinancialPlanManager.shared.context) {
+        self.context = context
     }
     
-    func createFinancialPlan(title: String, startDate: Date, endDate: Date, amount: Int64, deposit: Int64) throws -> FinancialPlan {
+    func isPlanTitleExists(_ title: String) -> Bool {
+            let fetchRequest: NSFetchRequest<FinancialPlan> = FinancialPlan.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "title == %@", title)
+            
+            do {
+                let count = try context.count(for: fetchRequest)
+                return count > 0
+            } catch {
+                return false
+            }
+        }
+    func createFinancialPlan(title: String, amount: Int64, deposit: Int64, startDate: Date, endDate: Date) -> FinancialPlan {
+        
+        print("Attempting to create a new Financial Plan")
+        print("Title: \(title)")
+        print("Amount: \(amount)")
+        print("Deposit: \(deposit)")
+        print("Start Date: \(startDate)")
+        print("End Date: \(endDate)")
+        
         let plan = FinancialPlan(context: context)
         plan.id = UUID().uuidString
+        plan.key = UUID()
         plan.title = title
-        plan.startDate = startDate
-        plan.endDate = endDate
         plan.amount = amount
         plan.deposit = deposit
+        plan.startDate = startDate
+        plan.endDate = endDate
         
-       
-        try context.save()
-        return plan
+        do {
+            try context.save()
+            print("Context saved successfully")
+            return plan
+        } catch {
+            print("Failed to save context: \(error)")
+            return plan
+        }
     }
     
-    func fetchFinancialPlans() -> [FinancialPlan] {
-        let request: NSFetchRequest<FinancialPlan> = FinancialPlan.fetchRequest()
+    func getAllFinancialPlans() -> [FinancialPlan] {
+        let fetchRequest: NSFetchRequest<FinancialPlan> = FinancialPlan.fetchRequest()
+        
+        // 최신 플랜부터 가져오기 위해 정렬
+        let sortDescriptor = NSSortDescriptor(key: "startDate", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
         do {
-            return try context.fetch(request)
+            return try context.fetch(fetchRequest)
         } catch {
-            print("Failed to fetch financial plans: \(error)")
             return []
         }
     }
     
-    func updateFinancialPlan(_ plan: FinancialPlan) throws {
+    func getFinancialPlan(byId id: String) -> FinancialPlan? {
+        let fetchRequest: NSFetchRequest<FinancialPlan> = FinancialPlan.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %@", id)
         
-        try context.save()
+        do {
+            let results = try context.fetch(fetchRequest)
+            return results.first
+        } catch {
+            print("Failed to fetch financial plan: \(error)")
+            return nil
+        }
     }
     
-    func deleteFinancialPlan(_ plan: FinancialPlan) throws {
+    func updateFinancialPlan(_ plan: FinancialPlan) {
+        FinancialPlanManager.shared.saveContext()
+    }
+    
+    func deleteFinancialPlan(_ plan: FinancialPlan) {
         context.delete(plan)
-        try context.save()
+        FinancialPlanManager.shared.saveContext()
     }
     
-
 }
-
-extension FinancialPlanManager {
-    func validateAmount(_ amount: Int64) throws {
-        guard amount > 0 else {
-            throw ValidationError.negativeAmount
+// 저장된 데이터 확인
+extension FinancialPlanRepository {
+    func printAllFinancialPlans() {
+        let plans = getAllFinancialPlans()
+        print("Total number of Financial Plans: \(plans.count)")
+        
+        for (index, plan) in plans.enumerated() {
+            print("Plan \(index + 1):")
+            print("  ID: \(plan.id)")
+            print("  UUID: \(plan.key?.uuidString ?? "N/A")")
+            print("  Title: \(plan.title ?? "N/A")")
+            print("  Amount: \(plan.amount)")
+            print("  Deposit: \(plan.deposit)")
+            print("  Start Date: \(plan.startDate?.description ?? "N/A")")
+            print("  End Date: \(plan.endDate?.description ?? "N/A")")
+            print("--------------------")
         }
     }
     
-    func validateDeposit(_ deposit: Int64) throws {
-        guard deposit >= 0 else {
-            throw ValidationError.negativeDeposit
+    func printFinancialPlan(withId id: String) {
+        guard let plan = getFinancialPlan(byId: id) else {
+            print("No Financial Plan found with ID: \(id)")
+            return
         }
+        
+        print("Financial Plan Details:")
+        print("  ID: \(plan.id)")
+        print("  UUID: \(plan.key?.uuidString ?? "N/A")")
+        print("  Title: \(plan.title ?? "N/A")")
+        print("  Amount: \(plan.amount)")
+        print("  Deposit: \(plan.deposit)")
+        print("  Start Date: \(plan.startDate?.description ?? "N/A")")
+        print("  End Date: \(plan.endDate?.description ?? "N/A")")
     }
-    
-    func validateDates(start: Date?, end: Date?) throws {
-        guard let start = start, let end = end, start < end else {
-            throw ValidationError.invalidDateRange
-        }
-    }
-}
-
-enum ValidationError: Error {
-    case emptyTitle
-    case negativeAmount
-    case negativeDeposit
-    case invalidDateRange
 }
