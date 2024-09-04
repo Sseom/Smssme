@@ -72,8 +72,9 @@ extension FinancialPlanCurrentPlanVC: UICollectionViewDataSource {
 
 extension FinancialPlanCurrentPlanVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let editPlanVC = FinancialPlanConfirmVC()
-        navigationController?.pushViewController(editPlanVC, animated: true)
+        let selectedPlan = plans[indexPath.item]
+        let confirmVC = FinancialPlanConfirmVC(financialPlanManager: FinancialPlanManager.shared, financialPlan: selectedPlan)
+        navigationController?.pushViewController(confirmVC, animated: true)
     }
 }
 

@@ -9,12 +9,23 @@ import UIKit
 
 class FinancialPlanConfirmVC: UIViewController {
     private let confirmView = FinancialPlanConfirmView()
-//    private let financialPlanManager: FinancialPlanManager
-//    private var financialPlan: FinancialPlan
-//    
+    private let financialPlanManager: FinancialPlanManager
+    private var financialPlan: FinancialPlan
+    
+    init(financialPlanManager: FinancialPlanManager, financialPlan: FinancialPlan) {
+        self.financialPlanManager = financialPlanManager
+        self.financialPlan = financialPlan
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        configure(with: financialPlan)
     }
     
     override func loadView() {
@@ -23,6 +34,13 @@ class FinancialPlanConfirmVC: UIViewController {
         
     }
     
+    private func configure(with plan: FinancialPlan) {
+        confirmView.confirmLargeTitle.text = "\(plan.title ?? "")"
+        confirmView.amountGoalLabel.text = "\(plan.amount)"
+        confirmView.currentSavedLabel.text = "\(plan.deposit)"
+//        confirmView.endDateLabel.text = plan.endDate
+//        confirmView.daysLeftLabel.text = plan.endDate - plan.startDate
+    }
 }
 
 // MARK: - 버튼 액션 관련
@@ -43,14 +61,5 @@ extension FinancialPlanConfirmVC {
     
     private func confirmButtonTapped() {
         navigationController?.popViewController(animated: true)
-    }
-}
-
-// 이전 올라온 화면들 제거
-func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-    if viewController is FinancialPlanConfirmVC {
-        if let index = navigationController.viewControllers.firstIndex(of: viewController) {
-            navigationController.viewControllers.removeSubrange(0..<index)
-        }
     }
 }
