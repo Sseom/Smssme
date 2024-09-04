@@ -8,24 +8,19 @@
 import UIKit
 
 class DateManager {
-    let calendar = Calendar.current
+    var calendar = Calendar.current
     static let shared = DateManager()
     
-    private init() {}
-//    func dateTransformToString(date: Date) -> String {
-//        var formatter = DateFormatter()
-//        
-//    }
+    private init() {
+        calendar.timeZone = TimeZone.init(secondsFromGMT: 9)!
+    }
     
     
-    func NumberOfDays(yearMonth: Date) -> [Int] {
-        let totalDaysCount = 42
-        var thisMonth: [Int] = []
-        var lastMonth: [Int] = []
-        var nextMonth: [Int] = []
-        
-        let totalMonth = lastMonth + thisMonth + nextMonth
-        return totalMonth
+    func NumberOfDays(yearMonth: Date) -> [Date] {
+        let totalDays = 42
+        let total = [Date()]
+
+        return total
     }
     
     ///해당달의 마지막 숫자를 리턴 or nil
@@ -36,7 +31,6 @@ class DateManager {
     }
     
     func weekdayToString (month currentMonth: Date) -> Int {
-        //Sun = 1 ...Sat: = 6
         return self.calendar.component(.weekday, from: currentMonth)
     }
     

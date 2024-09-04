@@ -106,7 +106,12 @@ final class MoneyDiaryVC: UIViewController {
 extension MoneyDiaryVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        self.showHalfModel()
+        
+
+            let viewController = DailyTransactionVC(transactionView: DailyTransactionView())
+
+        viewController.setDate(day: self.calendarItems[indexPath.row].date)
+        self.navigationController?.pushViewController(viewController, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -270,20 +275,7 @@ extension MoneyDiaryVC {
 }
 
 extension MoneyDiaryVC {
-    func showHalfModel() {
 
-        let modalVc = DailyTransactionVC(transactionView: DailyTransactionView())
-
-        modalVc.modalPresentationStyle = .pageSheet
-        
-        if let sheet = modalVc.sheetPresentationController {
-            sheet.detents = [.medium()]
-            sheet.prefersGrabberVisible = true
-        }
-        
-
-        self.present(modalVc, animated: true, completion: nil)
-    }
 //objc method
     
     @objc private func didPreviousButtonTouched(_ sender: UIButton) {
