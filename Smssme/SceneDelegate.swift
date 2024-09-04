@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
 //        window.rootViewController = SplashViewController()
-        window.rootViewController = UINavigationController(rootViewController: MoneyDiaryEditVC())
+        window.rootViewController = UINavigationController(rootViewController: TabBarController())
         window.makeKeyAndVisible()
         
         self.window = window

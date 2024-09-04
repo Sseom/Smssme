@@ -52,11 +52,11 @@ class MoneyDiaryEditVC: UIViewController {
         self.transactionItem.date = moneyDiaryEditView.datePicker.date
         self.transactionItem.amount = Int(moneyDiaryEditView.priceTextField.text ?? "0") ?? 0
         
-        self.transactionItem.isMinus =
+        self.transactionItem.statement =
         if moneyDiaryEditView.segmentControl.selectedSegmentIndex == 0 {
-            true
+            false
         }
-        else { false }
+        else { true }
         
         self.transactionItem.title = moneyDiaryEditView.titleTextField.text ?? ""
         
