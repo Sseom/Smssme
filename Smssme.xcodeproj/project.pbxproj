@@ -203,8 +203,8 @@
 			isa = PBXGroup;
 			children = (
 				5F413EFE2C805CC200004703 /* MypageView.swift */,
-				5FA890012C859F6300549363 /* EditUserInfo.swift */,
 				5FA8900F2C87344000549363 /* MypageViewCell.swift */,
+				5FA890012C859F6300549363 /* EditUserInfo.swift */,
 			);
 			path = Mypage;
 			sourceTree = "<group>";

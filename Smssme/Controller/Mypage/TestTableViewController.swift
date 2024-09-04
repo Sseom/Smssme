@@ -30,11 +30,14 @@ class TestTableViewController: UIViewController {
         
         tableView.backgroundColor = .white
         
+        tableView.dataSource = self
+        tableView.delegate = self
+        
+        
         // 테이블뷰 등록 및 설정
         tableView.register(TestTableViewCell.self, forCellReuseIdentifier: "TestTableViewCell")
         
-        tableView.dataSource = self
-        tableView.delegate = self
+
         
         view.addSubview(tableView)
         tableView.frame = view.bounds // 테이블뷰를 부모 뷰의 크기에 맞게 조정해주어, 화면 전체에 테이블뷰가 잘 보이도록 설정
@@ -82,7 +85,7 @@ class TestTableViewController: UIViewController {
             $0.top.equalTo(nicknameLabel.snp.bottom).offset(12)
         }
         
-
+        
     }
     
     
@@ -95,9 +98,9 @@ class TestTableViewController: UIViewController {
 extension TestTableViewController: UITableViewDelegate {
     
     // 각 섹션의 헤더 타이틀 정의
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return headers[section]
-    }
+    //    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    //        return headers[section]
+    //    }
     
     // 테이블뷰의 특정 셀을 선택했을 때 호출됨. 이 메서드에서 선택된 셀에 따라 동작을 정의할 수 있음
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -115,7 +118,40 @@ extension TestTableViewController: UITableViewDelegate {
     
     // 섹션 헤더 높이 설정
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return section == 0 ? 80.0 : 50.0
+                return section == 0 ? 80.0 : 50.0
+//        return 50.0
+    }
+    
+    // 섹션 헤더뷰 설정
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = .white
+        
+        // 섹션 헤더 상단에 간격 추가 (첫 번째 섹션에만 적용)
+        if section == 0 {
+            let topSpacingView = UIView()
+            topSpacingView.backgroundColor = .systemGray5
+            headerView.addSubview(topSpacingView)
+            
+            topSpacingView.snp.makeConstraints {
+                $0.top.leading.trailing.equalToSuperview()
+                $0.height.equalTo(20) // 원하는 간격 크기
+            }
+        }
+        
+        // 각 섹션 별 섹션 타이틀의 폰트 및 위치 설정
+        let titleLabel = UILabel()
+        titleLabel.text = headers[section]
+        titleLabel.font = UIFont.systemFont(ofSize: 16)
+        titleLabel.textColor = .darkGray
+        
+        headerView.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview().inset(10)
+        }
+        
+        return headerView
     }
     
     // 섹션 푸터 높이 설정
@@ -123,29 +159,29 @@ extension TestTableViewController: UITableViewDelegate {
         return 20.0
     }
     
-    
-        func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-            let footerView = UIView()
-//            footerView.backgroundColor = UIColor.red
-    
-            let separatorLine = UIView()
-            separatorLine.backgroundColor = .systemGray4
-            footerView.addSubview(separatorLine)
-    
-            separatorLine.snp.makeConstraints {
-                $0.leading.trailing.equalToSuperview().inset(30)
-                $0.top.equalToSuperview()
-                $0.height.equalTo(0.5) // 구분선의 높이
-            }
-    
-            return footerView
+    // 섹션 푸터뷰 설정
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footerView = UIView()
+        footerView.backgroundColor = .white
+        
+        let separatorLine = UIView()
+        separatorLine.backgroundColor = .systemGray4
+        footerView.addSubview(separatorLine)
+        
+        separatorLine.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(30)
+            $0.top.equalToSuperview()
+            $0.height.equalTo(0.5) // 구분선의 높이
         }
+        
+        return footerView
+    }
     
     // 섹션의 폰트와 폰트 크기, 폰트 색상 설정
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         if let header = view as? UITableViewHeaderFooterView {
             header.textLabel?.font = UIFont.systemFont(ofSize: 16) // 폰트 크기와 스타일 변경
-            header.textLabel?.textColor = UIColor.black // 텍스트 색상 변경
+            header.textLabel?.textColor = .darkGray
         }
     }
 }
@@ -179,8 +215,19 @@ extension TestTableViewController: UITableViewDataSource {
         
         // 셀의 선택 효과를 없애기
         cell.selectionStyle = .none
+        
+        // "알림 설정" 셀에만 UISwitch 추가
+        if indexPath.section == 1 && indexPath.row == 0 {
+            let toggleSwitch = UISwitch()
+            toggleSwitch.isOn = true // 기본적으로 스위치가 켜진 상태로 설정
+//            toggleSwitch.addTarget(self, action: #selector(didChangeSwitch(_:)), for: .valueChanged)
+            
+            cell.accessoryView = toggleSwitch
+        }
+        
         return cell
     }
     
     
 }
+

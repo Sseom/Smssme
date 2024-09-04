@@ -56,7 +56,7 @@ class MypageView: UIView {
         super.init(frame: frame)
         
         configureUI()
-        setupLayout()
+//        setupLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -65,45 +65,45 @@ class MypageView: UIView {
     
     
     private func configureUI() {
-        self.backgroundColor = .systemGray4
+//        self.backgroundColor = .systemGray4
         
-        [userEmailLabel,
-         nicknameLabel,
-         birthdayLabel,
-         genderLabel,
-         incomeLabel,
-         locationLabel,
-         logoutButton,
-         deleteUserButton].forEach { userInfoStackView.addArrangedSubview($0) }
+//        [userEmailLabel,
+//         nicknameLabel,
+//         birthdayLabel,
+//         genderLabel,
+//         incomeLabel,
+//         locationLabel,
+//         logoutButton,
+//         deleteUserButton].forEach { userInfoStackView.addArrangedSubview($0) }
         
-        [myPageTitleLabel, userInfoStackView].forEach { self.addSubview($0) }
+        [tableView].forEach { self.addSubview($0) }
     }
     
-    private func setupLayout() {
-        myPageTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(safeAreaLayoutGuide).inset(18)
-            $0.leading.equalTo(safeAreaLayoutGuide).inset(30)
-            $0.height.equalTo(38)
-            $0.centerX.equalToSuperview()
-        }
-        
-        userInfoStackView.snp.makeConstraints {
-            $0.top.equalTo(myPageTitleLabel.snp.bottom).offset(24)
-            $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
-        }
-        
-        logoutButton.snp.makeConstraints {
+//    private func setupLayout() {
+//        myPageTitleLabel.snp.makeConstraints {
+//            $0.top.equalTo(safeAreaLayoutGuide).inset(18)
+//            $0.leading.equalTo(safeAreaLayoutGuide).inset(30)
+//            $0.height.equalTo(38)
 //            $0.centerX.equalToSuperview()
-//            $0.top.equalTo(userEmailLabel.snp.bottom).offset(30)
+//        }
+//        
+//        userInfoStackView.snp.makeConstraints {
+//            $0.top.equalTo(myPageTitleLabel.snp.bottom).offset(24)
 //            $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
-            $0.height.equalTo(48)
-        }
-        
-        deleteUserButton.snp.makeConstraints {
-//            $0.centerX.equalToSuperview()
-//            $0.top.equalTo(logoutButton.snp.bottom).offset(30)
-//            $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
-            $0.height.equalTo(48)
-        }
-    }
+//        }
+//        
+//        logoutButton.snp.makeConstraints {
+////            $0.centerX.equalToSuperview()
+////            $0.top.equalTo(userEmailLabel.snp.bottom).offset(30)
+////            $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
+//            $0.height.equalTo(48)
+//        }
+//        
+//        deleteUserButton.snp.makeConstraints {
+////            $0.centerX.equalToSuperview()
+////            $0.top.equalTo(logoutButton.snp.bottom).offset(30)
+////            $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
+//            $0.height.equalTo(48)
+//        }
+//    }
 }
