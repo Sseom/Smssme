@@ -131,7 +131,7 @@ class MypageVC: UIViewController {
         window.makeKeyAndVisible()
     }
     
-    // 개인정보 처리방침 url 연결
+    // 개인정보 처리방침 노션 url 연결
     private func privacyPolicyUrl () {
         let privacyPolicyUrl = NSURL(string: "https://valley-porch-b6d.notion.site/ce887a60fc15484f82f92194a3a44d2d")
         let safariView: SFSafariViewController = SFSafariViewController(url: privacyPolicyUrl as! URL)
