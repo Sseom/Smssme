@@ -23,7 +23,7 @@ class FinancialPlanEditPlanVC: UIViewController {
         self.financialPlan = financialPlan
         super.init(nibName: nil, bundle: nil)
         
-        setupInitialDate()
+        setupInitialDate(with: financialPlan)
         setupDatePickerTarget()
         popularFields()
     }
@@ -65,15 +65,21 @@ extension FinancialPlanEditPlanVC {
 }
 
 extension FinancialPlanEditPlanVC {
-    private func setupInitialDate() {
+    private func setupInitialDate(with plan: FinancialPlan) {
         let 임시시작날짜 = Calendar.current.date(from: DateComponents(year: 2024, month: 9, day: 1))!
         let 임시종료날짜 = Calendar.current.date(from: DateComponents(year: 2025, month: 8, day: 31))!
         
         // 시작 날짜 설정
-        createView.textFieldArea.startDateField.text = FinancialPlanDateModel.dateFormatter.string(from: 임시시작날짜)
-        if let startDatePicker = createView.textFieldArea.startDateField.inputView as? UIDatePicker {
-            startDatePicker.date = 임시시작날짜
+//        createView.textFieldArea.startDateField.text = FinancialPlanDateModel.dateFormatter.string(from: 임시시작날짜)
+//        if let startDatePicker = createView.textFieldArea.startDateField.inputView as? UIDatePicker {
+//            startDatePicker.date = 임시시작날짜
+//        }
+        
+        if let startDate = plan.startDate {
+            createView.textFieldArea.startDateField.text = "\(FinancialPlanDateModel.dateFormatter.string(from: startDate))"
         }
+        
+        
         
         // 종료 날짜 설정
         createView.textFieldArea.endDateField.text = FinancialPlanDateModel.dateFormatter.string(from: 임시종료날짜)
