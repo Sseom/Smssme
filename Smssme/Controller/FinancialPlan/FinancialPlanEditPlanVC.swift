@@ -76,7 +76,7 @@ extension FinancialPlanEditPlanVC {
 //        }
         
         if let startDate = plan.startDate {
-            createView.textFieldArea.startDateField.text = "\(FinancialPlanDateModel.dateFormatter.string(from: startDate))"
+            createView.textFieldArea.startDateField.text = FinancialPlanDateModel.dateFormatter.string(from: startDate)
         }
         
         

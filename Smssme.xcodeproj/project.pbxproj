@@ -26,7 +26,6 @@
 		5FA890052C85B21100549363 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA890042C85B21100549363 /* FirebaseManager.swift */; };
 		5FA890072C85B2AA00549363 /* FirebaseAuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA890062C85B2AA00549363 /* FirebaseAuthenticationManager.swift */; };
 		5FA890092C85B30800549363 /* FirebaseFirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA890082C85B30700549363 /* FirebaseFirestoreManager.swift */; };
-		
 		5FA890102C87344000549363 /* MypageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA8900F2C87344000549363 /* MypageViewCell.swift */; };
 		5FA890132C876B4C00549363 /* TestTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA890122C876B4C00549363 /* TestTableViewController.swift */; };
 		5FA890172C876D8300549363 /* TestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA890162C876D8300549363 /* TestTableViewCell.swift */; };
@@ -74,11 +73,85 @@
 		9F1E1AC12C80A6C800765D52 /* DailyTransactionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1E1AC02C80A6C800765D52 /* DailyTransactionVC.swift */; };
 		9F1E1AC32C80A6FB00765D52 /* DailyTransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1E1AC22C80A6FB00765D52 /* DailyTransactionCell.swift */; };
 		9F2FA5852C868EB100A9731D /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2FA5842C868EB100A9731D /* DateManager.swift */; };
-
-		9F4867DF2C8565D00015DA9A /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4867DE2C8565D00015DA9A /* DatePickerView.swift */; };
-
 		9FE549BF2C801E4D00E6075E /* FinancialPlanConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE549BE2C801E4D00E6075E /* FinancialPlanConfirmView.swift */; };
 		E517F2822C8782F200CB8680 /* FinancialPlanManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2812C8782F200CB8680 /* FinancialPlanManager.swift */; };
+		E517F2EE2C8835F900CB8680 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2832C8835F900CB8680 /* Common.swift */; };
+		E517F2EF2C8835F900CB8680 /* AssetsEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2852C8835F900CB8680 /* AssetsEditVC.swift */; };
+		E517F2F02C8835F900CB8680 /* FinancialPlanConfirmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2872C8835F900CB8680 /* FinancialPlanConfirmVC.swift */; };
+		E517F2F12C8835F900CB8680 /* FinancialPlanCreateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2882C8835F900CB8680 /* FinancialPlanCreateVC.swift */; };
+		E517F2F22C8835F900CB8680 /* FinancialPlanCurrentPlanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2892C8835F900CB8680 /* FinancialPlanCurrentPlanVC.swift */; };
+		E517F2F32C8835F900CB8680 /* FinancialPlanEditPlanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F28A2C8835F900CB8680 /* FinancialPlanEditPlanVC.swift */; };
+		E517F2F42C8835F900CB8680 /* FinancialPlanSelectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F28B2C8835F900CB8680 /* FinancialPlanSelectionVC.swift */; };
+		E517F2F52C8835F900CB8680 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F28D2C8835F900CB8680 /* LoginVC.swift */; };
+		E517F2F62C8835F900CB8680 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F28E2C8835F900CB8680 /* SignUpVC.swift */; };
+		E517F2F72C8835F900CB8680 /* MainPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2902C8835F900CB8680 /* MainPageVC.swift */; };
+		E517F2F82C8835F900CB8680 /* DailyTransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2922C8835F900CB8680 /* DailyTransactionCell.swift */; };
+		E517F2F92C8835F900CB8680 /* DailyTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2932C8835F900CB8680 /* DailyTransactionView.swift */; };
+		E517F2FA2C8835F900CB8680 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2952C8835F900CB8680 /* DatePickerView.swift */; };
+		E517F2FB2C8835F900CB8680 /* MoneyDiaryBudgetEditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2962C8835F900CB8680 /* MoneyDiaryBudgetEditCell.swift */; };
+		E517F2FC2C8835F900CB8680 /* MoneyDiaryBudgetEditHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2972C8835F900CB8680 /* MoneyDiaryBudgetEditHeaderView.swift */; };
+		E517F2FD2C8835F900CB8680 /* MoneyDiaryBudgetEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2982C8835F900CB8680 /* MoneyDiaryBudgetEditView.swift */; };
+		E517F2FE2C8835F900CB8680 /* MoneyDiaryCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2992C8835F900CB8680 /* MoneyDiaryCalendarCell.swift */; };
+		E517F2FF2C8835F900CB8680 /* MoneyDiaryCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F29A2C8835F900CB8680 /* MoneyDiaryCalendarView.swift */; };
+		E517F3002C8835F900CB8680 /* MoneyDiaryEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F29B2C8835F900CB8680 /* MoneyDiaryEditView.swift */; };
+		E517F3012C8835F900CB8680 /* MoneyDiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F29C2C8835F900CB8680 /* MoneyDiaryView.swift */; };
+		E517F3022C8835F900CB8680 /* MypageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F29E2C8835F900CB8680 /* MypageVC.swift */; };
+		E517F3032C8835F900CB8680 /* TestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F29F2C8835F900CB8680 /* TestTableViewCell.swift */; };
+		E517F3042C8835F900CB8680 /* TestTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2A02C8835F900CB8680 /* TestTableViewController.swift */; };
+		E517F3052C8835F900CB8680 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2A22C8835F900CB8680 /* SplashViewController.swift */; };
+		E517F3062C8835F900CB8680 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2A32C8835F900CB8680 /* TabBarController.swift */; };
+		E517F3072C8835F900CB8680 /* FirebaseAuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2A52C8835F900CB8680 /* FirebaseAuthenticationManager.swift */; };
+		E517F3082C8835F900CB8680 /* FirebaseFirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2A62C8835F900CB8680 /* FirebaseFirestoreManager.swift */; };
+		E517F3092C8835F900CB8680 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2A72C8835F900CB8680 /* FirebaseManager.swift */; };
+		E517F30A2C8835F900CB8680 /* Assets+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2A92C8835F900CB8680 /* Assets+CoreDataClass.swift */; };
+		E517F30B2C8835F900CB8680 /* Assets+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2AA2C8835F900CB8680 /* Assets+CoreDataProperties.swift */; };
+		E517F30C2C8835F900CB8680 /* AssetsCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2AB2C8835F900CB8680 /* AssetsCoreDataManager.swift */; };
+		E517F30D2C8835F900CB8680 /* Budget+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2AD2C8835F900CB8680 /* Budget+CoreDataClass.swift */; };
+		E517F30E2C8835F900CB8680 /* Budget+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2AE2C8835F900CB8680 /* Budget+CoreDataProperties.swift */; };
+		E517F30F2C8835F900CB8680 /* BudgetCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2AF2C8835F900CB8680 /* BudgetCoreDataManager.swift */; };
+		E517F3102C8835F900CB8680 /* Diary+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2B12C8835F900CB8680 /* Diary+CoreDataClass.swift */; };
+		E517F3112C8835F900CB8680 /* Diary+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2B22C8835F900CB8680 /* Diary+CoreDataProperties.swift */; };
+		E517F3122C8835F900CB8680 /* DiaryCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2B32C8835F900CB8680 /* DiaryCoreDataManager.swift */; };
+		E517F3132C8835F900CB8680 /* FinancialPlanManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2B52C8835F900CB8680 /* FinancialPlanManager.swift */; };
+		E517F3142C8835F900CB8680 /* Goal+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2B62C8835F900CB8680 /* Goal+CoreDataClass.swift */; };
+		E517F3152C8835F900CB8680 /* Goal+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2B72C8835F900CB8680 /* Goal+CoreDataProperties.swift */; };
+		E517F3162C8835F900CB8680 /* GoalCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2B82C8835F900CB8680 /* GoalCoreDataManager.swift */; };
+		E517F3172C8835F900CB8680 /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2BA2C8835F900CB8680 /* User+CoreDataClass.swift */; };
+		E517F3182C8835F900CB8680 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2BB2C8835F900CB8680 /* User+CoreDataProperties.swift */; };
+		E517F3192C8835F900CB8680 /* UserCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2BC2C8835F900CB8680 /* UserCoreDataManager.swift */; };
+		E517F31A2C8835F900CB8680 /* DateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2BF2C8835F900CB8680 /* DateModel.swift */; };
+		E517F31B2C8835F900CB8680 /* FinancialPlanDateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2C02C8835F900CB8680 /* FinancialPlanDateModel.swift */; };
+		E517F31C2C8835F900CB8680 /* TodayFinancia.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2C12C8835F900CB8680 /* TodayFinancia.swift */; };
+		E517F31D2C8835F900CB8680 /* AssetsEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2C32C8835F900CB8680 /* AssetsEditView.swift */; };
+		E517F31E2C8835F900CB8680 /* FinancialPlanCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2C52C8835F900CB8680 /* FinancialPlanCell.swift */; };
+		E517F31F2C8835F900CB8680 /* FinancialPlanConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2C62C8835F900CB8680 /* FinancialPlanConfirmView.swift */; };
+		E517F3202C8835F900CB8680 /* FinancialPlanCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2C72C8835F900CB8680 /* FinancialPlanCreateView.swift */; };
+		E517F3212C8835F900CB8680 /* FinancialPlanCurrentPlanCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2C82C8835F900CB8680 /* FinancialPlanCurrentPlanCell.swift */; };
+		E517F3222C8835F900CB8680 /* FinancialPlanCurrentPlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2C92C8835F900CB8680 /* FinancialPlanCurrentPlanView.swift */; };
+		E517F3232C8835F900CB8680 /* FinancialPlanSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2CA2C8835F900CB8680 /* FinancialPlanSelectView.swift */; };
+		E517F3242C8835F900CB8680 /* PlanCustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2CB2C8835F900CB8680 /* PlanCustomTextField.swift */; };
+		E517F3252C8835F900CB8680 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2CD2C8835F900CB8680 /* LoginView.swift */; };
+		E517F3262C8835F900CB8680 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2CE2C8835F900CB8680 /* SignUpView.swift */; };
+		E517F3272C8835F900CB8680 /* MainPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2D02C8835F900CB8680 /* MainPageView.swift */; };
+		E517F3282C8835F900CB8680 /* DailyTransactionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2D22C8835F900CB8680 /* DailyTransactionVC.swift */; };
+		E517F3292C8835F900CB8680 /* MoneyDiaryBudgetEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2D42C8835F900CB8680 /* MoneyDiaryBudgetEditVC.swift */; };
+		E517F32A2C8835F900CB8680 /* MoneyDiaryEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2D52C8835F900CB8680 /* MoneyDiaryEditVC.swift */; };
+		E517F32B2C8835F900CB8680 /* MoneyDiaryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2D62C8835F900CB8680 /* MoneyDiaryVC.swift */; };
+		E517F32C2C8835F900CB8680 /* EditUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2D82C8835F900CB8680 /* EditUserInfo.swift */; };
+		E517F32D2C8835F900CB8680 /* MypageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2D92C8835F900CB8680 /* MypageView.swift */; };
+		E517F32E2C8835F900CB8680 /* MypageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2DA2C8835F900CB8680 /* MypageViewCell.swift */; };
+		E517F32F2C8835F900CB8680 /* CommonAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2DC2C8835F900CB8680 /* CommonAlert.swift */; };
+		E517F3302C8835F900CB8680 /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2DD2C8835F900CB8680 /* DateManager.swift */; };
+		E517F3312C8835F900CB8680 /* KeyboardEvader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2DE2C8835F900CB8680 /* KeyboardEvader.swift */; };
+		E517F3322C8835F900CB8680 /* UIColorSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2DF2C8835F900CB8680 /* UIColorSet.swift */; };
+		E517F3332C8835F900CB8680 /* UIComponentFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2E02C8835F900CB8680 /* UIComponentFactory.swift */; };
+		E517F3342C8835F900CB8680 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2E32C8835F900CB8680 /* AppDelegate.swift */; };
+		E517F3352C8835F900CB8680 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E517F2E42C8835F900CB8680 /* Assets.xcassets */; };
+		E517F3362C8835F900CB8680 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E517F2E52C8835F900CB8680 /* GoogleService-Info.plist */; };
+		E517F3372C8835F900CB8680 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E517F2E62C8835F900CB8680 /* Info.plist */; };
+		E517F3382C8835F900CB8680 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E517F2E82C8835F900CB8680 /* LaunchScreen.storyboard */; };
+		E517F3392C8835F900CB8680 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2E92C8835F900CB8680 /* SceneDelegate.swift */; };
+		E517F33A2C8835F900CB8680 /* Smssme.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E517F2EB2C8835F900CB8680 /* Smssme.xcdatamodeld */; };
 		E5BF5E452C8587310093FD2D /* FinancialPlanEditPlanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BF5E442C8587310093FD2D /* FinancialPlanEditPlanVC.swift */; };
 		E5BF5E472C8597820093FD2D /* FinancialPlanDateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BF5E462C8597820093FD2D /* FinancialPlanDateModel.swift */; };
 		E5F344D82C806A58006F9A91 /* FinancialPlanCurrentPlanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F344D72C806A58006F9A91 /* FinancialPlanCurrentPlanVC.swift */; };
@@ -160,9 +233,86 @@
 		9F1E1AC02C80A6C800765D52 /* DailyTransactionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTransactionVC.swift; sourceTree = "<group>"; };
 		9F1E1AC22C80A6FB00765D52 /* DailyTransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTransactionCell.swift; sourceTree = "<group>"; };
 		9F2FA5842C868EB100A9731D /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
-		9F4867DE2C8565D00015DA9A /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		9FE549BE2C801E4D00E6075E /* FinancialPlanConfirmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanConfirmView.swift; sourceTree = "<group>"; };
 		E517F2812C8782F200CB8680 /* FinancialPlanManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanManager.swift; sourceTree = "<group>"; };
+		E517F2832C8835F900CB8680 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+		E517F2852C8835F900CB8680 /* AssetsEditVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsEditVC.swift; sourceTree = "<group>"; };
+		E517F2872C8835F900CB8680 /* FinancialPlanConfirmVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanConfirmVC.swift; sourceTree = "<group>"; };
+		E517F2882C8835F900CB8680 /* FinancialPlanCreateVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanCreateVC.swift; sourceTree = "<group>"; };
+		E517F2892C8835F900CB8680 /* FinancialPlanCurrentPlanVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanCurrentPlanVC.swift; sourceTree = "<group>"; };
+		E517F28A2C8835F900CB8680 /* FinancialPlanEditPlanVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanEditPlanVC.swift; sourceTree = "<group>"; };
+		E517F28B2C8835F900CB8680 /* FinancialPlanSelectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanSelectionVC.swift; sourceTree = "<group>"; };
+		E517F28D2C8835F900CB8680 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		E517F28E2C8835F900CB8680 /* SignUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
+		E517F2902C8835F900CB8680 /* MainPageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPageVC.swift; sourceTree = "<group>"; };
+		E517F2922C8835F900CB8680 /* DailyTransactionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyTransactionCell.swift; sourceTree = "<group>"; };
+		E517F2932C8835F900CB8680 /* DailyTransactionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyTransactionView.swift; sourceTree = "<group>"; };
+		E517F2952C8835F900CB8680 /* DatePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
+		E517F2962C8835F900CB8680 /* MoneyDiaryBudgetEditCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyDiaryBudgetEditCell.swift; sourceTree = "<group>"; };
+		E517F2972C8835F900CB8680 /* MoneyDiaryBudgetEditHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyDiaryBudgetEditHeaderView.swift; sourceTree = "<group>"; };
+		E517F2982C8835F900CB8680 /* MoneyDiaryBudgetEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyDiaryBudgetEditView.swift; sourceTree = "<group>"; };
+		E517F2992C8835F900CB8680 /* MoneyDiaryCalendarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyDiaryCalendarCell.swift; sourceTree = "<group>"; };
+		E517F29A2C8835F900CB8680 /* MoneyDiaryCalendarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyDiaryCalendarView.swift; sourceTree = "<group>"; };
+		E517F29B2C8835F900CB8680 /* MoneyDiaryEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyDiaryEditView.swift; sourceTree = "<group>"; };
+		E517F29C2C8835F900CB8680 /* MoneyDiaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyDiaryView.swift; sourceTree = "<group>"; };
+		E517F29E2C8835F900CB8680 /* MypageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MypageVC.swift; sourceTree = "<group>"; };
+		E517F29F2C8835F900CB8680 /* TestTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTableViewCell.swift; sourceTree = "<group>"; };
+		E517F2A02C8835F900CB8680 /* TestTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTableViewController.swift; sourceTree = "<group>"; };
+		E517F2A22C8835F900CB8680 /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		E517F2A32C8835F900CB8680 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		E517F2A52C8835F900CB8680 /* FirebaseAuthenticationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseAuthenticationManager.swift; sourceTree = "<group>"; };
+		E517F2A62C8835F900CB8680 /* FirebaseFirestoreManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseFirestoreManager.swift; sourceTree = "<group>"; };
+		E517F2A72C8835F900CB8680 /* FirebaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		E517F2A92C8835F900CB8680 /* Assets+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Assets+CoreDataClass.swift"; sourceTree = "<group>"; };
+		E517F2AA2C8835F900CB8680 /* Assets+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Assets+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		E517F2AB2C8835F900CB8680 /* AssetsCoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsCoreDataManager.swift; sourceTree = "<group>"; };
+		E517F2AD2C8835F900CB8680 /* Budget+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Budget+CoreDataClass.swift"; sourceTree = "<group>"; };
+		E517F2AE2C8835F900CB8680 /* Budget+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Budget+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		E517F2AF2C8835F900CB8680 /* BudgetCoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetCoreDataManager.swift; sourceTree = "<group>"; };
+		E517F2B12C8835F900CB8680 /* Diary+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Diary+CoreDataClass.swift"; sourceTree = "<group>"; };
+		E517F2B22C8835F900CB8680 /* Diary+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Diary+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		E517F2B32C8835F900CB8680 /* DiaryCoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryCoreDataManager.swift; sourceTree = "<group>"; };
+		E517F2B52C8835F900CB8680 /* FinancialPlanManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanManager.swift; sourceTree = "<group>"; };
+		E517F2B62C8835F900CB8680 /* Goal+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Goal+CoreDataClass.swift"; sourceTree = "<group>"; };
+		E517F2B72C8835F900CB8680 /* Goal+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Goal+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		E517F2B82C8835F900CB8680 /* GoalCoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalCoreDataManager.swift; sourceTree = "<group>"; };
+		E517F2BA2C8835F900CB8680 /* User+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
+		E517F2BB2C8835F900CB8680 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		E517F2BC2C8835F900CB8680 /* UserCoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCoreDataManager.swift; sourceTree = "<group>"; };
+		E517F2BF2C8835F900CB8680 /* DateModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateModel.swift; sourceTree = "<group>"; };
+		E517F2C02C8835F900CB8680 /* FinancialPlanDateModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanDateModel.swift; sourceTree = "<group>"; };
+		E517F2C12C8835F900CB8680 /* TodayFinancia.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayFinancia.swift; sourceTree = "<group>"; };
+		E517F2C32C8835F900CB8680 /* AssetsEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsEditView.swift; sourceTree = "<group>"; };
+		E517F2C52C8835F900CB8680 /* FinancialPlanCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanCell.swift; sourceTree = "<group>"; };
+		E517F2C62C8835F900CB8680 /* FinancialPlanConfirmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanConfirmView.swift; sourceTree = "<group>"; };
+		E517F2C72C8835F900CB8680 /* FinancialPlanCreateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanCreateView.swift; sourceTree = "<group>"; };
+		E517F2C82C8835F900CB8680 /* FinancialPlanCurrentPlanCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanCurrentPlanCell.swift; sourceTree = "<group>"; };
+		E517F2C92C8835F900CB8680 /* FinancialPlanCurrentPlanView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanCurrentPlanView.swift; sourceTree = "<group>"; };
+		E517F2CA2C8835F900CB8680 /* FinancialPlanSelectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanSelectView.swift; sourceTree = "<group>"; };
+		E517F2CB2C8835F900CB8680 /* PlanCustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanCustomTextField.swift; sourceTree = "<group>"; };
+		E517F2CD2C8835F900CB8680 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		E517F2CE2C8835F900CB8680 /* SignUpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		E517F2D02C8835F900CB8680 /* MainPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPageView.swift; sourceTree = "<group>"; };
+		E517F2D22C8835F900CB8680 /* DailyTransactionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyTransactionVC.swift; sourceTree = "<group>"; };
+		E517F2D42C8835F900CB8680 /* MoneyDiaryBudgetEditVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyDiaryBudgetEditVC.swift; sourceTree = "<group>"; };
+		E517F2D52C8835F900CB8680 /* MoneyDiaryEditVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyDiaryEditVC.swift; sourceTree = "<group>"; };
+		E517F2D62C8835F900CB8680 /* MoneyDiaryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyDiaryVC.swift; sourceTree = "<group>"; };
+		E517F2D82C8835F900CB8680 /* EditUserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditUserInfo.swift; sourceTree = "<group>"; };
+		E517F2D92C8835F900CB8680 /* MypageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MypageView.swift; sourceTree = "<group>"; };
+		E517F2DA2C8835F900CB8680 /* MypageViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MypageViewCell.swift; sourceTree = "<group>"; };
+		E517F2DC2C8835F900CB8680 /* CommonAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonAlert.swift; sourceTree = "<group>"; };
+		E517F2DD2C8835F900CB8680 /* DateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
+		E517F2DE2C8835F900CB8680 /* KeyboardEvader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardEvader.swift; sourceTree = "<group>"; };
+		E517F2DF2C8835F900CB8680 /* UIColorSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorSet.swift; sourceTree = "<group>"; };
+		E517F2E02C8835F900CB8680 /* UIComponentFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIComponentFactory.swift; sourceTree = "<group>"; };
+		E517F2E32C8835F900CB8680 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		E517F2E42C8835F900CB8680 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E517F2E52C8835F900CB8680 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E517F2E62C8835F900CB8680 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E517F2E72C8835F900CB8680 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E517F2E92C8835F900CB8680 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		E517F2EA2C8835F900CB8680 /* Smssme.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Smssme.entitlements; sourceTree = "<group>"; };
+		E517F2ED2C8835F900CB8680 /* Smssme.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Smssme.xcdatamodel; sourceTree = "<group>"; };
 		E5BF5E442C8587310093FD2D /* FinancialPlanEditPlanVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanEditPlanVC.swift; sourceTree = "<group>"; };
 		E5BF5E462C8597820093FD2D /* FinancialPlanDateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanDateModel.swift; sourceTree = "<group>"; };
 		E5F344D72C806A58006F9A91 /* FinancialPlanCurrentPlanVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanCurrentPlanVC.swift; sourceTree = "<group>"; };
@@ -243,20 +393,12 @@
 			path = Firebase;
 			sourceTree = "<group>";
 		};
-		5FA8900E2C8701C900549363 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				9F4867DE2C8565D00015DA9A /* DatePickerView.swift */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		7403504A2C773E9B00122B2E = {
 			isa = PBXGroup;
 			children = (
 				740350552C773E9B00122B2E /* Smssme */,
+				E517F2EC2C8835F900CB8680 /* Smssme */,
 				740350542C773E9B00122B2E /* Products */,
-				5FA8900E2C8701C900549363 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -462,13 +604,10 @@
 				9F06D30F2C7EE6F200DFF5B0 /* MoneyDiaryCalendarView.swift */,
 				9F06D30D2C7EE6B300DFF5B0 /* MoneyDiaryCalendarCell.swift */,
 				74707FB22C81BE1F00F7000C /* MoneyDiaryEditView.swift */,
-
 				5FA8900C2C86E33000549363 /* DatePickerView.swift */,
-
 				74707FBD2C855C4500F7000C /* MoneyDiaryBudgetEditView.swift */,
 				74707FBF2C85746500F7000C /* MoneyDiaryBudgetEditCell.swift */,
 				746F806F2C87003C00BBAEAF /* MoneyDiaryBudgetEditHeaderView.swift */,
-
 				9F1E1ABC2C80A65D00765D52 /* DailyTransaction */,
 			);
 			name = MoneyDiary;
@@ -490,6 +629,299 @@
 				9F1E1AC02C80A6C800765D52 /* DailyTransactionVC.swift */,
 			);
 			path = DailyTransaction;
+			sourceTree = "<group>";
+		};
+		E517F2842C8835F900CB8680 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				E517F2832C8835F900CB8680 /* Common.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		E517F2862C8835F900CB8680 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				E517F2852C8835F900CB8680 /* AssetsEditVC.swift */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		E517F28C2C8835F900CB8680 /* FinancialPlan */ = {
+			isa = PBXGroup;
+			children = (
+				E517F2872C8835F900CB8680 /* FinancialPlanConfirmVC.swift */,
+				E517F2882C8835F900CB8680 /* FinancialPlanCreateVC.swift */,
+				E517F2892C8835F900CB8680 /* FinancialPlanCurrentPlanVC.swift */,
+				E517F28A2C8835F900CB8680 /* FinancialPlanEditPlanVC.swift */,
+				E517F28B2C8835F900CB8680 /* FinancialPlanSelectionVC.swift */,
+			);
+			path = FinancialPlan;
+			sourceTree = "<group>";
+		};
+		E517F28F2C8835F900CB8680 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				E517F28D2C8835F900CB8680 /* LoginVC.swift */,
+				E517F28E2C8835F900CB8680 /* SignUpVC.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		E517F2912C8835F900CB8680 /* MainPage */ = {
+			isa = PBXGroup;
+			children = (
+				E517F2902C8835F900CB8680 /* MainPageVC.swift */,
+			);
+			path = MainPage;
+			sourceTree = "<group>";
+		};
+		E517F2942C8835F900CB8680 /* DailyTransaction */ = {
+			isa = PBXGroup;
+			children = (
+				E517F2922C8835F900CB8680 /* DailyTransactionCell.swift */,
+				E517F2932C8835F900CB8680 /* DailyTransactionView.swift */,
+			);
+			path = DailyTransaction;
+			sourceTree = "<group>";
+		};
+		E517F29D2C8835F900CB8680 /* MoneyDiary */ = {
+			isa = PBXGroup;
+			children = (
+				E517F2942C8835F900CB8680 /* DailyTransaction */,
+				E517F2952C8835F900CB8680 /* DatePickerView.swift */,
+				E517F2962C8835F900CB8680 /* MoneyDiaryBudgetEditCell.swift */,
+				E517F2972C8835F900CB8680 /* MoneyDiaryBudgetEditHeaderView.swift */,
+				E517F2982C8835F900CB8680 /* MoneyDiaryBudgetEditView.swift */,
+				E517F2992C8835F900CB8680 /* MoneyDiaryCalendarCell.swift */,
+				E517F29A2C8835F900CB8680 /* MoneyDiaryCalendarView.swift */,
+				E517F29B2C8835F900CB8680 /* MoneyDiaryEditView.swift */,
+				E517F29C2C8835F900CB8680 /* MoneyDiaryView.swift */,
+			);
+			path = MoneyDiary;
+			sourceTree = "<group>";
+		};
+		E517F2A12C8835F900CB8680 /* Mypage */ = {
+			isa = PBXGroup;
+			children = (
+				E517F29E2C8835F900CB8680 /* MypageVC.swift */,
+				E517F29F2C8835F900CB8680 /* TestTableViewCell.swift */,
+				E517F2A02C8835F900CB8680 /* TestTableViewController.swift */,
+			);
+			path = Mypage;
+			sourceTree = "<group>";
+		};
+		E517F2A42C8835F900CB8680 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E517F2862C8835F900CB8680 /* Assets */,
+				E517F28C2C8835F900CB8680 /* FinancialPlan */,
+				E517F28F2C8835F900CB8680 /* Login */,
+				E517F2912C8835F900CB8680 /* MainPage */,
+				E517F29D2C8835F900CB8680 /* MoneyDiary */,
+				E517F2A12C8835F900CB8680 /* Mypage */,
+				E517F2A22C8835F900CB8680 /* SplashViewController.swift */,
+				E517F2A32C8835F900CB8680 /* TabBarController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E517F2A82C8835F900CB8680 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				E517F2A52C8835F900CB8680 /* FirebaseAuthenticationManager.swift */,
+				E517F2A62C8835F900CB8680 /* FirebaseFirestoreManager.swift */,
+				E517F2A72C8835F900CB8680 /* FirebaseManager.swift */,
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
+		E517F2AC2C8835F900CB8680 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				E517F2A92C8835F900CB8680 /* Assets+CoreDataClass.swift */,
+				E517F2AA2C8835F900CB8680 /* Assets+CoreDataProperties.swift */,
+				E517F2AB2C8835F900CB8680 /* AssetsCoreDataManager.swift */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		E517F2B02C8835F900CB8680 /* Budget */ = {
+			isa = PBXGroup;
+			children = (
+				E517F2AD2C8835F900CB8680 /* Budget+CoreDataClass.swift */,
+				E517F2AE2C8835F900CB8680 /* Budget+CoreDataProperties.swift */,
+				E517F2AF2C8835F900CB8680 /* BudgetCoreDataManager.swift */,
+			);
+			path = Budget;
+			sourceTree = "<group>";
+		};
+		E517F2B42C8835F900CB8680 /* Diary */ = {
+			isa = PBXGroup;
+			children = (
+				E517F2B12C8835F900CB8680 /* Diary+CoreDataClass.swift */,
+				E517F2B22C8835F900CB8680 /* Diary+CoreDataProperties.swift */,
+				E517F2B32C8835F900CB8680 /* DiaryCoreDataManager.swift */,
+			);
+			path = Diary;
+			sourceTree = "<group>";
+		};
+		E517F2B92C8835F900CB8680 /* Goal */ = {
+			isa = PBXGroup;
+			children = (
+				E517F2B52C8835F900CB8680 /* FinancialPlanManager.swift */,
+				E517F2B62C8835F900CB8680 /* Goal+CoreDataClass.swift */,
+				E517F2B72C8835F900CB8680 /* Goal+CoreDataProperties.swift */,
+				E517F2B82C8835F900CB8680 /* GoalCoreDataManager.swift */,
+			);
+			path = Goal;
+			sourceTree = "<group>";
+		};
+		E517F2BD2C8835F900CB8680 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				E517F2BA2C8835F900CB8680 /* User+CoreDataClass.swift */,
+				E517F2BB2C8835F900CB8680 /* User+CoreDataProperties.swift */,
+				E517F2BC2C8835F900CB8680 /* UserCoreDataManager.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		E517F2BE2C8835F900CB8680 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				E517F2AC2C8835F900CB8680 /* Assets */,
+				E517F2B02C8835F900CB8680 /* Budget */,
+				E517F2B42C8835F900CB8680 /* Diary */,
+				E517F2B92C8835F900CB8680 /* Goal */,
+				E517F2BD2C8835F900CB8680 /* User */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		E517F2C22C8835F900CB8680 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E517F2BE2C8835F900CB8680 /* CoreData */,
+				E517F2BF2C8835F900CB8680 /* DateModel.swift */,
+				E517F2C02C8835F900CB8680 /* FinancialPlanDateModel.swift */,
+				E517F2C12C8835F900CB8680 /* TodayFinancia.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E517F2C42C8835F900CB8680 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				E517F2C32C8835F900CB8680 /* AssetsEditView.swift */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		E517F2CC2C8835F900CB8680 /* FinancialPlan */ = {
+			isa = PBXGroup;
+			children = (
+				E517F2C52C8835F900CB8680 /* FinancialPlanCell.swift */,
+				E517F2C62C8835F900CB8680 /* FinancialPlanConfirmView.swift */,
+				E517F2C72C8835F900CB8680 /* FinancialPlanCreateView.swift */,
+				E517F2C82C8835F900CB8680 /* FinancialPlanCurrentPlanCell.swift */,
+				E517F2C92C8835F900CB8680 /* FinancialPlanCurrentPlanView.swift */,
+				E517F2CA2C8835F900CB8680 /* FinancialPlanSelectView.swift */,
+				E517F2CB2C8835F900CB8680 /* PlanCustomTextField.swift */,
+			);
+			path = FinancialPlan;
+			sourceTree = "<group>";
+		};
+		E517F2CF2C8835F900CB8680 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				E517F2CD2C8835F900CB8680 /* LoginView.swift */,
+				E517F2CE2C8835F900CB8680 /* SignUpView.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		E517F2D12C8835F900CB8680 /* MainPage */ = {
+			isa = PBXGroup;
+			children = (
+				E517F2D02C8835F900CB8680 /* MainPageView.swift */,
+			);
+			path = MainPage;
+			sourceTree = "<group>";
+		};
+		E517F2D32C8835F900CB8680 /* DailyTransaction */ = {
+			isa = PBXGroup;
+			children = (
+				E517F2D22C8835F900CB8680 /* DailyTransactionVC.swift */,
+			);
+			path = DailyTransaction;
+			sourceTree = "<group>";
+		};
+		E517F2D72C8835F900CB8680 /* MoneyDiary */ = {
+			isa = PBXGroup;
+			children = (
+				E517F2D32C8835F900CB8680 /* DailyTransaction */,
+				E517F2D42C8835F900CB8680 /* MoneyDiaryBudgetEditVC.swift */,
+				E517F2D52C8835F900CB8680 /* MoneyDiaryEditVC.swift */,
+				E517F2D62C8835F900CB8680 /* MoneyDiaryVC.swift */,
+			);
+			path = MoneyDiary;
+			sourceTree = "<group>";
+		};
+		E517F2DB2C8835F900CB8680 /* Mypage */ = {
+			isa = PBXGroup;
+			children = (
+				E517F2D82C8835F900CB8680 /* EditUserInfo.swift */,
+				E517F2D92C8835F900CB8680 /* MypageView.swift */,
+				E517F2DA2C8835F900CB8680 /* MypageViewCell.swift */,
+			);
+			path = Mypage;
+			sourceTree = "<group>";
+		};
+		E517F2E12C8835F900CB8680 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				E517F2DC2C8835F900CB8680 /* CommonAlert.swift */,
+				E517F2DD2C8835F900CB8680 /* DateManager.swift */,
+				E517F2DE2C8835F900CB8680 /* KeyboardEvader.swift */,
+				E517F2DF2C8835F900CB8680 /* UIColorSet.swift */,
+				E517F2E02C8835F900CB8680 /* UIComponentFactory.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		E517F2E22C8835F900CB8680 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E517F2C42C8835F900CB8680 /* Assets */,
+				E517F2CC2C8835F900CB8680 /* FinancialPlan */,
+				E517F2CF2C8835F900CB8680 /* Login */,
+				E517F2D12C8835F900CB8680 /* MainPage */,
+				E517F2D72C8835F900CB8680 /* MoneyDiary */,
+				E517F2DB2C8835F900CB8680 /* Mypage */,
+				E517F2E12C8835F900CB8680 /* Util */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E517F2EC2C8835F900CB8680 /* Smssme */ = {
+			isa = PBXGroup;
+			children = (
+				E517F2842C8835F900CB8680 /* Common */,
+				E517F2A42C8835F900CB8680 /* Controller */,
+				E517F2A82C8835F900CB8680 /* Firebase */,
+				E517F2C22C8835F900CB8680 /* Model */,
+				E517F2E22C8835F900CB8680 /* View */,
+				E517F2E32C8835F900CB8680 /* AppDelegate.swift */,
+				E517F2E42C8835F900CB8680 /* Assets.xcassets */,
+				E517F2E52C8835F900CB8680 /* GoogleService-Info.plist */,
+				E517F2E62C8835F900CB8680 /* Info.plist */,
+				E517F2E82C8835F900CB8680 /* LaunchScreen.storyboard */,
+				E517F2E92C8835F900CB8680 /* SceneDelegate.swift */,
+				E517F2EA2C8835F900CB8680 /* Smssme.entitlements */,
+				E517F2EB2C8835F900CB8680 /* Smssme.xcdatamodeld */,
+			);
+			path = Smssme;
 			sourceTree = "<group>";
 		};
 		E5FBA1452C7EC62300D26E5F /* FinancialPlan */ = {
@@ -592,6 +1024,10 @@
 			files = (
 				740350632C773E9C00122B2E /* Assets.xcassets in Resources */,
 				740350662C773E9C00122B2E /* Base in Resources */,
+				E517F3372C8835F900CB8680 /* Info.plist in Resources */,
+				E517F3362C8835F900CB8680 /* GoogleService-Info.plist in Resources */,
+				E517F3382C8835F900CB8680 /* LaunchScreen.storyboard in Resources */,
+				E517F3352C8835F900CB8680 /* Assets.xcassets in Resources */,
 				5FA890002C8581B200549363 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -603,85 +1039,149 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E517F2FA2C8835F900CB8680 /* DatePickerView.swift in Sources */,
 				74707F942C81B5DF00F7000C /* Assets+CoreDataClass.swift in Sources */,
 				9F2FA5852C868EB100A9731D /* DateManager.swift in Sources */,
+				E517F2F32C8835F900CB8680 /* FinancialPlanEditPlanVC.swift in Sources */,
+				E517F32D2C8835F900CB8680 /* MypageView.swift in Sources */,
+				E517F3232C8835F900CB8680 /* FinancialPlanSelectView.swift in Sources */,
 				74707F952C81B5DF00F7000C /* Assets+CoreDataProperties.swift in Sources */,
 				74707FA42C81B82600F7000C /* User+CoreDataClass.swift in Sources */,
 				E5F344E02C8468DB006F9A91 /* FinancialPlanCurrentPlanCell.swift in Sources */,
 				74707FA52C81B82600F7000C /* User+CoreDataProperties.swift in Sources */,
+				E517F3282C8835F900CB8680 /* DailyTransactionVC.swift in Sources */,
+				E517F3202C8835F900CB8680 /* FinancialPlanCreateView.swift in Sources */,
 				740350A82C7E229100122B2E /* TabBarController.swift in Sources */,
+				E517F3242C8835F900CB8680 /* PlanCustomTextField.swift in Sources */,
+				E517F3322C8835F900CB8680 /* UIColorSet.swift in Sources */,
+				E517F3212C8835F900CB8680 /* FinancialPlanCurrentPlanCell.swift in Sources */,
 				9F1E1ABF2C80A6BA00765D52 /* DailyTransactionView.swift in Sources */,
 				E5FBA13F2C7E0A0800D26E5F /* FinancialPlanSelectView.swift in Sources */,
-
-				9F4867DF2C8565D00015DA9A /* DatePickerView.swift in Sources */,
-
 				5FA890092C85B30800549363 /* FirebaseFirestoreManager.swift in Sources */,
+				E517F31E2C8835F900CB8680 /* FinancialPlanCell.swift in Sources */,
 				74707F982C81B79500F7000C /* Budget+CoreDataClass.swift in Sources */,
+				E517F32A2C8835F900CB8680 /* MoneyDiaryEditVC.swift in Sources */,
 				74707F992C81B79500F7000C /* Budget+CoreDataProperties.swift in Sources */,
+				E517F2EE2C8835F900CB8680 /* Common.swift in Sources */,
+				E517F30C2C8835F900CB8680 /* AssetsCoreDataManager.swift in Sources */,
 				74707F9C2C81B7E800F7000C /* Diary+CoreDataClass.swift in Sources */,
+				E517F30E2C8835F900CB8680 /* Budget+CoreDataProperties.swift in Sources */,
 				74707F9D2C81B7E800F7000C /* Diary+CoreDataProperties.swift in Sources */,
+				E517F32C2C8835F900CB8680 /* EditUserInfo.swift in Sources */,
+				E517F30D2C8835F900CB8680 /* Budget+CoreDataClass.swift in Sources */,
 				5FA890052C85B21100549363 /* FirebaseManager.swift in Sources */,
+				E517F31D2C8835F900CB8680 /* AssetsEditView.swift in Sources */,
+				E517F3302C8835F900CB8680 /* DateManager.swift in Sources */,
+				E517F3342C8835F900CB8680 /* AppDelegate.swift in Sources */,
 				74707FBA2C84CD7A00F7000C /* AssetsEditVC.swift in Sources */,
+				E517F3052C8835F900CB8680 /* SplashViewController.swift in Sources */,
+				E517F32F2C8835F900CB8680 /* CommonAlert.swift in Sources */,
+				E517F3192C8835F900CB8680 /* UserCoreDataManager.swift in Sources */,
 				E5BF5E472C8597820093FD2D /* FinancialPlanDateModel.swift in Sources */,
 				74707F822C806DA300F7000C /* TodayFinancia.swift in Sources */,
+				E517F2F82C8835F900CB8680 /* DailyTransactionCell.swift in Sources */,
 				74707FBE2C855C4500F7000C /* MoneyDiaryBudgetEditView.swift in Sources */,
+				E517F2F52C8835F900CB8680 /* LoginVC.swift in Sources */,
 				74707F7A2C80698C00F7000C /* MainPageView.swift in Sources */,
+				E517F31C2C8835F900CB8680 /* TodayFinancia.swift in Sources */,
 				E5FBA1482C7EC68700D26E5F /* PlanCustomTextField.swift in Sources */,
+				E517F2FC2C8835F900CB8680 /* MoneyDiaryBudgetEditHeaderView.swift in Sources */,
+				E517F2F22C8835F900CB8680 /* FinancialPlanCurrentPlanVC.swift in Sources */,
+				E517F32E2C8835F900CB8680 /* MypageViewCell.swift in Sources */,
+				E517F3132C8835F900CB8680 /* FinancialPlanManager.swift in Sources */,
+				E517F3122C8835F900CB8680 /* DiaryCoreDataManager.swift in Sources */,
 				5FA890172C876D8300549363 /* TestTableViewCell.swift in Sources */,
+				E517F31A2C8835F900CB8680 /* DateModel.swift in Sources */,
 				74707FB62C84C6C300F7000C /* AssetsEditView.swift in Sources */,
 				740350572C773E9B00122B2E /* AppDelegate.swift in Sources */,
+				E517F3112C8835F900CB8680 /* Diary+CoreDataProperties.swift in Sources */,
+				E517F3292C8835F900CB8680 /* MoneyDiaryBudgetEditVC.swift in Sources */,
+				E517F3162C8835F900CB8680 /* GoalCoreDataManager.swift in Sources */,
 				9F06D30A2C7EE44300DFF5B0 /* MoneyDiaryVC.swift in Sources */,
 				74707FAB2C81B85B00F7000C /* DiaryCoreDataManager.swift in Sources */,
+				E517F3272C8835F900CB8680 /* MainPageView.swift in Sources */,
 				74707FA72C81B84D00F7000C /* AssetsCoreDataManager.swift in Sources */,
 				9FE549BF2C801E4D00E6075E /* FinancialPlanConfirmView.swift in Sources */,
 				5FA890072C85B2AA00549363 /* FirebaseAuthenticationManager.swift in Sources */,
+				E517F2F12C8835F900CB8680 /* FinancialPlanCreateVC.swift in Sources */,
 				E5F344DA2C806A75006F9A91 /* FinancialPlanCurrentPlanView.swift in Sources */,
 				9F06D3102C7EE6F200DFF5B0 /* MoneyDiaryCalendarView.swift in Sources */,
 				9F06D3122C7EFF9D00DFF5B0 /* DateModel.swift in Sources */,
 				9F06D31A2C801D1F00DFF5B0 /* FinancialPlanConfirmVC.swift in Sources */,
+				E517F3072C8835F900CB8680 /* FirebaseAuthenticationManager.swift in Sources */,
 				74707FAD2C81B85E00F7000C /* GoalCoreDataManager.swift in Sources */,
 				5FA88FEF2C80760E00549363 /* CommonAlert.swift in Sources */,
 				E517F2822C8782F200CB8680 /* FinancialPlanManager.swift in Sources */,
+				E517F2FE2C8835F900CB8680 /* MoneyDiaryCalendarCell.swift in Sources */,
 				74707FAF2C81B86100F7000C /* UserCoreDataManager.swift in Sources */,
+				E517F30A2C8835F900CB8680 /* Assets+CoreDataClass.swift in Sources */,
+				E517F3042C8835F900CB8680 /* TestTableViewController.swift in Sources */,
 				9F1E1AC12C80A6C800765D52 /* DailyTransactionVC.swift in Sources */,
+				E517F3102C8835F900CB8680 /* Diary+CoreDataClass.swift in Sources */,
 				5FA88FEF2C80760E00549363 /* CommonAlert.swift in Sources */,
+				E517F2F02C8835F900CB8680 /* FinancialPlanConfirmVC.swift in Sources */,
+				E517F31F2C8835F900CB8680 /* FinancialPlanConfirmView.swift in Sources */,
 				74707FB12C81BDFD00F7000C /* MoneyDiaryEditVC.swift in Sources */,
+				E517F3182C8835F900CB8680 /* User+CoreDataProperties.swift in Sources */,
 				740350592C773E9B00122B2E /* SceneDelegate.swift in Sources */,
+				E517F3152C8835F900CB8680 /* Goal+CoreDataProperties.swift in Sources */,
 				E5FBA12C2C7C823C00D26E5F /* UIComponentFactory.swift in Sources */,
 				9F06D30E2C7EE6B300DFF5B0 /* MoneyDiaryCalendarCell.swift in Sources */,
+				E517F3172C8835F900CB8680 /* User+CoreDataClass.swift in Sources */,
+				E517F31B2C8835F900CB8680 /* FinancialPlanDateModel.swift in Sources */,
+				E517F3032C8835F900CB8680 /* TestTableViewCell.swift in Sources */,
+				E517F2FF2C8835F900CB8680 /* MoneyDiaryCalendarView.swift in Sources */,
+				E517F3062C8835F900CB8680 /* TabBarController.swift in Sources */,
+				E517F2FB2C8835F900CB8680 /* MoneyDiaryBudgetEditCell.swift in Sources */,
 				5FA88FF12C842D0A00549363 /* KeyboardEvader.swift in Sources */,
 				5F413EFF2C805CC200004703 /* MypageView.swift in Sources */,
 				E5F344D82C806A58006F9A91 /* FinancialPlanCurrentPlanVC.swift in Sources */,
 				5F413EFF2C805CC200004703 /* MypageView.swift in Sources */,
+				E517F3082C8835F900CB8680 /* FirebaseFirestoreManager.swift in Sources */,
+				E517F3252C8835F900CB8680 /* LoginView.swift in Sources */,
 				5F3EAE192C7E182400FF15E5 /* LoginView.swift in Sources */,
 				5F3EAE5B2C7F36E500FF15E5 /* SignUpVC.swift in Sources */,
+				E517F32B2C8835F900CB8680 /* MoneyDiaryVC.swift in Sources */,
+				E517F2EF2C8835F900CB8680 /* AssetsEditVC.swift in Sources */,
 				E5FBA13B2C7E095300D26E5F /* FinancialPlanSelectionVC.swift in Sources */,
+				E517F3262C8835F900CB8680 /* SignUpView.swift in Sources */,
+				E517F2F42C8835F900CB8680 /* FinancialPlanSelectionVC.swift in Sources */,
+				E517F3222C8835F900CB8680 /* FinancialPlanCurrentPlanView.swift in Sources */,
+				E517F30B2C8835F900CB8680 /* Assets+CoreDataProperties.swift in Sources */,
+				E517F3022C8835F900CB8680 /* MypageVC.swift in Sources */,
+				E517F3142C8835F900CB8680 /* Goal+CoreDataClass.swift in Sources */,
 				9F06D30C2C7EE49500DFF5B0 /* MoneyDiaryView.swift in Sources */,
 				E5FBA1432C7E0B8B00D26E5F /* FinancialPlanCreateView.swift in Sources */,
 				5FA890022C859F6300549363 /* EditUserInfo.swift in Sources */,
 				5FA88FFE2C8544DB00549363 /* SplashViewController.swift in Sources */,
+				E517F2F62C8835F900CB8680 /* SignUpVC.swift in Sources */,
+				E517F3392C8835F900CB8680 /* SceneDelegate.swift in Sources */,
+				E517F33A2C8835F900CB8680 /* Smssme.xcdatamodeld in Sources */,
 				5F3EAE562C7EFAFA00FF15E5 /* SignUpView.swift in Sources */,
 				E5FBA13D2C7E099B00D26E5F /* FinancialPlanCell.swift in Sources */,
+				E517F2F72C8835F900CB8680 /* MainPageVC.swift in Sources */,
+				E517F3012C8835F900CB8680 /* MoneyDiaryView.swift in Sources */,
 				5F413F012C805CED00004703 /* MypageVC.swift in Sources */,
 				740350612C773E9B00122B2E /* Smssme.xcdatamodeld in Sources */,
-
 				5FA890132C876B4C00549363 /* TestTableViewController.swift in Sources */,
-
+				E517F3092C8835F900CB8680 /* FirebaseManager.swift in Sources */,
+				E517F3332C8835F900CB8680 /* UIComponentFactory.swift in Sources */,
 				74707FBC2C85585800F7000C /* MoneyDiaryBudgetEditVC.swift in Sources */,
 				746F80702C87003C00BBAEAF /* MoneyDiaryBudgetEditHeaderView.swift in Sources */,
-
+				E517F2F92C8835F900CB8680 /* DailyTransactionView.swift in Sources */,
 				74707F7D2C8069A600F7000C /* MainPageVC.swift in Sources */,
 				74707FA02C81B80400F7000C /* Goal+CoreDataClass.swift in Sources */,
 				74707FA12C81B80400F7000C /* Goal+CoreDataProperties.swift in Sources */,
 				E5FBA1502C804FBA00D26E5F /* UIColorSet.swift in Sources */,
+				E517F3002C8835F900CB8680 /* MoneyDiaryEditView.swift in Sources */,
 				74707FA92C81B85800F7000C /* BudgetCoreDataManager.swift in Sources */,
+				E517F2FD2C8835F900CB8680 /* MoneyDiaryBudgetEditView.swift in Sources */,
+				E517F3312C8835F900CB8680 /* KeyboardEvader.swift in Sources */,
 				E5BF5E452C8587310093FD2D /* FinancialPlanEditPlanVC.swift in Sources */,
 				9F06D3182C801CFB00DFF5B0 /* FinancialPlanCreateVC.swift in Sources */,
-		
 				5FA890102C87344000549363 /* MypageViewCell.swift in Sources */,
-
+				E517F30F2C8835F900CB8680 /* BudgetCoreDataManager.swift in Sources */,
 				74707FC02C85746500F7000C /* MoneyDiaryBudgetEditCell.swift in Sources */,
-
 				9F1E1AC32C80A6FB00765D52 /* DailyTransactionCell.swift in Sources */,
 				5F3EAE1C2C7E1CC200FF15E5 /* LoginVC.swift in Sources */,
 				74707FB32C81BE1F00F7000C /* MoneyDiaryEditView.swift in Sources */,
@@ -695,6 +1195,14 @@
 			isa = PBXVariantGroup;
 			children = (
 				740350652C773E9C00122B2E /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		E517F2E82C8835F900CB8680 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E517F2E72C8835F900CB8680 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -826,9 +1334,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-
 				CODE_SIGN_ENTITLEMENTS = Smssme/Smssme.entitlements;
-
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -861,9 +1367,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-
 				CODE_SIGN_ENTITLEMENTS = Smssme/Smssme.entitlements;
-
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -987,6 +1491,17 @@
 			);
 			currentVersion = 740350602C773E9B00122B2E /* Smssme.xcdatamodel */;
 			path = Smssme.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		E517F2EB2C8835F900CB8680 /* Smssme.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E517F2ED2C8835F900CB8680 /* Smssme.xcdatamodel */,
+			);
+			currentVersion = E517F2ED2C8835F900CB8680 /* Smssme.xcdatamodel */;
+			name = Smssme.xcdatamodeld;
+			path = /Users/limhyejeong/Desktop/Smssme/Smssme/Smssme.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
