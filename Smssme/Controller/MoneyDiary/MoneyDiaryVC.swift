@@ -23,10 +23,11 @@ final class MoneyDiaryVC: UIViewController {
     
     let datePicker = DatePickerView()
     
+    
     init(moneyDiaryView: MoneyDiaryView) {
         self.moneyDiaryView = moneyDiaryView
         super.init(nibName: nil, bundle: nil)
-        calendar.timeZone = TimeZone.init(secondsFromGMT: 9)!
+        calendar.timeZone = TimeZone(identifier: "Asia/Seoul")!
     }
     
     required init?(coder: NSCoder) {
@@ -34,6 +35,9 @@ final class MoneyDiaryVC: UIViewController {
     }
     
     override func viewDidLoad() {
+        let date = self.calendar.date(byAdding: DateComponents(month: -1), to: calendarDate)
+        
+        DateManager.shared.countDays(currentMonth: date!)
         super.viewDidLoad()
         self.view.backgroundColor = .white
         self.setupUI()
@@ -174,7 +178,7 @@ extension MoneyDiaryVC {
         
         let startDayOfTheWeek = DateManager.shared.weekdayToString(month: self.calendarDate)
         
-        guard let totalDaysInMonth = DateManager.shared.endOfDateNumber(month: self.calendarDate) else{ return }
+        let totalDaysInMonth = DateManager.shared.endOfDateNumber(month: self.calendarDate)
         
         let emptyCells = startDayOfTheWeek
 
@@ -214,34 +218,9 @@ extension MoneyDiaryVC {
             let isHol = index == 0 || index % 7 == 0
             self.calendarItems.append(CalendarItem(date: date, isSat: isSat, isHol: isHol))
         }
-        let startOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: calendarDate))!
-        let startDayOfWeek = calendar.component(.weekday, from: startOfMonth) - 1 // 배열의 시작은 0 부터
-        let totalCellCount = 42
-        let daysInCurrentMonth = calendar.range(of: .day, in: .month, for: calendarDate)!.count
+        
 
-        var dateDates: [Date?] = []
-
-        for i in 0..<totalCellCount {
-            let date: Date?
-
-           
-            if i < startDayOfWeek {
-                // 전달 날짜 계산
-                date = transformToAble(date:
-                                        calendar.date(byAdding: .day, value: i - startDayOfWeek - 1, to: startOfMonth)!)
-                
-            } else if i < startDayOfWeek + daysInCurrentMonth {
-                // 현재 달의 날짜 계산
-                date = transformToAble(date: calendar.date(byAdding: .day, value: i - startDayOfWeek, to: startOfMonth)!)
-                
-            } else {
-                // 다음 달의 날짜 계산
-                date = transformToAble(date: calendar.date(byAdding: .day, value: i - startDayOfWeek - daysInCurrentMonth, to: startOfMonth)!)
-                
-            }
-            
-            dateDates.append(date)
-        }
+        
 //        print(dateDates)
         
         self.moneyDiaryView.calendarView.calendarCollectionView.reloadData()
