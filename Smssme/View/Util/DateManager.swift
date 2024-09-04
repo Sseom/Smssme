@@ -16,12 +16,12 @@ class DateManager {
     }
     
     
-    func NumberOfDays(yearMonth: Date) -> [Date] {
-        let totalDays = 42
-        let total = [Date()]
-
-        return total
-    }
+//    func NumberOfDays(yearMonth: Date) -> [Date] {
+//        let totalDays = 42
+//        let total = [Date()]
+//
+//        return total
+//    }
     
     ///해당달의 마지막 숫자를 리턴 or nil
     func endOfDateNumber(month currentDateOfMonth: Date) -> Int? {

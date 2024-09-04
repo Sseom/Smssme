@@ -51,3 +51,21 @@ struct TransactionItem {
         self.transactionDate = transactionDate
     }
 }
+
+struct TransactionItemEdit {
+    var date: Date
+    var amount: Int
+    var isMinus: Bool
+    var title: String
+    var category: String
+    var memo: String
+    
+    init(date: Date = Date(), amount: Int = 0, isMinus: Bool = true, title: String = "이름없음", category: String = "식비", memo: String = "한식부페") {
+        self.date = date
+        self.amount = amount
+        self.isMinus = isMinus
+        self.title = title
+        self.category = category
+        self.memo = memo
+    }
+}
