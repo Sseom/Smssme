@@ -15,6 +15,7 @@ import UIKit
 class MypageVC: UIViewController {
     
     private let mypageView = MypageView()
+    private let mypageViewCell = MypageViewCell()
     
     let db = Firestore.firestore()
     
@@ -35,17 +36,13 @@ class MypageVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //        view = mypageView
-        
         mypageView.tableView.dataSource = self
         mypageView.tableView.delegate = self
         
         // 테이블뷰 등록 및 설정
         mypageView.tableView.register(MypageViewCell.self, forCellReuseIdentifier: "MypageViewCell")
         
-        
         tableviewSetup()
-        tableViewHeaderSetUp()
         
         setupAddtarget()
         checkLoginStatus()
@@ -62,24 +59,21 @@ class MypageVC: UIViewController {
         // 테이블뷰를 부모 뷰의 크기에 맞게 조정해주어, 화면 전체에 테이블뷰가 잘 보이도록 설정
         mypageView.tableView.frame = view.bounds
         
-        // 테이블뷰를 부모 뷰의 크기에 맞게 조정해주어, 화면 전체에 테이블뷰가 잘 보이도록 설정
-        mypageView.tableView.frame = view.bounds
-        
         // 테이블뷰 구분선 없애기
         mypageView.tableView.separatorStyle = .none
     }
     
     
     // 헤더 관련 설정
-    private func tableViewHeaderSetUp() {
-        let header = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 150))
+    private func tableViewHeaderSetUp(nickname: String, email: String) {
+        let header = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 130))
         
-        header.backgroundColor = .systemPink
+        header.backgroundColor = .white
         
         // 닉네임
         var nicknameLabel: UILabel = {
             let label = UILabel(frame: header.bounds)
-            label.text = "춤추는 닭강정님"
+            label.text = nickname
             label.font = .boldSystemFont(ofSize: 24)
             return label
         }()
@@ -89,12 +83,11 @@ class MypageVC: UIViewController {
             let label = UILabel(frame: header.bounds)
             label.font = .systemFont(ofSize: 18)
             label.textColor = .lightGray
-            label.text = "dkswlgus0314@naver.com"
+            label.text = email
             return label
         }()
         
-        [nicknameLabel, emailabel].forEach { header.addSubview($0)}
-        [header].forEach {view.addSubview($0)}
+        [nicknameLabel, emailabel].forEach {header.addSubview($0)}
         
         // 닉네임 오토레이아웃
         nicknameLabel.snp.makeConstraints {
@@ -145,45 +138,35 @@ class MypageVC: UIViewController {
         if let user  = Auth.auth().currentUser {
             // 로그인 상태라면
             print("사용자 uid: \(user.uid)")
-            
             loadUserData(uid: user.uid)
-            
-            mypageView.userEmailLabel.text = "로그인 정보: \(user.email ?? "알 수 없는 이메일입니다.)")"
             
         } else {
             // 비로그인 상태라면
-            mypageView.userEmailLabel.text = "로그인해주세요."
+            print("로그인 없이 둘러보기 상태입니다.")
+            self.tableViewHeaderSetUp(nickname: "로그인해주세요.", email: "슴씀이의 더 많은 정보를 이용해보세요!")
+            self.mypageView.tableView.reloadData()
         }
     }
     
     
     //MARK: - loadUserData: 파이어베이스 사용자 회원가입 정보 읽기
     func loadUserData(uid: String) {
-        //        db.collection("users").getDocuments { (snapshot, error) in
-        //            if error == nil && snapshot != nil {
-        //                for document in snapshot!.documents {
-        //                    print(document.documentID)
-        //                }
-        //            } else {
-        //                print("loadUserData 실패. \(error)")
-        //            }
-        //        }
         
-        
-        if let user  = Auth.auth().currentUser {
-            db.collection("users").document(uid).getDocument { (snapshot, error) in
-                if let error = error {
-                    print("Error fetching user data: \(error.localizedDescription)")
-                    return
-                }
-                
-                guard let data = snapshot?.data() else {
-                    print("No data found")
-                    return
-                }
-                
-                self.updateLabels(with: data)
+        db.collection("users").document(uid).getDocument { (snapshot, error) in
+            if let error = error {
+                print("Error fetching user data:\n \(error.localizedDescription)")
+                return
             }
+            guard let data = snapshot?.data() else {
+                print("No data found")
+                return
+            }
+            
+            let nickname = data["nickname"] as? String ?? "닉네임을 설정해주세요"
+            let email = Auth.auth().currentUser?.email ?? "이메일을 설정해주세요"
+            self.tableViewHeaderSetUp(nickname: nickname, email: email)
+            
+            self.mypageView.tableView.reloadData()
         }
     }
     
@@ -212,11 +195,15 @@ class MypageVC: UIViewController {
     //MARK: - @objc 로그아웃
     @objc func logOutButtonTapped() {
         do {
-            try FirebaseAuth.Auth.auth().signOut()
-            print("로그아웃하고 페이지 전환")
-            
-            //            showAlert(message: "로그아웃되었습니다.", AlertTitle: "로그아웃", buttonClickTitle: "확인")
-            showSnycAlert(message: "로그아웃되었습니다.", AlertTitle: "로그아웃", buttonClickTitle: "확인", method: switchToLoginVC)
+            if Auth.auth().currentUser?.uid != nil {
+                try FirebaseAuth.Auth.auth().signOut()
+                print("로그아웃하고 페이지 전환")
+                
+                showSnycAlert(message: "로그아웃되었습니다.", AlertTitle: "로그아웃", buttonClickTitle: "확인", method: switchToLoginVC)
+            } else {
+                //TODO: 비회원으로 로그인으로 로그아웃버튼 클릭 시 얼럿 띄우고, 하단에 로그인 창으로 가기 버튼 띄울 예정
+                switchToLoginVC()
+            }
         } catch let error {
             print(error.localizedDescription)
         }
@@ -233,7 +220,7 @@ class MypageVC: UIViewController {
                 }
             }
         } else {
-            showAlert(message: "오류 발생", AlertTitle: "로그인 정보가 존재하지 않습니다", buttonClickTitle: "확인")
+            showAlert(message: "로그인 정보가 존재하지 않습니다", AlertTitle: "오류 발생", buttonClickTitle: "확인")
         }
         
     }
@@ -253,6 +240,8 @@ extension MypageVC: UITableViewDelegate {
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
             print("회원정보 수정 페이지로 이동하세요")
+            let signUpVC = SignUpVC()
+            navigationController?.pushViewController(signUpVC, animated: true)
         case (1, 0):
             print("알림 받을건지 말건지 설정하세요")
         case (2, 0):
@@ -329,7 +318,7 @@ extension MypageVC: UITableViewDelegate {
         separatorLine.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(30)
             $0.top.equalToSuperview()
-            $0.height.equalTo(0.5)
+            $0.height.equalTo(1)
         }
         return footerView
     }

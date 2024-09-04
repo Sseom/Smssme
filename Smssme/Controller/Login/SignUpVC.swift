@@ -144,7 +144,7 @@ class SignUpVC: UIViewController, KeyboardEvader {
             showAlert(message: "모든 항목을 입력해주세요.", AlertTitle: "입력 오류", buttonClickTitle: "확인")
             return }
         
-        registerUser(email: email, password: password, nickname: nickname, birthday: birthday, gender: "확인 중", income: income, location: location)
+        registerUser(email: email, password: password, nickname: nickname, birthday: birthday, gender: "선택 안함", income: income, location: location)
         
         navigationController?.popViewController(animated: true)
     }

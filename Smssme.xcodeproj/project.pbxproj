@@ -27,8 +27,6 @@
 		5FA890072C85B2AA00549363 /* FirebaseAuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA890062C85B2AA00549363 /* FirebaseAuthenticationManager.swift */; };
 		5FA890092C85B30800549363 /* FirebaseFirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA890082C85B30700549363 /* FirebaseFirestoreManager.swift */; };
 		5FA890102C87344000549363 /* MypageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA8900F2C87344000549363 /* MypageViewCell.swift */; };
-		5FA890132C876B4C00549363 /* TestTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA890122C876B4C00549363 /* TestTableViewController.swift */; };
-		5FA890172C876D8300549363 /* TestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA890162C876D8300549363 /* TestTableViewCell.swift */; };
 		740350572C773E9B00122B2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740350562C773E9B00122B2E /* AppDelegate.swift */; };
 		740350592C773E9B00122B2E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740350582C773E9B00122B2E /* SceneDelegate.swift */; };
 		740350612C773E9B00122B2E /* Smssme.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7403505F2C773E9B00122B2E /* Smssme.xcdatamodeld */; };
@@ -107,8 +105,6 @@
 		5FA890062C85B2AA00549363 /* FirebaseAuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthenticationManager.swift; sourceTree = "<group>"; };
 		5FA890082C85B30700549363 /* FirebaseFirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseFirestoreManager.swift; sourceTree = "<group>"; };
 		5FA8900F2C87344000549363 /* MypageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewCell.swift; sourceTree = "<group>"; };
-		5FA890122C876B4C00549363 /* TestTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTableViewController.swift; sourceTree = "<group>"; };
-		5FA890162C876D8300549363 /* TestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTableViewCell.swift; sourceTree = "<group>"; };
 		740350532C773E9B00122B2E /* Smssme.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Smssme.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		740350562C773E9B00122B2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		740350582C773E9B00122B2E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -223,8 +219,6 @@
 			isa = PBXGroup;
 			children = (
 				5F413F002C805CED00004703 /* MypageVC.swift */,
-				5FA890122C876B4C00549363 /* TestTableViewController.swift */,
-				5FA890162C876D8300549363 /* TestTableViewCell.swift */,
 			);
 			path = Mypage;
 			sourceTree = "<group>";
@@ -608,7 +602,6 @@
 				74707F822C806DA300F7000C /* TodayFinancia.swift in Sources */,
 				74707F7A2C80698C00F7000C /* MainPageView.swift in Sources */,
 				E5FBA1482C7EC68700D26E5F /* PlanCustomTextField.swift in Sources */,
-				5FA890172C876D8300549363 /* TestTableViewCell.swift in Sources */,
 				74707FB62C84C6C300F7000C /* AssetsEditView.swift in Sources */,
 				740350572C773E9B00122B2E /* AppDelegate.swift in Sources */,
 				74707FAB2C81B85B00F7000C /* DiaryCoreDataManager.swift in Sources */,
@@ -649,7 +642,6 @@
 				5F413F012C805CED00004703 /* MypageVC.swift in Sources */,
 				740350612C773E9B00122B2E /* Smssme.xcdatamodeld in Sources */,
 				746F808A2C88424000BBAEAF /* DailyTransactionView.swift in Sources */,
-				5FA890132C876B4C00549363 /* TestTableViewController.swift in Sources */,
 				74707F7D2C8069A600F7000C /* MainPageVC.swift in Sources */,
 				74707FA02C81B80400F7000C /* Goal+CoreDataClass.swift in Sources */,
 				74707FA12C81B80400F7000C /* Goal+CoreDataProperties.swift in Sources */,
