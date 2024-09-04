@@ -8,26 +8,30 @@
 import UIKit
 
 class FinancialPlanConfirmVC: UIViewController {
-    private let financialPlanConfirmView = FinancialPlanConfirmView()
-    
+    private let confirmView = FinancialPlanConfirmView()
+//    private let financialPlanManager: FinancialPlanManager
+//    private var financialPlan: FinancialPlan
+//    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
     }
     
     override func loadView() {
-        view = financialPlanConfirmView
+        view = confirmView
         setupActions()
+        
     }
+    
 }
 
 // MARK: - 버튼 액션 관련
 extension FinancialPlanConfirmVC {
     private func setupActions() {
-        financialPlanConfirmView.confirmButton.addAction(UIAction(handler: { [weak self] _ in
+        confirmView.confirmButton.addAction(UIAction(handler: { [weak self] _ in
             self?.confirmButtonTapped()
         }), for: .touchUpInside)
-        financialPlanConfirmView.editButton.addAction(UIAction(handler: { [weak self] _ in
+        confirmView.editButton.addAction(UIAction(handler: { [weak self] _ in
             self?.editButtonTapped()
         }), for: .touchUpInside)
     }
@@ -38,8 +42,7 @@ extension FinancialPlanConfirmVC {
     }
     
     private func confirmButtonTapped() {
-        let financialPlanCurrentPlanVC = FinancialPlanCurrentPlanVC()
-        navigationController?.pushViewController(financialPlanCurrentPlanVC, animated: true)
+        navigationController?.popViewController(animated: true)
     }
 }
 

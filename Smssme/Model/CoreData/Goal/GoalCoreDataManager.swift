@@ -15,7 +15,19 @@ class FinancialPlanRepository {
         self.context = context
     }
     
+    func isPlanTitleExists(_ title: String) -> Bool {
+            let fetchRequest: NSFetchRequest<FinancialPlan> = FinancialPlan.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "title == %@", title)
+            
+            do {
+                let count = try context.count(for: fetchRequest)
+                return count > 0
+            } catch {
+                return false
+            }
+        }
     func createFinancialPlan(title: String, amount: Int64, deposit: Int64, startDate: Date, endDate: Date) -> FinancialPlan {
+        
         print("Attempting to create a new Financial Plan")
         print("Title: \(title)")
         print("Amount: \(amount)")
@@ -45,10 +57,13 @@ class FinancialPlanRepository {
     func getAllFinancialPlans() -> [FinancialPlan] {
         let fetchRequest: NSFetchRequest<FinancialPlan> = FinancialPlan.fetchRequest()
         
+        // 최신 플랜부터 가져오기 위해 정렬
+        let sortDescriptor = NSSortDescriptor(key: "startDate", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
         do {
             return try context.fetch(fetchRequest)
         } catch {
-            print("Failed to fetch financial plans: \(error)")
             return []
         }
     }
@@ -74,8 +89,8 @@ class FinancialPlanRepository {
         context.delete(plan)
         FinancialPlanManager.shared.saveContext()
     }
+    
 }
-
 // 저장된 데이터 확인
 extension FinancialPlanRepository {
     func printAllFinancialPlans() {
