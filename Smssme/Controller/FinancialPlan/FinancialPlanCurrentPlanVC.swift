@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class FinancialPlanCurrentPlanVC: UIViewController {
+final class FinancialPlanCurrentPlanVC: UIViewController, FinancialPlanEditDelegate {
     private let financialPlanCurrentView = FinancialPlanCurrentPlanView()
     private let planItemStore = PlanItemStore.shared
     private let repository: FinancialPlanRepository
@@ -74,7 +74,15 @@ extension FinancialPlanCurrentPlanVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedPlan = plans[indexPath.item]
         let confirmVC = FinancialPlanConfirmVC(financialPlanManager: FinancialPlanManager.shared, financialPlan: selectedPlan)
+        
         navigationController?.pushViewController(confirmVC, animated: true)
+    }
+    
+    func didUpdateFinacialPlan(_ plan: FinancialPlan) {
+        if let index = plans.firstIndex(where: { $0.id == plan.id }) {
+            plans[index] = plan
+            financialPlanCurrentView.currentPlanCollectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+        }
     }
 }
 

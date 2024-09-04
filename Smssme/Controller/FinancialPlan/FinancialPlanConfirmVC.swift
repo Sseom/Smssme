@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FinancialPlanConfirmVC: UIViewController {
+class FinancialPlanConfirmVC: UIViewController, FinancialPlanEditDelegate {
     private let confirmView = FinancialPlanConfirmView()
     private let financialPlanManager: FinancialPlanManager
     private var financialPlan: FinancialPlan
@@ -34,12 +34,28 @@ class FinancialPlanConfirmVC: UIViewController {
         
     }
     
+    func didUpdateFinacialPlan(_ plan: FinancialPlan) {
+        self.financialPlan = plan
+        configure(with: plan)
+    }
+    
     private func configure(with plan: FinancialPlan) {
         confirmView.confirmLargeTitle.text = "\(plan.title ?? "")"
-        confirmView.amountGoalLabel.text = "\(plan.amount)"
-        confirmView.currentSavedLabel.text = "\(plan.deposit)"
-//        confirmView.endDateLabel.text = plan.endDate
-//        confirmView.daysLeftLabel.text = plan.endDate - plan.startDate
+        confirmView.amountGoalLabel.text = "목표금액 \(plan.amount)원"
+        confirmView.currentSavedLabel.text = "달성금액 \(plan.deposit)원"
+        // 종료 날짜
+        if let endDate = plan.endDate {
+            confirmView.endDateLabel.text = "목표날짜 \(FinancialPlanDateModel.dateFormatter.string(from: endDate))"
+        }
+        // 남은 일수
+        if let endDate = plan.endDate {
+            let calendar = Calendar.current
+            let now = Date()
+            let components = calendar.dateComponents([.day], from: now, to: endDate)
+            if let daysLeft = components.day {
+                confirmView.daysLeftLabel.text = "남은 날짜 \(daysLeft)일"
+            }
+        }
     }
 }
 
@@ -55,7 +71,8 @@ extension FinancialPlanConfirmVC {
     }
     
     private func editButtonTapped() {
-        let financialPlanEditPlanVC = FinancialPlanEditPlanVC(financialPlanManager: FinancialPlanManager.shared, textFieldArea: CreatePlanTextFieldView())
+        let financialPlanEditPlanVC = FinancialPlanEditPlanVC(financialPlanManager: FinancialPlanManager.shared, textFieldArea: CreatePlanTextFieldView(), financialPlan: financialPlan)
+        financialPlanEditPlanVC.delegate = self
         navigationController?.pushViewController(financialPlanEditPlanVC, animated: true)
     }
     

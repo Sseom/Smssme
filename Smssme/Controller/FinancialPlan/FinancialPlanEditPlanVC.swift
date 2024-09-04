@@ -8,21 +8,24 @@
 import UIKit
 
 protocol FinancialPlanEditDelegate: AnyObject {
-    func 
+    func didUpdateFinacialPlan(_ plan: FinancialPlan)
 }
 
 class FinancialPlanEditPlanVC: UIViewController {
+    weak var delegate: FinancialPlanEditDelegate?
+    private var financialPlan: FinancialPlan
     private var financialPlanManager: FinancialPlanManager//유효값검사때
     private var createView: FinancialPlanCreateView
     
-    init(financialPlanManager: FinancialPlanManager, textFieldArea: CreatePlanTextFieldView) {
+    init(financialPlanManager: FinancialPlanManager, textFieldArea: CreatePlanTextFieldView, financialPlan: FinancialPlan) { //dto가 필요하다..
         self.createView = FinancialPlanCreateView(textFieldArea: textFieldArea)
         self.financialPlanManager = financialPlanManager
+        self.financialPlan = financialPlan
         super.init(nibName: nil, bundle: nil)
         
         setupInitialDate()
         setupDatePickerTarget()
-        AmountTextFieldConfigure()
+        popularFields()
     }
     
     required init?(coder: NSCoder) {
@@ -38,12 +41,10 @@ class FinancialPlanEditPlanVC: UIViewController {
     override func loadView() {
         view = createView
     }
-    
-    private func AmountTextFieldConfigure() {
-        let 목표금액임시값 = 1000000 // 사용자가 저장한 플랜의 값을 불러와야한다
-        AmountTextField.setValue(for: createView.textFieldArea.targetAmountField, value: 목표금액임시값)
-        let 모은금액임시값 = 1000
-        AmountTextField.setValue(for: createView.textFieldArea.currentSavedField, value: 모은금액임시값)
+
+    private func popularFields() {
+        AmountTextField.setValue(for: createView.textFieldArea.targetAmountField, value: Int(financialPlan.amount))
+        AmountTextField.setValue(for: createView.textFieldArea.currentSavedField, value: Int(financialPlan.deposit))
     }
 }
 

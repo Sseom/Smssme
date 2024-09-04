@@ -31,8 +31,8 @@ final class FinancialPlanConfirmView: UIView {
     
     let amountGoalLabel = ContentLabel().createLabel(with: "목표금액", color: UIColor(hex: "#333333"))
     let currentSavedLabel = ContentLabel().createLabel(with: "현재저축금액", color: UIColor(hex: "#333333"))
-    private let endDateLabel = ContentLabel().createLabel(with: "시작날짜", color: UIColor(hex: "#333333"))
-    private let daysLeftLabel = ContentLabel().createLabel(with: "종료날짜", color: UIColor(hex: "#333333"))
+    let endDateLabel = ContentLabel().createLabel(with: "목표날짜", color: UIColor(hex: "#333333"))
+    let daysLeftLabel = ContentLabel().createLabel(with: "남은날짜", color: UIColor(hex: "#333333"))
     
     let editButton = BaseButton().createButton(text: "수정", color: UIColor.lightGray, textColor: UIColor.black)
     
