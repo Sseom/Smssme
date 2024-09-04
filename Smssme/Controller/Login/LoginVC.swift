@@ -173,10 +173,11 @@ class LoginVC: UIViewController {
     //MARK: - @objc 비회원 로그인
     @objc private func unloginButtonTapped() {
         // 아직 메인 페이지 뷰컨이 없는 상태라 혜정님 뷰컨으로 임시 연결
-        let mainPageVC = MainPageVC()
-        navigationController?.pushViewController(mainPageVC, animated: true)
+        let tabBarVC = TabBarController()
+        navigationController?.pushViewController(tabBarVC, animated: true)
         
     }
     
 }
+
 
