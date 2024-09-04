@@ -9,7 +9,7 @@ import SnapKit
 import UIKit
 
 final class FinancialPlanConfirmView: UIView {
-    private let confirmLargeTitle = LargeTitleLabel().createLabel(with: "자산플랜이 완성 되었습니다!", color: UIColor.black)
+    let confirmLargeTitle = LargeTitleLabel().createLabel(with: "", color: UIColor.black)
     
     private let imageStackView: UIStackView = {
         let stackView = UIStackView()
@@ -24,8 +24,15 @@ final class FinancialPlanConfirmView: UIView {
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
         stackView.alignment = .center
+        stackView.layer.borderColor = UIColor(hex: "#000000").cgColor
+        stackView.layer.borderWidth = 1
         return stackView
     }()
+    
+    let amountGoalLabel = ContentLabel().createLabel(with: "목표금액", color: UIColor(hex: "#333333"))
+    let currentSavedLabel = ContentLabel().createLabel(with: "현재저축금액", color: UIColor(hex: "#333333"))
+    let endDateLabel = ContentLabel().createLabel(with: "목표날짜", color: UIColor(hex: "#333333"))
+    let daysLeftLabel = ContentLabel().createLabel(with: "남은날짜", color: UIColor(hex: "#333333"))
     
     let editButton = BaseButton().createButton(text: "수정", color: UIColor.lightGray, textColor: UIColor.black)
     
@@ -34,6 +41,7 @@ final class FinancialPlanConfirmView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
+        addLabels()
     }
     
     required init?(coder: NSCoder) {
@@ -63,7 +71,7 @@ final class FinancialPlanConfirmView: UIView {
         }
         
         contentStackView.snp.makeConstraints {
-            $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-120)
+            $0.top.equalTo(imageStackView.snp.bottom).offset(40)
             $0.width.equalTo(300)
             $0.height.equalTo(200)
             $0.centerX.equalToSuperview()
@@ -82,14 +90,31 @@ final class FinancialPlanConfirmView: UIView {
             $0.height.equalTo(40)
             $0.trailing.equalToSuperview().offset(-100)
         }
-        
-        addConfirmLabel()
     }
     
-    private func addConfirmLabel() {
-        (1...4).forEach { label in
-            let label = ContentLabel().createLabel(with: "자산설정더미더미값", color: UIColor.black)
-            contentStackView.addArrangedSubview(label)
+    private func addLabels() {
+        [amountGoalLabel, currentSavedLabel, endDateLabel, daysLeftLabel].forEach {
+            contentStackView.addSubview($0)
+        }
+        
+        amountGoalLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(20)
+            $0.centerX.equalToSuperview()
+        }
+        
+        currentSavedLabel.snp.makeConstraints {
+            $0.top.equalTo(amountGoalLabel.snp.bottom).offset(10)
+            $0.centerX.equalToSuperview()
+        }
+        
+        endDateLabel.snp.makeConstraints {
+            $0.top.equalTo(currentSavedLabel.snp.bottom).offset(10)
+            $0.centerX.equalToSuperview()
+        }
+        
+        daysLeftLabel.snp.makeConstraints {
+            $0.top.equalTo(endDateLabel.snp.bottom).offset(10)
+            $0.centerX.equalToSuperview()
         }
     }
 }
