@@ -12,16 +12,16 @@ class AssetsEditView: UIView {
     //MARK: - Factory Component Properties
     private let categoryLabel = ContentLabel().createLabel(with: "카테고리", color: .black)
     private let titleLabel = ContentLabel().createLabel(with: "항목", color: .black)
-    private let priceLabel = ContentLabel().createLabel(with: "금액", color: .black)
+    private let amountLabel = ContentLabel().createLabel(with: "금액", color: .black)
     private let noteLabel = ContentLabel().createLabel(with: "메모", color: .black)
     
-    private let categoryTextField = BaseTextField().createTextField(placeholder: "카테고리", textColor: .black)
-    private let titleTextField = BaseTextField().createTextField(placeholder: "항목", textColor: .black)
-    private let priceTextField = BaseTextField().createTextField(placeholder: "금액", textColor: .black)
-    private let noteTextField = BaseTextField().createTextField(placeholder: "메모", textColor: .black)
+    let categoryTextField = BaseTextField().createTextField(placeholder: "카테고리", textColor: .black)
+    let titleTextField = BaseTextField().createTextField(placeholder: "항목", textColor: .black)
+    let amountTextField = BaseTextField().createTextField(placeholder: "금액", textColor: .black)
+    let noteTextField = BaseTextField().createTextField(placeholder: "메모", textColor: .black)
     
-    private let cancelButton = BaseButton().createButton(text: "취소", color: .lightGray, textColor: .white)
-    private let saveButton = BaseButton().createButton(text: "저장", color: .systemBlue, textColor: .white)
+    let cancelButton = BaseButton().createButton(text: "취소", color: .lightGray, textColor: .white)
+    let saveButton = BaseButton().createButton(text: "저장", color: .systemBlue, textColor: .white)
     
     //MARK: - Component Properties
     private let contentsView: UIView = {
@@ -42,6 +42,7 @@ class AssetsEditView: UIView {
     // MARK: - View Init
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.backgroundColor = .white
         setupUI()
     }
     
@@ -75,7 +76,7 @@ class AssetsEditView: UIView {
         // horizontalStackView 세팅
         setHorizontalStackView(components: [categoryLabel, categoryTextField], distrbution: .fill)
         setHorizontalStackView(components: [titleLabel, titleTextField], distrbution: .fill)
-        setHorizontalStackView(components: [priceLabel, priceTextField], distrbution: .fill)
+        setHorizontalStackView(components: [amountLabel, amountTextField], distrbution: .fill)
         setHorizontalStackView(components: [noteLabel, noteTextField], distrbution: .fill)
         setHorizontalStackView(components: [cancelButton, saveButton], distrbution: .fillEqually)
         
@@ -89,7 +90,7 @@ class AssetsEditView: UIView {
         
         // label 길이 정렬
         [categoryLabel,
-         priceLabel,
+         amountLabel,
          titleLabel].forEach {
             $0.snp.makeConstraints {
                 $0.width.equalTo(70)

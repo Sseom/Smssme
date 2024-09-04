@@ -25,6 +25,7 @@ class DailyTransactionVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupUI()
+        view.backgroundColor = .white
     }
     
     private func setupUI() {
@@ -52,12 +53,20 @@ class DailyTransactionVC: UIViewController {
         self.dailyExpense = expesneList
     }
     
+    func setDate(day: String) {
+        self.transactionView.dateLabel.text = day
+        
+    }
     
     
 
 }
 
 extension DailyTransactionVC: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let viewController = MoneyDiaryEditVC()
+        self.navigationController?.pushViewController(viewController, animated: false)
+    }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 10
     }

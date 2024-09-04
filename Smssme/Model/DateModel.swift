@@ -18,6 +18,26 @@ struct CalendarItem {
         self.isHol = isHol
     }
 }
+
+struct AssetsItem {
+    var category: String?
+    var title: String?
+    var amount: Int64
+    var note: String?
+}
+
+struct BudgetItem {
+    var amount: Int64
+    var statement: Bool
+    var category: String
+    var isAssetPlan: Bool
+}
+
+struct BudgetList {
+    let title: String
+    var items: [BudgetItem]
+}
+
 struct TransactionItem {
     let name: String
     let Amount: Int

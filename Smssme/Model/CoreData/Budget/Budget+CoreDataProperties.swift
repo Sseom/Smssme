@@ -21,7 +21,9 @@ extension Budget {
     @NSManaged public var statement: Bool
     @NSManaged public var category: String?
     @NSManaged public var date: Date?
-    @NSManaged public var userId: String?
+    @NSManaged public var id: String?
+    @NSManaged public var user: User?
+    
 
 }
 

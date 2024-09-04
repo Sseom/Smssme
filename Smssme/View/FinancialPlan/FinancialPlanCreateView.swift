@@ -10,7 +10,7 @@ import SnapKit
 
 class FinancialPlanCreateView: UIView {
     let textFieldArea: CreatePlanTextFieldView
-    private let planCreateTitle = LargeTitleLabel().createLabel(with: "세부자금플랜", color: UIColor.black)
+    var planCreateTitle = LargeTitleLabel().createLabel(with: "세부자금플랜", color: UIColor.black)
     lazy var confirmButton = BaseButton().createButton(text: "확인", color: UIColor.black, textColor: UIColor.white)
     
     init(textFieldArea: CreatePlanTextFieldView) {

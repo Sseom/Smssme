@@ -10,6 +10,17 @@ import UIKit
 final class FinancialPlanCurrentPlanVC: UIViewController {
     private let financialPlanCurrentView = FinancialPlanCurrentPlanView()
     private var currentItems: [CurrentItem] = []
+    private let planItemStore = PlanItemStore.shared
+    private let repository: FinancialPlanRepository
+    
+    init(repository: FinancialPlanRepository = FinancialPlanRepository()) {
+        self.repository = repository
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

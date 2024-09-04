@@ -10,9 +10,6 @@ class MainPageView: UIView {
     private let financialTitleLabel = SmallTitleLabel().createLabel(with: "오늘의 주요 경제 지표", color: .black)
     private let benefitTitleLabel = SmallTitleLabel().createLabel(with: "2024 청년 혜택 총정리", color: .black)
     
-    // 더미데이터
-    private var priceData: [Double]! = [100, 345, 20, 120, 90, 300, 450, 220, 120]
-    
     private let chartArray: [TodayFinancia] = [
         TodayFinancia(title: "KOSPI", value: 5678.91, range: -1),
         TodayFinancia(title: "KOSDAQ", value: 234.2, range: 0),
@@ -44,9 +41,14 @@ class MainPageView: UIView {
         return stackView
     }()
     
-    private let pieChartView: PieChartView = {
+    let pieChartView: PieChartView = {
         let pieChartView = PieChartView()
         return pieChartView
+    }()
+    
+    let chartCenterButton: UIButton = {
+        let button = UIButton()
+        return button
     }()
     
     private let benefitVerticalStackView: UIStackView = {
@@ -63,7 +65,6 @@ class MainPageView: UIView {
         setupUI()
         setupTodayFinancia(todayFinanciaData: chartArray)
         setupBenefit(benefitData: benefitData)
-        setChartData(chartView: pieChartView, chartDataEntries: entryData(values: priceData))
     }
     
     required init?(coder: NSCoder) {
@@ -122,6 +123,7 @@ class MainPageView: UIView {
     private func setChartData(chartView: PieChartView, chartDataEntries: [ChartDataEntry]) {
         let data = PieChartDataSet(entries: chartDataEntries, label: "자산1")
         let chartData = PieChartData(dataSet: data)
+        chartView.centerText = "총 자산\n2,000,000 원"
         chartView.data = chartData
     }
     
@@ -152,6 +154,7 @@ class MainPageView: UIView {
             mainWelcomeTitleLabel,
             totalAssetsTitleLabel,
             pieChartView,
+            chartCenterButton,
             financialTitleLabel,
             financialScrollView,
             benefitTitleLabel,
@@ -188,6 +191,10 @@ class MainPageView: UIView {
             $0.top.equalTo(totalAssetsTitleLabel.snp.bottom).offset(20)
             $0.left.right.equalToSuperview().inset(30)
             $0.height.equalTo(pieChartView.snp.width).multipliedBy(1.0)
+        }
+        
+        chartCenterButton.snp.makeConstraints {
+            $0.edges.equalTo(pieChartView.snp.edges).inset(120)
         }
         
         financialTitleLabel.snp.makeConstraints {
