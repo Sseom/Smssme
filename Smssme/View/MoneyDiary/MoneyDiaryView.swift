@@ -43,6 +43,12 @@ class MoneyDiaryView: UIView {
     
     let todayButton = BaseButton().createButton(text: "오늘", color: .systemGray.withAlphaComponent(0.5), textColor: .black)
     
+    private let pencilButton: UIButton = {
+        let button = UIButton()
+        button.setBackgroundImage(UIImage(named: "pencilButton"), for: .normal)
+        return button
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureUI()
@@ -73,6 +79,10 @@ class MoneyDiaryView: UIView {
         }
     }
     
+    func addActionToPencilButton(_ action: UIAction) {
+        pencilButton.addAction(action, for: .touchUpInside)
+    }
+    
     private func configureUI() {
         
         [
@@ -83,7 +93,8 @@ class MoneyDiaryView: UIView {
             chartView,
             todayButton,
             segmentController,
-            moveDateButton
+            moveDateButton,
+            pencilButton
         ].forEach { self.addSubview($0) }
         
         
@@ -133,6 +144,11 @@ class MoneyDiaryView: UIView {
             $0.bottom.equalTo(self.snp.bottom)
         }
 
+        pencilButton.snp.makeConstraints {
+            $0.bottom.equalToSuperview().offset(-60)
+            $0.trailing.equalToSuperview().offset(-20)
+            $0.width.height.equalTo(50)
+        }
     }
     
 }

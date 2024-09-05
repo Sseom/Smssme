@@ -57,8 +57,8 @@ class CreatePlanTextFieldView: UIView {
     private let startDateLabel = ContentLabel().createLabel(with: "시작날짜", color: UIColor(hex: "#333333"))
     private let endDateLabel = ContentLabel().createLabel(with: "종료날짜", color: UIColor(hex: "#333333"))
     
-    lazy var targetAmountField = AmountTextField.createTextField(keyboard: .numberPad)
-    lazy var currentSavedField = AmountTextField.createTextField(keyboard: .numberPad)
+    lazy var targetAmountField = AmountTextField.createTextField(keyboard: .numberPad, currencyText: "원")
+    lazy var currentSavedField = AmountTextField.createTextField(keyboard: .numberPad, currencyText: "원")
     
     lazy var startDateField = GoalDateTextField.createTextField()
     lazy var endDateField = GoalDateTextField.createTextField()

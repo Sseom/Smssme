@@ -16,12 +16,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: windowScene)
-        
-        window.rootViewController = UINavigationController(rootViewController: SplashViewController())
-        
-        //        window.rootViewController = TabBarController()
-        
-        
+
+
+//        window.rootViewController = MoneyDiaryCreationVC(diaryManager: DiaryCoreDataManager(), transactionItem2: Diary())
+        window.rootViewController = TabBarController()
+
         window.makeKeyAndVisible()
         
         self.window = window

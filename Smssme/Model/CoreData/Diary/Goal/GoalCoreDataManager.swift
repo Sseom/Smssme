@@ -57,7 +57,6 @@ class FinancialPlanRepository {
     func getAllFinancialPlans() -> [FinancialPlan] {
         let fetchRequest: NSFetchRequest<FinancialPlan> = FinancialPlan.fetchRequest()
         
-        // 최신 플랜부터 가져오기 위해 정렬
         let sortDescriptor = NSSortDescriptor(key: "endDate", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         

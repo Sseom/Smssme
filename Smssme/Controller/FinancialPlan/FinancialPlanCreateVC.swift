@@ -5,8 +5,8 @@
 //  Created by 임혜정 on 8/27/24.
 //
 
-import UIKit
 import CoreData
+import UIKit
 
 protocol FinancialPlanCreationDelegate: AnyObject {
     func didCreateFinancialPlan(_ plan: FinancialPlan)
