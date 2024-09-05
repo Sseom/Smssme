@@ -9,10 +9,7 @@ import SnapKit
 import UIKit
 
 class MoneyDiaryBudgetEditView: UIView {
-    //MARK: - Factory Component Properties
-    
-    
-    //MARK: - Component Properties    
+    // MARK: - Component Properties
     let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -25,10 +22,8 @@ class MoneyDiaryBudgetEditView: UIView {
     // MARK: - View Init
     override init(frame: CGRect) {
         super.init(frame: frame)
-        // 터치시 키보드 내림
-        let recognizer = UITapGestureRecognizer(target: self, action: #selector(touch))
-        self.addGestureRecognizer(recognizer)
         setupUI()
+        setupGestureRecognizer()
     }
     
     required init?(coder: NSCoder) {
@@ -56,8 +51,14 @@ class MoneyDiaryBudgetEditView: UIView {
         }
     }
     
-    //MARK: - Objc
-    @objc func touch() {
+    private func setupGestureRecognizer() {
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        recognizer.cancelsTouchesInView = false // Allow touches to be processed by other views
+        self.addGestureRecognizer(recognizer)
+    }
+    
+    // MARK: - Objc
+    @objc private func handleTap() {
         self.endEditing(true)
     }
 }

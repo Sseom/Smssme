@@ -126,8 +126,11 @@ class MoneyDiaryBudgetEditVC: UIViewController {
         print(row)
         
         dummyList[section].items.remove(at: row)
-        moneyDiaryBudgetEditView.tableView.deleteRows(at: [IndexPath(row: row, section: section)], with: .none)
-        moneyDiaryBudgetEditView.tableView.reloadData()
+        moneyDiaryBudgetEditView.tableView.deleteRows(at: [IndexPath(row: row, section: section)], with: .automatic)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.moneyDiaryBudgetEditView.tableView.reloadData()
+        }
     }
     
     @objc private func saveButtonTapped() {
