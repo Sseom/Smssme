@@ -49,9 +49,9 @@ class MypageVC: UIViewController {
         
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        self.mypageView.tableView.reloadData()
-//    }
+    //    override func viewWillAppear(_ animated: Bool) {
+    //        self.mypageView.tableView.reloadData()
+    //    }
     
     //MARK: - 테이블뷰 관련 메서드
     func tableviewSetup() {
@@ -152,7 +152,7 @@ class MypageVC: UIViewController {
             // 비로그인 상태라면
             print("로그인 없이 둘러보기 상태입니다.")
             self.tableViewHeaderSetUp(nickname: "로그인해주세요. ", email: "슴씀이의 더 많은 정보를 이용하러 가기!")
-//            self.mypageView.tableView.reloadData()
+            //            self.mypageView.tableView.reloadData()
         }
     }
     
@@ -174,8 +174,27 @@ class MypageVC: UIViewController {
             let email = Auth.auth().currentUser?.email ?? "이메일을 설정해주세요"
             self.tableViewHeaderSetUp(nickname: nickname, email: email)
             
-//            self.mypageView.tableView.reloadData()
+            //            self.mypageView.tableView.reloadData()
         }
+    }
+    
+    //MARK: - 파이어베이스 비밀번호 찾기 이메일 발송
+    fileprivate func sendPasswordReset() {
+//        guard let email = emailTf.text else { return }
+//        
+//        Auth.auth().sendPasswordReset(withEmail: email) { [self] error in
+//            guard let error = error else {
+//                print("메세지 보내기 성공")
+//                return
+//            }
+//            let nsError : NSError = error as NSError
+//            switch nsError.code {
+//            case 17011:
+//                print("존재하지 않는 이메일 입니다")
+//            default:
+//                break
+//            }
+//        }
     }
     
     //MARK: - @objc 테이블뷰의 헤더 클릭 이벤트

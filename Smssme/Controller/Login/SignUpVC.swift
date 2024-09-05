@@ -26,7 +26,7 @@ class SignUpVC: UIViewController, KeyboardEvader {
     private let signupView = SignUpView()
     private var selectedCheckBox: UIButton?  // 선택된 체크박스
     
-    private let pickerView = UIPickerView()
+//    private let pickerView = UIPickerView()
     private let incomePickerView = UIPickerView()
     private let locationPickerView = UIPickerView()
     
@@ -139,13 +139,10 @@ class SignUpVC: UIViewController, KeyboardEvader {
             "gender": gender,
             "income": income,
             "location": location,
-            "email": Auth.auth().currentUser?.email ?? "" // 이메일도 같이 저장 가능
+            "email": Auth.auth().currentUser?.email ?? ""
         ]
         
-        //                self.userSession = user // 가입하면 바로 로그인 되도록 세션 등록
-        
         // users 컬렉션에 UID를 키로 데이터 저장
-        // let db = Firestore.firestore()
         db.collection("users").document(uid).setData(userData) { error in
             if let error = error {
                 print("Error saving user data: \(error.localizedDescription)")
@@ -235,28 +232,46 @@ class SignUpVC: UIViewController, KeyboardEvader {
     
     // 피커뷰 "완료" 클릭 시 데이터를 textfield에 입력 후 입력창 내리기
     @objc func donePicker() {
-        let row = pickerView.selectedRow(inComponent: 0)
-        pickerView.selectRow(row, inComponent: 0, animated: false)
-        signupView.incomeTextField.text = pickerIncomeData[row]
+        // 소득 구간
+        let incomeRow = incomePickerView.selectedRow(inComponent: 0)
+        signupView.incomeTextField.text = pickerIncomeData[incomeRow]
+        
+        // 지역
+        let locationRow = locationPickerView.selectedRow(inComponent: 0)
+        signupView.locationTextField.text = pickerLocationData[locationRow]
+        
+        // 텍스트필드 입력 마치고 키보드 숨기기
         signupView.incomeTextField.resignFirstResponder()
-        print("선택한 소득구간: \(signupView.incomeTextField.text)")
+        signupView.locationTextField.resignFirstResponder()
+        
+        // 선택된 값 출력
+        print("선택한 소득구간: \(signupView.incomeTextField.text ?? "")")
+        print("선택한 위치: \(signupView.locationTextField.text ?? "")")
     }
     
     // 피커뷰 "취소" 클릭 시 textfield의 텍스트 값을 nil로 처리 후 입력창 내리기
     @objc func cancelPicker() {
         signupView.incomeTextField.text = nil
+        signupView.locationTextField.text = nil
         signupView.incomeTextField.resignFirstResponder()
     }
 }
 
 
-//MARK: - extension
+//MARK: - extension - PickerView
 extension SignUpVC: UIPickerViewDelegate, UIPickerViewDataSource {
     private func configPickerView() {
-        pickerView.delegate = self
-        pickerView.dataSource = self
-        signupView.incomeTextField.inputView = pickerView //텍스트필드 눌렀을 때 뜨는 뷰(inputView)
-        //        signupView.locationTextField.inputView = pickerView
+        // 소득구간
+        incomePickerView.delegate = self
+        incomePickerView.dataSource = self
+        signupView.incomeTextField.inputView = incomePickerView //텍스트필드 눌렀을 때 뜨는 뷰(inputView)
+        
+        
+        // 지역
+        locationPickerView.delegate = self
+        locationPickerView.dataSource = self
+        signupView.locationTextField.inputView = locationPickerView
+        
     }
     
     // 피커뷰의 갯수
@@ -265,15 +280,31 @@ extension SignUpVC: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     // 피커뷰에 표시될 항목 수
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickerIncomeData.count
+        if pickerView == self.incomePickerView {
+            return pickerIncomeData.count
+        } else if pickerView == self.locationPickerView {
+            return pickerLocationData.count
+        } else {
+            return 0
+        }
     }
+    
     // 특정 위치(row)번째 문자열 반환
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pickerIncomeData[row]
+        
+        if pickerView == self.incomePickerView {
+            return pickerIncomeData[row]
+        } else if pickerView == self.locationPickerView {
+            return pickerLocationData[row]
+        } else {
+            return ""
+        }
     }
+    
     // 텍스트필드의 텍스트를 선택된 문자열로 변환
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         signupView.incomeTextField.text = pickerIncomeData[row]
+        signupView.locationTextField.text = pickerLocationData[row]
     }
     
     // 툴바 구성
@@ -283,14 +314,17 @@ extension SignUpVC: UIPickerViewDelegate, UIPickerViewDataSource {
         toolBar.isTranslucent = true
         toolBar.sizeToFit()
         
-        
         let cancelButton = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(self.cancelPicker))
+        
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)  //취소~완료 간의 거리
+        
         let doneButton = UIBarButtonItem(title: "선택", style: .plain, target: self, action: #selector(self.donePicker))
         
         toolBar.setItems([cancelButton, flexibleSpace, doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
+        
         signupView.incomeTextField.inputAccessoryView = toolBar
+        signupView.locationTextField.inputAccessoryView = toolBar
         
     }
 }
