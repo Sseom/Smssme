@@ -13,7 +13,8 @@ class DailyTransactionVC: UIViewController {
     var dailyTransactionList: [TransactionItem] = []
     var dailyIncome = 0
     var dailyExpense = 0
-    
+    var transactionList: [Diary] = []
+    var today = Date()
     init(transactionView: DailyTransactionView) {
         self.transactionView = transactionView
         super.init(nibName: nil, bundle: nil)
@@ -29,6 +30,7 @@ class DailyTransactionVC: UIViewController {
     }
     
     private func setupUI() {
+        configureCell()
         transactionView.listCollectionView.dataSource = self
         transactionView.listCollectionView.delegate = self
         transactionView.listCollectionView.register(DailyTransactionCell.self, forCellWithReuseIdentifier: DailyTransactionCell.reuseIdentifier)
@@ -38,7 +40,17 @@ class DailyTransactionVC: UIViewController {
             $0.edges.equalTo(self.view.safeAreaLayoutGuide)
         }
         
+        
     }
+    
+    func configureCell() {
+        if let todayLists = DiaryCoreDataManager.shared.fetchDiaries(on: today)
+        {
+            transactionList = todayLists
+                    
+        }
+    }
+    
     
     private func calculateTodayTransaction(TransactionList: [TransactionItem]) {
         var incomeList = 0
@@ -53,9 +65,28 @@ class DailyTransactionVC: UIViewController {
         self.dailyExpense = expesneList
     }
     
-    func setDate(day: String) {
-        self.transactionView.dateLabel.text = day
+    func setDate(day: Date) {
+
+        today = day
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd"
+        let dayString = dateFormatter.string(from: day)
+        self.transactionView.dateLabel.text = dayString
         
+    }
+    
+    func counter (amount: Int) -> String {
+        let temp = String(amount)
+        
+        if temp.count > 10 {
+            let temp2 = Double(amount) * 0.001
+            //1500원은 0.15만->
+            //1000000 원 100만?
+            return String(temp2)
+            
+        }
+        else { return temp }
     }
     
     
@@ -64,11 +95,12 @@ class DailyTransactionVC: UIViewController {
 
 extension DailyTransactionVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let viewController = MoneyDiaryEditVC()
+        let viewController = MoneyDiaryEditVC(transactionItem2: transactionList[indexPath.row])
         self.navigationController?.pushViewController(viewController, animated: false)
     }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return transactionList.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

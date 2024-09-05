@@ -7,14 +7,26 @@
 
 import UIKit
 
+protocol FinancialPlanDeleteDelegate: AnyObject {
+    func didDeleteFinancialPlan(_ plan: FinancialPlan)
+}
+
+protocol FinancialPlanUpdateDelegate: AnyObject {
+    func didUpdateFinancialPlan(_ plan: FinancialPlan)
+}
+
 class FinancialPlanConfirmVC: UIViewController, FinancialPlanEditDelegate {
+    weak var deleteDelegate: FinancialPlanDeleteDelegate?
+    weak var updateDelegate: FinancialPlanUpdateDelegate?
     private let confirmView = FinancialPlanConfirmView()
     private let financialPlanManager: FinancialPlanManager
     private var financialPlan: FinancialPlan
+    private let repository: FinancialPlanRepository
     
-    init(financialPlanManager: FinancialPlanManager, financialPlan: FinancialPlan) {
+    init(financialPlanManager: FinancialPlanManager, financialPlan: FinancialPlan, repository: FinancialPlanRepository) {
         self.financialPlanManager = financialPlanManager
         self.financialPlan = financialPlan
+        self.repository = repository
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -26,27 +38,28 @@ class FinancialPlanConfirmVC: UIViewController, FinancialPlanEditDelegate {
         super.viewDidLoad()
         view.backgroundColor = .white
         configure(with: financialPlan)
+        repository.printAllFinancialPlans()
+        setupActions()
     }
     
     override func loadView() {
         view = confirmView
-        setupActions()
-        
     }
     
-    func didUpdateFinacialPlan(_ plan: FinancialPlan) {
+    func didUpdateFinancialPlan(_ plan: FinancialPlan) {
         self.financialPlan = plan
         configure(with: plan)
+        updateDelegate?.didUpdateFinancialPlan(plan)
     }
     
     private func configure(with plan: FinancialPlan) {
         confirmView.confirmLargeTitle.text = "\(plan.title ?? "")"
-        confirmView.amountGoalLabel.text = "목표금액 \(plan.amount)원"
-        confirmView.currentSavedLabel.text = "달성금액 \(plan.deposit)원"
-        // 종료 날짜
+        confirmView.amountGoalLabel.text = "목표금액 \(plan.amount.formattedAsCurrency)원"
+        confirmView.currentSavedLabel.text = "달성금액 \(plan.deposit.formattedAsCurrency)원"
+
         if let endDate = plan.endDate {
-            confirmView.endDateLabel.text = "목표날짜 \(FinancialPlanDateModel.dateFormatter.string(from: endDate))"
-        }
+            let formattedDate = FinancialPlanDateModel.dateFormatter.string(from: endDate)
+            confirmView.endDateLabel.text = formattedDate }
         // 남은 일수
         if let endDate = plan.endDate {
             let calendar = Calendar.current
@@ -62,21 +75,47 @@ class FinancialPlanConfirmVC: UIViewController, FinancialPlanEditDelegate {
 // MARK: - 버튼 액션 관련
 extension FinancialPlanConfirmVC {
     private func setupActions() {
-        confirmView.confirmButton.addAction(UIAction(handler: { [weak self] _ in
-            self?.confirmButtonTapped()
-        }), for: .touchUpInside)
         confirmView.editButton.addAction(UIAction(handler: { [weak self] _ in
             self?.editButtonTapped()
+        }), for: .touchUpInside)
+        
+        confirmView.deleteButton.addAction(UIAction(handler: { [weak self] _ in
+            self?.deleteButtonTapped()
         }), for: .touchUpInside)
     }
     
     private func editButtonTapped() {
         let financialPlanEditPlanVC = FinancialPlanEditPlanVC(financialPlanManager: FinancialPlanManager.shared, textFieldArea: CreatePlanTextFieldView(), financialPlan: financialPlan)
-        financialPlanEditPlanVC.delegate = self
+        financialPlanEditPlanVC.editDelegate = self
         navigationController?.pushViewController(financialPlanEditPlanVC, animated: true)
     }
     
-    private func confirmButtonTapped() {
-        navigationController?.popViewController(animated: true)
+    private func deleteButtonTapped() {
+        let alert = UIAlertController(title: "플랜 삭제", message: "정말로 이 플랜을 삭제하시겠습니까?", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { [weak self] _ in
+            self?.deletePlan()
+        }))
+        
+        present(alert, animated: true)
+    }
+    
+    private func deletePlan() {
+        repository.deleteFinancialPlan(financialPlan)
+        
+        deleteDelegate?.didDeleteFinancialPlan(financialPlan)
+        
+        showAlert(message: "플랜이 성공적으로 삭제되었습니다.") { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
+        }
+    }
+    
+    private func showAlert(message: String, completion: (() -> Void)? = nil) {
+        let alert = UIAlertController(title: "알림", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "확인", style: .default) { _ in
+            completion?()
+        })
+        present(alert, animated: true)
     }
 }

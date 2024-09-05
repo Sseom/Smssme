@@ -26,13 +26,14 @@ class LoginVC: UIViewController {
     }
     
     ///인증상태 수신 대기 - 리스터 연결
-    ///각각의 앱 뷰에서 앱에 로그인한 사용자에 대한 정보를 얻기 위해 FIRAuth 객체와 리스너를 연결합니다. 이 리스너는 사용자의 로그인 상태가 변경될 때마다 호출됩니다.
+    ///각각의 앱 뷰에서 앱에 로그인한 사용자에 대한 정보를 얻기 위해 FIRAuth 객체와 리스너를 연결합니다. 
+    ///이 리스너는 사용자의 로그인 상태가 변경될 때마다 호출됩니다.
     override func viewWillAppear(_ animated: Bool) {
         // [START auth_listener]
         handle = Auth.auth().addStateDidChangeListener { auth, user in
-            // [START_EXCLUDE]
-            //          self.setTitleDisplay(user)
-            //          self.tableView.reloadData()
+
+//                      self.setTitleDisplay(user)
+//                      self.tableView.reloadData()
         }
     }
     
@@ -59,53 +60,7 @@ class LoginVC: UIViewController {
         loginVeiw.unLoginButton.addTarget(self, action: #selector(unloginButtonTapped), for: .touchUpInside)
     }
     
-    ///사용자 정보 가져오기
-    ///사용자가 로그인되면 사용자에 대한 정보를 가져올 수 있습니다. 예를 들어 인증 상태 리스너에서 다음을 수행합니다.
-    //    if let user = user {
-    //      let uid = user.uid
-    //      let email = user.email
-    //      let photoURL = user.photoURL
-    //      var multiFactorString = "MultiFactor: "
-    //      for info in user.multiFactor.enrolledFactors {
-    //        multiFactorString += info.displayName ?? "[DispayName]"
-    //        multiFactorString += " "
-    //      }
-    //      // [START_EXCLUDE]
-    //      let emailLabel = cell?.viewWithTag(1) as? UILabel
-    //      let userIDLabel = cell?.viewWithTag(2) as? UILabel
-    //      let profileImageView = cell?.viewWithTag(3) as? UIImageView
-    //      let multiFactorLabel = cell?.viewWithTag(4) as? UILabel
-    //      emailLabel?.text = email
-    //      userIDLabel?.text = uid
-    //      multiFactorLabel?.text = multiFactorString
-    //      if isMFAEnabled {
-    //        multiFactorLabel?.isHidden = false
-    //      } else {
-    //        multiFactorLabel?.isHidden = true
-    //      }
-    //
-    //      struct last {
-    //        static var photoURL: URL? = nil
-    //      }
-    //      last.photoURL = photoURL // to prevent earlier image overwrites later one.
-    //      if let photoURL = photoURL {
-    //        DispatchQueue.global(qos: .default).async {
-    //          let data = try? Data(contentsOf: photoURL)
-    //          if let data = data {
-    //            let image = UIImage(data: data)
-    //            DispatchQueue.main.async {
-    //              if photoURL == last.photoURL {
-    //                profileImageView?.image = image
-    //              }
-    //            }
-    //          }
-    //        }
-    //      } else {
-    //        profileImageView?.image = UIImage(named: "ic_account_circle")
-    //      }
-    //      // [END_EXCLUDE]
-    //    }
-    
+
     
     //MARK: - @objc 로그인
     ///기존 사용자 로그인
@@ -126,10 +81,6 @@ class LoginVC: UIViewController {
                 showAlert(message: "\(error)", AlertTitle: "로그인 실패", buttonClickTitle: "확인")
                 
             } else {
-                // 성공이면 화면전환하고 프로필 가져오기
-                //                self.getUserProfile()
-//                showAlert(message: "안녕하세요,\n 로그인되었습니다.", AlertTitle: "로그인 성공", buttonClickTitle: "확인")
-                
                 showSnycAlert(message: "안녕하세요,\n 로그인되었습니다.", AlertTitle: "로그인 성공", buttonClickTitle: "확인", method: switchToTabBarController)
                 
             }
@@ -165,6 +116,7 @@ class LoginVC: UIViewController {
     
     //MARK: - @objc 회원가입
     @objc private func signupButtonTapped() {
+        print(#function)
         let signupVC = SignUpVC()
         navigationController?.pushViewController(signupVC, animated: true)
     }
@@ -172,12 +124,18 @@ class LoginVC: UIViewController {
     
     //MARK: - @objc 비회원 로그인
     @objc private func unloginButtonTapped() {
-        // 아직 메인 페이지 뷰컨이 없는 상태라 혜정님 뷰컨으로 임시 연결
-        let tabBarVC = TabBarController()
-        navigationController?.pushViewController(tabBarVC, animated: true)
+        let mainTabBarController = TabBarController()
+        // 전체화면 전환 (애니메이션 포함)
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let window = windowScene.windows.first else { return }
         
+        window.rootViewController = mainTabBarController
+        UIView.transition(with: window,
+                          duration: 0.5,
+                          options: [.transitionCrossDissolve],
+                          animations: nil,
+                          completion: nil)
     }
     
-}
-
+}    
 
