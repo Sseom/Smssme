@@ -27,7 +27,7 @@ class MoneyDiaryBudgetEditView: UIView {
         super.init(frame: frame)
         // 터치시 키보드 내림
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(touch))
-        tableView.addGestureRecognizer(recognizer)
+        self.addGestureRecognizer(recognizer)
         setupUI()
     }
     

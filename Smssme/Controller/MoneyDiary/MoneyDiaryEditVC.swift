@@ -71,7 +71,7 @@ class MoneyDiaryEditVC: UIViewController {
     
     private func configureUI() {
         
-        moneyDiaryEditView.priceTextField.text = String(transactionItem2.amount)
+        moneyDiaryEditView.priceTextField.text = "\(KoreanCurrencyFormatter.shared.string(from: transactionItem2.amount))"
         moneyDiaryEditView.datePicker.date = transactionItem2.date ?? Date()
         moneyDiaryEditView.titleTextField.text = transactionItem2.title
         moneyDiaryEditView.categoryTextField.text = transactionItem2.category
@@ -85,7 +85,6 @@ class MoneyDiaryEditVC: UIViewController {
     
     @objc func updateData() {
         let date = moneyDiaryEditView.datePicker.date
-        let amount = Int64(moneyDiaryEditView.priceTextField.text ?? "0") ?? 0
         let statement =
         if moneyDiaryEditView.segmentControl.selectedSegmentIndex == 0 {
             false
@@ -99,7 +98,7 @@ class MoneyDiaryEditVC: UIViewController {
         DiaryCoreDataManager.shared.updateDiary(with: uuid,
                                                 newTitle: titleTextField,
                                                 newDate: date,
-                                                newAmount: amount,
+                                                newAmount: KoreanCurrencyFormatter.shared.number(from: moneyDiaryEditView.priceTextField.text ?? "") ?? 0,
                                                 newStatement: statement,
                                                 newCategory: categoryTextField,
                                                 newNote: memo,

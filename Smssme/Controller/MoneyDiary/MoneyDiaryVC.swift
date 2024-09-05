@@ -49,10 +49,15 @@ final class MoneyDiaryVC: UIViewController {
     
     func setChartData() {
         if let diaries = DiaryCoreDataManager.shared.fetchDiaries(from: DateManager.shared.getFirstDayInMonth(date: calendarDate), to: DateManager.shared.getlastDayInMonth(date: calendarDate)){
-            print(diaries)
-            dataEntries = diaries.map {
-                PieChartDataEntry(value: Double($0.amount), label: "\($0.title ?? "")")
-            }
+            
+            let totalAmount = diaries.filter { !$0.statement }
+                .reduce(0) { $0 + $1.amount }
+            
+            dataEntries = Dictionary(grouping: diaries.filter { !$0.statement }, by: { $0.category ?? "" })
+                .mapValues { $0.reduce(0) { $0 + $1.amount } }
+                .map {
+                    return PieChartDataEntry(value: (Double($1) / Double(totalAmount)) * 100, label: $0)
+                }
         } else {
             return
         }
