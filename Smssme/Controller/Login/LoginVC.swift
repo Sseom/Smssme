@@ -128,6 +128,7 @@ class LoginVC: UIViewController {
         // 전체화면 전환 (애니메이션 포함)
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let window = windowScene.windows.first else { return }
+
         
         window.rootViewController = mainTabBarController
         UIView.transition(with: window,

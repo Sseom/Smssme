@@ -134,9 +134,9 @@ class MypageVC: UIViewController {
     
     // 개인정보 처리방침 노션 url 연결
     private func privacyPolicyUrl () {
-        let privacyPolicyUrl = NSURL(string: "https://valley-porch-b6d.notion.site/ce887a60fc15484f82f92194a3a44d2d")
-        let safariView: SFSafariViewController = SFSafariViewController(url: privacyPolicyUrl as! URL)
-        self.present(safariView, animated: true, completion: nil)
+        guard let url = URL(string: "https://valley-porch-b6d.notion.site/ce887a60fc15484f82f92194a3a44d2d") else {return}
+        let safariVC = SFSafariViewController(url: url)
+        self.present(safariVC, animated: true, completion: nil)
     }
     
     // TODO: 파베에서 현재 사용자를 가져올 때 권장하는 방법은 다음과 같이 Auth 객체에 리스너를 설정 해볼 것.
@@ -177,29 +177,6 @@ class MypageVC: UIViewController {
 //            self.mypageView.tableView.reloadData()
         }
     }
-    
-    func updateLabels(with data: [String: Any]) {
-        if let nickname = data["nickname"] as? String {
-            mypageView.nicknameLabel.text = "닉네임: \(nickname)"
-        }
-        
-        if let birthday = data["birthday"] as? String {
-            mypageView.birthdayLabel.text = "생년월일: \(birthday)"
-        }
-        
-        if let gender = data["gender"] as? String {
-            mypageView.genderLabel.text = "성별: \(gender)"
-        }
-        
-        if let income = data["income"] as? String {
-            mypageView.incomeLabel.text = "소득: \(income)"
-        }
-        
-        if let location = data["location"] as? String {
-            mypageView.locationLabel.text = "지역: \(location)"
-        }
-    }
-    
     
     //MARK: - @objc 테이블뷰의 헤더 클릭 이벤트
     @objc
