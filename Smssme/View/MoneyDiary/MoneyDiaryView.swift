@@ -13,6 +13,7 @@ class MoneyDiaryView: UIView {
     lazy var calendarView = CalendarView()
     lazy var chartView: PieChartView = {
         let chartView = PieChartView()
+        chartView.noDataText = "작성된 내역이 없습니다."
         chartView.isHidden = true
         return chartView
     }()
