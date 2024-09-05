@@ -67,7 +67,7 @@ extension FinancialPlanCurrentPlanVC: UICollectionViewDataSource {
         }
         
         let item = plans[indexPath.item]
-        cell.configure(item: item)
+        cell.configure(item: item, repository: repository)
         return cell
     }
 }

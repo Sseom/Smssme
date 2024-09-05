@@ -54,8 +54,8 @@ class FinancialPlanConfirmVC: UIViewController, FinancialPlanEditDelegate {
     
     private func configure(with plan: FinancialPlan) {
         confirmView.confirmLargeTitle.text = "\(plan.title ?? "")"
-        confirmView.amountGoalLabel.text = "목표금액 \(plan.amount.formattedAsCurrency)"
-        confirmView.currentSavedLabel.text = "달성금액 \(plan.deposit.formattedAsCurrency)"
+        confirmView.amountGoalLabel.text = "목표금액 \(plan.amount.formattedAsCurrency)원"
+        confirmView.currentSavedLabel.text = "달성금액 \(plan.deposit.formattedAsCurrency)원"
 
         if let endDate = plan.endDate {
             let formattedDate = FinancialPlanDateModel.dateFormatter.string(from: endDate)

@@ -19,8 +19,7 @@ struct KoreanCurrencyFormatter {
     }
     
     func string(from value: Int64) -> String {
-        let formattedValue = numberFormatter.string(from: NSNumber(value: value)) ?? "\(value)"
-        return formattedValue + "원"
+        return numberFormatter.string(from: NSNumber(value: value)) ?? "\(value)"
     }
     
     func string(from value: Int) -> String {
