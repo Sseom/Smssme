@@ -11,7 +11,7 @@ import Foundation
 /// - title: 항목명
 /// - value: 항목값
 /// - range : 변동폭
-struct TodayFinancia {
+struct TodayFinancial {
     let title: String
     let value: Double
     let range: Double 

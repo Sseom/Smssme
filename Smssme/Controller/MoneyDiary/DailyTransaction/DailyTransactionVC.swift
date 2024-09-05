@@ -34,11 +34,11 @@ class DailyTransactionVC: UIViewController {
         
         transactionView.moneyToString(dailyIncome: dailyIncome, dailyExpense: dailyExpense)
         
+        configureCell()
         transactionView.listCollectionView.reloadData()
     }
     
     private func setupUI() {
-        configureCell()
         transactionView.listCollectionView.dataSource = self
         transactionView.listCollectionView.delegate = self
         transactionView.listCollectionView.register(DailyTransactionCell.self, forCellWithReuseIdentifier: DailyTransactionCell.reuseIdentifier)

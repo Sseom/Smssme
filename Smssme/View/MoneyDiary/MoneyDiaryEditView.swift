@@ -22,7 +22,7 @@ class MoneyDiaryEditView: UIView {
 //    let noteTextField = BaseTextField().createTextField(placeholder: "메모", textColor: .black)
     
     let cancelButton = BaseButton().createButton(text: "취소", color: .lightGray, textColor: .white)
-     let saveButton = BaseButton().createButton(text: "저장", color: .systemBlue, textColor: .white)
+    let saveButton = BaseButton().createButton(text: "저장", color: .systemBlue, textColor: .white)
     
     //MARK: - Component Properties
     lazy var segmentControl: UISegmentedControl = {
@@ -41,9 +41,9 @@ class MoneyDiaryEditView: UIView {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fill
-//        stackView.backgroundColor = .darkGray
-//        stackView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 50, right: 10)
-//        stackView.isLayoutMarginsRelativeArrangement = true
+        //        stackView.backgroundColor = .darkGray
+        //        stackView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 50, right: 10)
+        //        stackView.isLayoutMarginsRelativeArrangement = true
         return stackView
     }()
     
@@ -64,10 +64,20 @@ class MoneyDiaryEditView: UIView {
         return datePicker
     }()
     
+    let deleteButton: UIBarButtonItem = {
+        let barButton = UIBarButtonItem()
+        barButton.image = UIImage(systemName: "trash")
+        return barButton
+    }()
+    
     // MARK: - View Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .white
+        // 터치시 키보드 내림
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(touch))
+        self.addGestureRecognizer(recognizer)
+        
         noteTextField.delegate = self
         setupUI()
     }
@@ -164,6 +174,10 @@ class MoneyDiaryEditView: UIView {
             titleLabel.text = "수입명"
             titleTextField.placeholder = "수입명"
         }
+    }
+    
+    @objc func touch() {
+        self.endEditing(true)
     }
 }
 

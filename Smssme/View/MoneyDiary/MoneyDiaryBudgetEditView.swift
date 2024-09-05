@@ -25,6 +25,9 @@ class MoneyDiaryBudgetEditView: UIView {
     // MARK: - View Init
     override init(frame: CGRect) {
         super.init(frame: frame)
+        // 터치시 키보드 내림
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(touch))
+        tableView.addGestureRecognizer(recognizer)
         setupUI()
     }
     
@@ -54,4 +57,7 @@ class MoneyDiaryBudgetEditView: UIView {
     }
     
     //MARK: - Objc
+    @objc func touch() {
+        self.endEditing(true)
+    }
 }
