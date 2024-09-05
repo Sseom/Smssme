@@ -58,8 +58,26 @@ final class CalendarCollectionViewCell: UICollectionViewCell, CellReusable {
         case 7: self.dayLabel.textColor = .blue
         default: self.dayLabel.textColor = .black
         }
-
+        guard let temp = DiaryCoreDataManager.shared.fetchDiaries(on: item.date)
+        else { return }
+        var income = 0
+        var expense = 0
+        
+        for i in temp {
+            if i.statement  {
+                income += Int(i.amount)
+            }
+            else {
+                expense += Int(i.amount)
+            }
+        }
+        let totalAmount = income + (-expense)
+        
+        self.expenseLabel.text = "\(expense)"
+        self.incomeLabel.text = "\(income)"
+        self.totalAmountLabel.text = "\(totalAmount)"
     }
+
     
     private func setupCellUI() {
         dayLabel.font = .boldSystemFont(ofSize: 12)
