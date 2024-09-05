@@ -66,7 +66,9 @@ class DailyTransactionVC: UIViewController {
     }
     
     func setDate(day: Date) {
+
         today = day
+
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd"
         let dayString = dateFormatter.string(from: day)

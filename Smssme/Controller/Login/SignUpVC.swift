@@ -18,6 +18,7 @@ class SignUpVC: UIViewController, KeyboardEvader {
     // Firestore의 users 컬렉션 참조
     let db = Firestore.firestore()
     
+    let signUpView = SignUpView()
     
     // 키보드가 화면 가릴 시 내려가기 위한 설정
     var keyboardScrollView: UIScrollView { return signupView.scrollView}
@@ -60,9 +61,13 @@ class SignUpVC: UIViewController, KeyboardEvader {
     
     //MARK: - func
     private func setupAddtarget() {
-        // 회원가입 버튼 클릭
-        signupView.signupButton.addTarget(self, action: #selector(signupViewButtonTapped), for: .touchUpInside)
         
+        if let user = Auth.auth().currentUser {
+            signupView.signupButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
+        } else {
+            // 회원가입 버튼 클릭
+            signupView.signupButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
+        }
         //체크박스 버튼 클릭 시
         signupView.maleCheckBox.addTarget(self, action: #selector(checkBoxTapped), for: .touchUpInside)
         signupView.femaleCheckBox.addTarget(self, action: #selector(checkBoxTapped), for: .touchUpInside)
@@ -98,10 +103,34 @@ class SignUpVC: UIViewController, KeyboardEvader {
         }
     }
     
+    //MARK: - updateUser : 파이어베이스 데이터 업데이트
+    func updateUser() {
+        guard let user = Auth.auth().currentUser,
+              let nickname = signupView.nicknameTextField.text,
+              let birthday = signupView.birthdayTextField.text,
+              //              let gender = signupView
+              let income = signupView.incomeTextField.text,
+              let location = signupView.locationTextField.text
+        else {
+            return
+        }
+        // Firestore에서 유저 정보 업데이트
+        let db = Firestore.firestore()
+        db.collection("users").document(user.uid).updateData([
+            "nickname": nickname,
+            //            "gender": signupView.maleButton.isSelected ? "male" : "female"
+            "birthday": birthday,
+            "income": income,
+            "location": location
+        ]) { error in
+            if let error = error {
+                print("유저 정보 수정 실패: \(error.localizedDescription)")
+            }
+        }
+    }
+    
     //MARK: - saveUserInfo: 사용자 정보 저장 파이어베이스에 저장
     func saveUserInfo(uid: String, nickname: String, birthday: String, gender: String, income: String, location: String) {
-        
-        
         
         // 저장할 데이터 정의
         let userData: [String: Any] = [
@@ -125,11 +154,11 @@ class SignUpVC: UIViewController, KeyboardEvader {
             }
         }
     }
-
     
     
-    //MARK: - @objc 회원 가입 버튼 클릭
-    @objc private func signupViewButtonTapped() {
+    
+    //MARK: - @objc 회원 가입/ 수정 버튼 클릭
+    @objc private func signUpButtonTapped() {
         print("회원가입 클릭!!!!")
         
         guard let email = signupView.emaiTextField.text, !email.isEmpty,
@@ -144,11 +173,34 @@ class SignUpVC: UIViewController, KeyboardEvader {
             showAlert(message: "모든 항목을 입력해주세요.", AlertTitle: "입력 오류", buttonClickTitle: "확인")
             return }
         
-        registerUser(email: email, password: password, nickname: nickname, birthday: birthday, gender: "확인 중", income: income, location: location)
+        registerUser(email: email, password: password, nickname: nickname, birthday: birthday, gender: "선택 안함", income: income, location: location)
         
+        showAlert(message: "회원가입이 완료되었습니다.", AlertTitle: "회원가입 완료", buttonClickTitle: "확인")
         navigationController?.popViewController(animated: true)
     }
     
+    @objc private func editButtonTapped() {
+        print("회원정보 수정 클릭!!!!")
+        
+        guard let email = signupView.emaiTextField.text, !email.isEmpty,
+              let password = signupView.passwordTextField.text, !password.isEmpty,
+              let nickname = signupView.nicknameTextField.text, !nickname.isEmpty,
+              let birthday = signupView.birthdayTextField.text, !birthday.isEmpty,
+              //              let genders = signupView.femaleCheckBox., !genders.isEmpty,
+              let income = signupView.incomeTextField.text, !income.isEmpty,
+              let location = signupView.locationTextField.text, !location.isEmpty
+                
+        else {
+            showAlert(message: "모든 항목을 입력해주세요.", AlertTitle: "입력 오류", buttonClickTitle: "확인")
+            return }
+        
+        updateUser()
+        
+        showSnycAlert(message: "회원정보 수정이 완료되었습니다.", AlertTitle: "회원정보 수정 완료", buttonClickTitle: "확인") {
+            self.navigationController?.popViewController(animated: true)
+            let mypageView = MypageView()
+        }
+    }
     
     //MARK: - 성별 체크박스
     @objc func checkBoxTapped(_ checkBox: UIButton) {

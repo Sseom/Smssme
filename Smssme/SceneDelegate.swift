@@ -17,15 +17,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
 
-//        window.rootViewController = SplashViewController()
-//        window.rootViewController = TestTableViewController()
+
 
         window.rootViewController = TabBarController()
 
-//        window.rootViewController = UINavigationController(rootViewController: FinancialPlanCurrentPlanVC())
-
-
-//        window.rootViewController = UINavigationController(rootViewController: FinancialPlanCurrentPlanVC())
 
 
 

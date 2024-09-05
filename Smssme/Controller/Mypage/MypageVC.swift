@@ -15,6 +15,7 @@ import UIKit
 class MypageVC: UIViewController {
     
     private let mypageView = MypageView()
+    private let mypageViewCell = MypageViewCell()
     
     let db = Firestore.firestore()
     
@@ -24,7 +25,7 @@ class MypageVC: UIViewController {
     
     // 각 cell에 들어갈 정보
     private let data = [
-        ["내 정보 관리"],
+        ["내 정보 수정"],
         ["알림 설정"],
         ["개인정보처리 방침"],
         ["로그아웃", "회원탈퇴"]
@@ -35,17 +36,13 @@ class MypageVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //        view = mypageView
-        
         mypageView.tableView.dataSource = self
         mypageView.tableView.delegate = self
         
         // 테이블뷰 등록 및 설정
         mypageView.tableView.register(MypageViewCell.self, forCellReuseIdentifier: "MypageViewCell")
         
-        
         tableviewSetup()
-        tableViewHeaderSetUp()
         
         setupAddtarget()
         checkLoginStatus()
@@ -62,24 +59,21 @@ class MypageVC: UIViewController {
         // 테이블뷰를 부모 뷰의 크기에 맞게 조정해주어, 화면 전체에 테이블뷰가 잘 보이도록 설정
         mypageView.tableView.frame = view.bounds
         
-        // 테이블뷰를 부모 뷰의 크기에 맞게 조정해주어, 화면 전체에 테이블뷰가 잘 보이도록 설정
-        mypageView.tableView.frame = view.bounds
-        
         // 테이블뷰 구분선 없애기
         mypageView.tableView.separatorStyle = .none
     }
     
     
     // 헤더 관련 설정
-    private func tableViewHeaderSetUp() {
-        let header = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 150))
+    private func tableViewHeaderSetUp(nickname: String, email: String) {
+        let header = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 130))
         
-        header.backgroundColor = .systemPink
+        header.backgroundColor = .white
         
         // 닉네임
         var nicknameLabel: UILabel = {
             let label = UILabel(frame: header.bounds)
-            label.text = "춤추는 닭강정님"
+            label.text = nickname
             label.font = .boldSystemFont(ofSize: 24)
             return label
         }()
@@ -89,12 +83,15 @@ class MypageVC: UIViewController {
             let label = UILabel(frame: header.bounds)
             label.font = .systemFont(ofSize: 18)
             label.textColor = .lightGray
-            label.text = "dkswlgus0314@naver.com"
+            label.text = email
             return label
         }()
         
-        [nicknameLabel, emailabel].forEach { header.addSubview($0)}
-        [header].forEach {view.addSubview($0)}
+        [nicknameLabel, emailabel].forEach {header.addSubview($0)}
+        
+        // 비회원 로그인 시 헤더에 탭 제스처 추가
+        let headerTapGesture = UITapGestureRecognizer(target: self, action: #selector(headerTapped))
+        header.addGestureRecognizer(headerTapGesture)
         
         // 닉네임 오토레이아웃
         nicknameLabel.snp.makeConstraints {
@@ -124,10 +121,11 @@ class MypageVC: UIViewController {
     // 로그인VC으로 화면전환
     private func switchToLoginVC() {
         let loginVC = LoginVC()
+        let navController = UINavigationController(rootViewController: loginVC)
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let window = windowScene.windows.first else { return }
         
-        window.rootViewController = loginVC
+        window.rootViewController = navController
         window.makeKeyAndVisible()
     }
     
@@ -145,45 +143,35 @@ class MypageVC: UIViewController {
         if let user  = Auth.auth().currentUser {
             // 로그인 상태라면
             print("사용자 uid: \(user.uid)")
-            
             loadUserData(uid: user.uid)
-            
-            mypageView.userEmailLabel.text = "로그인 정보: \(user.email ?? "알 수 없는 이메일입니다.)")"
             
         } else {
             // 비로그인 상태라면
-            mypageView.userEmailLabel.text = "로그인해주세요."
+            print("로그인 없이 둘러보기 상태입니다.")
+            self.tableViewHeaderSetUp(nickname: "로그인해주세요. ", email: "슴씀이의 더 많은 정보를 이용하러 가기!")
+            self.mypageView.tableView.reloadData()
         }
     }
     
     
     //MARK: - loadUserData: 파이어베이스 사용자 회원가입 정보 읽기
     func loadUserData(uid: String) {
-        //        db.collection("users").getDocuments { (snapshot, error) in
-        //            if error == nil && snapshot != nil {
-        //                for document in snapshot!.documents {
-        //                    print(document.documentID)
-        //                }
-        //            } else {
-        //                print("loadUserData 실패. \(error)")
-        //            }
-        //        }
         
-        
-        if let user  = Auth.auth().currentUser {
-            db.collection("users").document(uid).getDocument { (snapshot, error) in
-                if let error = error {
-                    print("Error fetching user data: \(error.localizedDescription)")
-                    return
-                }
-                
-                guard let data = snapshot?.data() else {
-                    print("No data found")
-                    return
-                }
-                
-                self.updateLabels(with: data)
+        db.collection("users").document(uid).getDocument { (snapshot, error) in
+            if let error = error {
+                print("Error fetching user data:\n \(error.localizedDescription)")
+                return
             }
+            guard let data = snapshot?.data() else {
+                print("No data found")
+                return
+            }
+            
+            let nickname = data["nickname"] as? String ?? "닉네임을 설정해주세요"
+            let email = Auth.auth().currentUser?.email ?? "이메일을 설정해주세요"
+            self.tableViewHeaderSetUp(nickname: nickname, email: email)
+            
+            self.mypageView.tableView.reloadData()
         }
     }
     
@@ -209,14 +197,27 @@ class MypageVC: UIViewController {
         }
     }
     
+    
+    //MARK: - @objc 테이블뷰의 헤더 클릭 이벤트
+    @objc
+    private func headerTapped() {
+        if Auth.auth().currentUser == nil {
+            showSnycAlert(message: "로그인하러 가보자고!", AlertTitle: "로그인", buttonClickTitle: "확인", method: switchToLoginVC)
+            return
+        }
+    }
     //MARK: - @objc 로그아웃
     @objc func logOutButtonTapped() {
         do {
-            try FirebaseAuth.Auth.auth().signOut()
-            print("로그아웃하고 페이지 전환")
-            
-            //            showAlert(message: "로그아웃되었습니다.", AlertTitle: "로그아웃", buttonClickTitle: "확인")
-            showSnycAlert(message: "로그아웃되었습니다.", AlertTitle: "로그아웃", buttonClickTitle: "확인", method: switchToLoginVC)
+            if Auth.auth().currentUser?.uid != nil {
+                try FirebaseAuth.Auth.auth().signOut()
+                print("로그아웃하고 페이지 전환")
+                
+                showSnycAlert(message: "로그아웃되었습니다.", AlertTitle: "로그아웃", buttonClickTitle: "확인", method: switchToLoginVC)
+            } else {
+                //TODO: 비회원으로 로그인으로 로그아웃버튼 클릭 시 얼럿 띄우고, 하단에 로그인 창으로 가기 버튼 띄울 예정
+                switchToLoginVC()
+            }
         } catch let error {
             print(error.localizedDescription)
         }
@@ -233,39 +234,45 @@ class MypageVC: UIViewController {
                 }
             }
         } else {
-            showAlert(message: "오류 발생", AlertTitle: "로그인 정보가 존재하지 않습니다", buttonClickTitle: "확인")
+            showAlert(message: "로그인 정보가 존재하지 않습니다", AlertTitle: "오류 발생", buttonClickTitle: "확인")
         }
         
     }
     
 }
-//
+
 
 
 //MARK: - 마이페이지 테이블뷰 델리게이트
 // 행의 높이, 선택 시의 동작, 헤더와 푸터의 커스터마이징 등
 extension MypageVC: UITableViewDelegate {
     
-    // 테이블뷰의 특정 셀을 선택했을 때 호출됨. 이 메서드에서 선택된 셀에 따라 동작을 정의할 수 있음
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("섹션 \(indexPath.section), 행 \(indexPath.row) 선택됨")
         
-        switch (indexPath.section, indexPath.row) {
-        case (0, 0):
-            print("회원정보 수정 페이지로 이동하세요")
-        case (1, 0):
-            print("알림 받을건지 말건지 설정하세요")
-        case (2, 0):
-            print("개인정보처리방침으로 이동하세요")
-            privacyPolicyUrl()
-        case (3, 0):
-            print("로그아웃 셀 클릭했습니다.")
-            logOutButtonTapped()
-        case (3, 1):
-            print("회원탈퇴 셀 클릭했습니다.")
-            deleteUserButtonTapped()
-        default:
-            break
+        if Auth.auth().currentUser == nil {
+            tableView.deselectRow(at: indexPath, animated: true)
+            return
+        } else {
+            switch (indexPath.section, indexPath.row) {
+            case (0, 0):
+                print("회원정보 수정 페이지로 이동하세요")
+                let signUpVC = SignUpVC()
+                navigationController?.pushViewController(signUpVC, animated: true)
+            case (1, 0):
+                print("알림 받을건지 말건지 설정하세요")
+            case (2, 0):
+                print("개인정보처리방침으로 이동하세요")
+                privacyPolicyUrl()
+            case (3, 0):
+                print("로그아웃 셀 클릭했습니다.")
+                logOutButtonTapped()
+            case (3, 1):
+                print("회원탈퇴 셀 클릭했습니다.")
+                deleteUserButtonTapped()
+            default:
+                break
+            }
         }
     }
     
@@ -329,7 +336,7 @@ extension MypageVC: UITableViewDelegate {
         separatorLine.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(30)
             $0.top.equalToSuperview()
-            $0.height.equalTo(0.5)
+            $0.height.equalTo(1)
         }
         return footerView
     }
@@ -344,7 +351,6 @@ extension MypageVC: UITableViewDelegate {
 }
 
 //MARK: - 마이페이지 테이블뷰 데이터소스
-//테이블뷰에 표시될 데이터를 관리
 extension MypageVC: UITableViewDataSource {
     
     // 테이블뷰가 몇 개의 섹션을 가질지를 반환
@@ -353,13 +359,11 @@ extension MypageVC: UITableViewDataSource {
     }
     
     // 각 섹션에 몇 개의 행이 있을지를 반환
-    // -> 첫 번째 섹션(회원정보)에는 한 개의 행이 있고, 네 번째 섹션(계정)에는 두 개의 행이 있으므로 섹션 인덱스에 따라 다른 값을 반환
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         data[section].count
     }
     
     // 특정 섹션의 특정 행에 표시될 셀을 구성하고 반환
-    // indexPath.section과 indexPath.row를 사용해 해당 위치의 데이터를 찾아 셀에 설정
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "MypageViewCell", for: indexPath)
@@ -377,7 +381,6 @@ extension MypageVC: UITableViewDataSource {
             let toggleSwitch = UISwitch()
             toggleSwitch.isOn = true // 기본적으로 스위치가 켜진 상태로 설정
             //            toggleSwitch.addTarget(self, action: #selector(didChangeSwitch(_:)), for: .valueChanged)
-            
             cell.accessoryView = toggleSwitch
         }
         
