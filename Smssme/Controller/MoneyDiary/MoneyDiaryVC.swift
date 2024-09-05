@@ -5,15 +5,16 @@
 //  Created by KimRin on 8/28/24.
 //
 
-import UIKit
+import DGCharts
 import SnapKit
+import UIKit
 
 final class MoneyDiaryVC: UIViewController {
 
     
     
     
-    
+    private var dataEntries: [PieChartDataEntry] = []
     private lazy var scrollView = UIScrollView()
     let moneyDiaryView: MoneyDiaryView
     var calendar = Calendar.current
@@ -47,9 +48,29 @@ final class MoneyDiaryVC: UIViewController {
 
         
     }
+    
+    func setChartData() {
+        if let diaries = DiaryCoreDataManager.shared.fetchDiaries(from: DateManager.shared.getFirstDayInMonth(date: calendarDate), to: DateManager.shared.getlastDayInMonth(date: calendarDate)){
+            print(diaries)
+            dataEntries = diaries.map {
+                PieChartDataEntry(value: Double($0.amount), label: "\($0.title ?? "")")
+            }
+        } else {
+            return
+        }
+        print(dataEntries)
+        setChart()
+    }
 
     private func updateView(selectedIndex: Int) {
-        moneyDiaryView.calendarView.isHidden = selectedIndex != 0
+        if selectedIndex != 0 {
+            moneyDiaryView.calendarView.isHidden = true
+            moneyDiaryView.chartView.isHidden = false
+            setChartData()
+        } else {
+            moneyDiaryView.calendarView.isHidden = false
+            moneyDiaryView.chartView.isHidden = true
+        }
     }
 
     private func setupUI() {
@@ -85,6 +106,28 @@ final class MoneyDiaryVC: UIViewController {
         moneyDiaryView.todayButton.addTarget(self, action: #selector(self.didTodayButtonTouched), for: .touchUpInside)
         moneyDiaryView.moveDateButton.addTarget(self, action: #selector(didTapMoveButton), for: .touchUpInside)
         datePicker.confirmButton.addTarget(self, action: #selector(didTapMove), for: .touchUpInside)
+    }
+    
+    private func setChart() {
+//        moneyDiaryView.chartView.delegate = self
+        
+        if !dataEntries.isEmpty {
+            let dataSet = PieChartDataSet(entries: dataEntries, label: "")
+            dataSet.colors = dataEntries.map { _ in
+                return UIColor(red: CGFloat.random(in: 0.5...1),
+                               green: CGFloat.random(in: 0.5...1),
+                               blue: CGFloat.random(in: 0.5...1),
+                               alpha: 1.0)
+            }
+            dataSet.valueColors = dataSet.colors.map { _ in
+                return .darkGray
+            }
+            let data = PieChartData(dataSet: dataSet)
+            moneyDiaryView.chartView.data = data
+        } else {
+            moneyDiaryView.chartView.data = nil
+            moneyDiaryView.chartView.notifyDataSetChanged()
+        }
     }
 
     @objc func didTapMove() {
@@ -179,6 +222,7 @@ extension MoneyDiaryVC {
         let components = self.calendar.dateComponents([.year, .month], from: safeDate)
         self.calendarDate = self.calendar.date(from: components) ?? Date()
         self.updateCalendar()
+        self.setChartData()
     }
     
     
@@ -262,6 +306,11 @@ extension MoneyDiaryVC:  UIPickerViewDelegate,UIPickerViewDataSource {
     }
     
 }
+
+extension MoneyDiaryVC: ChartViewDelegate {
+    
+}
+
 
 
 protocol CellReusable {
