@@ -21,7 +21,7 @@ class FinancialPlanCell: UICollectionViewCell {
     
     private let titleLabel = SmallTitleLabel().createLabel(with: "", color: UIColor.black)
     private let descriptionLabel = ContentLabel().createLabel(with: "", color: UIColor(hex: "#333333"))
-    private let selectButton = BaseButton().createButton(text: "시작하기", color: UIColor(hex: "#777777"), textColor: UIColor.white)
+    private let selectButton = BaseButton().createButton(text: "시작하기", color: UIColor(hex: "#e9e9e9"), textColor: UIColor.black)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -44,7 +44,7 @@ class FinancialPlanCell: UICollectionViewCell {
         //        }
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(32)
+            $0.top.equalToSuperview().offset(40)
             $0.leading.equalToSuperview().offset(16)
             $0.trailing.equalToSuperview().offset(-16)
         }

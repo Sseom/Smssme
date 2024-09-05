@@ -407,6 +407,7 @@
 				74707F892C81B4E900F7000C /* Assets */,
 				74707F8A2C81B50800F7000C /* Budget */,
 				74707F8B2C81B52400F7000C /* Diary */,
+				74707F8C2C81B54300F7000C /* Goal */,
 				74707F8D2C81B58000F7000C /* User */,
 			);
 			path = CoreData;
@@ -438,7 +439,6 @@
 				74707F9A2C81B7E800F7000C /* Diary+CoreDataClass.swift */,
 				74707F9B2C81B7E800F7000C /* Diary+CoreDataProperties.swift */,
 				74707FAA2C81B85B00F7000C /* DiaryCoreDataManager.swift */,
-				74707F8C2C81B54300F7000C /* Goal */,
 			);
 			path = Diary;
 			sourceTree = "<group>";

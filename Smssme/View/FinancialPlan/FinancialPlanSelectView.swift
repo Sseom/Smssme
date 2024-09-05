@@ -14,7 +14,7 @@ final class FinancialPlanSelectionView: UIView {
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCollectionViewLayout())
         collectionView.register(FinancialPlanCell.self, forCellWithReuseIdentifier: FinancialPlanCell.ID)
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = UIColor(hex: "#e9f3fd")
         return collectionView
     }()
     
