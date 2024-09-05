@@ -30,7 +30,6 @@ class SplashViewController: UIViewController {
     }
     
     private func checkLoginStatus() {
-        print(#function)
         if let user  = Auth.auth().currentUser {
             print("로그인된 사용자입니다. 사용자는 \(user.uid ?? "알 수 없는 이메일입니다.")")
             showMainVC()
@@ -56,7 +55,7 @@ class SplashViewController: UIViewController {
     
     private func showLoginVC() {
         let loginVC = LoginVC()
-        let navController = UINavigationController(rootViewController: loginVC) // UINavigationController로 감싸기 -> 회원가입 버튼 클릭 식 push로 화면 전환할 수 있게.
+        let navController = UINavigationController(rootViewController: loginVC)
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let window = windowScene.windows.first else { return }
         

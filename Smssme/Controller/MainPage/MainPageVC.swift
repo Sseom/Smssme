@@ -5,8 +5,9 @@
 //  Created by 전성진 on 8/28/24.
 //
 
-import UIKit
 import DGCharts
+import SafariServices
+import UIKit
 
 class MainPageVC: UIViewController {
     private let mainPageView: MainPageView = MainPageView()
@@ -56,10 +57,10 @@ class MainPageVC: UIViewController {
     }
     
     func setChartData() {
-//        assetsCoreDataManager.selectAllAssets().forEach {
-//            dataEntries.append(PieChartDataEntry(value: Double($0.amount), label: "\($0.title ?? "")"))
-//            uuids.append($0.key)
-//        }
+        //        assetsCoreDataManager.selectAllAssets().forEach {
+        //            dataEntries.append(PieChartDataEntry(value: Double($0.amount), label: "\($0.title ?? "")"))
+        //            uuids.append($0.key)
+        //        }
         var totalAmount: Double = 0
         
         dataEntries = assetsCoreDataManager.selectAllAssets().map {
@@ -81,14 +82,14 @@ class MainPageVC: UIViewController {
 }
 
 extension MainPageVC: ChartViewDelegate {
-//    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-//        if let lastIndex = lastSelectedIndex, lastIndex == Int(highlight.x) {
-//            mainPageView.pieChartView.highlightValues(nil)
-//            lastSelectedIndex = nil
-//        } else {
-//            lastSelectedIndex = Int(highlight.x)
-//        }
-//    }
+    //    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+    //        if let lastIndex = lastSelectedIndex, lastIndex == Int(highlight.x) {
+    //            mainPageView.pieChartView.highlightValues(nil)
+    //            lastSelectedIndex = nil
+    //        } else {
+    //            lastSelectedIndex = Int(highlight.x)
+    //        }
+    //    }
     
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         if entry is PieChartDataEntry {
@@ -101,5 +102,13 @@ extension MainPageVC: ChartViewDelegate {
             
             self.navigationController?.pushViewController(assetsEditVC, animated: true)
         }
+    }
+    
+    
+    // 청년정책 노션 링크
+    private func benefitUrl() {
+        guard let url = URL(string: "https://dkswlgus0314.tistory.com/") else {return}
+        let safariVC = SFSafariViewController(url: url)
+        self.present(safariVC, animated: true, completion: nil)
     }
 }
