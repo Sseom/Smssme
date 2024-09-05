@@ -30,7 +30,7 @@ class MainPageVC: UIViewController {
         super.loadView()
         self.view = mainPageView
         
-//        mainPageView.chartCenterButton.addTarget(self, action: #selector(editViewPush), for: .touchUpInside)
+        mainPageView.chartCenterButton.addTarget(self, action: #selector(editViewPush), for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,7 +40,7 @@ class MainPageVC: UIViewController {
     
     private func setChart() {
         mainPageView.pieChartView.delegate = self
-        let dataSet = PieChartDataSet(entries: dataEntries)
+        let dataSet = PieChartDataSet(entries: dataEntries, label: "")
         
         dataSet.colors = dataEntries.map { _ in
             return UIColor(red: CGFloat.random(in: 0.5...1),
@@ -56,10 +56,10 @@ class MainPageVC: UIViewController {
     }
     
     func setChartData() {
-        assetsCoreDataManager.selectAllAssets().forEach {
-            dataEntries.append(PieChartDataEntry(value: Double($0.amount), label: "\($0.title ?? "")"))
-            uuids.append($0.key)
-        }
+//        assetsCoreDataManager.selectAllAssets().forEach {
+//            dataEntries.append(PieChartDataEntry(value: Double($0.amount), label: "\($0.title ?? "")"))
+//            uuids.append($0.key)
+//        }
         
         dataEntries = assetsCoreDataManager.selectAllAssets().map {
             PieChartDataEntry(value: Double($0.amount), label: "\($0.title ?? "")")
