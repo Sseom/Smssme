@@ -7,7 +7,12 @@
 
 import UIKit
 
+protocol FinancialPlanCreateDelegate: AnyObject {
+    func didCreateFinancialPlan(_ plan: FinancialPlan)
+}
+
 final class FinancialPlanSelectionVC: UIViewController {
+    weak var createDelegate: FinancialPlanEditDelegate?
     private let financialPlanSelectionView = FinancialPlanSelectionView()
     private let financialPlanManager = FinancialPlanManager.shared
     private let planItemStore = PlanItemStore.shared
@@ -16,6 +21,7 @@ final class FinancialPlanSelectionVC: UIViewController {
         super.viewDidLoad()
         financialPlanSelectionView.collectionView.dataSource = self
         financialPlanSelectionView.collectionView.delegate = self
+        loadInitialData()
     }
     
     override func loadView() {

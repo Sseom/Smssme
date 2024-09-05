@@ -9,7 +9,7 @@ import SnapKit
 import UIKit
 
 class FinancialPlanCurrentPlanCell: UICollectionViewCell {
-    private let repository = FinancialPlanRepository()
+    private var repository: FinancialPlanRepository?
     static let ID = "FinancialPlanCurrentPlanCell"
     private let graphBarArea = ProgressBarView()
     
@@ -48,7 +48,8 @@ class FinancialPlanCurrentPlanCell: UICollectionViewCell {
         }
     }
     
-    func configure(item: FinancialPlan) {
+    func configure(item: FinancialPlan, repository: FinancialPlanRepository) {
+        self.repository = repository
         currentPlanTitlaLabel.text = item.title
         let completionRate = calculateCompletionRate(plan: item)
         completionRateLabel.text = "달성률 \(Int(completionRate * 100))%"

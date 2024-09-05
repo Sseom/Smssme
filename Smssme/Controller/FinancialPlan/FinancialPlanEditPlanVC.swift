@@ -72,14 +72,14 @@ extension FinancialPlanEditPlanVC {
     
     private func saveUpdatedPlan() {
         guard let amountText = createView.textFieldArea.targetAmountField.text,
-              let amount = Int64(amountText),
+              let amount = KoreanCurrencyFormatter.shared.number(from: amountText),
               let depositText = createView.textFieldArea.currentSavedField.text,
-              let deposit = Int64(depositText),
+              let deposit = KoreanCurrencyFormatter.shared.number(from: depositText),
               let startDateString = createView.textFieldArea.startDateField.text,
               let endDateString = createView.textFieldArea.endDateField.text,
               let startDate = FinancialPlanDateModel.dateFormatter.date(from: startDateString),
               let endDate = FinancialPlanDateModel.dateFormatter.date(from: endDateString) else {
-            
+            print("해결중 에러")
             return
         }
         
