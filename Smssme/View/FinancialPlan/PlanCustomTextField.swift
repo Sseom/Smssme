@@ -102,6 +102,9 @@ class GoalDateTextField {
     static func createTextField() -> DateTextField {
         return DateTextField()
     }
+    static func setValue(for textField: CustomTextField, value: String) {
+        textField.text = "\(value)"
+    }
 }
 
 

@@ -36,7 +36,7 @@ final class FinancialPlanConfirmView: UIView {
     
     let editButton = BaseButton().createButton(text: "수정", color: UIColor.lightGray, textColor: UIColor.black)
     
-    let confirmButton = BaseButton().createButton(text: "확인", color: UIColor.systemBlue, textColor: UIColor.white)
+    let deleteButton = BaseButton().createButton(text: "플랜삭제", color: UIColor.systemBlue, textColor: UIColor.white)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -49,7 +49,7 @@ final class FinancialPlanConfirmView: UIView {
     }
     
     private func setupUI() {
-        [confirmLargeTitle, imageStackView, dummyLabel, contentStackView, editButton, confirmButton].forEach {
+        [confirmLargeTitle, imageStackView, dummyLabel, contentStackView, editButton, deleteButton].forEach {
             addSubview($0)
         }
         
@@ -84,7 +84,7 @@ final class FinancialPlanConfirmView: UIView {
             $0.leading.equalToSuperview().offset(100)
         }
         
-        confirmButton.snp.makeConstraints {
+        deleteButton.snp.makeConstraints {
             $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-60)
             $0.width.equalTo(80)
             $0.height.equalTo(40)
