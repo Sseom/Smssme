@@ -64,10 +64,20 @@ class MoneyDiaryEditView: UIView {
         return datePicker
     }()
     
+    let deleteButton: UIBarButtonItem = {
+        let barButton = UIBarButtonItem()
+        barButton.image = UIImage(systemName: "trash")
+        return barButton
+    }()
+    
     // MARK: - View Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .white
+        // 터치시 키보드 내림
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(touch))
+        self.addGestureRecognizer(recognizer)
+        
         noteTextField.delegate = self
         setupUI()
     }
@@ -164,6 +174,10 @@ class MoneyDiaryEditView: UIView {
             titleLabel.text = "수입명"
             titleTextField.placeholder = "수입명"
         }
+    }
+    
+    @objc func touch() {
+        self.endEditing(true)
     }
 }
 

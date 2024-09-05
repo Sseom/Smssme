@@ -60,6 +60,10 @@ class AssetsEditView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .white
+        // 터치시 키보드 내림
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(touch))
+        self.addGestureRecognizer(recognizer)
+        
         noteTextField.delegate = self
         setupUI()
     }
@@ -126,6 +130,10 @@ class AssetsEditView: UIView {
     }
     
     //MARK: - Objc
+    @objc func touch() {
+        self.endEditing(true)
+    }
+
 }
 
 extension AssetsEditView: UITextViewDelegate {

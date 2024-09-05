@@ -12,6 +12,7 @@ class MoneyDiaryEditVC: UIViewController {
     var transactionItem2: Diary
     //MARK: - Properties
     private let moneyDiaryEditView: MoneyDiaryEditView = MoneyDiaryEditView()
+    var uuid: UUID?
     
     // MARK: - ViewController Init
     init(transactionItem2: Diary) {
@@ -30,6 +31,7 @@ class MoneyDiaryEditVC: UIViewController {
         super.viewDidLoad()
         addTarget()
         configureUI()
+        setDeleteButton()
     }
     
     override func loadView() {
@@ -40,10 +42,25 @@ class MoneyDiaryEditVC: UIViewController {
     
     // MARK: - Method
     
+    
     // MARK: - Private Method
     //    private func setupSegmentEvent() {
     //        moneyDiaryEditView
     //    }
+    
+    private func setDeleteButton() {
+        moneyDiaryEditView.deleteButton.target = self
+        moneyDiaryEditView.deleteButton.action = #selector(deleteButtonTapped)
+        navigationItem.rightBarButtonItem = moneyDiaryEditView.deleteButton
+    }
+    
+    private func deleteDiary() {
+        if let uuid = transactionItem2.key {
+            DiaryCoreDataManager.shared.deleteDiary(with: uuid)
+        } else {
+            print("유효한 내역이 아닙니다.")
+        }
+    }
     
     //MARK: - Objc
     func addTarget() {
@@ -53,10 +70,12 @@ class MoneyDiaryEditVC: UIViewController {
     }
     
     private func configureUI() {
+        
         moneyDiaryEditView.priceTextField.text = String(transactionItem2.amount)
         moneyDiaryEditView.datePicker.date = transactionItem2.date ?? Date()
         moneyDiaryEditView.titleTextField.text = transactionItem2.title
         moneyDiaryEditView.categoryTextField.text = transactionItem2.category
+        moneyDiaryEditView.noteTextField.textColor = .black
         moneyDiaryEditView.noteTextField.text = transactionItem2.note
         
         
@@ -90,14 +109,11 @@ class MoneyDiaryEditVC: UIViewController {
         
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
+    @objc func deleteButtonTapped() {
+        deleteDiary()
+        navigationController?.popViewController(animated: true)
+    }
+
     
 //    @objc func saveData() {
 //        let date = moneyDiaryEditView.datePicker.date

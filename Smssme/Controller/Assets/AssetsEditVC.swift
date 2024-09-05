@@ -106,3 +106,10 @@ class AssetsEditVC: UIViewController {
         navigationController?.popViewController(animated: true)
     }
 }
+
+//extension AssetsEditVC: KeyboardEvader {
+//    var keyboardScrollView: UIScrollView {
+//        <#code#>
+//    }
+//    
+//}
