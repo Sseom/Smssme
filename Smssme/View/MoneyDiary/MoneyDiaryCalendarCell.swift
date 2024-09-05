@@ -34,14 +34,31 @@ final class CalendarCollectionViewCell: UICollectionViewCell, CellReusable {
     }
     
     func updateDate(item: CalendarItem) {
-        dayLabel.text = item.date
-        if item.isSat {
-            self.dayLabel.textColor = .blue
-        } else if item.isHol {
-            self.dayLabel.textColor = .red
-        } else {
-            self.dayLabel.textColor = .black
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd"
+        
+        
+        
+        let dayString = dateFormatter.string(from: item.date)
+        
+        if dayString == "01" {
+            dateFormatter.dateFormat = "MM.dd"
+            let dayStringWithMonth = dateFormatter.string(from: item.date)
+            dayLabel.text = dayStringWithMonth
         }
+        else {
+            dayLabel.text = dayString
+        }
+        
+        
+        let weekday = DateManager.shared.getWeekdayNum(month: item.date)
+        
+        switch weekday {
+        case 1: self.dayLabel.textColor = .red
+        case 7: self.dayLabel.textColor = .blue
+        default: self.dayLabel.textColor = .black
+        }
+
     }
     
     private func setupCellUI() {
