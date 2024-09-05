@@ -77,6 +77,7 @@
 		9FE549BF2C801E4D00E6075E /* FinancialPlanConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE549BE2C801E4D00E6075E /* FinancialPlanConfirmView.swift */; };
 		E517F2822C8782F200CB8680 /* FinancialPlanManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2812C8782F200CB8680 /* FinancialPlanManager.swift */; };
 		E517F33C2C892F7A00CB8680 /* KoreanCurrencyFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F33B2C892F7A00CB8680 /* KoreanCurrencyFormatter.swift */; };
+		E517F3402C89A41900CB8680 /* MoneyDiaryCreationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F33F2C89A41900CB8680 /* MoneyDiaryCreationVC.swift */; };
 		E5BF5E452C8587310093FD2D /* FinancialPlanEditPlanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BF5E442C8587310093FD2D /* FinancialPlanEditPlanVC.swift */; };
 		E5BF5E472C8597820093FD2D /* FinancialPlanDateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BF5E462C8597820093FD2D /* FinancialPlanDateModel.swift */; };
 		E5F344D82C806A58006F9A91 /* FinancialPlanCurrentPlanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F344D72C806A58006F9A91 /* FinancialPlanCurrentPlanVC.swift */; };
@@ -161,6 +162,7 @@
 		9FE549BE2C801E4D00E6075E /* FinancialPlanConfirmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanConfirmView.swift; sourceTree = "<group>"; };
 		E517F2812C8782F200CB8680 /* FinancialPlanManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanManager.swift; sourceTree = "<group>"; };
 		E517F33B2C892F7A00CB8680 /* KoreanCurrencyFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KoreanCurrencyFormatter.swift; path = Smssme/Model/KoreanCurrencyFormatter.swift; sourceTree = SOURCE_ROOT; };
+		E517F33F2C89A41900CB8680 /* MoneyDiaryCreationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDiaryCreationVC.swift; sourceTree = "<group>"; };
 		E5BF5E442C8587310093FD2D /* FinancialPlanEditPlanVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanEditPlanVC.swift; sourceTree = "<group>"; };
 		E5BF5E462C8597820093FD2D /* FinancialPlanDateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanDateModel.swift; sourceTree = "<group>"; };
 		E5F344D72C806A58006F9A91 /* FinancialPlanCurrentPlanVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanCurrentPlanVC.swift; sourceTree = "<group>"; };
@@ -370,6 +372,7 @@
 				9F9F6E4A2C89AF3500F1EDA6 /* MoneyDiaryCreatVC.swift */,
 				746F808D2C8842B200BBAEAF /* MoneyDiaryEditVC.swift */,
 				746F808E2C8842B200BBAEAF /* MoneyDiaryVC.swift */,
+				E517F33F2C89A41900CB8680 /* MoneyDiaryCreationVC.swift */,
 			);
 			path = MoneyDiary;
 			sourceTree = "<group>";
@@ -607,6 +610,7 @@
 				74707F9C2C81B7E800F7000C /* Diary+CoreDataClass.swift in Sources */,
 				74707F9D2C81B7E800F7000C /* Diary+CoreDataProperties.swift in Sources */,
 				5FA890052C85B21100549363 /* FirebaseManager.swift in Sources */,
+				E517F3402C89A41900CB8680 /* MoneyDiaryCreationVC.swift in Sources */,
 				746F808B2C88424000BBAEAF /* DailyTransactionCell.swift in Sources */,
 				74707FBA2C84CD7A00F7000C /* AssetsEditVC.swift in Sources */,
 				746F80862C8841F300BBAEAF /* MoneyDiaryCalendarView.swift in Sources */,

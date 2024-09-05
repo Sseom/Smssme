@@ -11,6 +11,5 @@ import CoreData
 
 @objc(FinancialPlan)
 public class FinancialPlan: NSManagedObject, Identifiable {
-    
     public static let entityName = "FinancialPlan"
 }

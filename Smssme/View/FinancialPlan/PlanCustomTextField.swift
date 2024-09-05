@@ -9,7 +9,9 @@ import UIKit
 
 // MARK: - bottomBorder 커스텀 텍스트필드
 class AmountTextField {
-    static func createTextField(keyboard: UIKeyboardType) -> CustomTextField {
+    static let shared = CustomTextField()
+    private init () {}
+    static func createTextField(keyboard: UIKeyboardType, currencyText: String) -> CustomTextField {
         let textField = CustomTextField()
         textField.textColor = UIColor.black
         textField.borderStyle = .none
@@ -24,7 +26,7 @@ class AmountTextField {
         textField.inputAccessoryView = toolbar
         
         let currencyLabel = UILabel()
-        currencyLabel.text = "원"
+        currencyLabel.text = currencyText
         currencyLabel.font = textField.font
         currencyLabel.textColor = .black
         currencyLabel.sizeToFit()

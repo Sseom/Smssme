@@ -16,10 +16,10 @@ class MoneyDiaryEditView: UIView {
     private let categoryLabel = ContentLabel().createLabel(with: "카테고리", color: .black)
     private let noteLabel = ContentLabel().createLabel(with: "메모", color: .black)
     
-    let priceTextField = BaseTextField().createTextField(placeholder: "금액", textColor: .black)
-    let titleTextField = BaseTextField().createTextField(placeholder: "수입명", textColor: .black)
-    let categoryTextField = BaseTextField().createTextField(placeholder: "카테고리", textColor: .black)
-    //    let noteTextField = BaseTextField().createTextField(placeholder: "메모", textColor: .black)
+    let priceTextField = AmountTextField.createTextField(keyboard: .numberPad, currencyText: "원")
+    let titleTextField = AmountTextField.createTextField(keyboard: .default, currencyText: "")
+    let categoryTextField = AmountTextField.createTextField(keyboard: .default, currencyText: "")
+//    let noteTextField = BaseTextField().createTextField(placeholder: "메모", textColor: .black)
     
     let cancelButton = BaseButton().createButton(text: "취소", color: .lightGray, textColor: .white)
     let saveButton = BaseButton().createButton(text: "저장", color: .systemBlue, textColor: .white)

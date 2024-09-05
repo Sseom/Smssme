@@ -10,6 +10,6 @@ import Foundation
 import CoreData
 
 @objc(Diary)
-public class Diary: NSManagedObject {
-
+public class Diary: NSManagedObject, Identifiable {
+    public static let entityName = "Diary"
 }

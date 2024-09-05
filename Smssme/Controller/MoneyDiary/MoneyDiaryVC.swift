@@ -37,6 +37,8 @@ final class MoneyDiaryVC: UIViewController {
         self.setupUI()
         self.setupLayout()
         self.setupActions()
+        
+        pencilButtonAction()
     }
    
     
@@ -223,8 +225,6 @@ extension MoneyDiaryVC {
     
     
 
-    
-    
     private func transformToAble(date: Date) -> Date? {
         
         var components = calendar.dateComponents([.year, .month, .day], from: date)
@@ -286,7 +286,13 @@ extension MoneyDiaryVC {
             self.present(modalVc, animated: true, completion: nil)
         }
     
-    
+    // 연필 아이콘 동작
+    private func pencilButtonAction() {
+        let action = UIAction { [weak self] _ in
+            self?.navigationController?.pushViewController(MoneyDiaryCreationVC(diaryManager: DiaryCoreDataManager(), transactionItem2: Diary()), animated: true)
+        }
+        moneyDiaryView.addActionToPencilButton(action)
+    }
 }
 
 extension MoneyDiaryVC:  UIPickerViewDelegate,UIPickerViewDataSource {
