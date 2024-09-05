@@ -28,7 +28,6 @@ extension FinancialPlan {
     }
 }
 
-
 struct PlanItem {
     let title: String
     let description: String

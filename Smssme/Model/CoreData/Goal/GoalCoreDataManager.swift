@@ -26,6 +26,7 @@ class FinancialPlanRepository {
                 return false
             }
         }
+    
     func createFinancialPlan(title: String, amount: Int64, deposit: Int64, startDate: Date, endDate: Date) -> FinancialPlan {
         
         print("Attempting to create a new Financial Plan")

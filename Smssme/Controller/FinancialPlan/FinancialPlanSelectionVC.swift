@@ -26,7 +26,7 @@ final class FinancialPlanSelectionVC: UIViewController {
     
     override func loadView() {
         view = financialPlanSelectionView
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(hex: "#e9f3fd")
     }
     
     private func loadInitialData() {
@@ -55,12 +55,12 @@ extension FinancialPlanSelectionVC: UICollectionViewDataSource {
         if indexPath.item < planItemStore.getPresetPlansCount() {
             if let plan = planItemStore.getPresetPlanAt(index: indexPath.item) {
                 cell.configure(with: plan)
-                cell.cellBackgroundColor(UIColor(hex: "#c0c0c0"))
+                cell.cellBackgroundColor(UIColor(hex: "#ffffff"))
             }
         } else if indexPath.item < planItemStore.getTotalItemCount() {
             if let plan = planItemStore.getCustomPlanAt(index: indexPath.item - planItemStore.getPresetPlansCount()) {
                 cell.configure(with: plan)
-                cell.cellBackgroundColor(UIColor(hex: "#c0c0c0"))
+                cell.cellBackgroundColor(UIColor(hex: "#ffffff"))
             }
         } else {//마지막 셀일 경우
                 cell.configure(with: PlanItem(title: "+ 나만의 플랜 추가", description: "새로운 플랜을 추가해보세요", imageName: "plus", isPreset: false))
