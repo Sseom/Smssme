@@ -89,6 +89,10 @@ class MypageVC: UIViewController {
         
         [nicknameLabel, emailabel].forEach {header.addSubview($0)}
         
+        // 비회원 로그인 시 헤더에 탭 제스처 추가
+        let headerTapGesture = UITapGestureRecognizer(target: self, action: #selector(headerTapped))
+        header.addGestureRecognizer(headerTapGesture)
+        
         // 닉네임 오토레이아웃
         nicknameLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(30)
@@ -144,7 +148,7 @@ class MypageVC: UIViewController {
         } else {
             // 비로그인 상태라면
             print("로그인 없이 둘러보기 상태입니다.")
-            self.tableViewHeaderSetUp(nickname: "로그인해주세요.", email: "슴씀이의 더 많은 정보를 이용해보세요!")
+            self.tableViewHeaderSetUp(nickname: "로그인해주세요. ", email: "슴씀이의 더 많은 정보를 이용하러 가기!")
             self.mypageView.tableView.reloadData()
         }
     }
@@ -193,6 +197,15 @@ class MypageVC: UIViewController {
         }
     }
     
+    
+    //MARK: - @objc 테이블뷰의 헤더 클릭 이벤트
+    @objc
+    private func headerTapped() {
+        if Auth.auth().currentUser == nil {
+            showSnycAlert(message: "로그인하러 가보자고!", AlertTitle: "로그인", buttonClickTitle: "확인", method: switchToLoginVC)
+            return
+        }
+    }
     //MARK: - @objc 로그아웃
     @objc func logOutButtonTapped() {
         do {
@@ -227,7 +240,7 @@ class MypageVC: UIViewController {
     }
     
 }
-//
+
 
 
 //MARK: - 마이페이지 테이블뷰 델리게이트
@@ -237,24 +250,29 @@ extension MypageVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("섹션 \(indexPath.section), 행 \(indexPath.row) 선택됨")
         
-        switch (indexPath.section, indexPath.row) {
-        case (0, 0):
-            print("회원정보 수정 페이지로 이동하세요")
-            let signUpVC = SignUpVC()
-            navigationController?.pushViewController(signUpVC, animated: true)
-        case (1, 0):
-            print("알림 받을건지 말건지 설정하세요")
-        case (2, 0):
-            print("개인정보처리방침으로 이동하세요")
-            privacyPolicyUrl()
-        case (3, 0):
-            print("로그아웃 셀 클릭했습니다.")
-            logOutButtonTapped()
-        case (3, 1):
-            print("회원탈퇴 셀 클릭했습니다.")
-            deleteUserButtonTapped()
-        default:
-            break
+        if Auth.auth().currentUser == nil {
+            tableView.deselectRow(at: indexPath, animated: true)
+            return
+        } else {
+            switch (indexPath.section, indexPath.row) {
+            case (0, 0):
+                print("회원정보 수정 페이지로 이동하세요")
+                let signUpVC = SignUpVC()
+                navigationController?.pushViewController(signUpVC, animated: true)
+            case (1, 0):
+                print("알림 받을건지 말건지 설정하세요")
+            case (2, 0):
+                print("개인정보처리방침으로 이동하세요")
+                privacyPolicyUrl()
+            case (3, 0):
+                print("로그아웃 셀 클릭했습니다.")
+                logOutButtonTapped()
+            case (3, 1):
+                print("회원탈퇴 셀 클릭했습니다.")
+                deleteUserButtonTapped()
+            default:
+                break
+            }
         }
     }
     
