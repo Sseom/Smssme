@@ -19,7 +19,7 @@ class MoneyDiaryEditView: UIView {
     let priceTextField = BaseTextField().createTextField(placeholder: "금액", textColor: .black)
     let titleTextField = BaseTextField().createTextField(placeholder: "수입명", textColor: .black)
     let categoryTextField = BaseTextField().createTextField(placeholder: "카테고리", textColor: .black)
-    let noteTextField = BaseTextField().createTextField(placeholder: "메모", textColor: .black)
+//    let noteTextField = BaseTextField().createTextField(placeholder: "메모", textColor: .black)
     
     let cancelButton = BaseButton().createButton(text: "취소", color: .lightGray, textColor: .white)
      let saveButton = BaseButton().createButton(text: "저장", color: .systemBlue, textColor: .white)
@@ -47,7 +47,18 @@ class MoneyDiaryEditView: UIView {
         return stackView
     }()
     
-     let datePicker: UIDatePicker = {
+    let noteTextField: UITextView = {
+        let textView = UITextView()
+        textView.text = "메모"
+        textView.textColor = .systemGray4
+        textView.font = UIFont.systemFont(ofSize: 16)
+        textView.layer.borderColor = UIColor.systemGray5.cgColor
+        textView.layer.borderWidth = 1.0
+        textView.layer.cornerRadius = 6.0
+        return textView
+    }()
+    
+    let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         
         return datePicker
@@ -57,6 +68,7 @@ class MoneyDiaryEditView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .white
+        noteTextField.delegate = self
         setupUI()
     }
     
@@ -151,6 +163,22 @@ class MoneyDiaryEditView: UIView {
             priceLabel.text = "수입금액"
             titleLabel.text = "수입명"
             titleTextField.placeholder = "수입명"
+        }
+    }
+}
+
+extension MoneyDiaryEditView: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.systemGray4 {
+            textView.text = nil
+            textView.textColor = .black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "메모"
+            textView.textColor = .systemGray4
         }
     }
 }

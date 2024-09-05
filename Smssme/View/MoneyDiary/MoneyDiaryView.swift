@@ -5,12 +5,17 @@
 //  Created by KimRin on 8/28/24.
 //
 
-import UIKit
-
+import DGCharts
 import SnapKit
+import UIKit
 
 class MoneyDiaryView: UIView {
     lazy var calendarView = CalendarView()
+    lazy var chartView: PieChartView = {
+        let chartView = PieChartView()
+        chartView.isHidden = true
+        return chartView
+    }()
     
     let currentDateLabel = LargeTitleLabel().createLabel(with: "", color: .black)
     let previousButton = {
@@ -74,6 +79,7 @@ class MoneyDiaryView: UIView {
             previousButton,
             nextButton,
             calendarView,
+            chartView,
             todayButton,
             segmentController,
             moveDateButton
@@ -120,6 +126,12 @@ class MoneyDiaryView: UIView {
             $0.horizontalEdges.equalTo(self.snp.horizontalEdges)
             $0.bottom.equalTo(self.snp.bottom)
         }
+        self.chartView.snp.makeConstraints {
+            $0.top.equalTo(self.segmentController.snp.bottom).offset(20)
+            $0.horizontalEdges.equalTo(self.snp.horizontalEdges)
+            $0.bottom.equalTo(self.snp.bottom)
+        }
+
     }
     
 }

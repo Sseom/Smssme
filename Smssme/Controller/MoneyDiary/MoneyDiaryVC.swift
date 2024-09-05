@@ -45,7 +45,13 @@ final class MoneyDiaryVC: UIViewController {
     }
 
     private func updateView(selectedIndex: Int) {
-        moneyDiaryView.calendarView.isHidden = selectedIndex != 0
+        if selectedIndex != 0 {
+            moneyDiaryView.calendarView.isHidden = true
+            moneyDiaryView.chartView.isHidden = false
+        } else {
+            moneyDiaryView.calendarView.isHidden = false
+            moneyDiaryView.chartView.isHidden = true
+        }
     }
 
     private func setupUI() {
