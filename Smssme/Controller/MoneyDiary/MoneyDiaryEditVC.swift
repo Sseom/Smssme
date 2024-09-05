@@ -9,13 +9,14 @@ import UIKit
 
 class MoneyDiaryEditVC: UIViewController {
     var transactionItem: TransactionItemEdit
-    
+    var transactionItem2: Diary
     //MARK: - Properties
     private let moneyDiaryEditView: MoneyDiaryEditView = MoneyDiaryEditView()
     
     // MARK: - ViewController Init
-    init() {
+    init(transactionItem2: Diary) {
         self.transactionItem = TransactionItemEdit()
+        self.transactionItem2 = transactionItem2
         super.init(nibName: nil, bundle: nil)
         
     }
@@ -49,19 +50,21 @@ class MoneyDiaryEditVC: UIViewController {
         
     }
     @objc func saveData() {
-        self.transactionItem.date = moneyDiaryEditView.datePicker.date
-        self.transactionItem.amount = Int(moneyDiaryEditView.priceTextField.text ?? "0") ?? 0
-        
-        self.transactionItem.statement =
+        let date = moneyDiaryEditView.datePicker.date
+        let amount = Int64(moneyDiaryEditView.priceTextField.text ?? "0") ?? 0
+        let statement =
         if moneyDiaryEditView.segmentControl.selectedSegmentIndex == 0 {
             false
         }
         else { true }
+        let titleTextField = moneyDiaryEditView.titleTextField.text ?? ""
+        let categoryTextField = moneyDiaryEditView.categoryTextField.text ?? ""
+        let memo = moneyDiaryEditView.noteTextField.text ?? ""
         
-        self.transactionItem.title = moneyDiaryEditView.titleTextField.text ?? ""
         
-        self.transactionItem.category = moneyDiaryEditView.categoryTextField.text ?? ""
-        self.transactionItem.memo = moneyDiaryEditView.noteTextField.text ?? ""
+        
+        
+        DiaryCoreDataManager.shared.createDiary(title: titleTextField, date: date, amount: amount, statement: statement, category: categoryTextField, note: memo, userId: "userKim")
         
         self.navigationController?.popViewController(animated: false)
         print(self.transactionItem)
