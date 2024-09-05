@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F18A2012C88C55600BC70B7 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F18A2002C88C55600BC70B7 /* UserProfile.swift */; };
 		5F3EAE192C7E182400FF15E5 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3EAE182C7E182400FF15E5 /* LoginView.swift */; };
 		5F3EAE1C2C7E1CC200FF15E5 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3EAE1B2C7E1CC200FF15E5 /* LoginVC.swift */; };
 		5F3EAE4A2C7EF73500FF15E5 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 5F3EAE492C7EF73500FF15E5 /* FirebaseAnalytics */; };
@@ -90,6 +91,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5F18A2002C88C55600BC70B7 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		5F3EAE182C7E182400FF15E5 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		5F3EAE1B2C7E1CC200FF15E5 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		5F3EAE552C7EFAFA00FF15E5 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
@@ -284,6 +286,7 @@
 				9F06D3112C7EFF9D00DFF5B0 /* DateModel.swift */,
 				74707F812C806DA300F7000C /* TodayFinancia.swift */,
 				E5BF5E462C8597820093FD2D /* FinancialPlanDateModel.swift */,
+				5F18A2002C88C55600BC70B7 /* UserProfile.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -591,6 +594,7 @@
 				E5FBA13F2C7E0A0800D26E5F /* FinancialPlanSelectView.swift in Sources */,
 				5FA890092C85B30800549363 /* FirebaseFirestoreManager.swift in Sources */,
 				74707F982C81B79500F7000C /* Budget+CoreDataClass.swift in Sources */,
+				5F18A2012C88C55600BC70B7 /* UserProfile.swift in Sources */,
 				74707F992C81B79500F7000C /* Budget+CoreDataProperties.swift in Sources */,
 				74707F9C2C81B7E800F7000C /* Diary+CoreDataClass.swift in Sources */,
 				74707F9D2C81B7E800F7000C /* Diary+CoreDataProperties.swift in Sources */,

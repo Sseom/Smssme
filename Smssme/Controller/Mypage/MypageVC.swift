@@ -25,7 +25,7 @@ class MypageVC: UIViewController {
     
     // 각 cell에 들어갈 정보
     private let data = [
-        ["내 정보 관리"],
+        ["내 정보 수정"],
         ["알림 설정"],
         ["개인정보처리 방침"],
         ["로그아웃", "회원탈퇴"]
@@ -117,10 +117,11 @@ class MypageVC: UIViewController {
     // 로그인VC으로 화면전환
     private func switchToLoginVC() {
         let loginVC = LoginVC()
+        let navController = UINavigationController(rootViewController: loginVC)
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let window = windowScene.windows.first else { return }
         
-        window.rootViewController = loginVC
+        window.rootViewController = navController
         window.makeKeyAndVisible()
     }
     
@@ -233,7 +234,6 @@ class MypageVC: UIViewController {
 // 행의 높이, 선택 시의 동작, 헤더와 푸터의 커스터마이징 등
 extension MypageVC: UITableViewDelegate {
     
-    // 테이블뷰의 특정 셀을 선택했을 때 호출됨. 이 메서드에서 선택된 셀에 따라 동작을 정의할 수 있음
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("섹션 \(indexPath.section), 행 \(indexPath.row) 선택됨")
         
@@ -333,7 +333,6 @@ extension MypageVC: UITableViewDelegate {
 }
 
 //MARK: - 마이페이지 테이블뷰 데이터소스
-//테이블뷰에 표시될 데이터를 관리
 extension MypageVC: UITableViewDataSource {
     
     // 테이블뷰가 몇 개의 섹션을 가질지를 반환
@@ -342,13 +341,11 @@ extension MypageVC: UITableViewDataSource {
     }
     
     // 각 섹션에 몇 개의 행이 있을지를 반환
-    // -> 첫 번째 섹션(회원정보)에는 한 개의 행이 있고, 네 번째 섹션(계정)에는 두 개의 행이 있으므로 섹션 인덱스에 따라 다른 값을 반환
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         data[section].count
     }
     
     // 특정 섹션의 특정 행에 표시될 셀을 구성하고 반환
-    // indexPath.section과 indexPath.row를 사용해 해당 위치의 데이터를 찾아 셀에 설정
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "MypageViewCell", for: indexPath)
@@ -366,7 +363,6 @@ extension MypageVC: UITableViewDataSource {
             let toggleSwitch = UISwitch()
             toggleSwitch.isOn = true // 기본적으로 스위치가 켜진 상태로 설정
             //            toggleSwitch.addTarget(self, action: #selector(didChangeSwitch(_:)), for: .valueChanged)
-            
             cell.accessoryView = toggleSwitch
         }
         
