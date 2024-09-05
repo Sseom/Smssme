@@ -96,7 +96,7 @@ class DailyTransactionVC: UIViewController {
 
 extension DailyTransactionVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let viewController = MoneyDiaryEditVC()
+        let viewController = MoneyDiaryEditVC(transactionItem2: transactionList[indexPath.row])
         self.navigationController?.pushViewController(viewController, animated: false)
     }
     
