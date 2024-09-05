@@ -10,48 +10,31 @@ import UIKit
 class DateManager {
     var calendar = Calendar.current
     static let shared = DateManager()
-    
-    private init() {
-        
-        
-    }
-    
-    
-    //    func NumberOfDays(yearMonth: Date) -> [Date] {
-    //        let totalDays = 42
-    //        let total = [Date()]
-    //
-    //        return total
-    //    }
-    
-    
-    
-    ///해당달의 마지막 숫자를 리턴 or nil
-    ///
-    ///
-    func countDays (currentMonth: Date) -> [Date] {
+    /*
+     한국시간을 적용하고싶지만 뽑아내는 시간자체가 UTC로 옵니다
+     즉 한국시간의 09-01-16:00 +0900 인  KST로 저장을해도
+     이값이 전달되는게 아니라
+     그 값을 변환한서 -9시간된 09-01-09:00 +0000 인
+     utc값으로 주더라구요
+     기준을 utc로 설정했습니다. 참고하세요
+     또한 Date타입은 시간을 항상 동반합니다
+     */
+    private init() {}
+
+    func configureDays (currentMonth: Date) -> [Date] {
         var totalDays: [Date] = []
-        
         let firstDayInMonth = getFirstDayInMonth(date: currentMonth)
         let firstWeekday = getFirstWeekday(for: currentMonth)
-        
         let lastMonthOfStart = moveToSomeday(when: firstDayInMonth, howLong: -firstWeekday + 1)
-        
-        let month = calendar.component(.month, from: currentMonth)
-        let year = calendar.component(.year, from: currentMonth)
-        
         for i in 0 ..< 42 {
                 totalDays.append(moveToSomeday(when: lastMonthOfStart, howLong: i))
             }
-        print(totalDays)
-        
         return totalDays
-        
     }
+    
     
     func getlastDayInMonth(date: Date) -> Date {
         let lastDay = endOfDateNumber(month: date)
-        
         var dateComponents = DateComponents()
         dateComponents.year = calendar.component(.year, from: date)
         dateComponents.month = calendar.component(.month, from: date)
@@ -65,8 +48,8 @@ class DateManager {
             print(#function)
             return Date()}
         return temp
-        
     }
+    
     
     func moveToSomeday(when: Date, howLong: Int) -> Date {
         guard let temp = calendar.date(byAdding: DateComponents(day: howLong), to: when)
@@ -97,12 +80,11 @@ class DateManager {
     func getFirstWeekday(for month: Date) -> Int{
         let temp = getFirstDayInMonth(date: month)
         let temp2 = calendar.component(.weekday, from: temp)
-        print(temp2)
         return temp2
     }
     
     
-    func endOfDateNumber (month currentDateOfMonth: Date) -> Int {
+    func endOfDateNumber(month currentDateOfMonth: Date) -> Int {
         guard let date = self.calendar.range(of: .day, in: .month, for: currentDateOfMonth)
         else {
             print(#function)
@@ -110,7 +92,7 @@ class DateManager {
         return date.count
     }
     
-    func weekdayToString (month currentMonth: Date) -> Int { // 그냥 요일임 그달의 요일이 아니라
+    func getWeekdayNum(month currentMonth: Date) -> Int { // 그냥 요일임 그달의 요일이 아니라
         return self.calendar.component(.weekday, from: currentMonth)
     }
     

@@ -53,8 +53,11 @@ class DailyTransactionVC: UIViewController {
         self.dailyExpense = expesneList
     }
     
-    func setDate(day: String) {
-        self.transactionView.dateLabel.text = day
+    func setDate(day: Date) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd"
+        let dayString = dateFormatter.string(from: day)
+        self.transactionView.dateLabel.text = dayString
         
     }
     

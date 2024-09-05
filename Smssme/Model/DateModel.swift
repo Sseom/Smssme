@@ -8,11 +8,11 @@
 import Foundation
 
 struct CalendarItem {
-    let date: String
+    var date: Date
     let isSat: Bool
     let isHol: Bool
     
-    init(date: String = "", isSat: Bool = false, isHol: Bool = false) {
+    init(date: Date = Date(), isSat: Bool = false, isHol: Bool = false) {
         self.date = date
         self.isSat = isSat
         self.isHol = isHol

@@ -37,7 +37,7 @@ final class MoneyDiaryVC: UIViewController {
     override func viewDidLoad() {
         let date = self.calendar.date(byAdding: DateComponents(month: -1), to: calendarDate)
         
-        DateManager.shared.countDays(currentMonth: date!)
+        DateManager.shared.configureDays(currentMonth: date!)
         super.viewDidLoad()
         self.view.backgroundColor = .white
         self.setupUI()
@@ -160,68 +160,16 @@ extension MoneyDiaryVC {
     private func updateDays() {
         self.calendarItems.removeAll()
         
-        let dateForm = DateFormatter()
-        let thisMonth = calendar.component(.month, from: self.calendarDate)
-        var lastMonth: Int { thisMonth - 1 }
-        var nextMonth: Int { 
-            if thisMonth == 12 { return 1 }
-            else { return thisMonth + 1 }
-                                     }
-        let lastMonthDate = calendar.date(byAdding:DateComponents(month: -1), to: self.calendarDate)
+        let currentMonth = DateManager.shared.configureDays(currentMonth: calendarDate)
         
-        let temp2 = self.calendar.range(of: .day, in: .month, for: lastMonthDate!)?.count ?? Int()
-        //print(temp2)
-        dateForm.dateFormat = "yyyy.MM.dd"
-        
-       
-        
-        
-        let startDayOfTheWeek = DateManager.shared.weekdayToString(month: self.calendarDate)
-        
-        let totalDaysInMonth = DateManager.shared.endOfDateNumber(month: self.calendarDate)
-        
-        let emptyCells = startDayOfTheWeek
-
-        
-        var lastMonthStartDay = temp2 - emptyCells + 1
-        //print(lastMonthStartDay)
-        let remainingCells = 42 - emptyCells - totalDaysInMonth
-                var dates = [String]()
-        var nextMonthCount = 1
-        
-        
-
-        for _ in 0..<emptyCells {
+        for i in 0 ..< 42 {
+            calendarItems.append(CalendarItem(date: DateManager.shared.configureDays(currentMonth: calendarDate)[i]))
             
-//            lastMonthDays.append(lastMonthOfEndDate)
             
-            dates.append("\(lastMonthStartDay)")
-            lastMonthStartDay += 1
-        }
-        
-        
-        for day in 1...totalDaysInMonth {
-            switch day {
-            case 1: dates.append("\(thisMonth).\(day)")
-            default : dates.append("\(day)")
-            }
-        }
-        for _ in 0..<remainingCells {
-            switch nextMonthCount {
-            case 1: dates.append("\(nextMonth).\(nextMonthCount)")
-            default : dates.append("\(nextMonthCount)")
-            }
-            nextMonthCount += 1
-        }
-        for (index, date) in dates.enumerated() {
-            let isSat = (index + 1) % 7 == 0
-            let isHol = index == 0 || index % 7 == 0
-            self.calendarItems.append(CalendarItem(date: date, isSat: isSat, isHol: isHol))
         }
         
 
-        
-//        print(dateDates)
+
         
         self.moneyDiaryView.calendarView.calendarCollectionView.reloadData()
     }

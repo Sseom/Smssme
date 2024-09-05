@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 //        window.rootViewController = SplashViewController()
 
-        window.rootViewController = UINavigationController(rootViewController: TabBarController())
+        window.rootViewController = TabBarController()
 
         window.makeKeyAndVisible()
         
