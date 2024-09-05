@@ -60,14 +60,18 @@ class MainPageVC: UIViewController {
 //            dataEntries.append(PieChartDataEntry(value: Double($0.amount), label: "\($0.title ?? "")"))
 //            uuids.append($0.key)
 //        }
+        var totalAmount: Double = 0
         
         dataEntries = assetsCoreDataManager.selectAllAssets().map {
-            PieChartDataEntry(value: Double($0.amount), label: "\($0.title ?? "")")
+            totalAmount += Double($0.amount)
+            return PieChartDataEntry(value: Double($0.amount), label: "\($0.title ?? "")")
         }
         
         uuids = assetsCoreDataManager.selectAllAssets().map {
             $0.key
         }
+        
+        mainPageView.totalAssetsValueLabel.text = "\(Int64(totalAmount)) 원"
         
         setChart()
     }
@@ -93,11 +97,9 @@ extension MainPageVC: ChartViewDelegate {
             guard let index = dataEntries.firstIndex(of: entry as! PieChartDataEntry) else { return }
             let uuid = uuids[index]
             
-            // 새로운 뷰 컨트롤러로 값 전달
             let assetsEditVC = AssetsEditVC()
             assetsEditVC.uuid = uuid
             
-            // 화면 전환
             self.navigationController?.pushViewController(assetsEditVC, animated: true)
         }
     }

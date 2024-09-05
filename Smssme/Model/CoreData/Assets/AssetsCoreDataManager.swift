@@ -28,7 +28,7 @@ class AssetsCoreDataManager {
         }
     }
     
-    // 자산 가져오기
+    // 자산 전체 가져오기
     func selectAllAssets() -> [Assets] {
         let fetchRequest: NSFetchRequest<Assets> = Assets.fetchRequest()
 //        fetchRequest.predicate = NSPredicate(format: "id == %@", id as CVarArg)
@@ -38,6 +38,35 @@ class AssetsCoreDataManager {
         } catch {
             print("에러: \(error.localizedDescription)")
             return []
+        }
+    }
+    
+    // 자산 하나 가져오기
+    func selectSelectAssets(uuid: UUID) -> [Assets] {
+        let fetchRequest: NSFetchRequest<Assets> = Assets.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "key == %@", uuid as CVarArg)
+        do {
+            let assets = try context.fetch(fetchRequest)
+            return assets
+        } catch {
+            print("에러: \(error.localizedDescription)")
+            return []
+        }
+    }
+    
+    
+    func deleteAssets(uuid: UUID){
+        let fetchRequest: NSFetchRequest<Assets> = Assets.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "key == %@", uuid as CVarArg)
+        do{
+            let result = try self.context.fetch(fetchRequest)
+            for data in result as [NSManagedObject]{
+                self.context.delete(data)
+            }
+            try self.context.save()
+            print("삭제 성공")
+        }catch{
+            print("삭제 실패")
         }
     }
 

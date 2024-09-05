@@ -38,6 +38,12 @@ class AssetsEditView: UIView {
 //        stackView.isLayoutMarginsRelativeArrangement = true
         return stackView
     }()
+    
+    let deleteButton: UIBarButtonItem = {
+        let barButton = UIBarButtonItem()
+        barButton.image = UIImage(systemName: "trash")
+        return barButton
+    }()
         
     // MARK: - View Init
     override init(frame: CGRect) {
