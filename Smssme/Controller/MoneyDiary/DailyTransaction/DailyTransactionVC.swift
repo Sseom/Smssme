@@ -96,12 +96,12 @@ class DailyTransactionVC: UIViewController {
 
 extension DailyTransactionVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let viewController = MoneyDiaryEditVC(transactionItem2: transactionList[indexPath.row])
+        let viewController = MoneyDiaryEditVC()
         self.navigationController?.pushViewController(viewController, animated: false)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return transactionList.count
+        return 1
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

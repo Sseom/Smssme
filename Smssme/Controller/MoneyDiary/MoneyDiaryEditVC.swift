@@ -9,14 +9,14 @@ import UIKit
 
 class MoneyDiaryEditVC: UIViewController {
     var transactionItem: TransactionItemEdit
-    var transactionItem2: Diary
+//    var transactionItem2: Diary
     //MARK: - Properties
     private let moneyDiaryEditView: MoneyDiaryEditView = MoneyDiaryEditView()
     
     // MARK: - ViewController Init
-    init(transactionItem2: Diary) {
+    init() {
         self.transactionItem = TransactionItemEdit()
-        self.transactionItem2 = transactionItem2
+//        self.transactionItem2 = transactionItem2
         super.init(nibName: nil, bundle: nil)
         
     }
