@@ -30,8 +30,9 @@ class SplashViewController: UIViewController {
     }
     
     private func checkLoginStatus() {
+        print(#function)
         if let user  = Auth.auth().currentUser {
-            print("로그인된 사용자입니다. 사용자는 \(user.email ?? "알 수 없는 이메일입니다.")")
+            print("로그인된 사용자입니다. 사용자는 \(user.uid ?? "알 수 없는 이메일입니다.")")
             showMainVC()
         } else {
             print("로그인되지 않은 사용자입니다.")

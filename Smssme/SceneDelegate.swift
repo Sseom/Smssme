@@ -24,6 +24,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 //        window.rootViewController = UINavigationController(rootViewController: FinancialPlanCurrentPlanVC())
 
+//        window.rootViewController = UINavigationController(rootViewController: SplashViewController())
+
 
         window.makeKeyAndVisible()
         
