@@ -54,7 +54,7 @@ class AssetsEditVC: UIViewController {
         if let uuid = uuid, let asset = assetsCoreDataManager.selectSelectAssets(uuid: uuid).first {
             assetsEditView.categoryTextField.text = asset.category
             assetsEditView.titleTextField.text = asset.title
-            assetsEditView.amountTextField.text = "\(asset.amount)"
+            assetsEditView.amountTextField.text = "\(KoreanCurrencyFormatter.shared.string(from: asset.amount))"
             assetsEditView.noteTextField.textColor = .black
             assetsEditView.noteTextField.text = asset.note
             setDeleteButton()
@@ -62,12 +62,10 @@ class AssetsEditVC: UIViewController {
     }
     
     private func saveAssets() {
-        let amountText = assetsEditView.amountTextField.text ?? ""
-        let amount = Int64(amountText) ?? 0
         let assets = AssetsItem(
             category: assetsEditView.categoryTextField.text,
             title: assetsEditView.titleTextField.text, 
-            amount: amount,
+            amount: KoreanCurrencyFormatter.shared.number(from: assetsEditView.amountTextField.text ?? "") ?? 0,
             note: assetsEditView.noteTextField.text
         )
         
@@ -109,7 +107,7 @@ class AssetsEditVC: UIViewController {
 
 //extension AssetsEditVC: KeyboardEvader {
 //    var keyboardScrollView: UIScrollView {
-//        <#code#>
+//
 //    }
 //    
 //}

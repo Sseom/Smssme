@@ -78,6 +78,7 @@ class MoneyDiaryEditView: UIView {
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(touch))
         self.addGestureRecognizer(recognizer)
         
+        priceTextField.delegate = self
         noteTextField.delegate = self
         setupUI()
     }
@@ -196,3 +197,40 @@ extension MoneyDiaryEditView: UITextViewDelegate {
         }
     }
 }
+
+extension MoneyDiaryEditView: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if !CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: string)) && string != "" {
+            return false
+        }
+        
+        var currentText = textField.text ?? ""
+        
+        let newText = (currentText as NSString).replacingCharacters(in: range, with: string)
+        
+        if currentText == "0" && string != "" {
+            currentText = string
+        } else {
+            currentText = newText
+        }
+        
+        let formattedText = formatNumberWithComma(currentText)
+        
+        textField.text = formattedText
+        
+        return false
+    }
+    
+    private func formatNumberWithComma(_ number: String) -> String {
+        let numberString = number.replacingOccurrences(of: ",", with: "")
+        
+        if let numberValue = Int(numberString) {
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = .decimal
+            return numberFormatter.string(from: NSNumber(value: numberValue)) ?? number
+        }
+        
+        return number
+    }
+}
+

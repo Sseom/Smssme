@@ -15,9 +15,9 @@ class AssetsEditView: UIView {
     private let amountLabel = ContentLabel().createLabel(with: "금액", color: .black)
     private let noteLabel = ContentLabel().createLabel(with: "메모", color: .black)
     
-    let categoryTextField = BaseTextField().createTextField(placeholder: "카테고리", textColor: .black)
-    let titleTextField = BaseTextField().createTextField(placeholder: "항목", textColor: .black)
-    let amountTextField = BaseTextField().createTextField(placeholder: "금액", textColor: .black)
+    let categoryTextField = AmountTextField.createTextField(keyboard: .default, currencyText: "")
+    let titleTextField = AmountTextField.createTextField(keyboard: .default, currencyText: "")
+    let amountTextField = AmountTextField.createTextField(keyboard: .numberPad, currencyText: "원")
 //    let noteTextField = BaseTextField().createTextField(placeholder: "메모", textColor: .black)
     
     let cancelButton = BaseButton().createButton(text: "취소", color: .lightGray, textColor: .white)
@@ -63,7 +63,7 @@ class AssetsEditView: UIView {
         // 터치시 키보드 내림
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(touch))
         self.addGestureRecognizer(recognizer)
-        
+        amountTextField.delegate = self
         noteTextField.delegate = self
         setupUI()
     }
@@ -151,3 +151,40 @@ extension AssetsEditView: UITextViewDelegate {
         }
     }
 }
+
+extension AssetsEditView: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if !CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: string)) && string != "" {
+            return false
+        }
+        
+        var currentText = textField.text ?? ""
+        
+        let newText = (currentText as NSString).replacingCharacters(in: range, with: string)
+        
+        if currentText == "0" && string != "" {
+            currentText = string
+        } else {
+            currentText = newText
+        }
+        
+        let formattedText = formatNumberWithComma(currentText)
+        
+        textField.text = formattedText
+        
+        return false
+    }
+    
+    private func formatNumberWithComma(_ number: String) -> String {
+        let numberString = number.replacingOccurrences(of: ",", with: "")
+        
+        if let numberValue = Int(numberString) {
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = .decimal
+            return numberFormatter.string(from: NSNumber(value: numberValue)) ?? number
+        }
+        
+        return number
+    }
+}
+
