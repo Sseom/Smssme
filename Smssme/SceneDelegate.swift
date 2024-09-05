@@ -17,12 +17,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
 
-        window.rootViewController = SplashViewController()
+//        window.rootViewController = SplashViewController()
 //        window.rootViewController = TestTableViewController()
 
-//        window.rootViewController = SplashViewController()
-
-        window.rootViewController = UINavigationController(rootViewController: TabBarController())
+        window.rootViewController = TabBarController()
+//        window.rootViewController = UINavigationController(rootViewController: FinancialPlanCurrentPlanVC())
 
         window.makeKeyAndVisible()
         

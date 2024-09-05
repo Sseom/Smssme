@@ -91,6 +91,8 @@ class FinancialPlanRepository {
     }
     
 }
+
+
 // 저장된 데이터 확인
 extension FinancialPlanRepository {
     func printAllFinancialPlans() {
