@@ -28,6 +28,9 @@ class DailyTransactionVC: UIViewController {
         self.setupUI()
         view.backgroundColor = .white
     }
+    override func viewWillAppear(_ animated: Bool) {
+        self.transactionView.listCollectionView.reloadData()
+    }
     
     private func setupUI() {
         configureCell()
@@ -101,7 +104,7 @@ extension DailyTransactionVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return transactionList.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
