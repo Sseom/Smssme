@@ -36,7 +36,6 @@ final class FinancialPlanCurrentPlanVC: UIViewController, FinancialPlanCreationD
         view = financialPlanCurrentView
     }
 
-
     private func loadFinancialPlans() {
         plans = repository.getAllFinancialPlans()
         financialPlanCurrentView.currentPlanCollectionView.reloadData()
@@ -82,7 +81,7 @@ extension FinancialPlanCurrentPlanVC: UICollectionViewDelegate {
     }
     
     func didCreateFinancialPlan(_ plan: FinancialPlan) {
-        plans.insert(plan, at: 0)  // 새 플랜을 배열의 맨 앞에 추가
+        plans.insert(plan, at: 0)
         DispatchQueue.main.async {
             self.financialPlanCurrentView.currentPlanCollectionView.reloadData()
         }

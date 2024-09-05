@@ -11,9 +11,6 @@ import SnapKit
 final class MoneyDiaryVC: UIViewController {
 
     
-    
-    
-    
     private lazy var scrollView = UIScrollView()
     let moneyDiaryView: MoneyDiaryView
     var calendar = Calendar.current
@@ -243,7 +240,9 @@ extension MoneyDiaryVC {
             
             self.present(modalVc, animated: true, completion: nil)
         }
-    
+    private func pencilButtonAction() {
+        
+    }
     
 }
 
