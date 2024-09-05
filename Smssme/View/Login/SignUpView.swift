@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseFirestore
 
 // 성별 선택 tag
 enum GenderTags: Int {
@@ -218,6 +220,7 @@ final class SignUpView: UIView {
         
         configureUI()
         setupLayout()
+        switchEditMode()
     }
     
     required init?(coder: NSCoder) {
@@ -299,6 +302,34 @@ final class SignUpView: UIView {
         // 성별 세로 스택뷰
         genderStackView.snp.makeConstraints {
             $0.height.equalTo(90)
+        }
+    }
+    
+    
+    //MARK: - func
+    // 로그인 상태에 따른 뷰 전환
+    private func switchEditMode() {
+        if let user = Auth.auth().currentUser {
+            // 정보 수정 모드
+            titleLabel.text = "내 정보 수정"
+            signupButton.setTitle("수정", for: .normal)
+            passwordCheckTextField.isHidden = true
+            
+            let userInfo = Firestore.firestore().collection("users").document(user.uid)
+            userInfo.getDocument { (document, error) in
+                if let document = document, document.exists {
+                    let data = document.data()
+                    self.emaiTextField.text = data?["email"] as? String
+                    self.nicknameTextField.text = data?["nickname"] as? String
+                    self.birthdayTextField.text = data?["birthday"] as? String
+                    self.incomeTextField.text = data?["income"] as? String
+                    self.locationTextField.text = data?["location"] as? String
+                }
+            }
+        } else {
+            // 회원가입 모드
+            signupButton.setTitle("회원가입", for: .normal)
+            passwordTextField.isHidden = false
         }
     }
     
