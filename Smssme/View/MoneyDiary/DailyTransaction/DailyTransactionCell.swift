@@ -64,15 +64,14 @@ class DailyTransactionCell: UICollectionViewCell, CellReusable {
         
         print(transaction.statement)
         if transaction.statement {  // false: 지출 - red
-            amountLabel.textColor = .red
-        } else {
             amountLabel.textColor = .blue
+        } else {
+            amountLabel.textColor = .red
         }
         
         nameLabel.text = transaction.title
         timeLabel.text = time
         
-        DailyTransactionView().listCollectionView.reloadData()
     }
     
     private func setupCellUI() {

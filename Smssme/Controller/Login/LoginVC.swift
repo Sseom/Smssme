@@ -12,6 +12,7 @@ class LoginVC: UIViewController {
     var handle: AuthStateDidChangeListenerHandle?
     
     private let loginVeiw = LoginView()
+
     
     override func loadView() {
         view = loginVeiw
@@ -33,7 +34,6 @@ class LoginVC: UIViewController {
         handle = Auth.auth().addStateDidChangeListener { auth, user in
 
 //                      self.setTitleDisplay(user)
-//                      self.tableView.reloadData()
         }
     }
     
