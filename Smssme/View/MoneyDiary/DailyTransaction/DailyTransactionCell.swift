@@ -10,23 +10,31 @@ import UIKit
 class DailyTransactionCell: UICollectionViewCell, CellReusable {
     let categoryImage: UIImageView = {
         let image = UIImageView()
-
+        
         image.image = UIImage(systemName: "bitcoinsign.circle")
-
+        
         return image
     }()
     
-    let nameLabel: UILabel = {
+    var nameLabel: UILabel = {
         let label = UILabel()
         label.text = "월급"
         label.textAlignment = .left
         return label
     }()
     
-    let amountLabel: UILabel = {
+    var amountLabel: UILabel = {
         let label = UILabel()
         label.text = "23,000원"
         label.textAlignment = .left
+        return label
+    }()
+    
+    let timeLabel: UILabel = {
+        let label = UILabel()
+        label.text = "05:36"
+        label.textColor = .lightGray
+        label.textAlignment = .right
         return label
     }()
     
@@ -46,16 +54,30 @@ class DailyTransactionCell: UICollectionViewCell, CellReusable {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     func updateData(transaction: Diary){
-        amountLabel.text = "\(transaction.amount)"
-        nameLabel.text = transaction.title
-        //transaction.date
+        var dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        let time = dateFormatter.string(from: transaction.date ?? Date())
         
+        amountLabel.text = KoreanCurrencyFormatter.shared.string(from: transaction.amount)
+        
+        print(transaction.statement)
+        if transaction.statement {  // false: 지출 - red
+            amountLabel.textColor = .red
+        } else {
+            amountLabel.textColor = .blue
+        }
+        
+        nameLabel.text = transaction.title
+        timeLabel.text = time
+        
+        DailyTransactionView().listCollectionView.reloadData()
     }
     
     private func setupCellUI() {
-        [categoryImage, contentsStackView].forEach { self.addSubview($0) }
-
+        [categoryImage, contentsStackView, timeLabel].forEach { self.addSubview($0) }
+        
     }
     private func setupLayout() {
         self.categoryImage.snp.makeConstraints {
@@ -68,22 +90,12 @@ class DailyTransactionCell: UICollectionViewCell, CellReusable {
             $0.leading.equalTo(self.categoryImage.snp.trailing).offset(10)
             $0.centerY.equalTo(self)
         }
-    }
-
-    func transformToText(transactionItem: TransactionItem){
-        self.nameLabel.text = transactionItem.name
-        self.amountLabel.text = "\(transactionItem.Amount) 원"
-        if transactionItem.isIncom {
-            self.amountLabel.textColor = .blue
-            self.nameLabel.textColor = .blue
-            
-        }
-        else {
-            self.amountLabel.textColor = .red
-            self.nameLabel.textColor = .red
-        }
-        self.categoryImage.image = UIImage(systemName: "bitcoinsign.circle")
         
+        self.timeLabel.snp.makeConstraints {
+            $0.trailing.equalTo(self.snp.trailing).inset(20)
+            $0.centerY.equalTo(self)
+        }
     }
-
+    
+    
 }
