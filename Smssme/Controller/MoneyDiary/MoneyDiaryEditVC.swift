@@ -8,14 +8,14 @@
 import UIKit
 
 class MoneyDiaryEditVC: UIViewController {
-    var transactionItem: TransactionItemEdit
+    
     var transactionItem2: Diary
     //MARK: - Properties
     private let moneyDiaryEditView: MoneyDiaryEditView = MoneyDiaryEditView()
     
     // MARK: - ViewController Init
     init(transactionItem2: Diary) {
-        self.transactionItem = TransactionItemEdit()
+        
         self.transactionItem2 = transactionItem2
         super.init(nibName: nil, bundle: nil)
         
@@ -87,7 +87,7 @@ class MoneyDiaryEditVC: UIViewController {
                                                 newUserId: "userKim")
         
         self.navigationController?.popViewController(animated: false)
-        print(self.transactionItem)
+        
     }
     
     

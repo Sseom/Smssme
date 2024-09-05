@@ -52,20 +52,4 @@ struct TransactionItem {
     }
 }
 
-struct TransactionItemEdit {
-    var date: Date
-    var amount: Int
-    var statement: Bool
-    var title: String
-    var category: String
-    var memo: String
-    
-    init(date: Date = Date(), amount: Int = 0, statement: Bool = false, title: String = "이름없음", category: String = "식비", memo: String = "한식부페") {
-        self.date = date
-        self.amount = amount
-        self.statement = statement
-        self.title = title
-        self.category = category
-        self.memo = memo
-    }
-}
+

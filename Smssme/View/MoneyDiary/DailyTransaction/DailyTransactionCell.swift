@@ -55,6 +55,7 @@ class DailyTransactionCell: UICollectionViewCell, CellReusable {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
     func updateData(transaction: Diary){
         var dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"

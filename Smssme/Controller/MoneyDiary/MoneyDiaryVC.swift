@@ -12,7 +12,7 @@ final class MoneyDiaryVC: UIViewController {
 
     
     
-    
+    private var diaries: [Diary] = []
     
     private lazy var scrollView = UIScrollView()
     let moneyDiaryView: MoneyDiaryView
@@ -39,6 +39,12 @@ final class MoneyDiaryVC: UIViewController {
         self.setupUI()
         self.setupLayout()
         self.setupActions()
+    }
+   
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.configureAmountOfMonth()
+        self.moneyDiaryView.calendarView.calendarCollectionView.reloadData()
     }
 
     private func updateView(selectedIndex: Int) {
@@ -95,6 +101,16 @@ final class MoneyDiaryVC: UIViewController {
         
         moveToSomeDate(temp1)
     }
+    func configureAmountOfMonth() {
+        
+        let firstDay = DateManager.shared.getFirstDayInMonth(date: self.calendarDate)
+        let lastDay = DateManager.shared.getlastDayInMonth(date: self.calendarDate)
+        guard let diaries = DiaryCoreDataManager.shared.fetchDiaries(from: firstDay, to: lastDay)
+        else { return }
+        self.diaries = diaries
+
+        
+    }
 
     
 }
@@ -115,6 +131,7 @@ extension MoneyDiaryVC: UICollectionViewDataSource, UICollectionViewDelegate, UI
         cell.layer.borderColor = UIColor.gray.cgColor
         cell.layer.borderWidth = 0.7
         cell.updateDate(item: self.calendarItems[indexPath.item])
+        
         return cell
     }
     
@@ -197,7 +214,9 @@ extension MoneyDiaryVC {
     }
     
     @objc private func didTodayButtonTouched(_ sender: UIButton) {
-        self.moveToSomeDate(Date())
+//        self.moveToSomeDate(Date())
+        let viewController = MoneyDiaryCreatVC()
+        self.navigationController?.pushViewController(viewController, animated: true)
     }
     @objc private func segmentChanged(_ sender: UISegmentedControl) {
         updateView(selectedIndex: sender.selectedSegmentIndex)
