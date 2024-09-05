@@ -49,6 +49,9 @@ class MypageVC: UIViewController {
         
     }
     
+//    override func viewWillAppear(_ animated: Bool) {
+//        self.mypageView.tableView.reloadData()
+//    }
     
     //MARK: - 테이블뷰 관련 메서드
     func tableviewSetup() {
@@ -149,7 +152,7 @@ class MypageVC: UIViewController {
             // 비로그인 상태라면
             print("로그인 없이 둘러보기 상태입니다.")
             self.tableViewHeaderSetUp(nickname: "로그인해주세요. ", email: "슴씀이의 더 많은 정보를 이용하러 가기!")
-            self.mypageView.tableView.reloadData()
+//            self.mypageView.tableView.reloadData()
         }
     }
     
@@ -171,7 +174,7 @@ class MypageVC: UIViewController {
             let email = Auth.auth().currentUser?.email ?? "이메일을 설정해주세요"
             self.tableViewHeaderSetUp(nickname: nickname, email: email)
             
-            self.mypageView.tableView.reloadData()
+//            self.mypageView.tableView.reloadData()
         }
     }
     

@@ -10,10 +10,7 @@ import SnapKit
 import UIKit
 
 final class MoneyDiaryVC: UIViewController {
-
-    
-    
-    
+    private var diaries: [Diary] = []
     private var dataEntries: [PieChartDataEntry] = []
     private lazy var scrollView = UIScrollView()
     let moneyDiaryView: MoneyDiaryView
@@ -28,7 +25,6 @@ final class MoneyDiaryVC: UIViewController {
     init(moneyDiaryView: MoneyDiaryView) {
         self.moneyDiaryView = moneyDiaryView
         super.init(nibName: nil, bundle: nil)
-        calendar.timeZone = TimeZone(identifier: "Asia/Seoul")!
     }
     
     required init?(coder: NSCoder) {
@@ -36,17 +32,17 @@ final class MoneyDiaryVC: UIViewController {
     }
     
     override func viewDidLoad() {
-        let date = self.calendar.date(byAdding: DateComponents(month: -1), to: calendarDate)
-        
-        DateManager.shared.configureDays(currentMonth: date!)
         super.viewDidLoad()
         self.view.backgroundColor = .white
         self.setupUI()
         self.setupLayout()
         self.setupActions()
-        
-
-        
+    }
+   
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.configureAmountOfMonth()
+        self.moneyDiaryView.calendarView.calendarCollectionView.reloadData()
     }
     
     func setChartData() {
@@ -74,7 +70,7 @@ final class MoneyDiaryVC: UIViewController {
     }
 
     private func setupUI() {
-        self.navigationItem.title = "모두모두 행복하세요~ 가계부~~"
+        self.navigationItem.title = "가계부"
         self.view.addSubview(self.scrollView)
         [
             self.moneyDiaryView
@@ -99,7 +95,6 @@ final class MoneyDiaryVC: UIViewController {
 
     
     private func setupActions() {
-        
         moneyDiaryView.previousButton.addTarget(self, action: #selector(self.didPreviousButtonTouched), for: .touchUpInside)
         moneyDiaryView.nextButton.addTarget(self, action: #selector(self.didNextButtonTouched), for: .touchUpInside)
         moneyDiaryView.segmentController.addTarget(self, action: #selector(segmentChanged), for: .valueChanged)
@@ -146,17 +141,24 @@ final class MoneyDiaryVC: UIViewController {
         
         moveToSomeDate(temp1)
     }
+    func configureAmountOfMonth() {
+        
+        let firstDay = DateManager.shared.getFirstDayInMonth(date: self.calendarDate)
+        let lastDay = DateManager.shared.getlastDayInMonth(date: self.calendarDate)
+        guard let diaries = DiaryCoreDataManager.shared.fetchDiaries(from: firstDay, to: lastDay)
+        else { return }
+        self.diaries = diaries
+
+        
+    }
 
     
 }
 
 extension MoneyDiaryVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        
-
-            let viewController = DailyTransactionVC(transactionView: DailyTransactionView())
-
+        let viewController = DailyTransactionVC(transactionView: DailyTransactionView())
         viewController.setDate(day: self.calendarItems[indexPath.row].date)
         self.navigationController?.pushViewController(viewController, animated: true)
     }
@@ -169,6 +171,7 @@ extension MoneyDiaryVC: UICollectionViewDataSource, UICollectionViewDelegate, UI
         cell.layer.borderColor = UIColor.gray.cgColor
         cell.layer.borderWidth = 0.7
         cell.updateDate(item: self.calendarItems[indexPath.item])
+        
         return cell
     }
     
@@ -203,16 +206,9 @@ extension MoneyDiaryVC {
     private func updateDays() {
         self.calendarItems.removeAll()
         
-        let currentMonth = DateManager.shared.configureDays(currentMonth: calendarDate)
-        
         for i in 0 ..< 42 {
             calendarItems.append(CalendarItem(date: DateManager.shared.configureDays(currentMonth: calendarDate)[i]))
-            
-            
         }
-        
-
-
         
         self.moneyDiaryView.calendarView.calendarCollectionView.reloadData()
     }
@@ -259,7 +255,9 @@ extension MoneyDiaryVC {
     }
     
     @objc private func didTodayButtonTouched(_ sender: UIButton) {
-        self.moveToSomeDate(Date())
+//        self.moveToSomeDate(Date())
+        let viewController = MoneyDiaryCreatVC()
+        self.navigationController?.pushViewController(viewController, animated: true)
     }
     @objc private func segmentChanged(_ sender: UISegmentedControl) {
         updateView(selectedIndex: sender.selectedSegmentIndex)
