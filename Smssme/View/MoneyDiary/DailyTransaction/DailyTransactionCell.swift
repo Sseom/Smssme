@@ -46,6 +46,12 @@ class DailyTransactionCell: UICollectionViewCell, CellReusable {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    func updateData(transaction: Diary){
+        amountLabel.text = "\(transaction.amount)"
+        nameLabel.text = transaction.title
+        //transaction.date
+        
+    }
     
     private func setupCellUI() {
         [categoryImage, contentsStackView].forEach { self.addSubview($0) }

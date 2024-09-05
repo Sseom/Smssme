@@ -10,7 +10,7 @@ import UIKit
 class DailyTransactionVC: UIViewController {
 
     let transactionView: DailyTransactionView
-    var dailyTransactionList: [TransactionItem] = []
+    
     var dailyIncome = 0
     var dailyExpense = 0
     var transactionList: [Diary] = []
@@ -52,13 +52,14 @@ class DailyTransactionVC: UIViewController {
     }
     
     
-    private func calculateTodayTransaction(TransactionList: [TransactionItem]) {
+    private func calculateTodayTransaction(items: [Diary]) {
+        
         var incomeList = 0
         var expesneList = 0
         
-        for Transaction in TransactionList {
-            if Transaction.isIncom { incomeList += Transaction.Amount}
-            else { expesneList += Transaction.Amount}
+        for item in items {
+            if item.statement { incomeList += Int(item.amount) }
+            else { expesneList += Int(item.amount) }
         }
         
         self.dailyIncome = incomeList
@@ -108,6 +109,7 @@ extension DailyTransactionVC: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DailyTransactionCell.reuseIdentifier, for: indexPath) as? DailyTransactionCell
         else { return UICollectionViewCell() }
         // 셀 설정
+        cell.updateData(transaction: transactionList[indexPath.row])
         cell.layer.cornerRadius = 20
         cell.layer.borderWidth = 1
         cell.layer.borderColor = UIColor.black.cgColor

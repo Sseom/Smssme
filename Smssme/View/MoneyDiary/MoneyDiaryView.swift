@@ -16,14 +16,14 @@ class MoneyDiaryView: UIView {
     let previousButton = {
         let button = UIButton()
         button.tintColor = .label
-        button.setImage(UIImage(systemName: "arrowshape.left.circle"), for: .normal)
+        button.setImage(UIImage(systemName: "arrowshape.left"), for: .normal)
         return button
     }()
     
     let nextButton = {
         let button = UIButton()
         button.tintColor = .label
-        button.setImage(UIImage(systemName: "arrowshape.right.circle"), for: .normal)
+        button.setImage(UIImage(systemName: "arrowshape.right"), for: .normal)
         return button
     }()
 
@@ -33,9 +33,9 @@ class MoneyDiaryView: UIView {
         return segmentController
     }()
 
-    let moveDateButton = BaseButton().createButton(text: "날짜이동", color: .blue, textColor: .white)
+    let moveDateButton = BaseButton().createButton(text: "날짜이동", color: .systemGray.withAlphaComponent(0.5), textColor: .black)
     
-    let todayButton = BaseButton().createButton(text: "오늘", color: .blue, textColor: .white)
+    let todayButton = BaseButton().createButton(text: "오늘", color: .systemGray.withAlphaComponent(0.5), textColor: .black)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -104,10 +104,10 @@ class MoneyDiaryView: UIView {
             $0.width.equalTo(50)
         }
         self.moveDateButton.snp.makeConstraints {
-            $0.leading.equalTo(nextButton.snp.trailing).offset(20)
+            $0.leading.equalTo(nextButton.snp.trailing).offset(10)
             $0.top.equalTo(nextButton.snp.top)
             $0.height.equalTo(nextButton.snp.height)
-            $0.width.equalTo(80)
+            $0.width.equalTo(65)
         }
         self.segmentController.snp.makeConstraints {
             $0.centerX.equalTo(self)
