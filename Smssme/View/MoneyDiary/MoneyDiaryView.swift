@@ -43,7 +43,7 @@ class MoneyDiaryView: UIView {
     
     let todayButton = BaseButton().createButton(text: "오늘", color: .blue, textColor: .white)
     
-    lazy var pencilButton: UIButton = {
+    private let pencilButton: UIButton = {
         let button = UIButton()
         button.setBackgroundImage(UIImage(named: "pencilButton"), for: .normal)
         return button
@@ -77,6 +77,10 @@ class MoneyDiaryView: UIView {
             label.textAlignment = .center
             calendarView.weekStackView.addArrangedSubview(label)
         }
+    }
+    
+    func addActionToPencilButton(_ action: UIAction) {
+        pencilButton.addAction(action, for: .touchUpInside)
     }
     
     private func configureUI() {
@@ -140,7 +144,6 @@ class MoneyDiaryView: UIView {
             $0.bottom.equalTo(self.snp.bottom)
         }
 
-        
         pencilButton.snp.makeConstraints {
             $0.bottom.equalToSuperview().offset(-60)
             $0.trailing.equalToSuperview().offset(-20)

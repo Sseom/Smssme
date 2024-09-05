@@ -149,3 +149,19 @@ class DiaryCoreDataManager {
         }
     }
 }
+
+
+extension DiaryCoreDataManager {
+    func fetchAllDiaries() -> [Diary] {
+        let context = DiaryCoreDataManager.shared.context
+        let fetchRequest: NSFetchRequest<Diary> = Diary.fetchRequest()
+        
+        do {
+            let diaries = try context.fetch(fetchRequest)
+            return diaries
+        } catch {
+            print("Failed to fetch all diaries: \(error)")
+            return []
+        }
+    }
+}

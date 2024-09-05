@@ -18,11 +18,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
 
 
-
+//        window.rootViewController = MoneyDiaryCreationVC(diaryManager: DiaryCoreDataManager(), transactionItem2: Diary())
         window.rootViewController = TabBarController()
-
-
-
 
         window.makeKeyAndVisible()
         
