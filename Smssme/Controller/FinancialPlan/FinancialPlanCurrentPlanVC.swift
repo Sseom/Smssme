@@ -7,7 +7,8 @@
 
 import UIKit
 
-final class FinancialPlanCurrentPlanVC: UIViewController, FinancialPlanEditDelegate {
+final class FinancialPlanCurrentPlanVC: UIViewController, FinancialPlanCreationDelegate, FinancialPlanEditDelegate, FinancialPlanDeleteDelegate, FinancialPlanUpdateDelegate {
+    
     private let financialPlanCurrentView = FinancialPlanCurrentPlanView()
     private let planItemStore = PlanItemStore.shared
     private let repository: FinancialPlanRepository
@@ -34,6 +35,7 @@ final class FinancialPlanCurrentPlanVC: UIViewController, FinancialPlanEditDeleg
     override func loadView() {
         view = financialPlanCurrentView
     }
+
 
     private func loadFinancialPlans() {
         plans = repository.getAllFinancialPlans()
@@ -73,15 +75,34 @@ extension FinancialPlanCurrentPlanVC: UICollectionViewDataSource {
 extension FinancialPlanCurrentPlanVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedPlan = plans[indexPath.item]
-        let confirmVC = FinancialPlanConfirmVC(financialPlanManager: FinancialPlanManager.shared, financialPlan: selectedPlan)
-        
+        let confirmVC = FinancialPlanConfirmVC(financialPlanManager: FinancialPlanManager.shared, financialPlan: selectedPlan, repository: FinancialPlanRepository())
+        confirmVC.deleteDelegate = self
+        confirmVC.updateDelegate = self
         navigationController?.pushViewController(confirmVC, animated: true)
     }
     
-    func didUpdateFinacialPlan(_ plan: FinancialPlan) {
+    func didCreateFinancialPlan(_ plan: FinancialPlan) {
+        plans.insert(plan, at: 0)  // 새 플랜을 배열의 맨 앞에 추가
+        DispatchQueue.main.async {
+            self.financialPlanCurrentView.currentPlanCollectionView.reloadData()
+        }
+    }
+    
+    func didDeleteFinancialPlan(_ plan: FinancialPlan) {
+        if let index = plans.firstIndex(where: { $0.id == plan.id }) {
+            plans.remove(at: index)
+            DispatchQueue.main.async {
+                self.financialPlanCurrentView.currentPlanCollectionView.deleteItems(at: [IndexPath(item: index, section: 0)])
+            }
+        }
+    }
+    
+    func didUpdateFinancialPlan(_ plan: FinancialPlan) {
         if let index = plans.firstIndex(where: { $0.id == plan.id }) {
             plans[index] = plan
-            financialPlanCurrentView.currentPlanCollectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+            DispatchQueue.main.async {
+                self.financialPlanCurrentView.currentPlanCollectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+            }
         }
     }
 }
