@@ -28,9 +28,6 @@ class DailyTransactionVC: UIViewController {
         self.setupUI()
         view.backgroundColor = .white
     }
-    override func viewWillAppear(_ animated: Bool) {
-        self.transactionView.listCollectionView.reloadData()
-    }
     
     override func viewWillAppear(_ animated: Bool) {
         calculateTodayTransaction(items: transactionList)
