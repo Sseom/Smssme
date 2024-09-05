@@ -10,11 +10,11 @@ class MainPageView: UIView {
     private let financialTitleLabel = SmallTitleLabel().createLabel(with: "오늘의 주요 경제 지표", color: .black)
     private let benefitTitleLabel = SmallTitleLabel().createLabel(with: "2024 청년 혜택 총정리", color: .black)
     
-    private let chartArray: [TodayFinancia] = [
-        TodayFinancia(title: "KOSPI", value: 5678.91, range: -1),
-        TodayFinancia(title: "KOSDAQ", value: 234.2, range: 0),
-        TodayFinancia(title: "환율", value: 1.233, range: 0),
-        TodayFinancia(title: "NASDAQ", value: 4252.33, range: 0)
+    private let todayFinancialArray: [TodayFinancial] = [
+        TodayFinancial(title: "KOSPI", value: 5678.91, range: -1),
+        TodayFinancial(title: "KOSDAQ", value: 234.2, range: 0),
+        TodayFinancial(title: "환율", value: 1.233, range: 0),
+        TodayFinancial(title: "NASDAQ", value: 4252.33, range: 0)
     ]
     
     private let benefitData: [String] = ["테스트1 데이터 입니다.", "테스트2 데이터 입니다.", "테스트3 데이터 입니다.", "테스트4 데이터 입니다."]
@@ -43,6 +43,7 @@ class MainPageView: UIView {
     
     let pieChartView: PieChartView = {
         let pieChartView = PieChartView()
+        pieChartView.rotationEnabled = false
         return pieChartView
     }()
     
@@ -67,7 +68,7 @@ class MainPageView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
-        setupTodayFinancia(todayFinanciaData: chartArray)
+        setupTodayFinancia(todayFinanciaData: todayFinancialArray)
         setupBenefit(benefitData: benefitData)
     }
     
@@ -76,7 +77,7 @@ class MainPageView: UIView {
     }
     
     // MARK: - Methods
-    func setupTodayFinancia(todayFinanciaData: [TodayFinancia]) {
+    func setupTodayFinancia(todayFinanciaData: [TodayFinancial]) {
         todayFinanciaData.forEach {
             let financialVerticalStackView = UIStackView()
             financialVerticalStackView.axis = .vertical

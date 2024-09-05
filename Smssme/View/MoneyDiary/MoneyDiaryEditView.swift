@@ -19,10 +19,10 @@ class MoneyDiaryEditView: UIView {
     let priceTextField = BaseTextField().createTextField(placeholder: "금액", textColor: .black)
     let titleTextField = BaseTextField().createTextField(placeholder: "수입명", textColor: .black)
     let categoryTextField = BaseTextField().createTextField(placeholder: "카테고리", textColor: .black)
-//    let noteTextField = BaseTextField().createTextField(placeholder: "메모", textColor: .black)
+    //    let noteTextField = BaseTextField().createTextField(placeholder: "메모", textColor: .black)
     
     let cancelButton = BaseButton().createButton(text: "취소", color: .lightGray, textColor: .white)
-     let saveButton = BaseButton().createButton(text: "저장", color: .systemBlue, textColor: .white)
+    let saveButton = BaseButton().createButton(text: "저장", color: .systemBlue, textColor: .white)
     
     //MARK: - Component Properties
     lazy var segmentControl: UISegmentedControl = {
@@ -41,9 +41,9 @@ class MoneyDiaryEditView: UIView {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fill
-//        stackView.backgroundColor = .darkGray
-//        stackView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 50, right: 10)
-//        stackView.isLayoutMarginsRelativeArrangement = true
+        //        stackView.backgroundColor = .darkGray
+        //        stackView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 50, right: 10)
+        //        stackView.isLayoutMarginsRelativeArrangement = true
         return stackView
     }()
     

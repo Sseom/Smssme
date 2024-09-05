@@ -70,8 +70,7 @@ class MainPageVC: UIViewController {
         uuids = assetsCoreDataManager.selectAllAssets().map {
             $0.key
         }
-        
-        mainPageView.totalAssetsValueLabel.text = "\(Int64(totalAmount)) 원"
+        mainPageView.totalAssetsValueLabel.text = "\(KoreanCurrencyFormatter.shared.addingComma(number: Int64(totalAmount))) 원"
         
         setChart()
     }

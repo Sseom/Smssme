@@ -11,8 +11,8 @@ import UIKit
 class AssetsCoreDataManager {
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    // 자산 저장
-    func saveAssets(assets: AssetsItem) {
+    // 신규 자산 저장
+    func createAssets(assets: AssetsItem) {
         let newAssets = Assets(context: context)
         newAssets.id = nil
         newAssets.amount = assets.amount
@@ -27,6 +27,29 @@ class AssetsCoreDataManager {
             print("에러: \(error.localizedDescription)")
         }
     }
+    
+    // 신규 자산 수정
+    func updateAssets(assetsItem: AssetsItem, uuid: UUID) {
+        let fetchRequest: NSFetchRequest<Assets> = Assets.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "key == %@", uuid as CVarArg)
+        do {
+            let result = try context.fetch(fetchRequest)
+            if let assets = result.first {
+                print(assets)
+                assets.amount = assetsItem.amount
+                assets.category = assetsItem.category
+                assets.note = assetsItem.note
+                assets.title = assetsItem.title
+                try context.save()
+                print("수정 성공")
+            } else {
+                print("유효하지 않은 자산")
+            }
+        } catch {
+            print("에러: \(error.localizedDescription)")
+        }
+    }
+
     
     // 자산 전체 가져오기
     func selectAllAssets() -> [Assets] {

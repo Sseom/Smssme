@@ -55,6 +55,7 @@ class AssetsEditVC: UIViewController {
             assetsEditView.categoryTextField.text = asset.category
             assetsEditView.titleTextField.text = asset.title
             assetsEditView.amountTextField.text = "\(asset.amount)"
+            assetsEditView.noteTextField.textColor = .black
             assetsEditView.noteTextField.text = asset.note
             setDeleteButton()
         }
@@ -70,7 +71,11 @@ class AssetsEditVC: UIViewController {
             note: assetsEditView.noteTextField.text
         )
         
-        assetsCoreDataManager.saveAssets(assets: assets)
+        if let uuid = uuid {
+            assetsCoreDataManager.updateAssets(assetsItem: assets, uuid: uuid)
+        } else {
+            assetsCoreDataManager.createAssets(assets: assets)
+        }
     }
     
     private func deleteAssets() {
