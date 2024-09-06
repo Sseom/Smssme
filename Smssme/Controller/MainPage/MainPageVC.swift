@@ -28,13 +28,12 @@ class MainPageVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view.backgroundColor = .white
     }
     
     override func loadView() {
         super.loadView()
         self.view = mainPageView
-        
         mainPageView.chartCenterButton.addTarget(self, action: #selector(editViewPush), for: .touchUpInside)
     }
     

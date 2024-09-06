@@ -59,8 +59,8 @@ class FinancialPlanConfirmVC: UIViewController, FinancialPlanEditDelegate {
 
         if let endDate = plan.endDate {
             let formattedDate = FinancialPlanDateModel.dateFormatter.string(from: endDate)
-            confirmView.endDateLabel.text = formattedDate }
-        // 남은 일수
+            confirmView.endDateLabel.text = "목표날짜 \(formattedDate)" }
+
         if let endDate = plan.endDate {
             let calendar = Calendar.current
             let now = Date()

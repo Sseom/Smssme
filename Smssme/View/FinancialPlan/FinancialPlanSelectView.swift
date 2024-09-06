@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 final class FinancialPlanSelectionView: UIView {
-    private let FinancialPlanLargeTitle = LargeTitleLabel().createLabel(with: "자산플랜", color: UIColor.black)
+    private let FinancialPlanLargeTitle = LargeTitleLabel().createLabel(with: "재무 목표 플랜", color: UIColor.black)
     
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCollectionViewLayout())
