@@ -37,13 +37,13 @@ class TabBarController: UITabBarController {
             isNavigationBarHidden: false,
             rootViewController: MoneyDiaryVC(moneyDiaryView: MoneyDiaryView())
         )
-        //  예산안
-        let budget = tabBarNavigationController(
-            unselectedImage: UIImage(systemName: "newspaper") ?? UIImage(),
-            selectedImage: UIImage(systemName: "newspaper.fill") ?? UIImage(),
-            isNavigationBarHidden: false,
-            rootViewController: MoneyDiaryBudgetEditVC()
-        )
+//        //  예산안
+//        let budget = tabBarNavigationController(
+//            unselectedImage: UIImage(systemName: "newspaper") ?? UIImage(),
+//            selectedImage: UIImage(systemName: "newspaper.fill") ?? UIImage(),
+//            isNavigationBarHidden: false,
+//            rootViewController: MoneyDiaryBudgetEditVC()
+//        )
         //재무플랜
         let financialPlan = tabBarNavigationController(
             unselectedImage: UIImage(systemName: "note.text.badge.plus") ?? UIImage(),
@@ -58,7 +58,7 @@ class TabBarController: UITabBarController {
             isNavigationBarHidden: false,
             rootViewController: MypageVC()
         )
-        viewControllers = [mainPage, diary, budget, financialPlan, myPage]
+        viewControllers = [mainPage, diary, financialPlan, myPage]
     }
     
     //MARK: 제네릭으로 navigationController 안쓰는 뷰면 나눠서 반환해주게끔 개선 하면 좋을거 같음

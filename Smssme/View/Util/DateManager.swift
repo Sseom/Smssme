@@ -103,6 +103,7 @@ class DateManager {
         components.hour = 0
         components.minute = 0
         components.second = 0
+        components.timeZone = TimeZone(secondsFromGMT: 0)
         guard let dateWithoutTime = calendar.date(from: components)
         else {
             print(#function)

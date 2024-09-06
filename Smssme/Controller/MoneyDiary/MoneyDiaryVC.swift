@@ -40,10 +40,12 @@ final class MoneyDiaryVC: UIViewController {
         
         pencilButtonAction()
     }
+
    
     
     override func viewWillAppear(_ animated: Bool) {
         self.configureAmountOfMonth()
+        
         self.moneyDiaryView.calendarView.calendarCollectionView.reloadData()
     }
     
@@ -106,8 +108,9 @@ final class MoneyDiaryVC: UIViewController {
         moneyDiaryView.nextButton.addTarget(self, action: #selector(self.didNextButtonTouched), for: .touchUpInside)
         moneyDiaryView.segmentController.addTarget(self, action: #selector(segmentChanged), for: .valueChanged)
         moneyDiaryView.todayButton.addTarget(self, action: #selector(self.didTodayButtonTouched), for: .touchUpInside)
-        moneyDiaryView.moveDateButton.addTarget(self, action: #selector(didTapMoveButton), for: .touchUpInside)
+        moneyDiaryView.dateButton.addTarget(self, action: #selector(didTapMoveButton), for: .touchUpInside)
         datePicker.confirmButton.addTarget(self, action: #selector(didTapMove), for: .touchUpInside)
+        moneyDiaryView.moneyBudgeyButton.addTarget(self, action: #selector(didTapBudgetButton), for: .touchUpInside)
     }
     
     private func setChart() {
@@ -175,8 +178,22 @@ extension MoneyDiaryVC: UICollectionViewDataSource, UICollectionViewDelegate, UI
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarCollectionViewCell.reuseIdentifier, for: indexPath) as? CalendarCollectionViewCell else { return UICollectionViewCell() }
-        cell.layer.borderColor = UIColor.gray.cgColor
-        cell.layer.borderWidth = 0.7
+//        print(cell.currentDate)
+//        for calendarItem in calendarItems {
+//            calendarItem.date = Date()
+//        }
+        
+        
+        
+        
+        
+
+        
+
+        
+        
+        
+        
         cell.updateDate(item: self.calendarItems[indexPath.item])
         
         return cell
@@ -207,7 +224,8 @@ extension MoneyDiaryVC {
     private func updateTitle() {
         self.dateFormatter.dateFormat = "yyyy년 MM월"
         let date = self.dateFormatter.string(from: self.calendarDate)
-        self.moneyDiaryView.currentDateLabel.text = date
+        
+        self.moneyDiaryView.dateButton.setTitle(date, for: .normal)
     }
     
     private func updateDays() {
@@ -249,7 +267,10 @@ extension MoneyDiaryVC {
 extension MoneyDiaryVC {
 
 //objc method
-    
+    @objc private func didTapBudgetButton() {
+        let viewController = MoneyDiaryBudgetEditVC()
+        self.navigationController?.pushViewController(viewController, animated: true)
+    }
     @objc private func didPreviousButtonTouched(_ sender: UIButton) {
         self.moveToSomeDate(self.calendar.date(byAdding: DateComponents(month: -1), to: self.calendarDate))
     }
@@ -260,9 +281,8 @@ extension MoneyDiaryVC {
     }
     
     @objc private func didTodayButtonTouched(_ sender: UIButton) {
-//        self.moveToSomeDate(Date())
-        let viewController = MoneyDiaryCreatVC()
-        self.navigationController?.pushViewController(viewController, animated: true)
+       self.moveToSomeDate(Date())
+
     }
     @objc private func segmentChanged(_ sender: UISegmentedControl) {
         updateView(selectedIndex: sender.selectedSegmentIndex)

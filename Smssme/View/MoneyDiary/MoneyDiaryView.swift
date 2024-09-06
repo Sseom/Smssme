@@ -18,7 +18,7 @@ class MoneyDiaryView: UIView {
         return chartView
     }()
     
-    let currentDateLabel = LargeTitleLabel().createLabel(with: "", color: .black)
+    var dateButton = BaseButton().createButton(text: "날짜", color: .white, textColor: .black)
     let previousButton = {
         let button = UIButton()
         button.tintColor = .label
@@ -39,10 +39,10 @@ class MoneyDiaryView: UIView {
         return segmentController
     }()
 
-    let moveDateButton = BaseButton().createButton(text: "날짜이동", color: .systemGray.withAlphaComponent(0.5), textColor: .black)
+
     
     let todayButton = BaseButton().createButton(text: "오늘", color: .systemGray.withAlphaComponent(0.5), textColor: .black)
-    
+    let moneyBudgeyButton = BaseButton().createButton(text: "예산안", color: .systemGray.withAlphaComponent(0.5), textColor: .black)
     private let pencilButton: UIButton = {
         let button = UIButton()
         button.setBackgroundImage(UIImage(named: "pencilButton"), for: .normal)
@@ -53,6 +53,8 @@ class MoneyDiaryView: UIView {
         super.init(frame: frame)
         configureUI()
         configureWeekLabel()
+        dateButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 22)
+        
     }
     
     required init?(coder: NSCoder) {
@@ -86,32 +88,32 @@ class MoneyDiaryView: UIView {
     private func configureUI() {
         
         [
-            currentDateLabel,
+            dateButton,
             previousButton,
             nextButton,
             calendarView,
             chartView,
             todayButton,
             segmentController,
-            moveDateButton,
-            pencilButton
+            pencilButton,
+            moneyBudgeyButton
         ].forEach { self.addSubview($0) }
         
         
-        self.currentDateLabel.snp.makeConstraints {
+        self.dateButton.snp.makeConstraints {
             $0.top.equalTo(self).offset(10)
             $0.height.equalTo(30)
             $0.centerX.equalTo(self)
         }
         self.previousButton.snp.makeConstraints {
-            $0.trailing.equalTo(self.currentDateLabel.snp.leading).offset(-10)
-            $0.centerY.equalTo(self.currentDateLabel)
+            $0.trailing.equalTo(self.dateButton.snp.leading).offset(-10)
+            $0.centerY.equalTo(self.dateButton)
             $0.width.equalTo(30)
             
         }
         self.nextButton.snp.makeConstraints {
-            $0.leading.equalTo(self.currentDateLabel.snp.trailing).offset(10)
-            $0.centerY.equalTo(self.currentDateLabel)
+            $0.leading.equalTo(self.dateButton.snp.trailing).offset(10)
+            $0.centerY.equalTo(self.dateButton)
             $0.width.equalTo(30)
             
         }
@@ -121,7 +123,7 @@ class MoneyDiaryView: UIView {
             $0.height.equalTo(nextButton.snp.height)
             $0.width.equalTo(50)
         }
-        self.moveDateButton.snp.makeConstraints {
+        self.moneyBudgeyButton.snp.makeConstraints {
             $0.leading.equalTo(nextButton.snp.trailing).offset(10)
             $0.top.equalTo(nextButton.snp.top)
             $0.height.equalTo(nextButton.snp.height)
@@ -129,7 +131,7 @@ class MoneyDiaryView: UIView {
         }
         self.segmentController.snp.makeConstraints {
             $0.centerX.equalTo(self)
-            $0.top.equalTo(currentDateLabel.snp.bottom).offset(10)
+            $0.top.equalTo(dateButton.snp.bottom).offset(10)
             $0.height.equalTo(30)
             $0.leading.trailing.equalTo(self.safeAreaLayoutGuide).inset(20)
         }

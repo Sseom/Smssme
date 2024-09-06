@@ -24,6 +24,7 @@ class CalendarView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupUIWithAutoLayout()
+        
     }
     
     required init?(coder: NSCoder) {
@@ -32,6 +33,7 @@ class CalendarView: UIView {
     
     
     private func setupUIWithAutoLayout(){
+        
         [
             weekStackView,
             calendarCollectionView
