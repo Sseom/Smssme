@@ -16,35 +16,25 @@ final class FinancialPlanSelectionVC: UIViewController {
     private let financialPlanSelectionView = FinancialPlanSelectionView()
     private let financialPlanManager = FinancialPlanManager.shared
     private let planItemStore = PlanItemStore.shared
+    private let repository = FinancialPlanRepository()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         financialPlanSelectionView.collectionView.dataSource = self
         financialPlanSelectionView.collectionView.delegate = self
-        loadInitialData()
     }
     
     override func loadView() {
         view = financialPlanSelectionView
         view.backgroundColor = UIColor(hex: "#e9f3fd")
     }
-    
-    private func loadInitialData() {
-        planItemStore.loadInitialData()
-        financialPlanSelectionView.collectionView.reloadData()
-    }
-
-    @objc private func addButtonTapped() {
-        let newPlan = PlanItem(title: "나만의 플랜 설정", description: "나만의 자산목표를 설정하고 체계적으로 이루어 보세요", imageName: "trip", isPreset: false)
-                planItemStore.addCustomPlan(newPlan)
-        financialPlanSelectionView.collectionView.reloadData()
-    }
 }
 
-// MARK: - 콜렉션 뷰
+// MARK: - Collection View Data Source
 extension FinancialPlanSelectionVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return planItemStore.getTotalItemCount() + 1
+        return planItemStore.presetPlans.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -52,40 +42,50 @@ extension FinancialPlanSelectionVC: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        if indexPath.item < planItemStore.getPresetPlansCount() {
-            if let plan = planItemStore.getPresetPlanAt(index: indexPath.item) {
-                cell.configure(with: plan)
-                cell.cellBackgroundColor(UIColor(hex: "#ffffff"))
-            }
-        } else if indexPath.item < planItemStore.getTotalItemCount() {
-            if let plan = planItemStore.getCustomPlanAt(index: indexPath.item - planItemStore.getPresetPlansCount()) {
-                cell.configure(with: plan)
-                cell.cellBackgroundColor(UIColor(hex: "#ffffff"))
-            }
-        } else {//마지막 셀일 경우
-                cell.configure(with: PlanItem(title: "+ 나만의 플랜 추가", description: "새로운 플랜을 추가해보세요", imageName: "plus", isPreset: false))
-                cell.cellBackgroundColor(UIColor(hex: "#666666"))
-            }
+        let plan = planItemStore.presetPlans[indexPath.item]
+        cell.configure(with: plan)
+        cell.cellBackgroundColor(UIColor(hex: "#ffffff"))
+        
         return cell
     }
 }
 
+// MARK: - Collection View Delegate
 extension FinancialPlanSelectionVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.item == planItemStore.getTotalItemCount() {
-            addButtonTapped()
+        let selectedPlan = planItemStore.presetPlans[indexPath.item]
+        
+        if repository.isPlanTitleExists(selectedPlan.title) {
+            showExistingPlanAlert(for: selectedPlan.title)
         } else {
-            var selectedPlan: PlanItem?
-            if indexPath.item < planItemStore.getPresetPlansCount() {
-                selectedPlan = planItemStore.getPresetPlanAt(index: indexPath.item)
-            } else {
-                selectedPlan = planItemStore.getCustomPlanAt(index: indexPath.item - planItemStore.getPresetPlansCount())
-            }
-            
-            if let plan = selectedPlan {
-                let createPlanVC = FinancialPlanCreateVC(financialPlanManager: FinancialPlanManager.shared, textFieldArea: CreatePlanTextFieldView(), selectedPlan: plan, repository: FinancialPlanRepository())
-                navigationController?.pushViewController(createPlanVC, animated: true)
-            }
+            let createPlanVC = FinancialPlanCreateVC(financialPlanManager: FinancialPlanManager.shared, textFieldArea: CreatePlanTextFieldView(), selectedPlan: selectedPlan, repository: repository)
+            navigationController?.pushViewController(createPlanVC, animated: true)
         }
+    }
+    
+    private func showExistingPlanAlert(for title: String) {
+        let alert = UIAlertController(title: "알림", message: "이미 '\(title)' 플랜을 진행 중입니다.", preferredStyle: .alert)
+        
+        let goToCurrentPlanAction = UIAlertAction(title: "현재 플랜 보기", style: .default) { [weak self] _ in
+            self?.navigateToCurrentPlanVC(with: title)
+        }
+        
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        
+        alert.addAction(goToCurrentPlanAction)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func navigateToCurrentPlanVC(with title: String) {
+        guard let plan = repository.getFinancialPlanByTitle(title) else {
+            print("Error: Plan not found")
+            return
+        }
+        
+        let currentPlanVC = FinancialPlanCurrentPlanVC(repository: repository)
+        currentPlanVC.loadSpecificPlan(plan)
+        navigationController?.pushViewController(currentPlanVC, animated: true)
     }
 }

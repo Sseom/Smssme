@@ -27,6 +27,18 @@ class FinancialPlanRepository {
             }
         }
     
+    func getFinancialPlanByTitle(_ title: String) -> FinancialPlan? {
+        let fetchRequest: NSFetchRequest<FinancialPlan> = FinancialPlan.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "title == %@", title)
+        
+        do {
+            let results = try context.fetch(fetchRequest)
+            return results.first
+        } catch {
+            return nil
+        }
+    }
+    
     func createFinancialPlan(title: String, amount: Int64, deposit: Int64, startDate: Date, endDate: Date) -> FinancialPlan {
         
         print("Attempting to create a new Financial Plan")
