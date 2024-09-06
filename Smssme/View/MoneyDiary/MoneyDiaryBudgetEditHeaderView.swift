@@ -9,31 +9,41 @@ import UIKit
 
 class MoneyDiaryBudgetEditHeaderView: UIView {
     let section: Int
-    let text: String
+    let titleText: String
     // MARK: - Properties
-    lazy var label: UILabel = {
+    lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = text
-        label.font = UIFont.boldSystemFont(ofSize: 20)
-        label.textColor = .black
+        label.text = titleText
+        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.textColor = .white
         
         return label
     }()
     
-    init(section: Int, text: String) {
+    lazy var amountLabel: UILabel = {
+        let label = UILabel()
+        label.text = "0 원"
+        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.textColor = .white
+        
+        return label
+    }()
+
+    
+    init(section: Int, titleText: String) {
         self.section = section
-        self.text = text
+        self.titleText = titleText
         super.init(frame: .zero)
         
         switch section {
         case 0:
-            self.backgroundColor = .blue
+            self.backgroundColor = UIColor(hex: "#3FB6DC")
         case 1:
-            self.backgroundColor = .green
+            self.backgroundColor = UIColor(hex: "#2DC76D")
         case 2:
-            self.backgroundColor = .red
+            self.backgroundColor = UIColor(hex: "#FF7052")
         case 3:
-            self.backgroundColor = .yellow
+            self.backgroundColor = UIColor(hex: "#FFC800")
         default:
             self.backgroundColor = .lightGray
         }
@@ -46,10 +56,17 @@ class MoneyDiaryBudgetEditHeaderView: UIView {
     }
     
     private func setupViews() {
-        self.addSubview(label)
+        [titleLabel, amountLabel].forEach {
+            self.addSubview($0)
+        }
         
-        label.snp.makeConstraints {
-            $0.edges.equalToSuperview().inset(10)
+        titleLabel.snp.makeConstraints {
+            $0.left.equalToSuperview().offset(10)
+            $0.centerY.equalToSuperview()
+        }
+        amountLabel.snp.makeConstraints {
+            $0.right.equalToSuperview().offset(-10)
+            $0.centerY.equalToSuperview()
         }
     }
 }

@@ -30,7 +30,7 @@ struct BudgetItem {
     var amount: Int64
     var statement: Bool
     var category: String
-    var isAssetPlan: Bool
+    var date: Date
 }
 
 struct BudgetList {

@@ -17,7 +17,7 @@ class MoneyDiaryBudgetEditView: UIView {
         return tableView
     }()
     
-    let totalView: MoneyDiaryBudgetEditHeaderView = MoneyDiaryBudgetEditHeaderView(section: 3, text: "잉여금액 - 총 금액: ")
+    let totalView: MoneyDiaryBudgetEditHeaderView = MoneyDiaryBudgetEditHeaderView(section: 3, titleText: "잉여금액")
     
     // MARK: - View Init
     override init(frame: CGRect) {
@@ -45,7 +45,7 @@ class MoneyDiaryBudgetEditView: UIView {
         }
         
         totalView.snp.makeConstraints {
-            $0.height.equalTo(60)
+            $0.height.equalTo(40)
             $0.left.right.equalTo(self.safeAreaLayoutGuide)
             $0.bottom.equalTo(self.safeAreaLayoutGuide)
         }
