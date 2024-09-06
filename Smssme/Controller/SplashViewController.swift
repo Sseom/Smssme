@@ -39,7 +39,7 @@ class SplashViewController: UIViewController {
         }
     }
     
-    private func showMainVC() {
+    func showMainVC() {
         let mainTabBarController = TabBarController()
         // 전체화면 전환 (애니메이션 포함)
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
@@ -53,7 +53,7 @@ class SplashViewController: UIViewController {
                           completion: nil)
     }
     
-    private func showLoginVC() {
+    func showLoginVC() {
         let loginVC = LoginVC()
         let navController = UINavigationController(rootViewController: loginVC)
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
