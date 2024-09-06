@@ -42,6 +42,7 @@ final class LoginView: UIView {
         textField.borderStyle = .roundedRect
         textField.layer.cornerRadius = 5
         textField.clearButtonMode = .always
+        textField.textContentType = .oneTimeCode
         return textField
     }()
     

@@ -49,9 +49,9 @@ class MypageVC: UIViewController {
         
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        self.mypageView.tableView.reloadData()
-//    }
+        override func viewWillAppear(_ animated: Bool) {
+            self.checkLoginStatus()
+        }
     
     //MARK: - 테이블뷰 관련 메서드
     func tableviewSetup() {
@@ -134,9 +134,9 @@ class MypageVC: UIViewController {
     
     // 개인정보 처리방침 노션 url 연결
     private func privacyPolicyUrl () {
-        let privacyPolicyUrl = NSURL(string: "https://valley-porch-b6d.notion.site/ce887a60fc15484f82f92194a3a44d2d")
-        let safariView: SFSafariViewController = SFSafariViewController(url: privacyPolicyUrl as! URL)
-        self.present(safariView, animated: true, completion: nil)
+        guard let url = URL(string: "https://valley-porch-b6d.notion.site/ce887a60fc15484f82f92194a3a44d2d") else {return}
+        let safariVC = SFSafariViewController(url: url)
+        self.present(safariVC, animated: true, completion: nil)
     }
     
     // TODO: 파베에서 현재 사용자를 가져올 때 권장하는 방법은 다음과 같이 Auth 객체에 리스너를 설정 해볼 것.
@@ -152,7 +152,7 @@ class MypageVC: UIViewController {
             // 비로그인 상태라면
             print("로그인 없이 둘러보기 상태입니다.")
             self.tableViewHeaderSetUp(nickname: "로그인해주세요. ", email: "슴씀이의 더 많은 정보를 이용하러 가기!")
-//            self.mypageView.tableView.reloadData()
+            //            self.mypageView.tableView.reloadData()
         }
     }
     
@@ -174,38 +174,34 @@ class MypageVC: UIViewController {
             let email = Auth.auth().currentUser?.email ?? "이메일을 설정해주세요"
             self.tableViewHeaderSetUp(nickname: nickname, email: email)
             
-//            self.mypageView.tableView.reloadData()
+            //            self.mypageView.tableView.reloadData()
         }
     }
     
-    func updateLabels(with data: [String: Any]) {
-        if let nickname = data["nickname"] as? String {
-            mypageView.nicknameLabel.text = "닉네임: \(nickname)"
-        }
-        
-        if let birthday = data["birthday"] as? String {
-            mypageView.birthdayLabel.text = "생년월일: \(birthday)"
-        }
-        
-        if let gender = data["gender"] as? String {
-            mypageView.genderLabel.text = "성별: \(gender)"
-        }
-        
-        if let income = data["income"] as? String {
-            mypageView.incomeLabel.text = "소득: \(income)"
-        }
-        
-        if let location = data["location"] as? String {
-            mypageView.locationLabel.text = "지역: \(location)"
-        }
+    //MARK: - 파이어베이스 비밀번호 찾기 이메일 발송
+    fileprivate func sendPasswordReset() {
+//        guard let email = emailTf.text else { return }
+//        
+//        Auth.auth().sendPasswordReset(withEmail: email) { [self] error in
+//            guard let error = error else {
+//                print("메세지 보내기 성공")
+//                return
+//            }
+//            let nsError : NSError = error as NSError
+//            switch nsError.code {
+//            case 17011:
+//                print("존재하지 않는 이메일 입니다")
+//            default:
+//                break
+//            }
+//        }
     }
-    
     
     //MARK: - @objc 테이블뷰의 헤더 클릭 이벤트
     @objc
     private func headerTapped() {
         if Auth.auth().currentUser == nil {
-            showSnycAlert(message: "로그인하러 가보자고!", AlertTitle: "로그인", buttonClickTitle: "확인", method: switchToLoginVC)
+            showSnycAlert(message: "로그인으로 이동합니다.", AlertTitle: "로그인", buttonClickTitle: "확인", method: switchToLoginVC)
             return
         }
     }
