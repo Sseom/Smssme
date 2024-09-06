@@ -13,6 +13,7 @@ final class CalendarCollectionViewCell: UICollectionViewCell, CellReusable {
     let dayLabel = SmallTitleLabel().createLabel(with: "", color: .black)
     let incomeLabel = SmallTitleLabel().createLabel(with: "", color: .blue)
     let expenseLabel = SmallTitleLabel().createLabel(with: "", color: .red)
+    var currentDate: Date?
    private let totalAmountLabel = SmallTitleLabel().createLabel(with: "", color: .black)
     private lazy var moneyStackView = {
         let stackView = UIStackView(arrangedSubviews: [self.incomeLabel, self.expenseLabel, self.totalAmountLabel])
@@ -27,17 +28,34 @@ final class CalendarCollectionViewCell: UICollectionViewCell, CellReusable {
         super.init(frame: frame)
         setupCellUI()
         setupAutoLayout()
+        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        self.layer.borderColor = UIColor.gray.cgColor
+        self.layer.borderWidth = 0.2
+    }
     
     func updateDate(item: CalendarItem) {
+        currentDate = item.date
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd"
         
+        let today = DateManager.shared.transformDateWithoutTime(date: Date())
         
+        if item.date == today {
+            self.layer.borderColor = UIColor.red.cgColor
+            self.layer.borderWidth = 0.5
+        }
+        else {
+            self.layer.borderColor = UIColor.gray.cgColor
+            self.layer.borderWidth = 0.2
+        }
         
         let dayString = dateFormatter.string(from: item.date)
         
@@ -73,9 +91,9 @@ final class CalendarCollectionViewCell: UICollectionViewCell, CellReusable {
         }
         let totalAmount = income + (-expense)
         
-        self.expenseLabel.text = "\(expense)"
-        self.incomeLabel.text = "\(income)"
-        self.totalAmountLabel.text = "\(totalAmount)"
+        self.expenseLabel.text = expense == 0 ? "" : "\(expense)"
+        self.incomeLabel.text = income == 0 ? "" : "\(income)"
+        self.totalAmountLabel.text = totalAmount == 0 ? "" : "\(totalAmount)"
     }
 
     

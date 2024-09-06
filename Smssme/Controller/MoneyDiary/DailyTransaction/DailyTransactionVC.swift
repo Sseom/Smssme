@@ -27,12 +27,13 @@ class DailyTransactionVC: UIViewController {
         super.viewDidLoad()
         self.setupUI()
         view.backgroundColor = .white
+        transactionView.moneyToString(dailyIncome: dailyIncome, dailyExpense: dailyExpense)
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        calculateTodayTransaction(items: transactionList)
         
-        transactionView.moneyToString(dailyIncome: dailyIncome, dailyExpense: dailyExpense)
+        
+        
         
         configureCell()
         transactionView.listCollectionView.reloadData()
@@ -51,10 +52,18 @@ class DailyTransactionVC: UIViewController {
         
     }
     
+    func makeTotalAmount() {
+        let temp1 = KoreanCurrencyFormatter.shared.string(from: dailyIncome)
+        let temp2 = KoreanCurrencyFormatter.shared.string(from: dailyExpense)
+        self.transactionView.dailyIncome.text = "수입: \(temp1) 원"
+        self.transactionView.dailyExpense.text = "지출: \(temp2) 원"
+    }
     func configureCell() {
         if let todayLists = DiaryCoreDataManager.shared.fetchDiaries(on: today)
         {
             transactionList = todayLists
+            calculateTodayTransaction(items: transactionList)
+            makeTotalAmount()
                     
         }
     }
@@ -72,6 +81,7 @@ class DailyTransactionVC: UIViewController {
         
         self.dailyIncome = incomeList
         self.dailyExpense = expesneList
+        
     }
     
     func setDate(day: Date) {
@@ -81,7 +91,7 @@ class DailyTransactionVC: UIViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd"
         let dayString = dateFormatter.string(from: day)
-        self.transactionView.dateLabel.text = dayString
+        self.transactionView.dateLabel.text = "\(dayString)일"
         
     }
     

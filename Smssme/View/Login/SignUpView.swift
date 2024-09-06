@@ -88,6 +88,19 @@ final class SignUpView: UIView {
         textField.keyboardType = UIKeyboardType.phonePad
         return textField
     }()
+   let datePickerView = {
+        
+       let dateFormatter = DateFormatter()
+       dateFormatter.dateFormat = "yyyy-MM-dd"
+       let temp = dateFormatter.date(from: "2000-01-01")
+       
+       let datePicker = UIDatePicker()
+       datePicker.datePickerMode = .date
+       datePicker.date = temp ?? Date()
+       datePicker.preferredDatePickerStyle = .wheels
+       datePicker.locale = Locale(identifier: "ko-KR")
+        return datePicker
+    }()
     
     // 성별 선택
     // 성별 라벨
@@ -248,7 +261,8 @@ final class SignUpView: UIView {
           passwordTextField,
           passwordCheckTextField,
           nicknameTextField,
-          birthdayTextField,
+         birthdayTextField,
+//          datePickerView,
           genderStackView,
           incomeTextField,
           locationTextField,
@@ -324,6 +338,7 @@ final class SignUpView: UIView {
                     let data = document.data()
                     self.emaiTextField.text = data?["email"] as? String
                     self.nicknameTextField.text = data?["nickname"] as? String
+//                    self.datePickerView.date = data?["birthday"] as? String
                     self.birthdayTextField.text = data?["birthday"] as? String
                     self.incomeTextField.text = data?["income"] as? String
                     self.locationTextField.text = data?["location"] as? String
