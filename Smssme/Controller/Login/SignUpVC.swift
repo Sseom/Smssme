@@ -60,6 +60,7 @@ class SignUpVC: UIViewController, KeyboardEvader {
         setupAddtarget()
         configPickerView()
         configToolbar()
+        datePickerToolbar()
         
         registerForKeyboardNotification()
     }
@@ -135,7 +136,7 @@ class SignUpVC: UIViewController, KeyboardEvader {
         let db = Firestore.firestore()
         db.collection("users").document(user.uid).updateData([
             "nickname": nickname,
-            //            "gender": signupView.maleButton.isSelected ? "male" : "female"
+//            "gender": signupView.maleButton.isSelected ? "male" : "female"
             "birthday": birthday,
             "income": income,
             "location": location
@@ -263,7 +264,6 @@ class SignUpVC: UIViewController, KeyboardEvader {
         // 텍스트필드 입력 마치고 키보드 숨기기
         signupView.incomeTextField.resignFirstResponder()
         signupView.locationTextField.resignFirstResponder()
-        
     }
     
     // 피커뷰 "취소" 클릭 시 textfield의 텍스트 값을 nil로 처리 후 입력창 내리기
@@ -271,6 +271,51 @@ class SignUpVC: UIViewController, KeyboardEvader {
         signupView.incomeTextField.text = nil
         signupView.locationTextField.text = nil
         signupView.incomeTextField.resignFirstResponder()
+        signupView.locationTextField.resignFirstResponder()
+    }
+    
+    
+    //MARK: - 데이트피커뷰 선택 시
+    @objc func dateChange(_ sender: UIDatePicker) {
+        signupView.birthdayTextField.text = dateFormat(date: sender.date)
+    }
+    
+    // 텍스트 필드에 들어갈 텍스트를 DateFormatter 변환
+    private func dateFormat(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy / MM / dd"
+        
+        return formatter.string(from: date)
+    }
+    
+    // 데이트피커뷰 툴바 구성
+    private func datePickerToolbar() {
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.sizeToFit()
+        
+        let cancelButton = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(self.dateCancelPicker))
+        
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)  //취소~완료 간의 거리
+        
+        let doneButton = UIBarButtonItem(title: "선택", style: .plain, target: self, action: #selector(self.dateDonePicker))
+        
+        toolBar.setItems([cancelButton, flexibleSpace, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        signupView.birthdayTextField.inputAccessoryView = toolBar
+    }
+    
+    @objc
+    private func dateCancelPicker() {
+        signupView.birthdayTextField.text = nil
+        signupView.birthdayTextField.resignFirstResponder()
+    }
+    
+    @objc func dateDonePicker() {
+        signupView.birthdayTextField.text = dateFormat(date: signupView.datePickerView.date)
+        signupView.birthdayTextField.resignFirstResponder()
     }
 }
 
@@ -278,6 +323,11 @@ class SignUpVC: UIViewController, KeyboardEvader {
 //MARK: - extension - PickerView
 extension SignUpVC: UIPickerViewDelegate, UIPickerViewDataSource {
     private func configPickerView() {
+        
+        // 생년월일
+        signupView.birthdayTextField.inputView = signupView.datePickerView
+        signupView.datePickerView.addTarget(self, action: #selector(dateChange), for: .valueChanged)
+        
         // 소득구간
         incomePickerView.delegate = self
         incomePickerView.dataSource = self
@@ -346,7 +396,6 @@ extension SignUpVC: UIPickerViewDelegate, UIPickerViewDataSource {
         
         signupView.incomeTextField.inputAccessoryView = toolBar
         signupView.locationTextField.inputAccessoryView = toolBar
-        
     }
 }
 

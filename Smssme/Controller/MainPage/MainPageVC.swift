@@ -17,7 +17,6 @@ class MainPageVC: UIViewController {
     var uuids: [UUID?] = []
     
     
-    
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -39,16 +38,30 @@ class MainPageVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
- 
         
-//        if let user = Auth.auth().currentUser {
-//            mainPageView.mainWelcomeTitleLabel.text = "어서오세요,\(user.) 님"
-//        }
-        
+        setupWelcomeTitle()
         setChartData()
     }
     
-
+    private func setupWelcomeTitle() {
+        // 현재 로그인한 사용자 정보
+        if let uid = Auth.auth().currentUser?.uid {
+            FirebaseFirestoreManager.shared.fetchUserData(uid: uid) { result in
+                switch result {
+                case .success(let data):
+                    if let nickname = data["nickname"] as? String {
+                        self.mainPageView.mainWelcomeTitleLabel.text = "환영합니다 \n\(nickname) 님"
+                    } else {
+                        print("닉네임을 찾을 수 없습니다.")
+                    }
+                case .failure(let error):
+                    self.showAlert(message: "데이터를 가져오는 도중 오류 발생: \(error.localizedDescription)", AlertTitle: "에러발생", buttonClickTitle: "확인")
+                }
+            }
+        } else {
+            print("로그인 정보가 없습니다.")
+        }
+    }
     
     private func setChart() {
         mainPageView.pieChartView.delegate = self

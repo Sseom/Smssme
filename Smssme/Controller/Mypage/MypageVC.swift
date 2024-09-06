@@ -225,11 +225,13 @@ class MypageVC: UIViewController {
     //MARK: - @objc 회원탈퇴
     @objc func deleteUserButtonTapped() {
         if let user = Auth.auth().currentUser {
-            user.delete { [self] error in
+            user.delete { [weak self] error in
+                guard let self = self else { return } // self가 해제되었는지 확인
                 if let error = error {
-                    showAlert(message: "\(error)", AlertTitle: "오류 발생", buttonClickTitle: "확인 ")
+                    self.showAlert(message: "\(error)", AlertTitle: "오류 발생", buttonClickTitle: "확인 ")
                 } else {
-                    showSnycAlert(message: "회원탈퇴되었습니다.", AlertTitle: "회원탈퇴 성공", buttonClickTitle: "확인", method: switchToLoginVC)
+                    print("회원탈퇴 완료")
+                    self.showSnycAlert(message: "회원탈퇴되었습니다.", AlertTitle: "회원탈퇴 성공", buttonClickTitle: "확인", method: switchToLoginVC)
                 }
             }
         } else {

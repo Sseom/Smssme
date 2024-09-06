@@ -77,7 +77,7 @@ final class SignUpView: UIView {
         return textField
     }()
     
-    //생년월일 -> birthdatePicker 사용할지
+    //생년월일
     let birthdayTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "생년월일 8자리 입력(예:  1900/01/31)"
@@ -88,17 +88,18 @@ final class SignUpView: UIView {
         textField.keyboardType = UIKeyboardType.phonePad
         return textField
     }()
-   let datePickerView = {
+    
+    //생년월일 데이트피커뷰
+    var datePickerView = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let temp = dateFormatter.date(from: "2000-01-01")
         
-       let dateFormatter = DateFormatter()
-       dateFormatter.dateFormat = "yyyy-MM-dd"
-       let temp = dateFormatter.date(from: "2000-01-01")
-       
-       let datePicker = UIDatePicker()
-       datePicker.datePickerMode = .date
-       datePicker.date = temp ?? Date()
-       datePicker.preferredDatePickerStyle = .wheels
-       datePicker.locale = Locale(identifier: "ko-KR")
+        let datePicker = UIDatePicker()
+        datePicker.datePickerMode = .date
+        datePicker.date = temp ?? Date()
+        datePicker.preferredDatePickerStyle = .wheels
+        datePicker.locale = Locale(identifier: "ko-KR")
         return datePicker
     }()
     
@@ -261,7 +262,7 @@ final class SignUpView: UIView {
           passwordTextField,
           passwordCheckTextField,
           nicknameTextField,
-         birthdayTextField,
+          birthdayTextField,
 //          datePickerView,
           genderStackView,
           incomeTextField,
@@ -338,7 +339,7 @@ final class SignUpView: UIView {
                     let data = document.data()
                     self.emaiTextField.text = data?["email"] as? String
                     self.nicknameTextField.text = data?["nickname"] as? String
-//                    self.datePickerView.date = data?["birthday"] as? String
+//                    self.datePickerView.date = data?["birthday"] as? Date
                     self.birthdayTextField.text = data?["birthday"] as? String
                     self.incomeTextField.text = data?["income"] as? String
                     self.locationTextField.text = data?["location"] as? String
