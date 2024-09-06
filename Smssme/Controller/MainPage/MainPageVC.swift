@@ -6,6 +6,7 @@
 //
 
 import DGCharts
+import FirebaseAuth
 import SafariServices
 import UIKit
 
@@ -14,6 +15,8 @@ class MainPageVC: UIViewController {
     private let assetsCoreDataManager = AssetsCoreDataManager()
     var dataEntries: [PieChartDataEntry] = []
     var uuids: [UUID?] = []
+    
+    
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -25,6 +28,7 @@ class MainPageVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
     
     override func loadView() {
@@ -36,8 +40,16 @@ class MainPageVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+ 
+        
+//        if let user = Auth.auth().currentUser {
+//            mainPageView.mainWelcomeTitleLabel.text = "어서오세요,\(user.) 님"
+//        }
+        
         setChartData()
     }
+    
+
     
     private func setChart() {
         mainPageView.pieChartView.delegate = self
@@ -102,13 +114,5 @@ extension MainPageVC: ChartViewDelegate {
             
             self.navigationController?.pushViewController(assetsEditVC, animated: true)
         }
-    }
-    
-    
-    // 청년정책 노션 링크
-    private func benefitUrl() {
-        guard let url = URL(string: "https://dkswlgus0314.tistory.com/") else {return}
-        let safariVC = SFSafariViewController(url: url)
-        self.present(safariVC, animated: true, completion: nil)
     }
 }

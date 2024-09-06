@@ -18,6 +18,7 @@ class BaseLabelFactory: LabelFactory {
         label.textAlignment = .left
         label.text = text
         label.textColor = color
+        label.numberOfLines = 0
         return label
     }
 }

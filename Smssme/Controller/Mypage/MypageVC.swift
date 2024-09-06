@@ -49,9 +49,9 @@ class MypageVC: UIViewController {
         
     }
     
-    //    override func viewWillAppear(_ animated: Bool) {
-    //        self.mypageView.tableView.reloadData()
-    //    }
+        override func viewWillAppear(_ animated: Bool) {
+            self.checkLoginStatus()
+        }
     
     //MARK: - 테이블뷰 관련 메서드
     func tableviewSetup() {
@@ -201,7 +201,7 @@ class MypageVC: UIViewController {
     @objc
     private func headerTapped() {
         if Auth.auth().currentUser == nil {
-            showSnycAlert(message: "로그인하러 가보자고!", AlertTitle: "로그인", buttonClickTitle: "확인", method: switchToLoginVC)
+            showSnycAlert(message: "로그인으로 이동합니다.", AlertTitle: "로그인", buttonClickTitle: "확인", method: switchToLoginVC)
             return
         }
     }
