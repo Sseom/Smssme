@@ -106,8 +106,27 @@ extension FinancialPlanConfirmVC {
         
         deleteDelegate?.didDeleteFinancialPlan(financialPlan)
         
-        showAlert(message: "플랜이 성공적으로 삭제되었습니다.") { [weak self] in
-            self?.navigationController?.popViewController(animated: true)
+        // 모든 플랜이 삭제되었는지 확인
+        if repository.getAllFinancialPlans().isEmpty {
+            showAlert(message: "모든 플랜이 삭제되었습니다.") { [weak self] in
+                self?.navigateToSelectionVC()
+            }
+        } else {
+            showAlert(message: "플랜이 성공적으로 삭제되었습니다.") { [weak self] in
+                self?.navigationController?.popViewController(animated: true)
+            }
+        }
+    }
+    
+    private func navigateToSelectionVC() {
+        let tabBar = TabBarController()
+        
+        tabBar.selectedIndex = 3
+        
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = windowScene.windows.first {
+            window.rootViewController = tabBar
+            window.makeKeyAndVisible()
         }
     }
     

@@ -48,9 +48,13 @@ class PlanItemStore {
         PlanItem(title: "드림카 프로젝트", description: "나만의 드림카를 갖는 그날을 위한 드림카플랜", imageName: "trip2", isPreset: true),
         PlanItem(title: "내집 마련의 꿈", description: "미래의 나의 보금자리를 위한 첫걸음, 내집마련 플랜", imageName: "trip", isPreset: true),
         PlanItem(title: "로맨틱 결혼식", description: "새로운 삶의 시작인 그 행복한 순간을 위한 결혼자금 플랜", imageName: "trip", isPreset: true),
-        PlanItem(title: "황금빛 은퇴자금", description: "편안한 은퇴를 위한 준비, 빨리 시작할수록 든든합니다!", imageName: "trip", isPreset: true)
+        PlanItem(title: "황금빛 은퇴자금", description: "편안한 은퇴를 위한 준비, 빨리 시작할수록 든든합니다!", imageName: "trip", isPreset: true),
+        PlanItem(title: "나만의 플랜", description: "나만의 자산목표를 설정하고 체계적으로 이루어 보세요", imageName: "trip", isPreset: true)
     ]
     
+}
+
+extension PlanItemStore {
     func loadInitialData() {
         planItems = presetPlans
     }
@@ -71,9 +75,7 @@ class PlanItemStore {
     func getPlansCount() -> Int {
         return planItems.count
     }
-}
-
-extension PlanItemStore {
+    
     func getTotalItemCount() -> Int {
         return presetPlans.count + planItems.count
     }
@@ -92,5 +94,3 @@ extension PlanItemStore {
         return planItems[index]
     }
 }
-
-

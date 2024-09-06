@@ -26,6 +26,7 @@ class FinancialPlanCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
+        cellBackgroundColor(UIColor.white)
     }
     
     required init?(coder: NSCoder) {
@@ -65,6 +66,11 @@ class FinancialPlanCell: UICollectionViewCell {
     
     func cellBackgroundColor(_ color: UIColor) {
         contentView.backgroundColor = color
+        contentView.backgroundColor = color.withAlphaComponent(0.5)
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.1
+        layer.shadowOffset = CGSize(width: 5, height: 3)
+        layer.shadowRadius = 3
     }
     
     func configure(with item: PlanItem) {
