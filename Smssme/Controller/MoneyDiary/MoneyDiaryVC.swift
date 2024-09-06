@@ -110,7 +110,7 @@ final class MoneyDiaryVC: UIViewController {
         moneyDiaryView.todayButton.addTarget(self, action: #selector(self.didTodayButtonTouched), for: .touchUpInside)
         moneyDiaryView.dateButton.addTarget(self, action: #selector(didTapMoveButton), for: .touchUpInside)
         datePicker.confirmButton.addTarget(self, action: #selector(didTapMove), for: .touchUpInside)
-        moneyDiaryView.moneyBudgeyButton.addTarget(self, action: #selector(didTapBudgetButton), for: .touchUpInside)
+        moneyDiaryView.moveBudgetButton.addTarget(self, action: #selector(didTapBudgetButton), for: .touchUpInside)
     }
     
     private func setChart() {
@@ -268,7 +268,10 @@ extension MoneyDiaryVC {
 
 //objc method
     @objc private func didTapBudgetButton() {
-        let viewController = MoneyDiaryBudgetEditVC()
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.year, .month], from: calendarDate)
+        
+        let viewController = MoneyDiaryBudgetEditVC(currentYear: components.year ?? 0, currentMonth: components.month ?? 0)
         self.navigationController?.pushViewController(viewController, animated: true)
     }
     @objc private func didPreviousButtonTouched(_ sender: UIButton) {
