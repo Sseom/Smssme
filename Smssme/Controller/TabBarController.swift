@@ -49,7 +49,14 @@ class TabBarController: UITabBarController {
             unselectedImage: UIImage(systemName: "note.text.badge.plus") ?? UIImage(),
             selectedImage: UIImage(systemName: "note.text.badge.plus") ?? UIImage(),
             isNavigationBarHidden: false,
-            rootViewController: FinancialPlanSelectionVC()
+            rootViewController: { // 진행중 플랜있다면 진행중인 플랜 페이지로
+                let repository = FinancialPlanRepository()
+                if repository.getAllFinancialPlans().isEmpty {
+                    return FinancialPlanSelectionVC()
+                } else {
+                    return FinancialPlanCurrentPlanVC(repository: repository)
+                }
+            }()
         )
         //로그인 기능 추가 중이라 로그인뷰컨으로 임시 교체-지현
         let myPage = tabBarNavigationController(
