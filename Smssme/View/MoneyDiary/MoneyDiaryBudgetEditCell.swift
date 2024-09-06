@@ -15,6 +15,7 @@ class MoneyDiaryBudgetEditCell: UITableViewCell {
     let categoryTextField: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .roundedRect
+        textField.placeholder = "내역"
         return textField
     }()
     
@@ -22,6 +23,7 @@ class MoneyDiaryBudgetEditCell: UITableViewCell {
         let textField = UITextField()
         textField.borderStyle = .roundedRect
         textField.keyboardType = .numberPad
+        textField.placeholder = "금액"
         return textField
     }()
     
@@ -51,7 +53,7 @@ class MoneyDiaryBudgetEditCell: UITableViewCell {
             $0.leading.equalTo(contentView.snp.leading).offset(16)
             $0.centerY.equalTo(contentView.snp.centerY)
             $0.trailing.equalTo(amountTextField.snp.leading).offset(-16)
-            $0.width.equalTo(contentView.snp.width).multipliedBy(0.5)
+            $0.width.equalTo(contentView.snp.width).multipliedBy(0.3)
         }
         
         amountTextField.snp.makeConstraints {
@@ -66,4 +68,5 @@ class MoneyDiaryBudgetEditCell: UITableViewCell {
             $0.width.equalTo(50)
             $0.height.equalTo(30)
         }
-    }}
+    }
+}

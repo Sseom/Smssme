@@ -48,6 +48,7 @@ final class SignUpView: UIView {
         textField.borderStyle = .roundedRect
         textField.layer.cornerRadius = 5
         textField.clearButtonMode = .always
+        textField.textContentType = .oneTimeCode
         textField.isSecureTextEntry = true
         return textField
     }()
@@ -61,6 +62,7 @@ final class SignUpView: UIView {
         textField.layer.cornerRadius = 5
         textField.clearButtonMode = .always
         textField.isSecureTextEntry = true
+        textField.textContentType = .oneTimeCode
         return textField
     }()
     
@@ -211,6 +213,7 @@ final class SignUpView: UIView {
         textField.placeholder = "지역"
         textField.textColor = UIColor.lightGray
         textField.borderStyle = .roundedRect
+        textField.tintColor = .clear
         textField.layer.cornerRadius = 5
         textField.tag = 2
         return textField

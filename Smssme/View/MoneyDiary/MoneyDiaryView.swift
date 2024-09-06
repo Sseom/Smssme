@@ -41,8 +41,10 @@ class MoneyDiaryView: UIView {
 
 
     
+    let moveBudgetButton = BaseButton().createButton(text: "예산안", color: .systemGray.withAlphaComponent(0.5), textColor: .black)
+    
     let todayButton = BaseButton().createButton(text: "오늘", color: .systemGray.withAlphaComponent(0.5), textColor: .black)
-    let moneyBudgeyButton = BaseButton().createButton(text: "예산안", color: .systemGray.withAlphaComponent(0.5), textColor: .black)
+    
     private let pencilButton: UIButton = {
         let button = UIButton()
         button.setBackgroundImage(UIImage(named: "pencilButton"), for: .normal)
@@ -96,7 +98,11 @@ class MoneyDiaryView: UIView {
             todayButton,
             segmentController,
             pencilButton,
-            moneyBudgeyButton
+            
+
+            moveBudgetButton,
+            pencilButton
+
         ].forEach { self.addSubview($0) }
         
         
@@ -123,7 +129,9 @@ class MoneyDiaryView: UIView {
             $0.height.equalTo(nextButton.snp.height)
             $0.width.equalTo(50)
         }
-        self.moneyBudgeyButton.snp.makeConstraints {
+
+        self.moveBudgetButton.snp.makeConstraints {
+
             $0.leading.equalTo(nextButton.snp.trailing).offset(10)
             $0.top.equalTo(nextButton.snp.top)
             $0.height.equalTo(nextButton.snp.height)

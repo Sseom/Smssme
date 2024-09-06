@@ -30,12 +30,20 @@ final class FinancialPlanCurrentPlanVC: UIViewController, FinancialPlanCreationD
         financialPlanCurrentView.currentPlanCollectionView.dataSource = self
         financialPlanCurrentView.currentPlanCollectionView.delegate = self
         loadFinancialPlans()
+        
     }
     
     override func loadView() {
         view = financialPlanCurrentView
     }
 
+    func loadSpecificPlan(_ plan: FinancialPlan) {
+        self.plans = [plan]
+        DispatchQueue.main.async {
+            self.financialPlanCurrentView.currentPlanCollectionView.reloadData()
+        }
+    }
+    
     private func loadFinancialPlans() {
         plans = repository.getAllFinancialPlans()
         financialPlanCurrentView.currentPlanCollectionView.reloadData()
@@ -46,15 +54,14 @@ final class FinancialPlanCurrentPlanVC: UIViewController, FinancialPlanCreationD
             self?.actionAddPlanButton()
         }
     }
-}
-
-extension FinancialPlanCurrentPlanVC {
-    func actionAddPlanButton() {
+    
+    private func actionAddPlanButton() {
         let financialPlanSelectionVC = FinancialPlanSelectionVC()
         navigationController?.pushViewController(financialPlanSelectionVC, animated: true)
     }
 }
 
+// MARK: - 컬렉션 뷰 관련
 extension FinancialPlanCurrentPlanVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return plans.count
@@ -79,7 +86,7 @@ extension FinancialPlanCurrentPlanVC: UICollectionViewDelegate {
         confirmVC.updateDelegate = self
         navigationController?.pushViewController(confirmVC, animated: true)
     }
-    
+    // 데이터 CUD 반영
     func didCreateFinancialPlan(_ plan: FinancialPlan) {
         plans.insert(plan, at: 0)
         DispatchQueue.main.async {
@@ -101,17 +108,6 @@ extension FinancialPlanCurrentPlanVC: UICollectionViewDelegate {
             plans[index] = plan
             DispatchQueue.main.async {
                 self.financialPlanCurrentView.currentPlanCollectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
-            }
-        }
-    }
-}
-
-// 이전 화면부터 여기까지 뎁스가 4단계까지 깊어져서 이 페이지까지 온다면 이전 쌓인 뷰들을 제거해줄 필요가 있었음. 회의로 뎁스가 조정되었고 추후 확실히 안정적이라 판단되면 삭제될 부분
-extension FinancialPlanCurrentPlanVC {
-    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-        if viewController is FinancialPlanCurrentPlanVC {
-            if let index = navigationController.viewControllers.firstIndex(of: viewController) {
-                navigationController.viewControllers.removeSubrange(0..<index)
             }
         }
     }

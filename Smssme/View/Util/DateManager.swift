@@ -39,9 +39,9 @@ class DateManager {
         dateComponents.year = calendar.component(.year, from: date)
         dateComponents.month = calendar.component(.month, from: date)
         dateComponents.day = lastDay
-        dateComponents.hour = 0
-        dateComponents.minute = 0
-        dateComponents.second = 0
+        dateComponents.hour = 23
+        dateComponents.minute = 59
+        dateComponents.second = 59
         dateComponents.timeZone = TimeZone(secondsFromGMT: 0)
         guard let temp = self.calendar.date(from: dateComponents)
         else {
@@ -123,5 +123,12 @@ class DateManager {
         return date
     }
     
-    
+    func daysBetween(start: Date, end: Date) -> Int? {
+        let calendar = Calendar.current
+        let startOfDay = calendar.startOfDay(for: start)
+        let endOfDay = calendar.startOfDay(for: end)
+        
+        let components = calendar.dateComponents([.day], from: startOfDay, to: endOfDay)
+        return components.day
+    }
 }

@@ -9,10 +9,7 @@ import SnapKit
 import UIKit
 
 class MoneyDiaryBudgetEditView: UIView {
-    //MARK: - Factory Component Properties
-    
-    
-    //MARK: - Component Properties    
+    // MARK: - Component Properties
     let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -20,15 +17,13 @@ class MoneyDiaryBudgetEditView: UIView {
         return tableView
     }()
     
-    let totalView: MoneyDiaryBudgetEditHeaderView = MoneyDiaryBudgetEditHeaderView(section: 3, text: "잉여금액 - 총 금액: ")
+    let totalView: MoneyDiaryBudgetEditHeaderView = MoneyDiaryBudgetEditHeaderView(section: 3, titleText: "잉여금액")
     
     // MARK: - View Init
     override init(frame: CGRect) {
         super.init(frame: frame)
-        // 터치시 키보드 내림
-        let recognizer = UITapGestureRecognizer(target: self, action: #selector(touch))
-        self.addGestureRecognizer(recognizer)
         setupUI()
+        setupGestureRecognizer()
     }
     
     required init?(coder: NSCoder) {
@@ -50,14 +45,20 @@ class MoneyDiaryBudgetEditView: UIView {
         }
         
         totalView.snp.makeConstraints {
-            $0.height.equalTo(60)
+            $0.height.equalTo(40)
             $0.left.right.equalTo(self.safeAreaLayoutGuide)
             $0.bottom.equalTo(self.safeAreaLayoutGuide)
         }
     }
     
-    //MARK: - Objc
-    @objc func touch() {
+    private func setupGestureRecognizer() {
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        recognizer.cancelsTouchesInView = false // Allow touches to be processed by other views
+        self.addGestureRecognizer(recognizer)
+    }
+    
+    // MARK: - Objc
+    @objc private func handleTap() {
         self.endEditing(true)
     }
 }

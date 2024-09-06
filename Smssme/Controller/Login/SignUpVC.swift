@@ -18,17 +18,19 @@ class SignUpVC: UIViewController, KeyboardEvader {
     // Firestore의 users 컬렉션 참조
     let db = Firestore.firestore()
     
-    let signUpView = SignUpView()
+    //    let signUpView = SignUpView()
     
-    // 키보드가 화면 가릴 시 내려가기 위한 설정
-    var keyboardScrollView: UIScrollView { return signupView.scrollView}
     
     private let signupView = SignUpView()
     private var selectedCheckBox: UIButton?  // 선택된 체크박스
     
-    private let pickerView = UIPickerView()
+    private let isLocationPickerView = true
     private let incomePickerView = UIPickerView()
     private let locationPickerView = UIPickerView()
+    
+    
+    // 키보드가 화면 가릴 시 내려가기 위한 설정
+    var keyboardScrollView: UIScrollView { return signupView.scrollView}
     
     // 소득 구간 선택지
     let pickerIncomeData = [
@@ -41,7 +43,7 @@ class SignUpVC: UIViewController, KeyboardEvader {
         "10억 원 초과"]
     
     // 지역 선택지
-    let pickerLocationData = ["서울" , "경기도" , "인천" , "부산" , "대구" , "광주" , "대전" , "제주도"]
+    let pickerLocationData = ["서울" , "경기도", "인천" , "부산" , "강원도" ,"대구", "전라북도", "전라남도", "충청북도", "충청남도", "경상북도", "경상남도", "광주", "울산", "대전" , "제주도"]
     
     
     //MARK: - Life cycle
@@ -51,6 +53,9 @@ class SignUpVC: UIViewController, KeyboardEvader {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        incomePickerView.tag = 1
+        locationPickerView.tag = 2
         
         setupAddtarget()
         configPickerView()
@@ -82,24 +87,36 @@ class SignUpVC: UIViewController, KeyboardEvader {
         // 회원가입
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             
-            if let error = error {
-                print("회원가입에 실패했습니다. 에러명 : \(error.localizedDescription)")
+            if let error = error as NSError? {
+                
+                switch AuthErrorCode(rawValue: error.code) {
+                case .invalidEmail:
+                    self.showAlert(message: "잘못된 이메일 형식입니다. \n비밀번호 찾기 시 해당 메일로 인증이 진행되니 \n실제 사용 이메일을 기입해주세요.", AlertTitle: "이메일 형식 오류", buttonClickTitle: "확인")
+                case .emailAlreadyInUse:
+                    self.showAlert(message: "이미 사용 중인 이메일입니다.", AlertTitle: "이메일 중복", buttonClickTitle: "확인")
+                case .weakPassword:
+                    self.showAlert(message: "비밀번호 보안이 약합니다. \n비밀번호는 최소 6자리 이상이여야 합니다.", AlertTitle: "비밀번호 경고", buttonClickTitle: "확인")
+                case .networkError:
+                    self.showAlert(message: "네트워크 연결 상태를 확인해주세요.", AlertTitle: "네트워크 연결 불안정", buttonClickTitle: "확인")
+                default:
+                    self.showAlert(message: error.localizedDescription, AlertTitle: "에러 발생", buttonClickTitle: "확인")
+                }
                 return
             } else {
                 print("로그인 성공!!!")
-                
                 // 파이어베이스 유저 객체를 가져옴
                 guard let uid = authResult?.user.uid else { return }
                 
                 self.saveUserInfo(uid: uid, nickname: nickname, birthday: birthday, gender: gender, income: income, location: location)
+                
+                self.showSnycAlert(message: "회원가입되었습니다.\n 감사합니다.", AlertTitle: "회원가입 완료", buttonClickTitle: "확인") {
+                    let loginVC = LoginVC()
+                    print("로그인 페이지로 전환")
+                    SplashViewController().showMainVC()
+                }
             }
             
             
-            self.showAlert(message: "회원가입되었습니다.\n 감사합니다.", AlertTitle: "회원가입 완료", buttonClickTitle: "확인")
-            
-            let loginVC = LoginVC()
-            print("로그인 페이지로 전환")
-            self.navigationController?.popToRootViewController(animated: true)
         }
     }
     
@@ -108,7 +125,7 @@ class SignUpVC: UIViewController, KeyboardEvader {
         guard let user = Auth.auth().currentUser,
               let nickname = signupView.nicknameTextField.text,
               let birthday = signupView.birthdayTextField.text,
-              //              let gender = signupView
+              //              let gender =
               let income = signupView.incomeTextField.text,
               let location = signupView.locationTextField.text
         else {
@@ -139,13 +156,10 @@ class SignUpVC: UIViewController, KeyboardEvader {
             "gender": gender,
             "income": income,
             "location": location,
-            "email": Auth.auth().currentUser?.email ?? "" // 이메일도 같이 저장 가능
+            "email": Auth.auth().currentUser?.email ?? ""
         ]
         
-        //                self.userSession = user // 가입하면 바로 로그인 되도록 세션 등록
-        
         // users 컬렉션에 UID를 키로 데이터 저장
-        // let db = Firestore.firestore()
         db.collection("users").document(uid).setData(userData) { error in
             if let error = error {
                 print("Error saving user data: \(error.localizedDescription)")
@@ -175,15 +189,15 @@ class SignUpVC: UIViewController, KeyboardEvader {
         
         registerUser(email: email, password: password, nickname: nickname, birthday: birthday, gender: "선택 안함", income: income, location: location)
         
-        showAlert(message: "회원가입이 완료되었습니다.", AlertTitle: "회원가입 완료", buttonClickTitle: "확인")
-        navigationController?.popViewController(animated: true)
+        //        showAlert(message: "회원가입이 완료되었습니다.", AlertTitle: "회원가입 완료", buttonClickTitle: "확인")
+        //        navigationController?.popViewController(animated: true)
     }
     
     @objc private func editButtonTapped() {
         print("회원정보 수정 클릭!!!!")
         
         guard let email = signupView.emaiTextField.text, !email.isEmpty,
-              let password = signupView.passwordTextField.text, !password.isEmpty,
+              //              let password = signupView.passwordTextField.text, !password.isEmpty,
               let nickname = signupView.nicknameTextField.text, !nickname.isEmpty,
               let birthday = signupView.birthdayTextField.text, !birthday.isEmpty,
               //              let genders = signupView.femaleCheckBox., !genders.isEmpty,
@@ -233,30 +247,48 @@ class SignUpVC: UIViewController, KeyboardEvader {
         }
     }
     
+    
     // 피커뷰 "완료" 클릭 시 데이터를 textfield에 입력 후 입력창 내리기
     @objc func donePicker() {
-        let row = pickerView.selectedRow(inComponent: 0)
-        pickerView.selectRow(row, inComponent: 0, animated: false)
-        signupView.incomeTextField.text = pickerIncomeData[row]
+        if isLocationPickerView {
+            let locationRow = locationPickerView.selectedRow(inComponent: 0)
+            signupView.locationTextField.text = pickerLocationData[locationRow]
+            print("선택한 위치: \(signupView.locationTextField.text ?? "")")
+        } else {
+            let incomeRow = incomePickerView.selectedRow(inComponent: 0)
+            signupView.incomeTextField.text = pickerIncomeData[incomeRow]
+            print("선택한 소득구간: \(signupView.incomeTextField.text ?? "")")
+        }
+        
+        // 텍스트필드 입력 마치고 키보드 숨기기
         signupView.incomeTextField.resignFirstResponder()
-        print("선택한 소득구간: \(signupView.incomeTextField.text)")
+        signupView.locationTextField.resignFirstResponder()
+        
     }
     
     // 피커뷰 "취소" 클릭 시 textfield의 텍스트 값을 nil로 처리 후 입력창 내리기
     @objc func cancelPicker() {
         signupView.incomeTextField.text = nil
+        signupView.locationTextField.text = nil
         signupView.incomeTextField.resignFirstResponder()
     }
 }
 
 
-//MARK: - extension
+//MARK: - extension - PickerView
 extension SignUpVC: UIPickerViewDelegate, UIPickerViewDataSource {
     private func configPickerView() {
-        pickerView.delegate = self
-        pickerView.dataSource = self
-        signupView.incomeTextField.inputView = pickerView //텍스트필드 눌렀을 때 뜨는 뷰(inputView)
-        //        signupView.locationTextField.inputView = pickerView
+        // 소득구간
+        incomePickerView.delegate = self
+        incomePickerView.dataSource = self
+        signupView.incomeTextField.inputView = incomePickerView //텍스트필드 눌렀을 때 뜨는 뷰(inputView)
+        
+        
+        // 지역
+        locationPickerView.delegate = self
+        locationPickerView.dataSource = self
+        signupView.locationTextField.inputView = locationPickerView
+        
     }
     
     // 피커뷰의 갯수
@@ -265,15 +297,35 @@ extension SignUpVC: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     // 피커뷰에 표시될 항목 수
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickerIncomeData.count
+        if pickerView == self.incomePickerView {
+            return pickerIncomeData.count
+        } else if pickerView == self.locationPickerView {
+            return pickerLocationData.count
+        } else {
+            return 0
+        }
     }
+    
+    
     // 특정 위치(row)번째 문자열 반환
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pickerIncomeData[row]
+        
+        if pickerView == self.incomePickerView {
+            return pickerIncomeData[row]
+        } else if pickerView == self.locationPickerView {
+            return pickerLocationData[row]
+        } else {
+            return ""
+        }
     }
+    
     // 텍스트필드의 텍스트를 선택된 문자열로 변환
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        signupView.incomeTextField.text = pickerIncomeData[row]
+        if pickerView == self.incomePickerView {
+            signupView.incomeTextField.text = pickerIncomeData[row]
+        } else {
+            signupView.locationTextField.text = pickerLocationData[row]
+        }
     }
     
     // 툴바 구성
@@ -283,14 +335,17 @@ extension SignUpVC: UIPickerViewDelegate, UIPickerViewDataSource {
         toolBar.isTranslucent = true
         toolBar.sizeToFit()
         
-        
         let cancelButton = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(self.cancelPicker))
+        
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)  //취소~완료 간의 거리
+        
         let doneButton = UIBarButtonItem(title: "선택", style: .plain, target: self, action: #selector(self.donePicker))
         
         toolBar.setItems([cancelButton, flexibleSpace, doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
+        
         signupView.incomeTextField.inputAccessoryView = toolBar
+        signupView.locationTextField.inputAccessoryView = toolBar
         
     }
 }

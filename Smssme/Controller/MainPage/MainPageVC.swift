@@ -5,14 +5,18 @@
 //  Created by 전성진 on 8/28/24.
 //
 
-import UIKit
 import DGCharts
+import FirebaseAuth
+import SafariServices
+import UIKit
 
 class MainPageVC: UIViewController {
     private let mainPageView: MainPageView = MainPageView()
     private let assetsCoreDataManager = AssetsCoreDataManager()
     var dataEntries: [PieChartDataEntry] = []
     var uuids: [UUID?] = []
+    
+    
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -24,19 +28,27 @@ class MainPageVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
     }
     
     override func loadView() {
         super.loadView()
         self.view = mainPageView
-        
         mainPageView.chartCenterButton.addTarget(self, action: #selector(editViewPush), for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+ 
+        
+//        if let user = Auth.auth().currentUser {
+//            mainPageView.mainWelcomeTitleLabel.text = "어서오세요,\(user.) 님"
+//        }
+        
         setChartData()
     }
+    
+
     
     private func setChart() {
         mainPageView.pieChartView.delegate = self
@@ -56,10 +68,10 @@ class MainPageVC: UIViewController {
     }
     
     func setChartData() {
-//        assetsCoreDataManager.selectAllAssets().forEach {
-//            dataEntries.append(PieChartDataEntry(value: Double($0.amount), label: "\($0.title ?? "")"))
-//            uuids.append($0.key)
-//        }
+        //        assetsCoreDataManager.selectAllAssets().forEach {
+        //            dataEntries.append(PieChartDataEntry(value: Double($0.amount), label: "\($0.title ?? "")"))
+        //            uuids.append($0.key)
+        //        }
         var totalAmount: Double = 0
         
         dataEntries = assetsCoreDataManager.selectAllAssets().map {
@@ -81,14 +93,14 @@ class MainPageVC: UIViewController {
 }
 
 extension MainPageVC: ChartViewDelegate {
-//    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-//        if let lastIndex = lastSelectedIndex, lastIndex == Int(highlight.x) {
-//            mainPageView.pieChartView.highlightValues(nil)
-//            lastSelectedIndex = nil
-//        } else {
-//            lastSelectedIndex = Int(highlight.x)
-//        }
-//    }
+    //    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+    //        if let lastIndex = lastSelectedIndex, lastIndex == Int(highlight.x) {
+    //            mainPageView.pieChartView.highlightValues(nil)
+    //            lastSelectedIndex = nil
+    //        } else {
+    //            lastSelectedIndex = Int(highlight.x)
+    //        }
+    //    }
     
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         if entry is PieChartDataEntry {
