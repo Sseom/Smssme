@@ -11,27 +11,30 @@ import UIKit
 final class FinancialPlanConfirmView: UIView {
     let confirmLargeTitle = LargeTitleLabel().createLabel(with: "", color: UIColor.black)
     
-    private let imageStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.backgroundColor = UIColor(hex: "#e9e9e9")
-        return stackView
-    }()
+//    private let imageStackView: UIStackView = {
+//        let stackView = UIStackView()
+//        stackView.backgroundColor = UIColor(hex: "#e9e9e9")
+//        return stackView
+//    }()
     
-    private let dummyLabel = ContentLabel().createLabel(with: "이미지영역입니다", color: UIColor.black)
+//    private let dummyLabel = ContentLabel().createLabel(with: "이미지영역입니다", color: UIColor.black)
     
     private let contentStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
         stackView.alignment = .center
-        stackView.layer.borderColor = UIColor(hex: "#000000").cgColor
-        stackView.layer.borderWidth = 1
+        stackView.backgroundColor = .white
+        stackView.layer.cornerRadius = 20
+//        stackView.layer.borderColor = UIColor(hex: "#000000").cgColor
+//        stackView.layer.borderWidth = 1
         return stackView
     }()
     
     let amountGoalLabel = ContentLabel().createLabel(with: "목표금액", color: UIColor(hex: "#333333"))
     let currentSavedLabel = ContentLabel().createLabel(with: "현재저축금액", color: UIColor(hex: "#333333"))
     let endDateLabel = ContentLabel().createLabel(with: "목표날짜", color: UIColor(hex: "#333333"))
+
     let daysLeftLabel = ContentLabel().createLabel(with: "남은날짜", color: UIColor(hex: "#333333"))
     
     let editButton = BaseButton().createButton(text: "수정", color: UIColor.lightGray, textColor: UIColor.black)
@@ -42,6 +45,7 @@ final class FinancialPlanConfirmView: UIView {
         super.init(frame: frame)
         setupUI()
         addLabels()
+        setBackgroundImage(named: "dummy")
     }
     
     required init?(coder: NSCoder) {
@@ -49,7 +53,7 @@ final class FinancialPlanConfirmView: UIView {
     }
     
     private func setupUI() {
-        [confirmLargeTitle, imageStackView, dummyLabel, contentStackView, editButton, deleteButton].forEach {
+        [confirmLargeTitle,  contentStackView, ].forEach {
             addSubview($0)
         }
         
@@ -58,42 +62,17 @@ final class FinancialPlanConfirmView: UIView {
             $0.centerX.equalToSuperview()
         }
         
-        imageStackView.snp.makeConstraints {
-            $0.top.equalTo(confirmLargeTitle.snp.bottom).offset(40)
-            $0.width.equalTo(300)
-            $0.height.equalTo(250)
-            $0.centerX.equalToSuperview()
-        }
-        
-        dummyLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.centerY.equalTo(imageStackView.snp.centerY)
-        }
-        
         contentStackView.snp.makeConstraints {
-            $0.top.equalTo(imageStackView.snp.bottom).offset(40)
-            $0.width.equalTo(300)
+
+            $0.width.equalTo(340)
             $0.height.equalTo(200)
             $0.centerX.equalToSuperview()
-        }
-        
-        editButton.snp.makeConstraints {
-            $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-60)
-            $0.width.equalTo(80)
-            $0.height.equalTo(40)
-            $0.leading.equalToSuperview().offset(100)
-        }
-        
-        deleteButton.snp.makeConstraints {
-            $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-60)
-            $0.width.equalTo(80)
-            $0.height.equalTo(40)
-            $0.trailing.equalToSuperview().offset(-100)
+            $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-20)
         }
     }
     
     private func addLabels() {
-        [amountGoalLabel, currentSavedLabel, endDateLabel, daysLeftLabel].forEach {
+        [amountGoalLabel, currentSavedLabel, endDateLabel, daysLeftLabel, editButton, deleteButton].forEach {
             contentStackView.addSubview($0)
         }
         
@@ -115,6 +94,43 @@ final class FinancialPlanConfirmView: UIView {
         daysLeftLabel.snp.makeConstraints {
             $0.top.equalTo(endDateLabel.snp.bottom).offset(10)
             $0.centerX.equalToSuperview()
+        }
+        
+        editButton.snp.makeConstraints {
+            $0.bottom.equalToSuperview().offset(-10)
+            $0.width.equalTo(80)
+            $0.height.equalTo(40)
+            $0.leading.equalToSuperview().offset(60)
+        }
+        
+        deleteButton.snp.makeConstraints {
+            $0.bottom.equalToSuperview().offset(-10)
+            $0.width.equalTo(80)
+            $0.height.equalTo(40)
+            $0.trailing.equalToSuperview().offset(-60)
+        }
+    }
+}
+
+extension FinancialPlanConfirmView {
+    func setBackgroundImage(named imageName: String) {
+        let setImage: () -> Void = { [weak self] in
+            guard let self = self else { return }
+            
+            if let backgroundImage = UIImage(named: imageName) {
+                let imageView = UIImageView(image: backgroundImage)
+                imageView.contentMode = .scaleAspectFill
+                imageView.frame = self.bounds
+                imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                
+                self.insertSubview(imageView, at: 0)
+            }
+        }
+        
+        if Thread.isMainThread {
+            setImage()
+        } else {
+            DispatchQueue.main.async(execute: setImage)
         }
     }
 }

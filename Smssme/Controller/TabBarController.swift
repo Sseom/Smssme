@@ -10,7 +10,8 @@ import UIKit
 class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        tabBar.backgroundColor = .white
+        tabBar.itemPositioning = .centered
         configureController()
     }
     
@@ -44,7 +45,7 @@ class TabBarController: UITabBarController {
             isNavigationBarHidden: false,
             rootViewController: MoneyDiaryBudgetEditVC()
         )
-        //재무플랜
+        // 재무 목표 플랜
         let financialPlan = tabBarNavigationController(
             unselectedImage: UIImage(systemName: "note.text.badge.plus") ?? UIImage(),
             selectedImage: UIImage(systemName: "note.text.badge.plus") ?? UIImage(),

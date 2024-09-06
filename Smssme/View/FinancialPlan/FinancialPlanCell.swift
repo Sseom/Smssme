@@ -11,17 +11,18 @@ import SnapKit
 class FinancialPlanCell: UICollectionViewCell {
     static let ID = "FinancialPlanCell"
     
-    // 셀 배경 이미지를 적용할 경우의 회의되어야할 점. 대안을 생각해야함
-    //    private let cellBackImage: UIImageView = {
-    //        let backImage = UIImageView()
-    //        backImage.contentMode = .scaleAspectFill
-    //        backImage.clipsToBounds = true
-    //        return backImage
-    //    }()
-    
     private let titleLabel = SmallTitleLabel().createLabel(with: "", color: UIColor.black)
     private let descriptionLabel = ContentLabel().createLabel(with: "", color: UIColor(hex: "#333333"))
-    private let selectButton = BaseButton().createButton(text: "시작하기", color: UIColor(hex: "#e9e9e9"), textColor: UIColor.black)
+    private let startLabel: UILabel = {
+        let label = UILabel()
+        label.text = "시작하기"
+        label.textAlignment = .center
+        label.textColor = UIColor(hex: "#333333")
+        label.backgroundColor = UIColor(hex: "#e3e3e3")
+        label.layer.cornerRadius = 5
+        label.clipsToBounds = true
+        return label
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,13 +37,9 @@ class FinancialPlanCell: UICollectionViewCell {
     private func setupUI() {
         contentView.layer.cornerRadius = 10
         contentView.layer.masksToBounds = true
-        [titleLabel, descriptionLabel, selectButton].forEach {
+        [titleLabel, descriptionLabel, startLabel].forEach {
             contentView.addSubview($0)
         }
-        // 셀 배경 이미지를 적용할 경우의 회의되어야할 점. 대안을 생각해야함
-        //        cellBackImage.snp.makeConstraints {
-        //            $0.edges.equalToSuperview()
-        //        }
         
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(40)
@@ -56,7 +53,7 @@ class FinancialPlanCell: UICollectionViewCell {
             $0.trailing.equalToSuperview().offset(-16)
         }
         
-        selectButton.snp.makeConstraints {
+        startLabel.snp.makeConstraints {
             $0.bottom.equalToSuperview().offset(-20)
             $0.width.equalTo(80)
             $0.height.equalTo(32)
