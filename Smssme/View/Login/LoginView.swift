@@ -42,64 +42,10 @@ final class LoginView: UIView {
         textField.borderStyle = .roundedRect
         textField.layer.cornerRadius = 5
         textField.clearButtonMode = .always
+        textField.keyboardType = UIKeyboardType.emailAddress
+        textField.isSecureTextEntry = true
         textField.textContentType = .oneTimeCode
         return textField
-    }()
-    
-    // 자동로그인 체크박스
-    var autoLoginCheckBox: UIButton = {
-        let button = UIButton()
-        button.setBackgroundImage(UIImage(systemName: "square"), for: .normal)
-           button.setBackgroundImage(UIImage(systemName: "checkmark.square.fill"), for: .selected)
-        button.tag = 1
-        return button
-    }()
-    
-    let autoLoginLabel: UILabel = {
-        let label = UILabel()
-        label.text = "자동로그인"
-        label.font = .systemFont(ofSize: 16)
-        label.textColor = .darkGray
-        return label
-    }()
-    
-    let autoLoginStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 5
-        return stackView
-    }()
-    
-    // 아이디 저장 체크박스
-    var rememberIDCheckBox: UIButton = {
-        let button = UIButton()
-        button.setBackgroundImage(UIImage(systemName: "square"), for: .normal)
-           button.setBackgroundImage(UIImage(systemName: "checkmark.square.fill"), for: .selected)
-        button.tag = 2
-        return button
-    }()
-    
-    let rememberIDLabel: UILabel = {
-        let label = UILabel()
-        label.text = "아이디저장"
-        label.font = .systemFont(ofSize: 16)
-        label.textColor = .darkGray
-        return label
-    }()
-    
-    let rememberIDStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 8
-        return stackView
-    }()
-    
-    // 자동로그인 스택뷰와 아이디 저장 스택뷰를 담는 스택뷰
-    let loginOptionsStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 16
-        return stackView
     }()
     
     // 로그인 버튼
@@ -143,18 +89,11 @@ final class LoginView: UIView {
     private func configureUI() {
         self.backgroundColor = .white
         
-        // 자동로그인, 아이디 저장 추가
-        [autoLoginCheckBox, autoLoginLabel].forEach {autoLoginStackView.addArrangedSubview($0)}
-        
-        [rememberIDCheckBox, rememberIDLabel].forEach {rememberIDStackView.addArrangedSubview($0)}
-        
-        [autoLoginStackView, rememberIDStackView].forEach { loginOptionsStackView.addArrangedSubview($0) }
-        
         // loginStackView에 추가
         [emailTextField, passwordTextField].forEach {loginStackView.addArrangedSubview($0)}
         
         // view에 추가
-        [logoImageView, loginStackView, loginOptionsStackView,loginButton, signupButton, unLoginButton].forEach {self.addSubview($0)}
+        [logoImageView, loginStackView,loginButton, signupButton, unLoginButton].forEach {self.addSubview($0)}
         
     }
     
@@ -174,21 +113,10 @@ final class LoginView: UIView {
             $0.horizontalEdges.equalToSuperview().inset(30)
         }
         
-        // 체크박스
-        autoLoginCheckBox.snp.makeConstraints { $0.height.width.equalTo(24)}
-        rememberIDCheckBox.snp.makeConstraints { $0.height.width.equalTo(24)}
-        
-        // 로그인 옵션 스택뷰
-        loginOptionsStackView.snp.makeConstraints {
-            $0.top.equalTo(loginStackView.snp.bottom).offset(16)
-            $0.leading.equalTo(loginStackView.snp.leading)
-            $0.trailing.equalTo(loginStackView.snp.trailing).inset(110)
-        }
-        
         // 로그인 버튼
         loginButton.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(loginOptionsStackView.snp.bottom).offset(24)
+            $0.top.equalTo(loginStackView.snp.bottom).offset(40)
             $0.horizontalEdges.equalToSuperview().inset(30)
             $0.height.equalTo(textFieldHeight)
         }

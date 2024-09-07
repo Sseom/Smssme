@@ -135,7 +135,6 @@ class MainPageView: UIView {
         for (index, benefit) in benefitData.enumerated() {
             let button = UIButton()
             button.setTitle(benefit, for: .normal)
-            button.backgroundColor = .yellow
             button.setTitleColor(.black, for: .normal)
             button.contentHorizontalAlignment = .left
             button.tag = index

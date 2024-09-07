@@ -44,12 +44,6 @@ class LoginVC: UIViewController {
     
     
     private func setupAddtarget() {
-        //체크박스 버튼 클릭 시
-        loginVeiw.autoLoginCheckBox.addTarget(self, action: #selector(checkBoxTapped), for: .touchUpInside)
-        
-        loginVeiw.rememberIDCheckBox.addTarget(self, action: #selector(checkBoxTapped), for: .touchUpInside)
-        
-        
         // 로그인 버튼 클릭 시
         loginVeiw.loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
         
@@ -76,10 +70,23 @@ class LoginVC: UIViewController {
         FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { [weak self] user, error in
             guard let self = self else { return }
             // 에러가 나거나 유저가 없을 경우
-            if let error = error, user == nil {
+            if let error = error as NSError? {
                 
-                showAlert(message: "\(error)", AlertTitle: "로그인 실패", buttonClickTitle: "확인")
-                
+                switch AuthErrorCode(rawValue: error.code) {
+                case .userNotFound:
+                    self.showAlert(message: "등록되지 않은 이메일 계정입니다. \n회원가입 후 이용해주세요.", AlertTitle: "존재하지 않는 계정", buttonClickTitle: "확인")
+                case .wrongPassword:
+                    self.showAlert(message: "잘못된 비밀번호입니다.", AlertTitle: "비밀번호 오류", buttonClickTitle: "확인")
+                case .invalidEmail:
+                    self.showAlert(message: "올바르지 않은 이메일 형식입니다.", AlertTitle: "이메일 형식 오류", buttonClickTitle: "확인")
+                case .expiredActionCode:
+                    self.showAlert(message: "인증 코드가 만료되었습니다. 새 인증 코드를 요청하세요." , AlertTitle: "경고", buttonClickTitle: "확인")
+                               
+                case .invalidCredential:
+                    self.showAlert(message: "사용자 인증 정보가 유효하지 않습니다.", AlertTitle: "경고", buttonClickTitle: "확인")
+                default:
+                    self.showAlert(message: error.localizedDescription, AlertTitle: "에러 발생", buttonClickTitle: "확인")
+                }
             } else {
                 showSnycAlert(message: "안녕하세요,\n 로그인되었습니다.", AlertTitle: "로그인 성공", buttonClickTitle: "확인", method: switchToTabBarController)
                 
