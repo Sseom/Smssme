@@ -201,7 +201,7 @@ class MypageVC: UIViewController {
     @objc
     private func headerTapped() {
         if Auth.auth().currentUser == nil {
-            showSnycAlert(message: "로그인으로 이동합니다.", AlertTitle: "로그인", buttonClickTitle: "확인", method: switchToLoginVC)
+            showSnycAlert(message: "로그인으로 이동합니다.", AlertTitle: "", buttonClickTitle: "확인", method: switchToLoginVC)
             return
         }
     }
@@ -296,7 +296,7 @@ extension MypageVC: UITableViewDelegate {
         // 섹션 헤더 상단에 간격 추가 (첫 번째 섹션에만 적용)
         if section == 0 {
             let topSpacingView = UIView()
-            topSpacingView.backgroundColor = .systemGray5
+            topSpacingView.backgroundColor = .systemGray6
             headerView.addSubview(topSpacingView)
             
             topSpacingView.snp.makeConstraints {

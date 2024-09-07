@@ -29,9 +29,11 @@ final class SignUpView: UIView {
     private var titleLabel = LargeTitleLabel().createLabel(with: "회원가입", color: UIColor.black)
     
     //아이디(이메일)
+    let emailLabel = SmallTitleLabel().createLabel(with: "이메일", color: .black)
+    
     let emaiTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "아이디(이메일)"
+        textField.placeholder = "아이디(이메일 주소)를 입력해주세요."
         textField.textColor = UIColor.lightGray
         textField.borderStyle = .roundedRect
         textField.layer.cornerRadius = 5
@@ -41,9 +43,11 @@ final class SignUpView: UIView {
     }()
     
     //비밀번호
+    let passwordLabel = SmallTitleLabel().createLabel(with: "비밀번호", color: .black)
+    
     var passwordTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "비밀번호"
+        textField.placeholder = "비밀번호를 입력해주세요,"
         textField.textColor = UIColor.lightGray
         textField.borderStyle = .roundedRect
         textField.layer.cornerRadius = 5
@@ -69,7 +73,7 @@ final class SignUpView: UIView {
     //닉네임
     var nicknameTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "닉네임"
+        textField.placeholder = "닉네임(10자 이내)"
         textField.textColor = UIColor.lightGray
         textField.borderStyle = .roundedRect
         textField.layer.cornerRadius = 5
