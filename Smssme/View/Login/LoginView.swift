@@ -16,6 +16,7 @@ final class LoginView: UIView {
     // 로고 이미지
     private let logoImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.image = UIImage(named: "logo")
         imageView.contentMode = .scaleAspectFill
         imageView.backgroundColor = .lightGray
         return imageView
@@ -101,8 +102,8 @@ final class LoginView: UIView {
         // 로고 이미지
         logoImageView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(safeAreaLayoutGuide).inset(100)
-            $0.width.height.equalTo(100)
+            $0.top.equalTo(safeAreaLayoutGuide).inset(50)
+            $0.width.height.equalTo(150)
         }
         
         // 아이디, 비밀번호 스택뷰

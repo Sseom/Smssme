@@ -13,7 +13,7 @@ import FirebaseFirestore
 enum GenderTags: Int {
     case male = 1
     case female = 2
-    case none = 3
+    case none = 3 
 }
 
 final class SignUpView: UIView {
@@ -339,11 +339,14 @@ final class SignUpView: UIView {
                     let data = document.data()
                     self.emaiTextField.text = data?["email"] as? String
                     self.nicknameTextField.text = data?["nickname"] as? String
-//                    self.datePickerView.date = data?["birthday"] as? Date
                     self.birthdayTextField.text = data?["birthday"] as? String
                     self.incomeTextField.text = data?["income"] as? String
                     self.locationTextField.text = data?["location"] as? String
+                    
+                    let gender = data?["gender"] as? String
+                    self.loadGender(gender: gender)
                 }
+                
             }
         } else {
             // 회원가입 모드
@@ -352,6 +355,15 @@ final class SignUpView: UIView {
         }
     }
     
+    private func loadGender(gender: String?) {
+        if gender == "male" {
+            self.maleCheckBox.isSelected = true
+        } else if gender == "female" {
+            self.femaleCheckBox.isSelected = true
+        } else {
+            self.noneCheckBox.isSelected = true
+        }
+    }
     
     //MARK: - @objc
     @objc func touch() {
