@@ -8,17 +8,18 @@
 import UIKit
 
 class EmailView: UIView {
+    private let commonHeight = 50
+    private let loginView = LoginView()
     
     //상단 제목 라벨
     private var titleLabel = LargeTitleLabel().createLabel(with: "회원가입", color: UIColor.black)
     
     //MARK: - 아이디(이메일)
-    let emailLabel = SmallTitleLabel().createLabel(with: "이메일 주소를 \n입력해주세요.", color: .black)
+    let emailLabel = SmallTitleLabel().createLabel(with: "이메일 주소", color: .black)
     
     lazy var emailTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "예) money@smssme.com"
-        textField.frame.size.height = 48
         textField.textColor = .black
         textField.backgroundColor = .clear
         textField.layer.borderWidth = 2
@@ -30,20 +31,12 @@ class EmailView: UIView {
         return textField
     }()
     
-    // 이메일 중복체크
-    lazy var emailCheckButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("중복", for: .normal)
-        button.backgroundColor = .systemGray5
-        return button
-    }()
-    
     let emailErrorLabel: UILabel = {
         let label = UILabel()
-        label.text = "유효한 이메일을 입력하세요."
+        label.text = "유효하지 않은 이메일 주소입니다."
         label.textColor = .red
-        label.font = .systemFont(ofSize: 14)
-        label.isHidden = true // 기본적으로 숨김 처리
+        label.font = .systemFont(ofSize: 16)
+        label.isHidden = false // 기본적으로 숨김 처리
         return label
     }()
     
@@ -52,33 +45,43 @@ class EmailView: UIView {
     
     lazy var passwordTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "비밀번호를 입력해주세요."
-        textField.textColor = UIColor.lightGray
-        textField.borderStyle = .roundedRect
-        textField.layer.cornerRadius = 5
+        textField.placeholder = "비밀번호는 최소 6자 이상 입력"
+        textField.textColor = .black
+        textField.backgroundColor = .clear
+        textField.layer.borderWidth = 2
+        textField.layer.borderColor = UIColor.systemGray5.cgColor
+        textField.layer.cornerRadius = 8
+        textField.keyboardType = .emailAddress
         textField.clearButtonMode = .always
-        textField.textContentType = .oneTimeCode
+        textField.addLeftPadding()
         textField.isSecureTextEntry = true
+        textField.textContentType = .oneTimeCode
         return textField
     }()
     
+    // 숫자, 영문, 특수문자 8-16자 입력
+    // 1개 이상의 영문, 숫자, 특수문자를 포함
     let passwordErrorLabel: UILabel = {
         let label = UILabel()
-        label.text = "비밀번호는 최소 8자 이상이어야 합니다."
+        label.text = "비밀번호는 최소 6자 이상이어야 합니다."
         label.textColor = .red
-        label.font = .systemFont(ofSize: 14)
-        label.isHidden = true // 기본적으로 숨김 처리
+        label.font = .systemFont(ofSize: 16)
+        label.isHidden = false
         return label
     }()
     
     // 비밀번호 재확인
-    private lazy var passwordCheckTextField: UITextField = {
+     let passwordCheckTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "비밀번호 재확인"
-        textField.textColor = UIColor.lightGray
-        textField.borderStyle = .roundedRect
-        textField.layer.cornerRadius = 5
+        textField.textColor = .black
+        textField.backgroundColor = .clear
+        textField.layer.borderWidth = 2
+        textField.layer.borderColor = UIColor.systemGray5.cgColor
+        textField.layer.cornerRadius = 8
+        textField.keyboardType = .emailAddress
         textField.clearButtonMode = .always
+        textField.addLeftPadding()
         textField.isSecureTextEntry = true
         textField.textContentType = .oneTimeCode
         return textField
@@ -88,15 +91,25 @@ class EmailView: UIView {
         let label = UILabel()
         label.text = "비밀번호가 일치하지 않습니다."
         label.textColor = .red
-        label.font = .systemFont(ofSize: 14)
-        label.isHidden = true // 기본적으로 숨김 처리
+        label.font = .systemFont(ofSize: 16)
+        label.isHidden = false
         return label
     }()
     
     //MARK: - 다음 버튼
     
     //다음 버튼
-    var nextButton = BaseButton().createButton(text: "다음", color: UIColor.systemBlue, textColor: UIColor.white)
+    var nextButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("다음", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .systemGray5
+        button.titleLabel?.font = .systemFont(ofSize: 16)
+        button.layer.cornerRadius = 10
+        button.clipsToBounds = true
+        button.isEnabled = false
+        return button
+    }()
     
     
     //MARK: - init
@@ -104,6 +117,9 @@ class EmailView: UIView {
         super.init(frame: frame)
         
         configureUI()
+        setupLayout()
+        loginView.setPasswordEyeButton(textField: passwordTextField)
+        loginView.setPasswordEyeButton(textField: passwordCheckTextField)
     }
     
     
@@ -116,47 +132,86 @@ class EmailView: UIView {
         self.backgroundColor = .white
         
         // 스크롤뷰에서 빈 화면터치 시 키보드 내려감
-//        let recognizer = UITapGestureRecognizer(target: self, action: #selector(self.touch))
-//        recognizer.numberOfTapsRequired = 1
-//        recognizer.numberOfTouchesRequired = 1
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(self.touch))
+        recognizer.numberOfTapsRequired = 1
+        recognizer.numberOfTouchesRequired = 1
+        
+        self.addGestureRecognizer(recognizer)
         
         [titleLabel,
          emailLabel,
          emailTextField,
+         emailErrorLabel,
          passwordLabel,
          passwordTextField,
-         passwordCheckTextField].forEach {self.addSubview($0)}
+         passwordErrorLabel,
+         passwordCheckTextField,
+         passwordCheckErrorLabel,
+         nextButton
+        ].forEach {self.addSubview($0)}
     }
     
     private func setupLayout() {
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(safeAreaLayoutGuide).inset(80)
-            $0.leading.equalToSuperview().inset(30)
+            $0.top.equalTo(safeAreaLayoutGuide).inset(24)
+            $0.leading.equalTo(safeAreaLayoutGuide).inset(30)
+            
+            emailLabel.snp.makeConstraints {
+                $0.top.equalTo(titleLabel.snp.bottom).offset(30)
+                $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
+            }
+            
+            emailTextField.snp.makeConstraints {
+                $0.top.equalTo(emailLabel.snp.bottom).offset(10)
+                $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
+                $0.height.equalTo(commonHeight)
+            }
+            
+            emailErrorLabel.snp.makeConstraints {
+                $0.top.equalTo(emailTextField.snp.bottom).offset(10)
+                $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(36)
+            }
+            
+            passwordLabel.snp.makeConstraints {
+                $0.top.equalTo(emailErrorLabel.snp.bottom).offset(30)
+                $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
+            }
+            
+            passwordTextField.snp.makeConstraints {
+                $0.top.equalTo(passwordLabel.snp.bottom).offset(10)
+                $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
+                $0.height.equalTo(commonHeight)
+            }
+            
+            passwordErrorLabel.snp.makeConstraints {
+                $0.top.equalTo(passwordTextField.snp.bottom).offset(10)
+                $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(36)
+            }
+            
+            passwordCheckTextField.snp.makeConstraints {
+                $0.top.equalTo(passwordErrorLabel.snp.bottom).offset(10)
+                $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
+                $0.height.equalTo(commonHeight)
+            }
+            
+            passwordCheckErrorLabel.snp.makeConstraints {
+                $0.top.equalTo(passwordCheckTextField.snp.bottom).offset(10)
+                $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(36)
+            }
+
+            nextButton.snp.makeConstraints {
+                $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
+                $0.bottom.equalTo(safeAreaLayoutGuide).inset(10)
+                $0.height.equalTo(commonHeight)
+            }
         }
         
-        emailLabel.snp.makeConstraints { make in
-            
-            
-        }
         
-        emailTextField.snp.makeConstraints { make in
-            
-        }
-        
-        emailErrorLabel.snp.makeConstraints { make in
-            <#code#>
-        }
- 
     }
-    
+    //MARK: - @objc
     // 빈 화면 터치 시 키보드 내려감
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    @objc func touch() {
         self.endEditing(true)
     }
-    
-    //MARK: - @objc
-//    @objc func touch() {
-//        self.endEditing(true)
-//    }
     
 }

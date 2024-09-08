@@ -77,7 +77,7 @@ final class LoginView: UIView {
         super.init(frame: frame)
         configureUI()
         setupLayout()
-        setPasswordEyeButton()
+        setPasswordEyeButton(textField: passwordTextField)
     }
     
     required init?(coder: NSCoder) {
@@ -140,11 +140,11 @@ final class LoginView: UIView {
     
     
     // 비밀번호 표시/가림 전환 메서드
-    func setPasswordEyeButton() {
+    func setPasswordEyeButton(textField: UITextField) {
         var eyeButton = UIButton(type: .custom)
         
-        eyeButton = UIButton.init(primaryAction: UIAction(handler: { [self]_ in
-            passwordTextField.isSecureTextEntry.toggle()
+        eyeButton = UIButton.init(primaryAction: UIAction(handler: { [weak self]_ in
+            textField.isSecureTextEntry.toggle()
             eyeButton.isSelected.toggle()
         }))
         
@@ -159,15 +159,16 @@ final class LoginView: UIView {
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 16, weight: .regular, scale: .medium)
         eyeButton.setImage(UIImage(systemName: "eye.slash", withConfiguration: largeConfig), for: .normal)
         eyeButton.setImage(UIImage(systemName: "eye", withConfiguration: largeConfig), for: .selected)
+        eyeButton.tintColor = .systemGray4
         
-        self.passwordTextField.rightView = eyeButton
-        self.passwordTextField.rightViewMode = .always
+        textField.rightView = eyeButton
+        textField.rightViewMode = .always
     }
     
     
     
-    @objc
-    func passwordSecureMode() {
-        passwordTextField.isSecureTextEntry.toggle()
-    }
+//    @objc
+//    func passwordSecureMode() {
+//        passwordTextField.isSecureTextEntry.toggle()
+//    }
 }
