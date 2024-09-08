@@ -13,18 +13,19 @@ class SplashViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view.backgroundColor = .white
         // 스플래쉬 이미지 임시 사용 중
-        let splashImage = UIImageView(image: UIImage(named: "splash"))
+        let splashImage = UIImageView(image: UIImage(named: "splashImage"))
         splashImage.contentMode = .scaleAspectFit
         view.addSubview(splashImage)
         
         splashImage.snp.makeConstraints {
             $0.center.equalToSuperview()
+            $0.width.height.equalTo(150)
         }
         
         // 0.5초 후에 로그인 상태 확인
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.checkLoginStatus()
         }
     }
