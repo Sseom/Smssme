@@ -21,7 +21,7 @@ class LoginVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view.backgroundColor = UIColor(hex: "#3756f4")
         setupAddtarget()
         
     }
