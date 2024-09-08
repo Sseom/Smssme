@@ -16,9 +16,8 @@ final class LoginView: UIView {
     // 로고 이미지
     private let logoImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "logo")
-        imageView.contentMode = .scaleAspectFill
-        imageView.backgroundColor = .lightGray
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = UIImage(named: "loginImage")
         return imageView
     }()
     
@@ -39,7 +38,6 @@ final class LoginView: UIView {
         var textField = UITextField()
         textField.placeholder = "비밀번호를 입력해주세요."
         textField.textColor = .black
-        textField.backgroundColor = .clear
         textField.borderStyle = .roundedRect
         textField.layer.cornerRadius = 5
         textField.clearButtonMode = .always
@@ -66,7 +64,7 @@ final class LoginView: UIView {
     
     
     //비회원 로그인
-    let unLoginButton = BaseButton().createButton(text: "로그인 없이 둘러보기", color: .clear, textColor: UIColor.gray)
+    let unLoginButton = BaseButton().createButton(text: "로그인 없이 둘러보기", color: .clear, textColor: UIColor(hex: "#333333"))
     
 
     
@@ -101,14 +99,15 @@ final class LoginView: UIView {
     private func setupLayout() {
         // 로고 이미지
         logoImageView.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalTo(safeAreaLayoutGuide).inset(50)
-            $0.width.height.equalTo(150)
+            $0.top.equalTo(safeAreaLayoutGuide.snp.top).offset(16)
+            $0.leading.equalToSuperview().offset(30)
+            $0.trailing.equalToSuperview().offset(-30)
+            $0.height.equalTo(logoImageView.snp.width)
         }
         
         // 아이디, 비밀번호 스택뷰
         loginStackView.snp.makeConstraints {
-            $0.top.equalTo(logoImageView.snp.bottom).offset(50)
+            $0.top.equalTo(logoImageView.snp.bottom).offset(24)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(textFieldHeight * 2 + 16) //스택뷰 spacing 간격 18
             $0.horizontalEdges.equalToSuperview().inset(30)
@@ -117,7 +116,7 @@ final class LoginView: UIView {
         // 로그인 버튼
         loginButton.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(loginStackView.snp.bottom).offset(40)
+            $0.top.equalTo(loginStackView.snp.bottom).offset(24)
             $0.horizontalEdges.equalToSuperview().inset(30)
             $0.height.equalTo(textFieldHeight)
         }
