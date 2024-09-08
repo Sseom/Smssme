@@ -13,7 +13,7 @@ import FirebaseFirestore
 enum GenderTags: Int {
     case male = 1
     case female = 2
-    case none = 3
+    case none = 3 
 }
 
 final class SignUpView: UIView {
@@ -29,9 +29,11 @@ final class SignUpView: UIView {
     private var titleLabel = LargeTitleLabel().createLabel(with: "회원가입", color: UIColor.black)
     
     //아이디(이메일)
+    let emailLabel = SmallTitleLabel().createLabel(with: "이메일", color: .black)
+    
     let emaiTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "아이디(이메일)"
+        textField.placeholder = "아이디(이메일 주소)를 입력해주세요."
         textField.textColor = UIColor.lightGray
         textField.borderStyle = .roundedRect
         textField.layer.cornerRadius = 5
@@ -41,9 +43,11 @@ final class SignUpView: UIView {
     }()
     
     //비밀번호
+    let passwordLabel = SmallTitleLabel().createLabel(with: "비밀번호", color: .black)
+    
     var passwordTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "비밀번호"
+        textField.placeholder = "비밀번호를 입력해주세요,"
         textField.textColor = UIColor.lightGray
         textField.borderStyle = .roundedRect
         textField.layer.cornerRadius = 5
@@ -69,7 +73,7 @@ final class SignUpView: UIView {
     //닉네임
     var nicknameTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "닉네임"
+        textField.placeholder = "닉네임(10자 이내)"
         textField.textColor = UIColor.lightGray
         textField.borderStyle = .roundedRect
         textField.layer.cornerRadius = 5
@@ -339,11 +343,14 @@ final class SignUpView: UIView {
                     let data = document.data()
                     self.emaiTextField.text = data?["email"] as? String
                     self.nicknameTextField.text = data?["nickname"] as? String
-//                    self.datePickerView.date = data?["birthday"] as? Date
                     self.birthdayTextField.text = data?["birthday"] as? String
                     self.incomeTextField.text = data?["income"] as? String
                     self.locationTextField.text = data?["location"] as? String
+                    
+                    let gender = data?["gender"] as? String
+                    self.loadGender(gender: gender)
                 }
+                
             }
         } else {
             // 회원가입 모드
@@ -352,6 +359,15 @@ final class SignUpView: UIView {
         }
     }
     
+    private func loadGender(gender: String?) {
+        if gender == "male" {
+            self.maleCheckBox.isSelected = true
+        } else if gender == "female" {
+            self.femaleCheckBox.isSelected = true
+        } else {
+            self.noneCheckBox.isSelected = true
+        }
+    }
     
     //MARK: - @objc
     @objc func touch() {
