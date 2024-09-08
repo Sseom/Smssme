@@ -7,6 +7,7 @@
 
 import UIKit
 
+// 닉네임 생년월일
 class NickNameVC: UIViewController {
     private let nicknameView = NickNameView()
 

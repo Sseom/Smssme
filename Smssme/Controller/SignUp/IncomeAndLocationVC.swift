@@ -7,6 +7,7 @@
 
 import UIKit
 
+// 성별
 class IncomeAndLocationVC: UIViewController {
     private let incomeAndLocationView = IncomeAndLocationView()
 

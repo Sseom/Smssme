@@ -66,7 +66,7 @@ final class LoginView: UIView {
     //비회원 로그인
     let unLoginButton = BaseButton().createButton(text: "로그인 없이 둘러보기", color: .clear, textColor: UIColor(hex: "#333333"))
     
-
+    
     
     // 빈 화면 터치 시 키보드 내려감
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -77,6 +77,7 @@ final class LoginView: UIView {
         super.init(frame: frame)
         configureUI()
         setupLayout()
+        setPasswordEyeButton()
     }
     
     required init?(coder: NSCoder) {
@@ -138,7 +139,30 @@ final class LoginView: UIView {
     }
     
     
-
+    // 비밀번호 표시/가림 전환 메서드
+    func setPasswordEyeButton() {
+        var eyeButton = UIButton(type: .custom)
+        
+        eyeButton = UIButton.init(primaryAction: UIAction(handler: { [self]_ in
+            passwordTextField.isSecureTextEntry.toggle()
+            eyeButton.isSelected.toggle()
+        }))
+        
+        var buttonConfiguration = UIButton.Configuration.plain()
+        buttonConfiguration.imagePadding = 10
+        buttonConfiguration.baseBackgroundColor = .clear
+        
+        eyeButton.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+        eyeButton.setImage(UIImage(systemName: "eye"), for: .selected)
+        eyeButton.configuration = buttonConfiguration
+        
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: 16, weight: .regular, scale: .medium)
+        eyeButton.setImage(UIImage(systemName: "eye.slash", withConfiguration: largeConfig), for: .normal)
+        eyeButton.setImage(UIImage(systemName: "eye", withConfiguration: largeConfig), for: .selected)
+        
+        self.passwordTextField.rightView = eyeButton
+        self.passwordTextField.rightViewMode = .always
+    }
     
     
     

@@ -7,6 +7,13 @@
 
 import UIKit
 
+// 성별 선택 tag
+enum GenderTags: Int {
+    case male = 1
+    case female = 2
+    case none = 3
+}
+
 class IncomeAndLocationView: UIView {
     
     // 성별 선택
