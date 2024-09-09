@@ -109,8 +109,6 @@ class GoalDateTextField {
     }
 }
 
-
-
 class CustomTextField: UITextField {
     private let bottomBorder = CALayer()
     

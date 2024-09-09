@@ -25,7 +25,7 @@ class SplashViewController: UIViewController {
         }
         
         // 0.5초 후에 로그인 상태 확인
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
             self.checkLoginStatus()
         }
     }
