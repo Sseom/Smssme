@@ -216,22 +216,19 @@ class MoneyDiaryBudgetEditVC: UIViewController {
     @objc private func saveButtonTapped() {
         let budgetItems = getBudgetItems()
         guard let budgetItems = budgetItems else {
-            showAlert(message: "빈 값이 있습니다.", AlertTitle: "알림", buttonClickTitle: "확인")
+            showAlert(message: "빈 값을 입력할 수 없습니다.", AlertTitle: "알림", buttonClickTitle: "확인")
             return
         }
-        print("Collected Data: \(budgetItems)")
+        
         budgetCoreDataManager.deleteMonthBudget(
             from: DateManager.shared.getFirstDayInMonth(date: currentDate!),
             to: DateManager.shared.getlastDayInMonth(date: currentDate!))
 
         budgetCoreDataManager.saveBudget(budgetList: budgetItems)
         
-        print("전체 저장 성공")
-        
-        budgetCoreDataManager.selectAllBudget().forEach {
-            print("금액: \($0.amount)")
-            print("상태: \($0.statement)")
-            print("카테고리: \($0.category ?? "에러")")
+        showSnycAlert(message: "저장이 완료 되었습니다.", AlertTitle: "저장 성공", buttonClickTitle: "확인") { [weak self] in
+            guard let self = self else { return }
+            self.navigationController?.popViewController(animated: true)
         }
     }
 }
@@ -338,13 +335,14 @@ extension MoneyDiaryBudgetEditVC: UITextFieldDelegate {
         }
         
         // 해당 섹션만 리로드
-        moneyDiaryBudgetEditView.tableView.reloadSections(IndexSet(integer: section), with: .automatic)
+        print("\(section)")
+        moneyDiaryBudgetEditView.tableView.reloadSections(IndexSet(integer: section), with: .none)
     }
     
     // 텍스트 필드의 내용이 변경될 때 호출되는 메서드
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         // 숫자 필드만 처리
-        if textField.tag >= 1100 { // amountTextField에 해당하는 tag로 확인
+        if textField.tag % 1000 >= 100 { // amountTextField에 해당하는 tag로 확인
             // 숫자 및 백스페이스만 허용
             if !CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: string)) && string != "" {
                 return false

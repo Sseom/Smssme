@@ -8,7 +8,8 @@
 import UIKit
 
 /// 키보드로 인해 하단의 텍스트 필드 등이 가려질 때 자동으로 뷰가 올라가는 코드입니다
-/// 사용하고자 하는 컨트롤러에서 상속 받은 후 사용하시면 됩니다. 적용된 부분이 궁금하시다면 SignUpVC을 참고하시면 좋을 것 같습니다.
+/// 사용하고자 하는 컨트롤러에서 상속 받은 후 사용하시면 됩니다. 
+/// 적용된 부분이 궁금하시다면 SignUpVC을 참고하시면 좋을 것 같습니다.
 ///
 /// 사용 예)
 /// var keyboardScrollView: UIScrollView { return signupView.scrollView}

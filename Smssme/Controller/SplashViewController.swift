@@ -60,7 +60,7 @@ class SplashViewController: UIViewController {
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let window = windowScene.windows.first else { return }
         
-        window.rootViewController = navController // UINavigationController를 rootViewController로 설정
+        window.rootViewController = navController
         UIView.transition(with: window,
                           duration: 0.5,
                           options: [.transitionCrossDissolve],
