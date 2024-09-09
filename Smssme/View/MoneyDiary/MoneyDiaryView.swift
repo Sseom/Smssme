@@ -24,7 +24,7 @@ class MoneyDiaryView: UIView {
         button.tintColor = .label
         button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
         button.backgroundColor = .lightGray
-        button.layer.cornerRadius = 5
+        button.layer.cornerRadius = 15
         return button
     }()
     
@@ -33,7 +33,7 @@ class MoneyDiaryView: UIView {
         button.tintColor = .label
         button.setImage(UIImage(systemName: "chevron.right"), for: .normal)
         button.backgroundColor = .lightGray
-        button.layer.cornerRadius = 5
+        button.layer.cornerRadius = 15
         return button
     }()
 
