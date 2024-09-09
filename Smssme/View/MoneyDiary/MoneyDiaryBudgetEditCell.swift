@@ -30,7 +30,6 @@ class MoneyDiaryBudgetEditCell: UITableViewCell {
     let deleteButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("삭제", for: .normal)
-        //            button.isHidden = true // 기본적으로 숨김
         return button
     }()
     
