@@ -8,7 +8,10 @@
 import UIKit
 
 class AgreementView: UIView {
+    private let commonHeight = 50
     
+    //상단 제목 라벨
+    private var titleLabel = LargeTitleLabel().createLabel(with: "서비스 가입을 위해 \n이용약관에 동의해주세요.", color: UIColor.black)
     
     
     //다음 버튼
@@ -16,6 +19,9 @@ class AgreementView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        configureUI()
+        setupLayout()
     }
     
     
@@ -23,5 +29,24 @@ class AgreementView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    //MARK: - func
+    private func configureUI() {
+        self.backgroundColor = .white
+        [titleLabel, nextButton].forEach {self.addSubview($0)}
+    }
+    
+    private func setupLayout() {
+        titleLabel.snp.makeConstraints {
+            $0.top.equalTo(safeAreaLayoutGuide).inset(24)
+            $0.leading.equalTo(safeAreaLayoutGuide).inset(30)
+        }
+        
+        nextButton.snp.makeConstraints {
+            $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
+            $0.bottom.equalTo(safeAreaLayoutGuide).inset(10)
+            $0.height.equalTo(commonHeight)
+        }
+    }
     
 }

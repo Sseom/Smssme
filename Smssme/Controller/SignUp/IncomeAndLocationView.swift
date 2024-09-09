@@ -16,6 +16,12 @@ enum GenderTags: Int {
 
 class IncomeAndLocationView: UIView {
     
+    private let commonHeight = 50
+    
+    //상단 제목 라벨
+    private var titleLabel = LargeTitleLabel().createLabel(with: "성별/ 소득 / 지역", color: UIColor.black)
+    
+    
     // 성별 선택
     // 성별 라벨
     let genderTitleLabel = SmallTitleLabel().createLabel(with: "성별", color: .darkGray)
@@ -140,11 +146,34 @@ class IncomeAndLocationView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        configureUI()
+        setupLayout()
     }
     
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    //MARK: - func
+    private func configureUI() {
+        self.backgroundColor = .white
+        
+        [titleLabel, nextButton].forEach {self.addSubview($0)}
+    }
+    
+    private func setupLayout() {
+        titleLabel.snp.makeConstraints {
+            $0.top.equalTo(safeAreaLayoutGuide).inset(24)
+            $0.leading.equalTo(safeAreaLayoutGuide).inset(30)
+        }
+        
+        nextButton.snp.makeConstraints {
+            $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
+            $0.bottom.equalTo(safeAreaLayoutGuide).inset(10)
+            $0.height.equalTo(commonHeight)
+        }
     }
 }
 

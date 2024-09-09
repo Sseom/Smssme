@@ -16,7 +16,9 @@ class PasswordVC: UIViewController {
         
         view = passwordView
         
-        self.navigationItem.title = "회원가입-비밀번호"
+        self.navigationItem.title = "회원가입"
+        
+        passwordView.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
           
     }
     
