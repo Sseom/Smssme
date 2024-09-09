@@ -11,14 +11,6 @@ import UIKit
 final class FinancialPlanConfirmView: UIView {
     let confirmLargeTitle = LargeTitleLabel().createLabel(with: "", color: UIColor.black)
     
-//    private let imageStackView: UIStackView = {
-//        let stackView = UIStackView()
-//        stackView.backgroundColor = UIColor(hex: "#e9e9e9")
-//        return stackView
-//    }()
-    
-//    private let dummyLabel = ContentLabel().createLabel(with: "이미지영역입니다", color: UIColor.black)
-    
     private let contentStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -26,8 +18,6 @@ final class FinancialPlanConfirmView: UIView {
         stackView.alignment = .center
         stackView.backgroundColor = .white
         stackView.layer.cornerRadius = 20
-//        stackView.layer.borderColor = UIColor(hex: "#000000").cgColor
-//        stackView.layer.borderWidth = 1
         return stackView
     }()
     

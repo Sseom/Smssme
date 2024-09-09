@@ -66,7 +66,7 @@ final class LoginView: UIView {
     //비회원 로그인
     let unLoginButton = BaseButton().createButton(text: "로그인 없이 둘러보기", color: .clear, textColor: UIColor(hex: "#333333"))
     
-
+    
     
     // 빈 화면 터치 시 키보드 내려감
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -136,11 +136,6 @@ final class LoginView: UIView {
         }
         
     }
-    
-    
-
-    
-    
     
     @objc
     func passwordSecureMode() {

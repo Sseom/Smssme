@@ -28,21 +28,14 @@ class TabBarController: UITabBarController {
     }
     
     func configureController() {
-        //테스트에서만 쓰이는 이미지 입니다. 직접 이미지 넣어주면 됩니다.
-        //        guard let unselectImage = UIImage(systemName: "multiply.circle.fill") else { return }
-        //        guard let selectImage = UIImage(systemName: "multiply.circle.fill") else { return }
-        
-        
         //메인페이지
         let mainPage = tabBarNavigationController(
             unselectedImage: UIImage(systemName: "house.fill") ?? UIImage(),
             selectedImage: UIImage(systemName: "house.fill") ?? UIImage(),
             isNavigationBarHidden: false,
             rootViewController: MainPageVC()
-            //            rootViewController: AssetsEditVC()
-            //            rootViewController: MoneyDiaryEditVC()
-            //            rootViewController: MoneyDiaryBudgetEditVC()
         )
+        
         //머니다이어리
         let diary = tabBarNavigationController(
             unselectedImage: UIImage(systemName: "calendar") ?? UIImage(),

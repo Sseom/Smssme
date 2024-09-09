@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5F18A2012C88C55600BC70B7 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F18A2002C88C55600BC70B7 /* UserProfile.swift */; };
 		5F3EAE192C7E182400FF15E5 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3EAE182C7E182400FF15E5 /* LoginView.swift */; };
 		5F3EAE1C2C7E1CC200FF15E5 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3EAE1B2C7E1CC200FF15E5 /* LoginVC.swift */; };
 		5F3EAE4A2C7EF73500FF15E5 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 5F3EAE492C7EF73500FF15E5 /* FirebaseAnalytics */; };
@@ -23,8 +22,6 @@
 		5FA88FF12C842D0A00549363 /* KeyboardEvader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA88FF02C842D0A00549363 /* KeyboardEvader.swift */; };
 		5FA88FFE2C8544DB00549363 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA88FFD2C8544DB00549363 /* SplashViewController.swift */; };
 		5FA890002C8581B200549363 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5FA88FFF2C8581B200549363 /* GoogleService-Info.plist */; };
-		5FA890052C85B21100549363 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA890042C85B21100549363 /* FirebaseManager.swift */; };
-		5FA890072C85B2AA00549363 /* FirebaseAuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA890062C85B2AA00549363 /* FirebaseAuthenticationManager.swift */; };
 		5FA890092C85B30800549363 /* FirebaseFirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA890082C85B30700549363 /* FirebaseFirestoreManager.swift */; };
 		5FA890102C87344000549363 /* MypageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA8900F2C87344000549363 /* MypageViewCell.swift */; };
 		740350572C773E9B00122B2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740350562C773E9B00122B2E /* AppDelegate.swift */; };
@@ -94,7 +91,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5F18A2002C88C55600BC70B7 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		5F3EAE182C7E182400FF15E5 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		5F3EAE1B2C7E1CC200FF15E5 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		5F3EAE552C7EFAFA00FF15E5 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
@@ -105,8 +101,6 @@
 		5FA88FF02C842D0A00549363 /* KeyboardEvader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardEvader.swift; sourceTree = "<group>"; };
 		5FA88FFD2C8544DB00549363 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		5FA88FFF2C8581B200549363 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		5FA890042C85B21100549363 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
-		5FA890062C85B2AA00549363 /* FirebaseAuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthenticationManager.swift; sourceTree = "<group>"; };
 		5FA890082C85B30700549363 /* FirebaseFirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseFirestoreManager.swift; sourceTree = "<group>"; };
 		5FA8900F2C87344000549363 /* MypageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewCell.swift; sourceTree = "<group>"; };
 		740350532C773E9B00122B2E /* Smssme.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Smssme.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -233,8 +227,6 @@
 		5FA890032C85B1F400549363 /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
-				5FA890042C85B21100549363 /* FirebaseManager.swift */,
-				5FA890062C85B2AA00549363 /* FirebaseAuthenticationManager.swift */,
 				5FA890082C85B30700549363 /* FirebaseFirestoreManager.swift */,
 			);
 			path = Firebase;
@@ -291,7 +283,6 @@
 				9F06D3112C7EFF9D00DFF5B0 /* DateModel.swift */,
 				74707F812C806DA300F7000C /* TodayFinancial.swift */,
 				E5BF5E462C8597820093FD2D /* FinancialPlanDateModel.swift */,
-				5F18A2002C88C55600BC70B7 /* UserProfile.swift */,
 				E517F33B2C892F7A00CB8680 /* KoreanCurrencyFormatter.swift */,
 			);
 			path = Model;
@@ -605,11 +596,9 @@
 				E5FBA13F2C7E0A0800D26E5F /* FinancialPlanSelectView.swift in Sources */,
 				5FA890092C85B30800549363 /* FirebaseFirestoreManager.swift in Sources */,
 				74707F982C81B79500F7000C /* Budget+CoreDataClass.swift in Sources */,
-				5F18A2012C88C55600BC70B7 /* UserProfile.swift in Sources */,
 				74707F992C81B79500F7000C /* Budget+CoreDataProperties.swift in Sources */,
 				74707F9C2C81B7E800F7000C /* Diary+CoreDataClass.swift in Sources */,
 				74707F9D2C81B7E800F7000C /* Diary+CoreDataProperties.swift in Sources */,
-				5FA890052C85B21100549363 /* FirebaseManager.swift in Sources */,
 				E517F3402C89A41900CB8680 /* MoneyDiaryCreationVC.swift in Sources */,
 				746F808B2C88424000BBAEAF /* DailyTransactionCell.swift in Sources */,
 				74707FBA2C84CD7A00F7000C /* AssetsEditVC.swift in Sources */,
@@ -624,7 +613,6 @@
 				746F80902C8842B200BBAEAF /* MoneyDiaryEditVC.swift in Sources */,
 				74707FA72C81B84D00F7000C /* AssetsCoreDataManager.swift in Sources */,
 				9FE549BF2C801E4D00E6075E /* FinancialPlanConfirmView.swift in Sources */,
-				5FA890072C85B2AA00549363 /* FirebaseAuthenticationManager.swift in Sources */,
 				746F80812C8841F300BBAEAF /* MoneyDiaryBudgetEditCell.swift in Sources */,
 				E5F344DA2C806A75006F9A91 /* FinancialPlanCurrentPlanView.swift in Sources */,
 				9F06D3122C7EFF9D00DFF5B0 /* DateModel.swift in Sources */,

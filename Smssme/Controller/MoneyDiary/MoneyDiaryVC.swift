@@ -178,21 +178,6 @@ extension MoneyDiaryVC: UICollectionViewDataSource, UICollectionViewDelegate, UI
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarCollectionViewCell.reuseIdentifier, for: indexPath) as? CalendarCollectionViewCell else { return UICollectionViewCell() }
-//        print(cell.currentDate)
-//        for calendarItem in calendarItems {
-//            calendarItem.date = Date()
-//        }
-        
-        
-        
-        
-        
-
-        
-
-        
-        
-        
         
         cell.updateDate(item: self.calendarItems[indexPath.item])
         
