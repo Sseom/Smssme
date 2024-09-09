@@ -25,13 +25,16 @@ class NickNameVC: UIViewController {
         nicknameView.nicknameTextField.delegate = self
         nicknameView.birthdayTextField.delegate = self
         
-        nicknameView.nicknameTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
-        nicknameView.birthdayTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         
         // 생년월일
         nicknameView.birthdayTextField.inputView = nicknameView.datePickerView
         nicknameView.datePickerView.addTarget(self, action: #selector(dateChange), for: .valueChanged)
+        
+        
+        nicknameView.nicknameTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
+        nicknameView.birthdayTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
        
+        nicknameView.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
     }
     
 
@@ -44,6 +47,17 @@ class NickNameVC: UIViewController {
     //MARK: - 데이트피커뷰 선택 시
     @objc func dateChange(_ sender: UIDatePicker) {
         nicknameView.birthdayTextField.text = dateFormat(date: sender.date)
+        
+        guard
+            let nickname = nicknameView.nicknameTextField.text, !nickname.isEmpty,
+            let birth = nicknameView.birthdayTextField.text, !birth.isEmpty
+        else {
+            nicknameView.nextButton.backgroundColor = .systemGray5
+            nicknameView.nextButton.isEnabled = false
+            return
+        }
+        nicknameView.nextButton.backgroundColor = .systemBlue
+        nicknameView.nextButton.isEnabled = true
     }
     
     // 텍스트 필드에 들어갈 텍스트를 DateFormatter 변환
@@ -83,7 +97,7 @@ class NickNameVC: UIViewController {
     @objc func dateDonePicker() {
         nicknameView.birthdayTextField.text = dateFormat(date: nicknameView.datePickerView.date)
         nicknameView.birthdayTextField.resignFirstResponder()
-    }
+        }
 }
 
 
@@ -114,7 +128,7 @@ extension NickNameVC: UITextFieldDelegate {
     
     // 모든 내용 입력돼야 버튼 활성화
     @objc private func textFieldEditingChanged(_ textField: UITextField) {
-        print(#function)
+
         // 공백 입력 방지 -> 중간에 입력할 시에는 적용되는 문제 있음
         if textField.text?.count == 1 {
             if textField.text?.first == " " {
@@ -125,7 +139,6 @@ extension NickNameVC: UITextFieldDelegate {
         guard
             let nickname = nicknameView.nicknameTextField.text, !nickname.isEmpty,
             let birth = nicknameView.birthdayTextField.text, !birth.isEmpty
-                
         else {
             nicknameView.nextButton.backgroundColor = .systemGray5
             nicknameView.nextButton.isEnabled = false
@@ -134,4 +147,5 @@ extension NickNameVC: UITextFieldDelegate {
         nicknameView.nextButton.backgroundColor = .systemBlue
         nicknameView.nextButton.isEnabled = true
     }
+    
 }

@@ -30,6 +30,15 @@ class NickNameView: UIView {
         return textField
     }()
     
+    let nicknameErrorLabel: UILabel = {
+        let label = UILabel()
+        label.text = "닉네임을 2-10자로 입력해주세요"
+        label.textColor = .red
+        label.font = .systemFont(ofSize: 16)
+        label.isHidden = false // 기본적으로 숨김 처리
+        return label
+    }()
+    
     
     //MARK: - 생년월일
     let birthdayLabel = SmallTitleLabel().createLabel(with: "생년월일", color: .black)
@@ -43,6 +52,7 @@ class NickNameView: UIView {
         textField.layer.borderColor = UIColor.systemGray5.cgColor
         textField.layer.cornerRadius = 8
         textField.clearButtonMode = .always
+        textField.tintColor = .clear // 커서 표시 해제
         textField.addLeftPadding()
         return textField
     }()
@@ -62,7 +72,18 @@ class NickNameView: UIView {
     }()
     
     //다음 버튼
-    var nextButton = BaseButton().createButton(text: "다음", color: UIColor.systemBlue, textColor: UIColor.white)
+    var nextButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("다음", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .systemGray5
+        button.titleLabel?.font = .systemFont(ofSize: 16)
+        button.layer.cornerRadius = 10
+        button.clipsToBounds = true
+        button.isEnabled = false
+        return button
+    }()
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -79,9 +100,18 @@ class NickNameView: UIView {
     //MARK: - func
     private func configureUI() {
         self.backgroundColor = .white
+        
+        // 스크롤뷰에서 빈 화면터치 시 키보드 내려감
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(self.touch))
+        recognizer.numberOfTapsRequired = 1
+        recognizer.numberOfTouchesRequired = 1
+        
+        self.addGestureRecognizer(recognizer)
+        
         [titleLabel,
          nicknameLabel,
          nicknameTextField,
+         nicknameErrorLabel,
          birthdayLabel,
          birthdayTextField,
          nextButton].forEach {self.addSubview($0)}
@@ -104,8 +134,13 @@ class NickNameView: UIView {
             $0.height.equalTo(commonHeight)
         }
         
+        nicknameErrorLabel.snp.makeConstraints {
+            $0.top.equalTo(nicknameTextField.snp.bottom).offset(10)
+            $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(36)
+        }
+        
         birthdayLabel.snp.makeConstraints {
-            $0.top.equalTo(nicknameTextField.snp.bottom).offset(30)
+            $0.top.equalTo(nicknameErrorLabel.snp.bottom).offset(30)
             $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
         }
         
@@ -120,5 +155,11 @@ class NickNameView: UIView {
             $0.bottom.equalTo(safeAreaLayoutGuide).inset(10)
             $0.height.equalTo(commonHeight)
         }
+    }
+    
+    //MARK: - @objc
+    // 빈 화면 터치 시 키보드 내려감
+    @objc func touch() {
+        self.endEditing(true)
     }
 }

@@ -68,12 +68,12 @@ class SignUpVC: UIViewController, KeyboardEvader {
     //MARK: - func
     private func setupAddtarget() {
         
-        if let user = Auth.auth().currentUser {
-            signupView.signupButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
-        } else {
-            // 회원가입 버튼 클릭
-            signupView.signupButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
-        }
+        //        if let user = Auth.auth().currentUser {
+        //            signupView.signupButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
+        //        } else {
+        //            // 회원가입 버튼 클릭
+        //            signupView.signupButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
+        //        }
         //체크박스 버튼 클릭 시
         signupView.maleCheckBox.addTarget(self, action: #selector(checkBoxTapped), for: .touchUpInside)
         signupView.femaleCheckBox.addTarget(self, action: #selector(checkBoxTapped), for: .touchUpInside)
@@ -172,25 +172,25 @@ class SignUpVC: UIViewController, KeyboardEvader {
     
     
     //MARK: - @objc 회원 가입/ 수정 버튼 클릭
-    @objc private func signUpButtonTapped() {
-        print("회원가입 클릭!!!!")
-        
-        guard let email = signupView.emaiTextField.text, !email.isEmpty,
-              let password = signupView.passwordTextField.text, !password.isEmpty,
-              let nickname = signupView.nicknameTextField.text, !nickname.isEmpty,
-              let birthday = signupView.birthdayTextField.text, !birthday.isEmpty,
-              let gender = signupView.maleCheckBox.isSelected ? "male" : signupView.femaleCheckBox.isSelected ? "female" : signupView.noneCheckBox.isSelected ? "none" : nil , !gender.isEmpty,
-              let income = signupView.incomeTextField.text, !income.isEmpty,
-              let location = signupView.locationTextField.text, !location.isEmpty
-                
-        else {
-            showAlert(message: "모든 항목을 입력해주세요.", AlertTitle: "입력 오류", buttonClickTitle: "확인")
-            return }
-        
-        registerUser(email: email, password: password, nickname: nickname, birthday: birthday, gender: gender, income: income, location: location)
-
-
-    }
+    //    @objc private func signUpButtonTapped() {
+    //        print("회원가입 클릭!!!!")
+    //
+    //        guard let email = signupView.emaiTextField.text, !email.isEmpty,
+    //              let password = signupView.passwordTextField.text, !password.isEmpty,
+    //              let nickname = signupView.nicknameTextField.text, !nickname.isEmpty,
+    //              let birthday = signupView.birthdayTextField.text, !birthday.isEmpty,
+    //              let gender = signupView.maleCheckBox.isSelected ? "male" : signupView.femaleCheckBox.isSelected ? "female" : signupView.noneCheckBox.isSelected ? "none" : nil , !gender.isEmpty,
+    //              let income = signupView.incomeTextField.text, !income.isEmpty,
+    //              let location = signupView.locationTextField.text, !location.isEmpty
+    //
+    //        else {
+    //            showAlert(message: "모든 항목을 입력해주세요.", AlertTitle: "입력 오류", buttonClickTitle: "확인")
+    //            return }
+    //
+    //        registerUser(email: email, password: password, nickname: nickname, birthday: birthday, gender: gender, income: income, location: location)
+    //
+    //
+    //    }
     
     @objc private func editButtonTapped() {
         print("회원정보 수정 클릭!!!!")
@@ -234,18 +234,18 @@ class SignUpVC: UIViewController, KeyboardEvader {
             checkBox.isSelected = true
             selectedCheckBox = checkBox
             
-            selectedCheckBox?.tag
+            //            selectedCheckBox?.tag
             
-            if let tagType = GenderTags(rawValue: checkBox.tag) {
-                switch tagType {
-                case .male:
-                    print("tag: \(GenderTags(rawValue: 1)) - 남성 체크박스 선택됨")
-                case .female:
-                    print("tag: \(checkBox.tag) - 여성 체크박스 선택됨")
-                case .none:
-                    print("tag: \(checkBox.tag) - 선택안함 체크박스 선택됨")
-                }
-            }
+            //            if let tagType = GenderTags(rawValue: checkBox.tag) {
+            //                switch tagType {
+            //                case .male:
+            //                    print("tag: \(GenderTags(rawValue: 1)) - 남성 체크박스 선택됨")
+            //                case .female:
+            //                    print("tag: \(checkBox.tag) - 여성 체크박스 선택됨")
+            //                case .none:
+            //                    print("tag: \(checkBox.tag) - 선택안함 체크박스 선택됨")
+            //                }
+            //            }
             
         }
     }

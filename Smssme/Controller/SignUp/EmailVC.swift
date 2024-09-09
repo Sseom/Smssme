@@ -66,7 +66,7 @@ extension EmailVC: UITextFieldDelegate {
 
     // 모든 내용 입력돼야 버튼 활성화
     @objc private func textFieldEditingChanged(_ textField: UITextField) {
-        print(#function)
+
         // 공백 입력 방지 -> 중간에 입력할 시에는 적용되는 문제 있음
         if textField.text?.count == 1 {
             if textField.text?.first == " " {
