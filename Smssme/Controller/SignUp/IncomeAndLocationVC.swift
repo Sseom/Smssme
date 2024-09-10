@@ -42,6 +42,11 @@ class IncomeAndLocationVC: UIViewController {
         setupAddtarget()
         configPickerView()
         configToolbar()
+        
+        //        incomeAndLocationView..addTarget(self, action: #selector(textFieldEditingChanged(_:, _:)), for: .editingChanged)
+        incomeAndLocationView.incomeTextField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
+        
+        incomeAndLocationView.locationTextField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
     }
     
     //MARK: - func
@@ -86,21 +91,34 @@ class IncomeAndLocationVC: UIViewController {
     
     //MARK: - @objc
     @objc func nextButtonTapped() {
-        guard
-            let gender = incomeAndLocationView.maleCheckBox.isSelected ? "male" : incomeAndLocationView.femaleCheckBox.isSelected ? "female" : incomeAndLocationView.noneCheckBox.isSelected ? "none" : nil , !gender.isEmpty,
-            let income = incomeAndLocationView.incomeTextField.text, !income.isEmpty,
-            let location = incomeAndLocationView.locationTextField.text, !location.isEmpty
-        else {
-            incomeAndLocationView.nextButton.backgroundColor = .systemGray5
-            incomeAndLocationView.nextButton.isEnabled = false
-            return
-        }
-        print(gender, income, location)
-        incomeAndLocationView.nextButton.backgroundColor = .systemBlue
-        incomeAndLocationView.nextButton.isEnabled = true
-        
         let agreementVC = AgreementVC()
         navigationController?.pushViewController(agreementVC, animated: true)
+    }
+    
+    // 모든 내용 입력돼야 버튼 활성화
+    @objc private func textFieldEditingChanged(_ textField: UITextField,_ checkBox: UIButton) {
+        
+        // 공백 입력 방지 -> 중간에 입력할 시에는 적용되는 문제 있음
+        if textField.text?.count == 1 {
+            if textField.text?.first == " " {
+                textField.text = ""
+                return
+            }
+        }
+        guard
+//            let gender = incomeAndLocationView.maleCheckBox.isSelected ? "male" : incomeAndLocationView.femaleCheckBox.isSelected ? "female" : incomeAndLocationView.noneCheckBox.isSelected ? "none" : nil ,
+            let income = incomeAndLocationView.incomeTextField.text,
+            let location = incomeAndLocationView.locationTextField.text
+        else { return }
+        
+        if !income.isEmpty && !income.isEmpty {
+            incomeAndLocationView.nextButton.backgroundColor = .systemBlue
+            incomeAndLocationView.nextButton.isEnabled = true
+        } else {
+            incomeAndLocationView.nextButton.backgroundColor = .systemGray5
+            incomeAndLocationView.nextButton.isEnabled = false
+        }
+        
     }
     
     //MARK: - 성별 체크박스
@@ -120,6 +138,18 @@ class IncomeAndLocationVC: UIViewController {
             // 새로운 체크박스를 선택
             checkBox.isSelected = true
             selectedCheckBox = checkBox
+            
+            if let tagType = GenderTags(rawValue: checkBox.tag) {
+                switch tagType {
+                case .male:
+                    print("tag: \(GenderTags(rawValue: 1)) - 남성 체크박스 선택됨")
+                case .female:
+                    print("tag: \(checkBox.tag) - 여성 체크박스 선택됨")
+                case .none:
+                    print("tag: \(checkBox.tag) - 선택안함 체크박스 선택됨")
+                }
+            }
+            
         }
     }
 }
@@ -202,5 +232,5 @@ extension IncomeAndLocationVC: UIPickerViewDelegate, UIPickerViewDataSource {
 
 //MARK: - extension - TextField
 extension IncomeAndLocationVC: UITextFieldDelegate {
-
+    
 }
