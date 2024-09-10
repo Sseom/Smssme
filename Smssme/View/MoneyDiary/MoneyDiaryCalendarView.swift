@@ -18,12 +18,14 @@ class CalendarView: UIView {
         flowLayout.minimumLineSpacing = 0
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.register(CalendarCollectionViewCell.self, forCellWithReuseIdentifier: CalendarCollectionViewCell.reuseIdentifier)
+        collectionView.backgroundColor = .white
         return collectionView
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupUIWithAutoLayout()
+        self.backgroundColor = .white
         
     }
     
