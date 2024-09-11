@@ -9,6 +9,9 @@ import UIKit
 
 // 성별
 class IncomeAndLocationVC: UIViewController {
+    private let emailView = EmailView()
+    private let passwordView = PasswordView()
+    private let nicknameView = NickNameView()
     private let incomeAndLocationView = IncomeAndLocationView()
     
     private var selectedCheckBox: UIButton?
@@ -70,6 +73,36 @@ class IncomeAndLocationVC: UIViewController {
     
     //MARK: - @objc
     @objc func nextButtonTapped() {
+        
+        guard let email = emailView.emailTextField.text,
+              let password = passwordView.passwordTextField.text,
+              let nickname = nicknameView.nicknameTextField.text,
+              let birth = nicknameView.birthdayTextField.text,
+              let gender = incomeAndLocationView.genderTitleLabel.text, // 수정해야함
+              let income = incomeAndLocationView.incomeTextField.text,
+              let location = incomeAndLocationView.locationTextField.text else {
+            return
+        }
+        
+        let userData = UserData(email: email, password: password, nickname: nickname, birth: birth, gender: gender, income: income, location: location)
+
+        
+        FirebaseManager.shared.registerUser(email: email, password: password) { result in
+            switch result {
+            case .success(let uid):
+                FirebaseManager.shared.saveUserData(uid: uid, userData: userData) { saveResult in
+                    switch saveResult {
+                    case .success:
+                        print("User data saved successfully")
+                    case .failure(let error):
+                        print("Error saving user data: \(error.localizedDescription)")
+                    }
+                }
+            case .failure(let error):
+                print("Error during signup: \(error.localizedDescription)")
+            }
+        }
+        
         let loginVC = LoginVC()
         navigationController?.pushViewController(loginVC, animated: true)
     }
@@ -111,7 +144,7 @@ class IncomeAndLocationVC: UIViewController {
             }
         }
         guard
-//            let gender = incomeAndLocationView.maleCheckBox.isSelected ? "male" : incomeAndLocationView.femaleCheckBox.isSelected ? "female" : incomeAndLocationView.noneCheckBox.isSelected ? "none" : nil ,
+            //            let gender = incomeAndLocationView.maleCheckBox.isSelected ? "male" : incomeAndLocationView.femaleCheckBox.isSelected ? "female" : incomeAndLocationView.noneCheckBox.isSelected ? "none" : nil ,
             let income = incomeAndLocationView.incomeTextField.text,
             let location = incomeAndLocationView.locationTextField.text
         else { return }

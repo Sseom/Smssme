@@ -27,6 +27,7 @@ class EmailVC: UIViewController {
     
     
     @objc private func onNextButtonTapped() {
+        print(#function)
         let passwordVC = PasswordVC()
         navigationController?.pushViewController(passwordVC, animated: true)
     }
