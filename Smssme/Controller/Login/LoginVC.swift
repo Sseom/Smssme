@@ -124,6 +124,7 @@ class LoginVC: UIViewController {
     //MARK: - @objc 회원가입
     @objc private func signupButtonTapped() {
         print(#function)
+        let agreementVC = AgreementVC()
         let emailVC = EmailVC()
         navigationController?.pushViewController(emailVC, animated: true)
     }

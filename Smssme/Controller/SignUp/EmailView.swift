@@ -9,7 +9,6 @@ import UIKit
 
 class EmailView: UIView {
     private let commonHeight = 50
-    private let loginView = LoginView()
     
     //상단 제목 라벨
     private var titleLabel = LargeTitleLabel().createLabel(with: "회원가입", color: UIColor.black)
@@ -40,62 +39,7 @@ class EmailView: UIView {
         return label
     }()
     
-    //MARK: - 비밀번호
-    let passwordLabel = SmallTitleLabel().createLabel(with: "비밀번호", color: .black)
-    
-    lazy var passwordTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "비밀번호는 최소 6자 이상 입력"
-        textField.textColor = .black
-        textField.backgroundColor = .clear
-        textField.layer.borderWidth = 2
-        textField.layer.borderColor = UIColor.systemGray5.cgColor
-        textField.layer.cornerRadius = 8
-        textField.keyboardType = .emailAddress
-        textField.clearButtonMode = .always
-        textField.addLeftPadding()
-        textField.isSecureTextEntry = true
-        textField.textContentType = .oneTimeCode
-        return textField
-    }()
-    
-    // 숫자, 영문, 특수문자 8-16자 입력
-    // 1개 이상의 영문, 숫자, 특수문자를 포함
-    let passwordErrorLabel: UILabel = {
-        let label = UILabel()
-        label.text = "비밀번호는 최소 6자 이상이어야 합니다."
-        label.textColor = .red
-        label.font = .systemFont(ofSize: 16)
-        label.isHidden = false
-        return label
-    }()
-    
-    // 비밀번호 재확인
-     let passwordCheckTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "비밀번호 재확인"
-        textField.textColor = .black
-        textField.backgroundColor = .clear
-        textField.layer.borderWidth = 2
-        textField.layer.borderColor = UIColor.systemGray5.cgColor
-        textField.layer.cornerRadius = 8
-        textField.keyboardType = .emailAddress
-        textField.clearButtonMode = .always
-        textField.addLeftPadding()
-        textField.isSecureTextEntry = true
-        textField.textContentType = .oneTimeCode
-        return textField
-    }()
-    
-    let passwordCheckErrorLabel: UILabel = {
-        let label = UILabel()
-        label.text = "비밀번호가 일치하지 않습니다."
-        label.textColor = .red
-        label.font = .systemFont(ofSize: 16)
-        label.isHidden = false
-        return label
-    }()
-    
+  
     //MARK: - 다음 버튼
     
     //다음 버튼
@@ -118,8 +62,7 @@ class EmailView: UIView {
         
         configureUI()
         setupLayout()
-        loginView.setPasswordEyeButton(textField: passwordTextField)
-        loginView.setPasswordEyeButton(textField: passwordCheckTextField)
+ 
     }
     
     
@@ -142,11 +85,6 @@ class EmailView: UIView {
          emailLabel,
          emailTextField,
          emailErrorLabel,
-         passwordLabel,
-         passwordTextField,
-         passwordErrorLabel,
-         passwordCheckTextField,
-         passwordCheckErrorLabel,
          nextButton
         ].forEach {self.addSubview($0)}
     }
@@ -172,40 +110,13 @@ class EmailView: UIView {
                 $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(36)
             }
             
-            passwordLabel.snp.makeConstraints {
-                $0.top.equalTo(emailErrorLabel.snp.bottom).offset(30)
-                $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
-            }
-            
-            passwordTextField.snp.makeConstraints {
-                $0.top.equalTo(passwordLabel.snp.bottom).offset(10)
-                $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
-                $0.height.equalTo(commonHeight)
-            }
-            
-            passwordErrorLabel.snp.makeConstraints {
-                $0.top.equalTo(passwordTextField.snp.bottom).offset(10)
-                $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(36)
-            }
-            
-            passwordCheckTextField.snp.makeConstraints {
-                $0.top.equalTo(passwordErrorLabel.snp.bottom).offset(10)
-                $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
-                $0.height.equalTo(commonHeight)
-            }
-            
-            passwordCheckErrorLabel.snp.makeConstraints {
-                $0.top.equalTo(passwordCheckTextField.snp.bottom).offset(10)
-                $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(36)
-            }
 
             nextButton.snp.makeConstraints {
                 $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
-                $0.bottom.equalTo(safeAreaLayoutGuide).inset(10)
+                $0.bottom.equalTo(safeAreaLayoutGuide).inset(280)
                 $0.height.equalTo(commonHeight)
             }
         }
-        
         
     }
     //MARK: - @objc

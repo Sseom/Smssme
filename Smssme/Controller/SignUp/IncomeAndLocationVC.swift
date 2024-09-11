@@ -19,6 +19,7 @@ class IncomeAndLocationVC: UIViewController {
     let pickerIncomeData = [
         "1,200만 원 이하",
         "1,200만 원 초과 ~ 4,600만 원 이하",
+        "4,600만 원 초과 ~ 8,800만 원 이하",
         "8,800만 원 초과 ~ 1억 5천만 원 이하",
         "1억 5천만 원 초과 ~ 3억 원 이하",
         "3억 원 초과 ~ 5억 원 이하",
@@ -47,6 +48,8 @@ class IncomeAndLocationVC: UIViewController {
         incomeAndLocationView.incomeTextField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
         
         incomeAndLocationView.locationTextField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
+        
+        incomeAndLocationView.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
     }
     
     //MARK: - func
@@ -62,6 +65,13 @@ class IncomeAndLocationVC: UIViewController {
         incomeAndLocationView.maleCheckBox.addTarget(self, action: #selector(checkBoxTapped), for: .touchUpInside)
         incomeAndLocationView.femaleCheckBox.addTarget(self, action: #selector(checkBoxTapped), for: .touchUpInside)
         incomeAndLocationView.noneCheckBox.addTarget(self, action: #selector(checkBoxTapped), for: .touchUpInside)
+    }
+    
+    
+    //MARK: - @objc
+    @objc func nextButtonTapped() {
+        let loginVC = LoginVC()
+        navigationController?.pushViewController(loginVC, animated: true)
     }
     
     // 피커뷰 "완료" 클릭 시 데이터를 textfield에 입력 후 입력창 내리기
@@ -89,11 +99,6 @@ class IncomeAndLocationVC: UIViewController {
         incomeAndLocationView.locationTextField.resignFirstResponder()
     }
     
-    //MARK: - @objc
-    @objc func nextButtonTapped() {
-        let agreementVC = AgreementVC()
-        navigationController?.pushViewController(agreementVC, animated: true)
-    }
     
     // 모든 내용 입력돼야 버튼 활성화
     @objc private func textFieldEditingChanged(_ textField: UITextField,_ checkBox: UIButton) {

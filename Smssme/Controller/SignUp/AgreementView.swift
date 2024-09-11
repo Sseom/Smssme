@@ -14,6 +14,27 @@ class AgreementView: UIView {
     private var titleLabel = LargeTitleLabel().createLabel(with: "서비스 가입을 위해 \n이용약관에 동의해주세요.", color: UIColor.black)
     
     
+    
+    // 동의 체크박스
+    var maleCheckBox: UIButton = {
+        let button = UIButton()
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: 24, weight: .semibold, scale: .large)
+        button.setBackgroundImage(UIImage(systemName: "checkmark.circle"), for: .normal)
+        button.setBackgroundImage(UIImage(systemName: "checkmark.circle.fill"), for: .selected)
+        button.setContentHuggingPriority(.defaultHigh, for: .horizontal) //자신의 크기 유지
+        return button
+    }()
+    let maleCheckBoxLabel: UILabel = {
+        let label = UILabel()
+        label.text = "개인정도 처리 동의"
+        label.font = .systemFont(ofSize: 18)
+        label.textColor = .darkGray
+//        label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal) //더 넓어지게
+        return label
+    }()
+    
+    
+    
     //다음 버튼
     var nextButton: UIButton = {
         let button = UIButton()

@@ -19,13 +19,9 @@ class EmailVC: UIViewController {
         self.navigationItem.title = "회원가입"
         
         emailView.emailTextField.delegate = self
-        emailView.passwordTextField.delegate = self
-        emailView.passwordCheckTextField.delegate = self
-        
+       
         emailView.emailTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
-        emailView.passwordTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
-        emailView.passwordCheckTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
-        
+    
         emailView.nextButton.addTarget(self, action: #selector(onNextButtonTapped), for: .touchUpInside)
     }
     
@@ -54,11 +50,7 @@ extension EmailVC: UITextFieldDelegate {
     // 엔터 누르면 포커스 이동 후 키보드 내림
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField ==  emailView.emailTextField {
-            emailView.passwordTextField.becomeFirstResponder()
-        } else if textField == emailView.passwordTextField {
-            emailView.passwordCheckTextField.becomeFirstResponder()
-        } else {
-            emailView.passwordCheckTextField.resignFirstResponder()
+            emailView.emailTextField.resignFirstResponder()
         }
         return true
     }
@@ -75,9 +67,7 @@ extension EmailVC: UITextFieldDelegate {
             }
         }
         guard
-            let email = emailView.emailTextField.text, !email.isEmpty,
-            let password = emailView.passwordTextField.text, !password.isEmpty,
-            let passwordCheck = emailView.passwordCheckTextField.text, !passwordCheck.isEmpty
+            let email = emailView.emailTextField.text, !email.isEmpty
         else {
             emailView.nextButton.backgroundColor = .systemGray5
             emailView.nextButton.isEnabled = false

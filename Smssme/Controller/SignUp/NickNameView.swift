@@ -152,7 +152,7 @@ class NickNameView: UIView {
         
         nextButton.snp.makeConstraints {
             $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
-            $0.bottom.equalTo(safeAreaLayoutGuide).inset(10)
+            $0.bottom.equalTo(safeAreaLayoutGuide).inset(280)
             $0.height.equalTo(commonHeight)
         }
     }
