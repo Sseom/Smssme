@@ -8,15 +8,15 @@ class MainPageView: UIView {
     var mainWelcomeTitleLabel = LargeTitleLabel().createLabel(with: "씀씀이의 방문을 \n환영합니다.", color: .black)
     private let totalAssetsTitleLabel = SmallTitleLabel().createLabel(with: "총 자산", color: .black)
     let totalAssetsValueLabel = LargeTitleLabel().createLabel(with: "0 원", color: .black)
-    private let financialTitleLabel = SmallTitleLabel().createLabel(with: "오늘의 주요 경제 지표", color: .black)
+//    private let financialTitleLabel = SmallTitleLabel().createLabel(with: "오늘의 주요 경제 지표", color: .black)
     private let benefitTitleLabel = SmallTitleLabel().createLabel(with: "2024 청년 혜택 총정리", color: .black)
     
-    private let todayFinancialArray: [TodayFinancial] = [
-        TodayFinancial(title: "KOSPI", value: 5678.91, range: -1),
-        TodayFinancial(title: "KOSDAQ", value: 234.2, range: 0),
-        TodayFinancial(title: "환율", value: 1.233, range: 0),
-        TodayFinancial(title: "NASDAQ", value: 4252.33, range: 0)
-    ]
+//    private let todayFinancialArray: [TodayFinancial] = [
+//        TodayFinancial(title: "KOSPI", value: 5678.91, range: -1),
+//        TodayFinancial(title: "KOSDAQ", value: 234.2, range: 0),
+//        TodayFinancial(title: "환율", value: 1.233, range: 0),
+//        TodayFinancial(title: "NASDAQ", value: 4252.33, range: 0)
+//    ]
     
     private let benefitData: [String] = [
         "✅ 청년 취업 및 창업 지원",
@@ -85,7 +85,7 @@ class MainPageView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
-        setupTodayFinancia(todayFinanciaData: todayFinancialArray)
+//        setupTodayFinancia(todayFinanciaData: todayFinancialArray)
         setupBenefit(benefitData: benefitData)
     }
     
@@ -168,7 +168,6 @@ class MainPageView: UIView {
           }
       }
 
-    
     func entryData(values: [Double]) -> [ChartDataEntry] {
         var pieDataEntries: [ChartDataEntry] = []
         for i in 0 ..< values.count {
@@ -198,7 +197,7 @@ class MainPageView: UIView {
             totalAssetsValueLabel,
             pieChartView,
             chartCenterButton,
-            financialTitleLabel,
+//            financialTitleLabel,
             financialScrollView,
             benefitTitleLabel,
             benefitVerticalStackView
@@ -248,13 +247,13 @@ class MainPageView: UIView {
             $0.width.equalTo(80)
         }
         
-        financialTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(pieChartView.snp.bottom).offset(40)
-            $0.left.equalTo(safeAreaLayoutGuide).offset(20)
-        }
-        
+//        financialTitleLabel.snp.makeConstraints {
+//            $0.top.equalTo(pieChartView.snp.bottom).offset(40)
+//            $0.left.equalTo(safeAreaLayoutGuide).offset(20)
+//        }
+//        
         financialScrollView.snp.makeConstraints {
-            $0.top.equalTo(financialTitleLabel.snp.bottom).offset(20)
+            $0.top.equalTo(chartCenterButton.snp.bottom).offset(20)
             $0.height.equalTo(40)
             $0.left.right.equalToSuperview().offset(10)
         }

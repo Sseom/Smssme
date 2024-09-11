@@ -41,12 +41,9 @@ class MypageVC: UIViewController {
         
         // 테이블뷰 등록 및 설정
         mypageView.tableView.register(MypageViewCell.self, forCellReuseIdentifier: "MypageViewCell")
-        
         tableviewSetup()
-        
         setupAddtarget()
         checkLoginStatus()
-        
     }
     
         override func viewWillAppear(_ animated: Bool) {

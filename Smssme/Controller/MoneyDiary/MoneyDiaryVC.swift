@@ -18,9 +18,7 @@ final class MoneyDiaryVC: UIViewController {
     private let dateFormatter = DateFormatter()
     private var calendarDate = Date()
     private var calendarItems = [CalendarItem]()
-    
     let datePicker = DatePickerView()
-    
     
     init(moneyDiaryView: MoneyDiaryView) {
         self.moneyDiaryView = moneyDiaryView
@@ -42,8 +40,6 @@ final class MoneyDiaryVC: UIViewController {
         
         pencilButtonAction()
     }
-
-   
     
     override func viewWillAppear(_ animated: Bool) {
         self.configureAmountOfMonth()
@@ -68,7 +64,7 @@ final class MoneyDiaryVC: UIViewController {
         print(dataEntries)
         setChart()
     }
-
+    
     private func updateView(selectedIndex: Int) {
         
         if selectedIndex != 0 {
@@ -80,14 +76,14 @@ final class MoneyDiaryVC: UIViewController {
             moneyDiaryView.chartView.isHidden = true
         }
     }
-
+    
     private func setupUI() {
         self.navigationItem.title = "가계부"
         self.view.addSubview(self.scrollView)
         [
             self.moneyDiaryView
         ].forEach { self.scrollView.addSubview($0) }
-
+        
         moveToSomeDate(Date())
         
         moneyDiaryView.calendarView.calendarCollectionView.dataSource = self
@@ -104,7 +100,7 @@ final class MoneyDiaryVC: UIViewController {
             $0.edges.equalTo(self.scrollView.safeAreaLayoutGuide)
         }
     }
-
+    
     
     private func setupActions() {
         moneyDiaryView.previousButton.addTarget(self, action: #selector(self.didPreviousButtonTouched), for: .touchUpInside)
@@ -117,7 +113,7 @@ final class MoneyDiaryVC: UIViewController {
     }
     
     private func setChart() {
-//        moneyDiaryView.chartView.delegate = self
+        //        moneyDiaryView.chartView.delegate = self
         
         if !dataEntries.isEmpty {
             let dataSet = PieChartDataSet(entries: dataEntries, label: "")
@@ -137,7 +133,7 @@ final class MoneyDiaryVC: UIViewController {
             moneyDiaryView.chartView.notifyDataSetChanged()
         }
     }
-
+    
     @objc func didTapMove() {
         let selectedYearValue = datePicker.years[datePicker.pickerView.selectedRow(inComponent: 0)]
         let selectedMonthValue = datePicker.months[datePicker.pickerView.selectedRow(inComponent: 1)]
@@ -161,11 +157,7 @@ final class MoneyDiaryVC: UIViewController {
         guard let diaries = DiaryCoreDataManager.shared.fetchDiaries(from: firstDay, to: lastDay)
         else { return }
         self.diaries = diaries
-
-        
     }
-
-    
 }
 
 extension MoneyDiaryVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -179,6 +171,7 @@ extension MoneyDiaryVC: UICollectionViewDataSource, UICollectionViewDelegate, UI
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         42//셀개수 고정 (6주 * 7일)
     }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarCollectionViewCell.reuseIdentifier, for: indexPath) as? CalendarCollectionViewCell else { return UICollectionViewCell() }
         
@@ -201,9 +194,6 @@ extension MoneyDiaryVC: UICollectionViewDataSource, UICollectionViewDelegate, UI
 }
 
 extension MoneyDiaryVC {
-    
-
-        
     private func updateCalendar() {
         self.updateTitle()
         self.updateDays()
@@ -229,8 +219,6 @@ extension MoneyDiaryVC {
             }
         }
         
-        
-        
         self.moneyDiaryView.calendarView.calendarCollectionView.reloadData()
     }
     private func moveToSomeDate(_ when: Date? ){
@@ -242,27 +230,24 @@ extension MoneyDiaryVC {
         self.setChartData()
     }
     
-    
-
     private func transformToAble(date: Date) -> Date? {
         
         var components = calendar.dateComponents([.year, .month, .day], from: date)
         //20241201->Int : Id 처럼
-//        dateFormatter.dateFormat = "yyyy-MM-dd"
+        //        dateFormatter.dateFormat = "yyyy-MM-dd"
         
-//        dateFormatter.
+        //        dateFormatter.
         components.hour = 0
         components.minute = 0
         components.second = 0
         let dateWithoutTime = calendar.date(from: components)
         return dateWithoutTime
     }
-
 }
 
 extension MoneyDiaryVC {
-
-//objc method
+    
+    //objc method
     @objc private func didTapBudgetButton() {
         let calendar = Calendar.current
         let components = calendar.dateComponents([.year, .month], from: calendarDate)
@@ -280,20 +265,20 @@ extension MoneyDiaryVC {
     }
     
     @objc private func didTodayButtonTouched(_ sender: UIButton) {
-       self.moveToSomeDate(Date())
-
+        self.moveToSomeDate(Date())
+        
     }
     @objc private func segmentChanged(_ sender: UISegmentedControl) {
-
+        
         updateView(selectedIndex: sender.selectedSegmentIndex)
     }
     
     @objc private func didTapMoveButton(){
         
-            let modalVc = UIViewController()
+        let modalVc = UIViewController()
         modalVc.view = datePicker
-            modalVc.modalPresentationStyle = .pageSheet
-            
+        modalVc.modalPresentationStyle = .pageSheet
+        
         let currentMonth = calendar.component(.month, from: calendarDate)
         let currentYear = calendar.component(.year, from: calendarDate)
         
@@ -303,13 +288,13 @@ extension MoneyDiaryVC {
         if let temp2 = datePicker.months.firstIndex(of: currentMonth) {
             datePicker.pickerView.selectRow(temp2, inComponent: 1, animated: true)
         }
-            if let sheet = modalVc.sheetPresentationController {
-                sheet.detents = [.medium()]
-                sheet.prefersGrabberVisible = true
-            }
-            
-            self.present(modalVc, animated: true, completion: nil)
+        if let sheet = modalVc.sheetPresentationController {
+            sheet.detents = [.medium()]
+            sheet.prefersGrabberVisible = true
         }
+        
+        self.present(modalVc, animated: true, completion: nil)
+    }
     
     // 연필 아이콘 동작
     private func pencilButtonAction() {
