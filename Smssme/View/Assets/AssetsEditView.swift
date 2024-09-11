@@ -18,7 +18,6 @@ class AssetsEditView: UIView {
     let categoryTextField = AmountTextField.createTextField(keyboard: .default, currencyText: "")
     let titleTextField = AmountTextField.createTextField(keyboard: .default, currencyText: "")
     let amountTextField = AmountTextField.createTextField(keyboard: .numberPad, currencyText: "원")
-//    let noteTextField = BaseTextField().createTextField(placeholder: "메모", textColor: .black)
     
     let cancelButton = BaseButton().createButton(text: "취소", color: .lightGray, textColor: .white)
     let saveButton = BaseButton().createButton(text: "저장", color: .systemBlue, textColor: .white)
@@ -33,9 +32,6 @@ class AssetsEditView: UIView {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fill
-//        stackView.backgroundColor = .darkGray
-//        stackView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 50, right: 10)
-//        stackView.isLayoutMarginsRelativeArrangement = true
         return stackView
     }()
     

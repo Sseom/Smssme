@@ -27,6 +27,7 @@ class DateManager {
         let firstWeekday = getFirstWeekday(for: currentMonth)
         let lastMonthOfStart = moveToSomeday(when: firstDayInMonth, howLong: -firstWeekday + 1)
         for i in 0 ..< 42 {
+            
                 totalDays.append(moveToSomeday(when: lastMonthOfStart, howLong: i))
             }
         return totalDays

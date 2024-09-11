@@ -9,14 +9,14 @@ import UIKit
 
 class MoneyDiaryCreatVC: UIViewController {
     
-//    var transactionItem2: Diary
+    //    var transactionItem2: Diary
     //MARK: - Properties
     private let moneyDiaryCreateView: MoneyDiaryCreateView = MoneyDiaryCreateView()
     
     // MARK: - ViewController Init
     init() {
         
-//        self.transactionItem2 = transactionItem2
+        //        self.transactionItem2 = transactionItem2
         super.init(nibName: nil, bundle: nil)
         
     }
@@ -29,7 +29,6 @@ class MoneyDiaryCreatVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addTarget()
-        configureUI()
     }
     
     override func loadView() {
@@ -52,52 +51,6 @@ class MoneyDiaryCreatVC: UIViewController {
         
     }
     
-    private func configureUI() {
-//        moneyDiaryEditView.priceTextField.text = String(transactionItem2.amount)
-//        moneyDiaryEditView.datePicker.date = transactionItem2.date ?? Date()
-//        moneyDiaryEditView.titleTextField.text = transactionItem2.title
-//        moneyDiaryEditView.categoryTextField.text = transactionItem2.category
-//        moneyDiaryEditView.noteTextField.text = transactionItem2.note
-        
-        
-        
-        
-    }
-    
-//    @objc func updateData() {
-//        let date = moneyDiaryEditView.datePicker.date
-//        let amount = Int64(moneyDiaryEditView.priceTextField.text ?? "0") ?? 0
-//        let statement =
-//        if moneyDiaryEditView.segmentControl.selectedSegmentIndex == 0 {
-//            false
-//        }
-//        else { true }
-//        let titleTextField = moneyDiaryEditView.titleTextField.text ?? ""
-//        let categoryTextField = moneyDiaryEditView.categoryTextField.text ?? ""
-//        let memo = moneyDiaryEditView.noteTextField.text ?? ""
-//        let uuid = transactionItem2.key!
-//        
-//        DiaryCoreDataManager.shared.updateDiary(with: uuid,
-//                                                newTitle: titleTextField,
-//                                                newDate: date,
-//                                                newAmount: amount,
-//                                                newStatement: statement,
-//                                                newCategory: categoryTextField,
-//                                                newNote: memo,
-//                                                newUserId: "userKim")
-//        
-//        self.navigationController?.popViewController(animated: false)
-//        
-//    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     @objc func saveData() {
         let date = moneyDiaryCreateView.datePicker.date
@@ -111,7 +64,7 @@ class MoneyDiaryCreatVC: UIViewController {
         let categoryTextField = moneyDiaryCreateView.categoryTextField.text ?? ""
         let memo = moneyDiaryCreateView.noteTextField.text ?? ""
         DiaryCoreDataManager.shared.createDiary(title: titleTextField, date: date, amount: amount, statement: statement, category: categoryTextField, note: memo, userId: "userKim")
-
+        
         self.navigationController?.popViewController(animated: false)
         
     }

@@ -39,15 +39,9 @@ class MoneyDiaryEditVC: UIViewController {
         super.loadView()
         self.view = moneyDiaryEditView
     }
-    
-    // MARK: - Method
-    
+ 
     
     // MARK: - Private Method
-    //    private func setupSegmentEvent() {
-    //        moneyDiaryEditView
-    //    }
-    
     private func setDeleteButton() {
         moneyDiaryEditView.deleteButton.target = self
         moneyDiaryEditView.deleteButton.action = #selector(deleteButtonTapped)
@@ -77,9 +71,6 @@ class MoneyDiaryEditVC: UIViewController {
         moneyDiaryEditView.categoryTextField.text = transactionItem2.category
         moneyDiaryEditView.noteTextField.textColor = .black
         moneyDiaryEditView.noteTextField.text = transactionItem2.note
-        
-        
-        
         
     }
     
@@ -113,27 +104,6 @@ class MoneyDiaryEditVC: UIViewController {
         navigationController?.popViewController(animated: true)
     }
 
-    
-//    @objc func saveData() {
-//        let date = moneyDiaryEditView.datePicker.date
-//        let amount = Int64(moneyDiaryEditView.priceTextField.text ?? "0") ?? 0
-//        let statement =
-//        if moneyDiaryEditView.segmentControl.selectedSegmentIndex == 0 {
-//            false
-//        }
-//        else { true }
-//        let titleTextField = moneyDiaryEditView.titleTextField.text ?? ""
-//        let categoryTextField = moneyDiaryEditView.categoryTextField.text ?? ""
-//        let memo = moneyDiaryEditView.noteTextField.text ?? ""
-//        
-//        
-//        
-//        
-//        DiaryCoreDataManager.shared.createDiary(title: titleTextField, date: date, amount: amount, statement: statement, category: categoryTextField, note: memo, userId: "userKim")
-//        
-//        self.navigationController?.popViewController(animated: false)
-//        print(self.transactionItem)
-//    }
     @objc func didTapCancelButton() {
         self.navigationController?.popViewController(animated: false)
     }

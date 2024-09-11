@@ -25,6 +25,8 @@ final class MoneyDiaryVC: UIViewController {
     init(moneyDiaryView: MoneyDiaryView) {
         self.moneyDiaryView = moneyDiaryView
         super.init(nibName: nil, bundle: nil)
+        self.scrollView.backgroundColor = .white
+        self.view.backgroundColor = .white
     }
     
     required init?(coder: NSCoder) {
@@ -68,6 +70,7 @@ final class MoneyDiaryVC: UIViewController {
     }
 
     private func updateView(selectedIndex: Int) {
+        
         if selectedIndex != 0 {
             moneyDiaryView.calendarView.isHidden = true
             moneyDiaryView.chartView.isHidden = false
@@ -178,21 +181,6 @@ extension MoneyDiaryVC: UICollectionViewDataSource, UICollectionViewDelegate, UI
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarCollectionViewCell.reuseIdentifier, for: indexPath) as? CalendarCollectionViewCell else { return UICollectionViewCell() }
-//        print(cell.currentDate)
-//        for calendarItem in calendarItems {
-//            calendarItem.date = Date()
-//        }
-        
-        
-        
-        
-        
-
-        
-
-        
-        
-        
         
         cell.updateDate(item: self.calendarItems[indexPath.item])
         
@@ -230,10 +218,18 @@ extension MoneyDiaryVC {
     
     private func updateDays() {
         self.calendarItems.removeAll()
+        let temp = DateManager.shared.configureDays(currentMonth: calendarDate)
+        let thisMonth = calendar.component(.month, from: calendarDate)
         
-        for i in 0 ..< 42 {
-            calendarItems.append(CalendarItem(date: DateManager.shared.configureDays(currentMonth: calendarDate)[i]))
+        for i in temp {
+            if calendar.component(.month, from: i) != thisMonth {
+                calendarItems.append(CalendarItem(date: i, isThisMonth: false))
+            } else {
+                calendarItems.append(CalendarItem(date: i, isThisMonth: true))
+            }
         }
+        
+        
         
         self.moneyDiaryView.calendarView.calendarCollectionView.reloadData()
     }
@@ -288,6 +284,7 @@ extension MoneyDiaryVC {
 
     }
     @objc private func segmentChanged(_ sender: UISegmentedControl) {
+
         updateView(selectedIndex: sender.selectedSegmentIndex)
     }
     

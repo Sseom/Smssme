@@ -88,9 +88,6 @@ class AssetsEditVC: UIViewController {
     // MARK: - Objc
     @objc func saveButtonTapped() {
         saveAssets()
-        // 일단 여기서 해주지 말고 mainPageVC 에서 viewWillAppear 에 넣어줌
-//        let mainPageVC = MainPageVC()
-//        mainPageVC.setChartData()
         navigationController?.popViewController(animated: true)
     }
     @objc func cancelButtonTapped() {
@@ -98,16 +95,6 @@ class AssetsEditVC: UIViewController {
     }
     @objc func deleteButtonTapped() {
         deleteAssets()
-        // 일단 여기서 해주지 말고 mainPageVC 에서 viewWillAppear 에 넣어줌
-//        let mainPageVC = MainPageVC()
-//        mainPageVC.setChartData()
         navigationController?.popViewController(animated: true)
     }
 }
-
-//extension AssetsEditVC: KeyboardEvader {
-//    var keyboardScrollView: UIScrollView {
-//
-//    }
-//    
-//}

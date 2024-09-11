@@ -32,8 +32,6 @@ class LoginVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         // [START auth_listener]
         handle = Auth.auth().addStateDidChangeListener { auth, user in
-
-//                      self.setTitleDisplay(user)
         }
     }
     
@@ -111,7 +109,7 @@ class LoginVC: UIViewController {
     
     //MARK: - 자동로그인/ 아이디저장 체크박스
     @objc func checkBoxTapped(_ checkBox: UIButton) {
-        checkBox.isSelected.toggle() // 선택 상태를 반전시킴
+        checkBox.isSelected.toggle()
         // 선택 상태에 따라 동작 추가 가능
         if checkBox.isSelected {
             print("tag \(checkBox.tag) 체크박스 선택됨")

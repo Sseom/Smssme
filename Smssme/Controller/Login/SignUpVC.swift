@@ -18,9 +18,7 @@ class SignUpVC: UIViewController, KeyboardEvader {
     // Firestore의 users 컬렉션 참조
     let db = Firestore.firestore()
     
-    //    let signUpView = SignUpView()
-    
-    
+
     private let signupView = SignUpView()
     private var selectedCheckBox: UIButton?  // 선택된 체크박스
     
@@ -196,7 +194,6 @@ class SignUpVC: UIViewController, KeyboardEvader {
         print("회원정보 수정 클릭!!!!")
         
         guard let email = signupView.emaiTextField.text, !email.isEmpty,
-              //              let password = signupView.passwordTextField.text, !password.isEmpty,
               let nickname = signupView.nicknameTextField.text, !nickname.isEmpty,
               let birthday = signupView.birthdayTextField.text, !birthday.isEmpty,
               let gender = signupView.maleCheckBox.isSelected ? "male" : signupView.femaleCheckBox.isSelected ? "female" : signupView.noneCheckBox.isSelected ? "none" : nil , !gender.isEmpty,
@@ -299,7 +296,7 @@ class SignUpVC: UIViewController, KeyboardEvader {
         
         let cancelButton = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(self.dateCancelPicker))
         
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)  //취소~완료 간의 거리
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)  
         
         let doneButton = UIBarButtonItem(title: "선택", style: .plain, target: self, action: #selector(self.dateDonePicker))
         
