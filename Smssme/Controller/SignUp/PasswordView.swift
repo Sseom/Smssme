@@ -37,9 +37,9 @@ class PasswordView: UIView {
     // 1개 이상의 영문, 숫자, 특수문자를 포함
     let passwordErrorLabel: UILabel = {
         let label = UILabel()
-        label.text = "비밀번호는 최소 6자 이상이어야 합니다."
-        label.textColor = .red
+        label.text = ""
         label.font = .systemFont(ofSize: 16)
+        label.numberOfLines = 0
         label.isHidden = false
         return label
     }()
@@ -63,8 +63,7 @@ class PasswordView: UIView {
     
     let passwordCheckErrorLabel: UILabel = {
         let label = UILabel()
-        label.text = "비밀번호가 일치하지 않습니다."
-        label.textColor = .red
+        label.text = ""
         label.font = .systemFont(ofSize: 16)
         label.isHidden = false
         return label

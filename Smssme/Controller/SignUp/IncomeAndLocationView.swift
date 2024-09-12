@@ -17,10 +17,6 @@ enum GenderTags: Int {
 class IncomeAndLocationView: UIView {
     
     private let commonHeight = 50
-//    
-//    //상단 제목 라벨
-//    private var titleLabel = LargeTitleLabel().createLabel(with: "성별/ 소득 / 지역", color: UIColor.black)
-//    
     
     //MARK: - 성별 선택
     let genderTitleLabel = SmallTitleLabel().createLabel(with: "성별", color: .black)
@@ -40,7 +36,6 @@ class IncomeAndLocationView: UIView {
         label.text = "남성"
         label.font = .systemFont(ofSize: 18)
         label.textColor = .darkGray
-//        label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal) //더 넓어지게
         return label
     }()
     
@@ -58,7 +53,6 @@ class IncomeAndLocationView: UIView {
         label.text = "여성"
         label.font = .systemFont(ofSize: 18)
         label.textColor = .darkGray
-//        label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal) //더 넓어지게
         return label
     }()
 
@@ -68,7 +62,6 @@ class IncomeAndLocationView: UIView {
         let button = UIButton()
         button.setBackgroundImage(UIImage(systemName: "checkmark.circle"), for: .normal)
         button.setBackgroundImage(UIImage(systemName: "checkmark.circle.fill"), for: .selected)
-//        button.setContentHuggingPriority(.defaultHigh, for: .horizontal) //자신의 크기 유지
         button.tag = GenderTags.none.rawValue
         return button
     }()
@@ -77,7 +70,6 @@ class IncomeAndLocationView: UIView {
         label.text = "선택안함"
         label.font = .systemFont(ofSize: 18)
         label.textColor = .darkGray
-//        label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal) //더 넓어지게
         return label
     }()
 
@@ -93,7 +85,6 @@ class IncomeAndLocationView: UIView {
         textField.layer.borderWidth = 2
         textField.layer.borderColor = UIColor.systemGray5.cgColor
         textField.layer.cornerRadius = 8
-        textField.clearButtonMode = .always
         textField.tintColor = .clear
         textField.addLeftPadding()
         textField.tag = 1
@@ -112,7 +103,6 @@ class IncomeAndLocationView: UIView {
         textField.layer.borderWidth = 2
         textField.layer.borderColor = UIColor.systemGray5.cgColor
         textField.layer.cornerRadius = 8
-        textField.clearButtonMode = .always
         textField.tintColor = .clear
         textField.addLeftPadding()
         textField.tag = 2
@@ -197,11 +187,7 @@ class IncomeAndLocationView: UIView {
     }
     
     private func setupLayout() {
-//        titleLabel.snp.makeConstraints {
-//            $0.top.equalTo(safeAreaLayoutGuide).inset(24)
-//            $0.leading.equalTo(safeAreaLayoutGuide).inset(30)
-//        }
-        
+   
         genderTitleLabel.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide).inset(30)
             $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)

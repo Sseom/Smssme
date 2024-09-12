@@ -38,7 +38,10 @@ class IncomeAndLocationVC: UIViewController {
         super.viewDidLoad()
         
         view = incomeAndLocationView
-        self.navigationItem.title = "회원가입-소득 및 지역"
+        self.navigationItem.title = "회원가입(4/4)"
+        
+        incomeAndLocationView.nextButton.backgroundColor = .systemBlue
+        incomeAndLocationView.nextButton.isEnabled = true
         
         incomePickerView.tag = 1
         locationPickerView.tag = 2
@@ -74,37 +77,36 @@ class IncomeAndLocationVC: UIViewController {
     //MARK: - @objc
     @objc func nextButtonTapped() {
         
-        guard let email = emailView.emailTextField.text,
-              let password = passwordView.passwordTextField.text,
-              let nickname = nicknameView.nicknameTextField.text,
-              let birth = nicknameView.birthdayTextField.text,
-              let gender = incomeAndLocationView.genderTitleLabel.text, // 수정해야함
-              let income = incomeAndLocationView.incomeTextField.text,
-              let location = incomeAndLocationView.locationTextField.text else {
-            return
-        }
+//        guard let email = emailView.emailTextField.text,
+//              let password = passwordView.passwordTextField.text,
+//              let nickname = nicknameView.nicknameTextField.text,
+//              let birth = nicknameView.birthdayTextField.text,
+//              let gender = incomeAndLocationView.genderTitleLabel.text, // 수정해야함
+//              let income = incomeAndLocationView.incomeTextField.text,
+//              let location = incomeAndLocationView.locationTextField.text else {
+//            return
+//        }
+//        
+//        let userData = UserData(email: email, password: password, nickname: nickname, birth: birth, gender: gender, income: income, location: location)
+//
+//        
+//        FirebaseManager.shared.registerUser(email: email, password: password) { result in
+//            switch result {
+//            case .success(let uid):
+//                FirebaseManager.shared.saveUserData(uid: uid, userData: userData) { saveResult in
+//                    switch saveResult {
+//                    case .success:
+//                        print("User data saved successfully")
+//                    case .failure(let error):
+//                        print("Error saving user data: \(error.localizedDescription)")
+//                    }
+//                }
+//            case .failure(let error):
+//                print("Error during signup: \(error.localizedDescription)")
+//            }
+//        }
         
-        let userData = UserData(email: email, password: password, nickname: nickname, birth: birth, gender: gender, income: income, location: location)
-
-        
-        FirebaseManager.shared.registerUser(email: email, password: password) { result in
-            switch result {
-            case .success(let uid):
-                FirebaseManager.shared.saveUserData(uid: uid, userData: userData) { saveResult in
-                    switch saveResult {
-                    case .success:
-                        print("User data saved successfully")
-                    case .failure(let error):
-                        print("Error saving user data: \(error.localizedDescription)")
-                    }
-                }
-            case .failure(let error):
-                print("Error during signup: \(error.localizedDescription)")
-            }
-        }
-        
-        let loginVC = LoginVC()
-        navigationController?.pushViewController(loginVC, animated: true)
+        SplashViewController().showLoginVC()
     }
     
     // 피커뷰 "완료" 클릭 시 데이터를 textfield에 입력 후 입력창 내리기
@@ -136,26 +138,23 @@ class IncomeAndLocationVC: UIViewController {
     // 모든 내용 입력돼야 버튼 활성화
     @objc private func textFieldEditingChanged(_ textField: UITextField,_ checkBox: UIButton) {
         
-        // 공백 입력 방지 -> 중간에 입력할 시에는 적용되는 문제 있음
-        if textField.text?.count == 1 {
-            if textField.text?.first == " " {
-                textField.text = ""
-                return
-            }
-        }
-        guard
-            //            let gender = incomeAndLocationView.maleCheckBox.isSelected ? "male" : incomeAndLocationView.femaleCheckBox.isSelected ? "female" : incomeAndLocationView.noneCheckBox.isSelected ? "none" : nil ,
-            let income = incomeAndLocationView.incomeTextField.text,
-            let location = incomeAndLocationView.locationTextField.text
-        else { return }
-        
-        if !income.isEmpty && !income.isEmpty {
-            incomeAndLocationView.nextButton.backgroundColor = .systemBlue
-            incomeAndLocationView.nextButton.isEnabled = true
-        } else {
+//        guard
+//            //            let gender = incomeAndLocationView.maleCheckBox.isSelected ? "male" : incomeAndLocationView.femaleCheckBox.isSelected ? "female" : incomeAndLocationView.noneCheckBox.isSelected ? "none" : nil ,
+//            let income = incomeAndLocationView.incomeTextField.text,
+//            let location = incomeAndLocationView.locationTextField.text
+//        else { return }
+//        
+//        if !income.isEmpty && !income.isEmpty {
+//            incomeAndLocationView.nextButton.backgroundColor = .systemBlue
+//            incomeAndLocationView.nextButton.isEnabled = true
+//        } else {
             incomeAndLocationView.nextButton.backgroundColor = .systemGray5
             incomeAndLocationView.nextButton.isEnabled = false
-        }
+        
+        
+//        }
+        
+//        }
         
     }
     

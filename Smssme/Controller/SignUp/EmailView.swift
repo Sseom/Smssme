@@ -32,7 +32,7 @@ class EmailView: UIView {
     
     let emailErrorLabel: UILabel = {
         let label = UILabel()
-        label.text = "유효하지 않은 이메일 주소입니다."
+        label.text = ""
         label.textColor = .red
         label.font = .systemFont(ofSize: 16)
         label.isHidden = false // 기본적으로 숨김 처리

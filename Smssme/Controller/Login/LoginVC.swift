@@ -114,11 +114,13 @@ class LoginVC: UIViewController {
     
     //MARK: - @objc 회원가입
     @objc private func signupButtonTapped() {
-        print(#function)
         let emailVC = EmailVC()
-        
-        navigationController?.pushViewController(emailVC, animated: true)
-
+        let navController = UINavigationController(rootViewController: emailVC)
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let window = windowScene.windows.first else { return }
+ 
+        window.rootViewController = navController
+        window.makeKeyAndVisible()
     }
     
     
