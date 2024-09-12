@@ -39,7 +39,7 @@ class FinancialPlanConfirmVC: UIViewController, FinancialPlanEditDelegate {
         view.backgroundColor = .white
         configure(with: financialPlan)
         repository.printAllFinancialPlans()
-        setupActions()
+        setupButtonActions()
     }
     
     override func loadView() {
@@ -74,7 +74,7 @@ class FinancialPlanConfirmVC: UIViewController, FinancialPlanEditDelegate {
 
 // MARK: - 버튼 액션 관련
 extension FinancialPlanConfirmVC {
-    private func setupActions() {
+    private func setupButtonActions() {
         confirmView.editButton.addAction(UIAction(handler: { [weak self] _ in
             self?.editButtonTapped()
         }), for: .touchUpInside)
@@ -121,7 +121,7 @@ extension FinancialPlanConfirmVC {
     private func navigateToSelectionVC() {
         let tabBar = TabBarController()
         
-        tabBar.selectedIndex = 3
+        tabBar.selectedIndex = 2
         
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
            let window = windowScene.windows.first {

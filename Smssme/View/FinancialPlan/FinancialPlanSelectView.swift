@@ -40,7 +40,7 @@ final class FinancialPlanSelectionView: UIView {
         collectionView.snp.makeConstraints {
             $0.top.equalTo(FinancialPlanLargeTitle.snp.bottom).offset(10)
             $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-16)
+            $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
         }
     }
     
@@ -49,7 +49,7 @@ final class FinancialPlanSelectionView: UIView {
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 16
         layout.minimumInteritemSpacing = 16
-        layout.sectionInset = UIEdgeInsets(top: 16, left: 24, bottom: 16, right: 24)
+        layout.sectionInset = UIEdgeInsets(top: 16, left: 24, bottom: 0, right: 24)
         
         let totalSpacing = layout.minimumInteritemSpacing + layout.sectionInset.left + layout.sectionInset.right
         let itemWidth = (UIScreen.main.bounds.width - totalSpacing) / 2

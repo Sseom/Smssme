@@ -27,20 +27,25 @@ class MainPageVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupWelcomeTitle()
         view.backgroundColor = .white
     }
     
     override func loadView() {
         super.loadView()
         self.view = mainPageView
-        mainPageView.chartCenterButton.addTarget(self, action: #selector(editViewPush), for: .touchUpInside)
+        setupCenterButtonEvent()
+        setChartData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        setupWelcomeTitle()
-        setChartData()
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
+    private func setupCenterButtonEvent() {
+        mainPageView.chartCenterButton.addTarget(self, action: #selector(editViewPush), for: .touchUpInside)
     }
     
     private func setupWelcomeTitle() {
@@ -65,27 +70,55 @@ class MainPageVC: UIViewController {
     
     private func setChart() {
         mainPageView.pieChartView.delegate = self
-        let dataSet = PieChartDataSet(entries: dataEntries, label: "")
-        
-        dataSet.colors = dataEntries.map { _ in
-            return UIColor(red: CGFloat.random(in: 0.5...1),
-                           green: CGFloat.random(in: 0.5...1),
-                           blue: CGFloat.random(in: 0.5...1),
-                           alpha: 1.0)
-        }
-        dataSet.valueColors = dataSet.colors.map { _ in
-            return .darkGray
+        var dataSet: PieChartDataSet
+        if dataEntries.count != 0 {
+            dataSet = PieChartDataSet(entries: dataEntries, label: "")
+            dataSet.valueFormatter = PercentageValueFormatter()
+            dataSet.colors = dataEntries.map { _ in
+                return UIColor(red: CGFloat.random(in: 0.5...1),
+                               green: CGFloat.random(in: 0.5...1),
+                               blue: CGFloat.random(in: 0.5...1),
+                               alpha: 1.0)
+            }
+            dataSet.valueColors = dataSet.colors.map { _ in
+                return .darkGray
+            }
+            mainPageView.chartCenterButton.setTitle("자산추가", for: .normal)
+            mainPageView.pieChartView.alpha = 1.0
+        } else {
+            // 데이터 없을시 더미데이터
+            let dataEntries = [
+                PieChartDataEntry(value: 40, label: "자동차"),
+                PieChartDataEntry(value: 30, label: "부동산"),
+                PieChartDataEntry(value: 20, label: "현금"),
+                PieChartDataEntry(value: 10, label: "주식")
+            ]
+            
+            dataSet = PieChartDataSet(entries: dataEntries, label: "")
+            dataSet.valueFormatter = PercentageValueFormatter()
+            dataSet.colors = [
+                    UIColor.lightGray,
+                    UIColor.darkGray,
+                    UIColor.gray,
+                    UIColor.black
+                ]
+            dataSet.valueColors = dataSet.colors.map { _ in
+                return .white
+            }
+            mainPageView.chartCenterButton.setTitle("등록된 자산이 없습니다.\n자산을 등록해 주세요", for: .normal)
+            mainPageView.pieChartView.alpha = 0.5
         }
         let data = PieChartData(dataSet: dataSet)
         mainPageView.pieChartView.data = data
     }
     
     func setChartData() {
-        var totalAmount: Double = 0
+        let assestsList: [Assets] = assetsCoreDataManager.selectAllAssets()
         
-        dataEntries = assetsCoreDataManager.selectAllAssets().map {
-            totalAmount += Double($0.amount)
-            return PieChartDataEntry(value: Double($0.amount), label: "\($0.title ?? "")")
+        let totalAmount = assestsList.reduce(0) { $0 + $1.amount }
+        
+        dataEntries = assestsList.map {
+            return PieChartDataEntry(value: ((Double($0.amount) / Double(totalAmount)) * 100), label: "\($0.title ?? "")")
         }
         
         uuids = assetsCoreDataManager.selectAllAssets().map {
