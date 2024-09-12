@@ -83,10 +83,6 @@ class MainPageVC: UIViewController {
     }
     
     func setChartData() {
-        //        assetsCoreDataManager.selectAllAssets().forEach {
-        //            dataEntries.append(PieChartDataEntry(value: Double($0.amount), label: "\($0.title ?? "")"))
-        //            uuids.append($0.key)
-        //        }
         var totalAmount: Double = 0
         
         dataEntries = assetsCoreDataManager.selectAllAssets().map {
@@ -108,15 +104,6 @@ class MainPageVC: UIViewController {
 }
 
 extension MainPageVC: ChartViewDelegate {
-    //    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-    //        if let lastIndex = lastSelectedIndex, lastIndex == Int(highlight.x) {
-    //            mainPageView.pieChartView.highlightValues(nil)
-    //            lastSelectedIndex = nil
-    //        } else {
-    //            lastSelectedIndex = Int(highlight.x)
-    //        }
-    //    }
-    
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         if entry is PieChartDataEntry {
             mainPageView.pieChartView.highlightValues(nil)

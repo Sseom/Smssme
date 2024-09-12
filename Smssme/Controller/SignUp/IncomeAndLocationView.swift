@@ -17,10 +17,10 @@ enum GenderTags: Int {
 class IncomeAndLocationView: UIView {
     
     private let commonHeight = 50
-    
-    //상단 제목 라벨
-    private var titleLabel = LargeTitleLabel().createLabel(with: "성별/ 소득 / 지역", color: UIColor.black)
-    
+//    
+//    //상단 제목 라벨
+//    private var titleLabel = LargeTitleLabel().createLabel(with: "성별/ 소득 / 지역", color: UIColor.black)
+//    
     
     //MARK: - 성별 선택
     let genderTitleLabel = SmallTitleLabel().createLabel(with: "성별", color: .black)
@@ -29,8 +29,8 @@ class IncomeAndLocationView: UIView {
     var maleCheckBox: UIButton = {
         let button = UIButton()
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 24, weight: .semibold, scale: .large)
-        button.setBackgroundImage(UIImage(systemName: "square"), for: .normal)
-        button.setBackgroundImage(UIImage(systemName: "checkmark.square.fill"), for: .selected)
+        button.setBackgroundImage(UIImage(systemName: "checkmark.circle"), for: .normal)
+        button.setBackgroundImage(UIImage(systemName: "checkmark.circle.fill"), for: .selected)
         button.setContentHuggingPriority(.defaultHigh, for: .horizontal) //자신의 크기 유지
         button.tag = GenderTags.male.rawValue
         return button
@@ -47,8 +47,8 @@ class IncomeAndLocationView: UIView {
     // 여성 체크박스
     var femaleCheckBox: UIButton = {
         let button = UIButton()
-        button.setBackgroundImage(UIImage(systemName: "square"), for: .normal)
-        button.setBackgroundImage(UIImage(systemName: "checkmark.square.fill"), for: .selected)
+        button.setBackgroundImage(UIImage(systemName: "checkmark.circle"), for: .normal)
+        button.setBackgroundImage(UIImage(systemName: "checkmark.circle.fill"), for: .selected)
 //        button.setContentHuggingPriority(.defaultHigh, for: .horizontal) //자신의 크기 유지
         button.tag = GenderTags.female.rawValue
         return button
@@ -66,8 +66,8 @@ class IncomeAndLocationView: UIView {
     // 선택안함 체크박스
     var noneCheckBox: UIButton = {
         let button = UIButton()
-        button.setBackgroundImage(UIImage(systemName: "square"), for: .normal)
-        button.setBackgroundImage(UIImage(systemName: "checkmark.square.fill"), for: .selected)
+        button.setBackgroundImage(UIImage(systemName: "checkmark.circle"), for: .normal)
+        button.setBackgroundImage(UIImage(systemName: "checkmark.circle.fill"), for: .selected)
 //        button.setContentHuggingPriority(.defaultHigh, for: .horizontal) //자신의 크기 유지
         button.tag = GenderTags.none.rawValue
         return button
@@ -102,11 +102,11 @@ class IncomeAndLocationView: UIView {
     
     
     //MARK: - 지역 선택
-    private let locationTitleLabel = SmallTitleLabel().createLabel(with: "소득 구간", color: .black)
+    private let locationTitleLabel = SmallTitleLabel().createLabel(with: "지역", color: .black)
     
     var locationTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "지역"
+        textField.placeholder = "지역을 선택하세요."
         textField.textColor = .black
         textField.backgroundColor = .clear
         textField.layer.borderWidth = 2
@@ -119,11 +119,19 @@ class IncomeAndLocationView: UIView {
         return textField
     }()
     
+    let agreementLabel: UILabel = {
+        let label = UILabel()
+        label.text = "회원가입 버튼을 누르면, 개인정보취급방침 및\n이용약관을 읽고 동의 한 것으로 간주합니다."
+        label.numberOfLines = 0
+        label.font = .systemFont(ofSize: 14)
+        label.textAlignment = .center
+        return label
+    }()
     
     //MARK: - 다음 버튼
     var nextButton: UIButton = {
         let button = UIButton()
-        button.setTitle("다음", for: .normal)
+        button.setTitle("회원 가입", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .systemGray5
         button.titleLabel?.font = .systemFont(ofSize: 16)
@@ -156,7 +164,7 @@ class IncomeAndLocationView: UIView {
         
         self.addGestureRecognizer(recognizer)
         
-        [titleLabel,
+        [ //titleLabel,
          genderTitleLabel,
          maleCheckBox,
          maleCheckBoxLabel,
@@ -168,6 +176,7 @@ class IncomeAndLocationView: UIView {
          incomeTextField,
          locationTitleLabel,
          locationTextField,
+         agreementLabel,
          nextButton].forEach {self.addSubview($0)}
     }
 
@@ -188,13 +197,13 @@ class IncomeAndLocationView: UIView {
     }
     
     private func setupLayout() {
-        titleLabel.snp.makeConstraints {
-            $0.top.equalTo(safeAreaLayoutGuide).inset(24)
-            $0.leading.equalTo(safeAreaLayoutGuide).inset(30)
-        }
+//        titleLabel.snp.makeConstraints {
+//            $0.top.equalTo(safeAreaLayoutGuide).inset(24)
+//            $0.leading.equalTo(safeAreaLayoutGuide).inset(30)
+//        }
         
         genderTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(30)
+            $0.top.equalTo(safeAreaLayoutGuide).inset(30)
             $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
         }
         
@@ -254,9 +263,13 @@ class IncomeAndLocationView: UIView {
             $0.height.equalTo(commonHeight)
         }
         
+        agreementLabel.snp.makeConstraints {
+            $0.top.equalTo(locationTextField.snp.bottom).offset(25)
+            $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
+        }
         nextButton.snp.makeConstraints {
             $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
-            $0.bottom.equalTo(safeAreaLayoutGuide).inset(10)
+            $0.bottom.equalTo(safeAreaLayoutGuide).inset(240)
             $0.height.equalTo(commonHeight)
         }
     }

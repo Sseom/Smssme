@@ -2,24 +2,49 @@
 //  FirebaseManager.swift
 //  Smssme
 //
-//  Created by ahnzihyeon on 9/2/24.
+//  Created by ahnzihyeon on 9/11/24.
 //
 
-import Firebase
+import FirebaseAuth
+import FirebaseFirestore
 
-/// Firebase의 공통적인 초기화 및 공통 기능을 관리합니다.
-/// Firebase와 관련된 초기화 작업을 하며, 다른 Firebase 기능 클래스들을 호출할 수 있는 역할을 합니다.
-final class FirebaseManager {
-    static let shared = FirebaseManager()
-
+class FirebaseManager {
+    static let shared = FirebaseManager()  // 싱글톤
+    
+    let auth: Auth
+    let db: Firestore
     
     private init() {
-        FirebaseApp.configure()
+        self.auth = Auth.auth()
+        self.db = Firestore.firestore()
     }
-
-    func configureFirebase() {
-        // Firebase 초기화 및 공통 설정을 여기에 추가
-        FirebaseApp.configure()
+    
+    // 회원가입 처리 함수
+    func registerUser(email: String, password: String, completion: @escaping (Result<String, Error>) -> Void) {
+        auth.createUser(withEmail: email, password: password) { authResult, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let uid = authResult?.user.uid else {
+                let error = NSError(domain: "Firebase", code: -1, userInfo: [NSLocalizedDescriptionKey: "UID 생성 실패"])
+                completion(.failure(error))
+                return
+            }
+            
+            completion(.success(uid))
+        }
+    }
+    
+    // 사용자 데이터 저장
+    func saveUserData(uid: String, userData: UserData, completion: @escaping (Result<Void, Error>) -> Void) {
+        db.collection("users").document(uid).setData(userData.toDictionary()) { error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(()))
+            }
+        }
     }
 }
-

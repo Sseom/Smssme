@@ -23,20 +23,26 @@ class MoneyDiaryView: UIView {
     let previousButton = {
         let button = UIButton()
         button.tintColor = .label
-        button.setImage(UIImage(systemName: "arrowshape.left"), for: .normal)
+        button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+        button.backgroundColor = .lightGray
+        button.layer.cornerRadius = 15
         return button
     }()
     
     let nextButton = {
         let button = UIButton()
         button.tintColor = .label
-        button.setImage(UIImage(systemName: "arrowshape.right"), for: .normal)
+        button.setImage(UIImage(systemName: "chevron.right"), for: .normal)
+        button.backgroundColor = .lightGray
+        button.layer.cornerRadius = 15
         return button
     }()
 
     let segmentController = {
         let segmentController = UISegmentedControl(items: ["캘린더", "소비내역 차트"])
         segmentController.selectedSegmentIndex = 0
+        segmentController.backgroundColor = .lightGray
+        segmentController.selectedSegmentTintColor = .gray
         return segmentController
     }()
 
@@ -57,6 +63,7 @@ class MoneyDiaryView: UIView {
         configureUI()
         configureWeekLabel()
         dateButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 22)
+        self.backgroundColor = .white
         
     }
     
@@ -115,27 +122,27 @@ class MoneyDiaryView: UIView {
         self.previousButton.snp.makeConstraints {
             $0.trailing.equalTo(self.dateButton.snp.leading).offset(-10)
             $0.centerY.equalTo(self.dateButton)
-            $0.width.equalTo(30)
+            $0.width.height.equalTo(30)
             
         }
         self.nextButton.snp.makeConstraints {
             $0.leading.equalTo(self.dateButton.snp.trailing).offset(10)
             $0.centerY.equalTo(self.dateButton)
-            $0.width.equalTo(30)
+            $0.width.height.equalTo(30)
             
         }
         self.todayButton.snp.makeConstraints {
             $0.trailing.equalTo(previousButton.snp.leading).offset(-20)
-            $0.top.equalTo(nextButton.snp.top)
-            $0.height.equalTo(nextButton.snp.height)
+            $0.centerY.equalTo(self.dateButton)
+            $0.height.equalTo(nextButton.snp.height).offset(5)
             $0.width.equalTo(50)
         }
 
         self.moveBudgetButton.snp.makeConstraints {
 
             $0.leading.equalTo(nextButton.snp.trailing).offset(10)
-            $0.top.equalTo(nextButton.snp.top)
-            $0.height.equalTo(nextButton.snp.height)
+            $0.centerY.equalTo(self.dateButton)
+            $0.height.equalTo(nextButton.snp.height).offset(5)
             $0.width.equalTo(65)
         }
         self.segmentController.snp.makeConstraints {

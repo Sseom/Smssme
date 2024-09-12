@@ -32,7 +32,7 @@ class SplashViewController: UIViewController {
     
     private func checkLoginStatus() {
         if let user  = Auth.auth().currentUser {
-            print("로그인된 사용자입니다. 사용자는 \(user.uid ?? "알 수 없는 이메일입니다.")")
+            print("로그인된 사용자입니다. 사용자는 \(user.uid)")
             showMainVC()
         } else {
             print("로그인되지 않은 사용자입니다.")
@@ -56,11 +56,10 @@ class SplashViewController: UIViewController {
     
     func showLoginVC() {
         let loginVC = LoginVC()
-        let navController = UINavigationController(rootViewController: loginVC)
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let window = windowScene.windows.first else { return }
         
-        window.rootViewController = navController // UINavigationController를 rootViewController로 설정
+        window.rootViewController = loginVC
         UIView.transition(with: window,
                           duration: 0.5,
                           options: [.transitionCrossDissolve],

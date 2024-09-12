@@ -9,15 +9,15 @@ import FirebaseFirestore
 import FirebaseAuth
 
 
-// 모델로 추후 뺄 예정
-struct UserProfile {
-    let email: String
-    let nickName: String
-    let birthday: String
-    let gender: String
-    let income: String
-    let location: String
-}
+//// 모델로 추후 뺄 예정
+//struct UserProfile {
+//    let email: String
+//    let nickName: String
+//    let birthday: String
+//    let gender: String
+//    let income: String
+//    let location: String
+//}
 
 
 /// Firestore 데이터베이스와 관련된 CRUD(생성, 읽기, 업데이트, 삭제) 작업을 관리합니다.

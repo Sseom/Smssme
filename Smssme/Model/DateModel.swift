@@ -11,12 +11,12 @@ import DGCharts
 struct CalendarItem {
     var date: Date
     let isSat: Bool
-    let isHol: Bool
+    let isThisMonth: Bool
     
-    init(date: Date = Date(), isSat: Bool = false, isHol: Bool = false) {
+    init(date: Date = Date(), isSat: Bool = false, isThisMonth: Bool = true) {
         self.date = date
         self.isSat = isSat
-        self.isHol = isHol
+        self.isThisMonth = isThisMonth
     }
 }
 

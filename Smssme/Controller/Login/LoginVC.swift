@@ -22,6 +22,10 @@ class LoginVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(hex: "#3756f4")
+        
+        loginVeiw.emailTextField.delegate = self
+        loginVeiw.passwordTextField.delegate = self
+        
         setupAddtarget()
         
     }
@@ -32,8 +36,6 @@ class LoginVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         // [START auth_listener]
         handle = Auth.auth().addStateDidChangeListener { auth, user in
-
-//                      self.setTitleDisplay(user)
         }
     }
     
@@ -109,23 +111,14 @@ class LoginVC: UIViewController {
                                 completion: nil)
     }
     
-    //MARK: - 자동로그인/ 아이디저장 체크박스
-    @objc func checkBoxTapped(_ checkBox: UIButton) {
-        checkBox.isSelected.toggle() // 선택 상태를 반전시킴
-        // 선택 상태에 따라 동작 추가 가능
-        if checkBox.isSelected {
-            print("tag \(checkBox.tag) 체크박스 선택됨")
-        } else {
-            print("tag \(checkBox.tag) 체크박스 선택 해제됨")
-        }
-    }
-    
     
     //MARK: - @objc 회원가입
     @objc private func signupButtonTapped() {
         print(#function)
         let emailVC = EmailVC()
+        
         navigationController?.pushViewController(emailVC, animated: true)
+
     }
     
     
@@ -147,3 +140,15 @@ class LoginVC: UIViewController {
     
 }    
 
+
+extension LoginVC: UITextFieldDelegate {
+    // 엔터 누르면 포커스 이동 후 키보드 내림
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField ==  loginVeiw.emailTextField {
+            loginVeiw.passwordTextField.becomeFirstResponder()
+        } else if textField ==  loginVeiw.passwordTextField {
+            loginVeiw.passwordTextField.resignFirstResponder()
+        }
+        return true
+    }
+}

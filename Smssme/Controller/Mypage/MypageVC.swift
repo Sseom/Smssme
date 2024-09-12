@@ -17,6 +17,7 @@ class MypageVC: UIViewController {
     private let mypageView = MypageView()
     private let mypageViewCell = MypageViewCell()
     
+    var isLoggedIn: Bool = false
     let db = Firestore.firestore()
     
     
@@ -49,9 +50,53 @@ class MypageVC: UIViewController {
         
     }
     
-        override func viewWillAppear(_ animated: Bool) {
-            self.checkLoginStatus()
+    override func viewWillAppear(_ animated: Bool) {
+        self.checkLoginStatus()
+        
+        // 로그인 상태에 따른 테이블뷰 표시 여부
+        if isLoggedIn {
+            mypageView.tableView.isHidden = false
+        } else {
+            mypageView.tableView.isHidden = true
+            addLoginButton()
         }
+    }
+    
+    
+    // 로그인 버튼 추가
+    private func addLoginButton() {
+        let label = UILabel()
+        label.text = "로그인 후 이용 가능해요."
+        label.textColor = .lightGray
+        
+        let loginButton = UIButton(type: .system)
+        loginButton.setTitle("로그인 하러 가기", for: .normal)
+        loginButton.titleLabel?.font = .boldSystemFont(ofSize: 18)
+        loginButton.tintColor = .black
+        loginButton.layer.borderColor = UIColor.systemGray5.cgColor
+        loginButton.layer.borderWidth = 1
+        loginButton.layer.cornerRadius = 10
+        loginButton.addTarget(self, action: #selector(handleLoginButton), for: .touchUpInside)
+        
+        [label, loginButton].forEach { view.addSubview($0)}
+        
+        label.snp.makeConstraints {
+            $0.center.equalToSuperview()
+        }
+        
+        loginButton.snp.makeConstraints {
+            $0.top.equalTo(label.snp.bottom).offset(16)
+            $0.width.equalTo(200)
+            $0.height.equalTo(50)
+            $0.centerX.equalToSuperview()
+        }
+    }
+
+    // 로그인 버튼 클릭 시 로그인 화면으로 이동
+    @objc private func handleLoginButton() {
+        let loginVC = LoginVC() // 로그인 화면으로 이동하는 코드
+        navigationController?.pushViewController(loginVC, animated: true)
+    }
     
     //MARK: - 테이블뷰 관련 메서드
     func tableviewSetup() {
@@ -139,20 +184,21 @@ class MypageVC: UIViewController {
         self.present(safariVC, animated: true, completion: nil)
     }
     
-    // TODO: 파베에서 현재 사용자를 가져올 때 권장하는 방법은 다음과 같이 Auth 객체에 리스너를 설정 해볼 것.
     
     // 현재 로그인한 사용자 아이디(이메일 정보)
     private func checkLoginStatus() {
         if let user  = Auth.auth().currentUser {
             // 로그인 상태라면
             print("사용자 uid: \(user.uid)")
+            isLoggedIn = true
             loadUserData(uid: user.uid)
             
         } else {
             // 비로그인 상태라면
+            isLoggedIn = false
+            
             print("로그인 없이 둘러보기 상태입니다.")
             self.tableViewHeaderSetUp(nickname: "로그인해주세요. ", email: "슴씀이의 더 많은 정보를 이용하러 가기!")
-            //            self.mypageView.tableView.reloadData()
         }
     }
     
@@ -173,28 +219,7 @@ class MypageVC: UIViewController {
             let nickname = data["nickname"] as? String ?? "닉네임을 설정해주세요"
             let email = Auth.auth().currentUser?.email ?? "이메일을 설정해주세요"
             self.tableViewHeaderSetUp(nickname: nickname, email: email)
-            
-            //            self.mypageView.tableView.reloadData()
         }
-    }
-    
-    //MARK: - 파이어베이스 비밀번호 찾기 이메일 발송
-    fileprivate func sendPasswordReset() {
-//        guard let email = emailTf.text else { return }
-//        
-//        Auth.auth().sendPasswordReset(withEmail: email) { [self] error in
-//            guard let error = error else {
-//                print("메세지 보내기 성공")
-//                return
-//            }
-//            let nsError : NSError = error as NSError
-//            switch nsError.code {
-//            case 17011:
-//                print("존재하지 않는 이메일 입니다")
-//            default:
-//                break
-//            }
-//        }
     }
     
     //MARK: - @objc 테이블뷰의 헤더 클릭 이벤트
@@ -214,7 +239,6 @@ class MypageVC: UIViewController {
                 
                 showSnycAlert(message: "로그아웃되었습니다.", AlertTitle: "로그아웃", buttonClickTitle: "확인", method: switchToLoginVC)
             } else {
-                //TODO: 비회원으로 로그인으로 로그아웃버튼 클릭 시 얼럿 띄우고, 하단에 로그인 창으로 가기 버튼 띄울 예정
                 switchToLoginVC()
             }
         } catch let error {
@@ -226,7 +250,7 @@ class MypageVC: UIViewController {
     @objc func deleteUserButtonTapped() {
         if let user = Auth.auth().currentUser {
             user.delete { [weak self] error in
-                guard let self = self else { return } // self가 해제되었는지 확인
+                guard let self = self else { return }
                 if let error = error {
                     self.showAlert(message: "\(error)", AlertTitle: "오류 발생", buttonClickTitle: "확인 ")
                 } else {
@@ -257,19 +281,19 @@ extension MypageVC: UITableViewDelegate {
         } else {
             switch (indexPath.section, indexPath.row) {
             case (0, 0):
-                print("회원정보 수정 페이지로 이동하세요")
+                print("회원정보 수정 페이지로 이동")
                 let signUpVC = SignUpVC()
                 navigationController?.pushViewController(signUpVC, animated: true)
             case (1, 0):
-                print("알림 받을건지 말건지 설정하세요")
+                print("알림 설정")
             case (2, 0):
-                print("개인정보처리방침으로 이동하세요")
+                print("개인정보처리방침으로 이동")
                 privacyPolicyUrl()
             case (3, 0):
-                print("로그아웃 셀 클릭했습니다.")
+                print("로그아웃 클릭")
                 logOutButtonTapped()
             case (3, 1):
-                print("회원탈퇴 셀 클릭했습니다.")
+                print("회원탈퇴 클릭")
                 deleteUserButtonTapped()
             default:
                 break
@@ -301,7 +325,7 @@ extension MypageVC: UITableViewDelegate {
             
             topSpacingView.snp.makeConstraints {
                 $0.top.leading.trailing.equalToSuperview()
-                $0.height.equalTo(20) // 원하는 간격 크기
+                $0.height.equalTo(20)
             }
         }
         
@@ -361,7 +385,7 @@ extension MypageVC: UITableViewDataSource {
     
     // 각 섹션에 몇 개의 행이 있을지를 반환
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        data[section].count
+        return data[section].count
     }
     
     // 특정 섹션의 특정 행에 표시될 셀을 구성하고 반환
@@ -380,11 +404,9 @@ extension MypageVC: UITableViewDataSource {
         // "알림 설정" 셀에만 UISwitch 추가
         if indexPath.section == 1 && indexPath.row == 0 {
             let toggleSwitch = UISwitch()
-            toggleSwitch.isOn = true // 기본적으로 스위치가 켜진 상태로 설정
-            //            toggleSwitch.addTarget(self, action: #selector(didChangeSwitch(_:)), for: .valueChanged)
+            toggleSwitch.isOn = true
             cell.accessoryView = toggleSwitch
         }
-        
         return cell
     }
     

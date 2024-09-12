@@ -41,9 +41,6 @@ class MoneyDiaryEditView: UIView {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fill
-        //        stackView.backgroundColor = .darkGray
-        //        stackView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 50, right: 10)
-        //        stackView.isLayoutMarginsRelativeArrangement = true
         return stackView
     }()
     

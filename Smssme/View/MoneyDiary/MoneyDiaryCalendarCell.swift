@@ -9,12 +9,12 @@ import UIKit
 import SnapKit
 
 final class CalendarCollectionViewCell: UICollectionViewCell, CellReusable {
-
+    
     let dayLabel = SmallTitleLabel().createLabel(with: "", color: .black)
     let incomeLabel = SmallTitleLabel().createLabel(with: "", color: .blue)
     let expenseLabel = SmallTitleLabel().createLabel(with: "", color: .red)
     var currentDate: Date?
-   private let totalAmountLabel = SmallTitleLabel().createLabel(with: "", color: .black)
+    private let totalAmountLabel = SmallTitleLabel().createLabel(with: "", color: .black)
     private lazy var moneyStackView = {
         let stackView = UIStackView(arrangedSubviews: [self.incomeLabel, self.expenseLabel, self.totalAmountLabel])
         stackView.axis = .vertical
@@ -28,6 +28,7 @@ final class CalendarCollectionViewCell: UICollectionViewCell, CellReusable {
         super.init(frame: frame)
         setupCellUI()
         setupAutoLayout()
+        self.backgroundColor = .white
         
     }
     
@@ -43,39 +44,21 @@ final class CalendarCollectionViewCell: UICollectionViewCell, CellReusable {
     
     func updateDate(item: CalendarItem) {
         currentDate = item.date
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd"
         
-        let today = DateManager.shared.transformDateWithoutTime(date: Date())
+        isThisMonth(today: item)
         
-        if item.date == today {
-            self.layer.borderColor = UIColor.red.cgColor
-            self.layer.borderWidth = 0.5
-        }
-        else {
-            self.layer.borderColor = UIColor.gray.cgColor
-            self.layer.borderWidth = 0.2
-        }
-        
-        let dayString = dateFormatter.string(from: item.date)
-        
-        if dayString == "01" {
-            dateFormatter.dateFormat = "MM.dd"
-            let dayStringWithMonth = dateFormatter.string(from: item.date)
-            dayLabel.text = dayStringWithMonth
-        }
-        else {
-            dayLabel.text = dayString
-        }
+        //당일날테두리 변경
+        isToday(currentDay: item.date)
+        dateStringFormatter(date: item.date)
         
         
-        let weekday = DateManager.shared.getWeekdayNum(month: item.date)
         
-        switch weekday {
-        case 1: self.dayLabel.textColor = .red
-        case 7: self.dayLabel.textColor = .blue
-        default: self.dayLabel.textColor = .black
-        }
+        
+        
+        dayLabel.text = dateStringFormatter(date: item.date)
+        
+        
+        
         guard let temp = DiaryCoreDataManager.shared.fetchDiaries(on: item.date)
         else { return }
         var income = 0
@@ -95,7 +78,68 @@ final class CalendarCollectionViewCell: UICollectionViewCell, CellReusable {
         self.incomeLabel.text = income == 0 ? "" : "\(income)"
         self.totalAmountLabel.text = totalAmount == 0 ? "" : "\(totalAmount)"
     }
+    private func dateStringFormatter(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd"
+        let temp = dateFormatter.string(from: date)
+        let dayString = matchPattern(today: temp)
+        
+        if dayString == "1" {
+            let month = String(Calendar.current.component(.month, from: date))
+            let monthString = matchPattern(today: month)
+            return "\(month).\(dayString)"
+        } else {
+            return dayString
+        }
+    }
+    
+    
+    //정규표현식
+    private func matchPattern(today: String) -> String {
+        
+        let regexPattern = "\\b0+(\\d{1,})\\b"
+        do {
+            let regex = try NSRegularExpression(pattern: regexPattern)
+            
+            // NSRegularExpression에서 처리된 결과를 대체하는 함수
+            let result = regex.stringByReplacingMatches(in: today, options: [], range: NSRange(today.startIndex..., in: today), withTemplate: "$1")
+            return result
+            
+        } catch {
+            return "Invalid regex pattern"
+            
+        }
+        
+    }
+    private func isThisMonth(today: CalendarItem) {
+        let weekday = DateManager.shared.getWeekdayNum(month: today.date)
+        
+        switch weekday {
+        case 1: self.dayLabel.textColor = .red
+        case 7: self.dayLabel.textColor = .blue
+        default: self.dayLabel.textColor = .black
+        }
+        
+        if today.isThisMonth != true {
+            dayLabel.textColor = self.dayLabel.textColor.withAlphaComponent(0.4)
+            }
+        else {
+            
+        }
 
+    }
+    private func isToday(currentDay: Date) {
+        let today = DateManager.shared.transformDateWithoutTime(date: Date())
+        if currentDay == today {
+            self.layer.borderColor = UIColor.red.cgColor
+            self.layer.borderWidth = 0.5
+        }
+        else {
+            self.layer.borderColor = UIColor.gray.cgColor
+            self.layer.borderWidth = 0.2
+        }
+    }
+    
     
     private func setupCellUI() {
         dayLabel.font = .boldSystemFont(ofSize: 12)
@@ -130,5 +174,5 @@ final class CalendarCollectionViewCell: UICollectionViewCell, CellReusable {
         }
     }
     
-
+    
 }
