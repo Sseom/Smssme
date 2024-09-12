@@ -66,6 +66,7 @@ class CreatePlanTextFieldView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
+        setupGestureRecognizer()
     }
     
     required init?(coder: NSCoder) {
@@ -124,5 +125,18 @@ class CreatePlanTextFieldView: UIView {
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().offset(-20)
         }
+    }
+}
+
+extension CreatePlanTextFieldView {
+    private func setupGestureRecognizer() {
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        recognizer.cancelsTouchesInView = false // Allow touches to be processed by other views
+        self.addGestureRecognizer(recognizer)
+    }
+    
+    // MARK: - Objc
+    @objc private func handleTap() {
+        self.endEditing(true)
     }
 }
