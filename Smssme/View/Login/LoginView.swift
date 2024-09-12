@@ -58,6 +58,8 @@ final class LoginView: UIView {
     
     let unLoginButton = BaseButton().createButton(text: "로그인 없이 둘러보기", color: .clear, textColor: UIColor(hex: "#333333"))
     
+    
+    
     // 빈 화면 터치 시 키보드 내려감
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.endEditing(true)
@@ -67,6 +69,7 @@ final class LoginView: UIView {
         super.init(frame: frame)
         configureUI()
         setupLayout()
+        setPasswordEyeButton(textField: passwordTextField)
     }
     
     required init?(coder: NSCoder) {
@@ -118,8 +121,37 @@ final class LoginView: UIView {
         }
     }
     
-    @objc
-    func passwordSecureMode() {
-        passwordTextField.isSecureTextEntry.toggle()
+    
+    // 비밀번호 표시/가림 전환 메서드
+    func setPasswordEyeButton(textField: UITextField) {
+        var eyeButton = UIButton(type: .custom)
+        
+        eyeButton = UIButton.init(primaryAction: UIAction(handler: { [weak self]_ in
+            textField.isSecureTextEntry.toggle()
+            eyeButton.isSelected.toggle()
+        }))
+        
+        var buttonConfiguration = UIButton.Configuration.plain()
+        buttonConfiguration.imagePadding = 10
+        buttonConfiguration.baseBackgroundColor = .clear
+        
+        eyeButton.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+        eyeButton.setImage(UIImage(systemName: "eye"), for: .selected)
+        eyeButton.configuration = buttonConfiguration
+        
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: 16, weight: .regular, scale: .medium)
+        eyeButton.setImage(UIImage(systemName: "eye.slash", withConfiguration: largeConfig), for: .normal)
+        eyeButton.setImage(UIImage(systemName: "eye", withConfiguration: largeConfig), for: .selected)
+        eyeButton.tintColor = .systemGray4
+        
+        textField.rightView = eyeButton
+        textField.rightViewMode = .always
     }
+    
+    
+    
+//    @objc
+//    func passwordSecureMode() {
+//        passwordTextField.isSecureTextEntry.toggle()
+//    }
 }

@@ -78,6 +78,8 @@ class MainPageVC: UIViewController {
         }
         let data = PieChartData(dataSet: dataSet)
         mainPageView.pieChartView.data = data
+        
+        mainPageView.pieChartView.animate(xAxisDuration: 0.7, yAxisDuration: 0.7)
     }
     
     func setChartData() {

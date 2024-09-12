@@ -7,13 +7,10 @@
 
 import UIKit
 
-class MoneyDiaryBudgetEditHeaderView: UIView {
-    let section: Int
-    let titleText: String
+class MoneyDiaryBudgetEditHeaderView: UITableViewHeaderFooterView {
     // MARK: - Properties
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = titleText
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.textColor = .white
         
@@ -28,31 +25,21 @@ class MoneyDiaryBudgetEditHeaderView: UIView {
         
         return label
     }()
-
     
-    init(section: Int, titleText: String) {
-        self.section = section
-        self.titleText = titleText
-        super.init(frame: .zero)
-        
-        switch section {
-        case 0:
-            self.backgroundColor = UIColor(hex: "#3FB6DC")
-        case 1:
-            self.backgroundColor = UIColor(hex: "#2DC76D")
-        case 2:
-            self.backgroundColor = UIColor(hex: "#FF7052")
-        case 3:
-            self.backgroundColor = UIColor(hex: "#FFC800")
-        default:
-            self.backgroundColor = .lightGray
-        }
-        
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
         setupViews()
+        setupBackground()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupBackground() {
+        let backgroundView = UIView(frame: self.bounds)
+        backgroundView.backgroundColor = UIColor(hex: "#FFC800")  // 원하는 배경색으로 설정
+        self.backgroundView = backgroundView
     }
     
     private func setupViews() {
