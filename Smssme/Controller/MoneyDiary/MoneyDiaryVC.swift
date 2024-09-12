@@ -60,11 +60,10 @@ final class MoneyDiaryVC: UIViewController {
                 .map {
                     return PieChartDataEntry(value: (Double($1) / Double(totalAmount)) * 100, label: $0)
                 }
+            setChart(centerTotalValue: totalAmount)
         } else {
             return
         }
-        print(dataEntries)
-        setChart()
     }
 
     private func updateView(selectedIndex: Int) {
@@ -113,11 +112,12 @@ final class MoneyDiaryVC: UIViewController {
         moneyDiaryView.moveBudgetButton.addTarget(self, action: #selector(didTapBudgetButton), for: .touchUpInside)
     }
     
-    private func setChart() {
+    private func setChart(centerTotalValue: Int64) {
 //        moneyDiaryView.chartView.delegate = self
         
         if !dataEntries.isEmpty {
             let dataSet = PieChartDataSet(entries: dataEntries, label: "")
+            dataSet.valueFormatter = PercentageValueFormatter()
             dataSet.colors = dataEntries.map { _ in
                 return UIColor(red: CGFloat.random(in: 0.5...1),
                                green: CGFloat.random(in: 0.5...1),
@@ -129,6 +129,7 @@ final class MoneyDiaryVC: UIViewController {
             }
             let data = PieChartData(dataSet: dataSet)
             moneyDiaryView.chartView.data = data
+            moneyDiaryView.chartView.centerText = "합계\n\(centerTotalValue) 원"
         } else {
             moneyDiaryView.chartView.data = nil
             moneyDiaryView.chartView.notifyDataSetChanged()

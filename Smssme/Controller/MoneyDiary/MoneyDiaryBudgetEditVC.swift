@@ -39,6 +39,7 @@ class MoneyDiaryBudgetEditVC: UIViewController {
         setupTableView()
         addButtonEvent()
         setupNavigation()
+        setTotalAmountView()
     }
     
     override func loadView() {
@@ -47,6 +48,10 @@ class MoneyDiaryBudgetEditVC: UIViewController {
     }
     
     // MARK: - Method
+    
+    func setTotalAmountView() {
+        moneyDiaryBudgetEditView.totalView.amountLabel.text = "\(setTotalAmount())"
+    }
     
     func setSectionAmount(forSection section: Int) -> String {
         let total = budgetList[section].items.reduce(0) { sum, item in
@@ -102,6 +107,7 @@ class MoneyDiaryBudgetEditVC: UIViewController {
         moneyDiaryBudgetEditView.tableView.delegate = self
         moneyDiaryBudgetEditView.tableView.register(MoneyDiaryBudgetEditCell.self, forCellReuseIdentifier: "MoneyDiaryBudgetEditCell")
         moneyDiaryBudgetEditView.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "AssetPlanCell")
+        moneyDiaryBudgetEditView.tableView.register(MoneyDiaryBudgetEditHeaderView.self, forHeaderFooterViewReuseIdentifier: "MoneyDiaryBudgetEditHeaderView")
     }
     
     private func setupNavigation() {
@@ -231,6 +237,10 @@ class MoneyDiaryBudgetEditVC: UIViewController {
             self.navigationController?.popViewController(animated: true)
         }
     }
+    
+    @objc private func doneTapped() {
+        moneyDiaryBudgetEditView.endEditing(true)
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -262,11 +272,19 @@ extension MoneyDiaryBudgetEditVC: UITableViewDataSource {
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MoneyDiaryBudgetEditCell", for: indexPath) as! MoneyDiaryBudgetEditCell
+                let toolbar = UIToolbar()
+                toolbar.sizeToFit()
+                toolbar.items = [
+                    UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),  // 빈 공간
+                    UIBarButtonItem(title: "확인", style: .done, target: self, action: #selector(doneTapped))
+                ]
                 cell.categoryTextField.text = item.category
                 cell.amountTextField.text = "\(amount)"
                 
                 cell.categoryTextField.delegate = self
                 cell.amountTextField.delegate = self
+                cell.categoryTextField.inputAccessoryView = toolbar
+                cell.amountTextField.inputAccessoryView = toolbar
                 
                 cell.categoryTextField.tag = indexPath.section * 1000 + indexPath.row
                 cell.amountTextField.tag = indexPath.section * 1000 + indexPath.row + 100
@@ -296,11 +314,23 @@ extension MoneyDiaryBudgetEditVC: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension MoneyDiaryBudgetEditVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerText = "\(budgetList[section].title)"
-        moneyDiaryBudgetEditView.totalView.amountLabel.text = "\(setTotalAmount())"
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "MoneyDiaryBudgetEditHeaderView") as? MoneyDiaryBudgetEditHeaderView else {
+            return nil
+        }
         
-        let headerView = MoneyDiaryBudgetEditHeaderView(section: section, titleText: headerText)
+        headerView.titleLabel.text = "\(budgetList[section].title)"
         headerView.amountLabel.text = "\(setSectionAmount(forSection: section))"
+        
+        switch section {
+        case 0:
+            headerView.backgroundView?.backgroundColor = UIColor(hex: "#3FB6DC")
+        case 1:
+            headerView.backgroundView?.backgroundColor = UIColor(hex: "#2DC76D")
+        case 2:
+            headerView.backgroundView?.backgroundColor = UIColor(hex: "#FF7052")
+        default:
+            headerView.backgroundView?.backgroundColor = .lightGray
+        }
         
         return headerView
     }
@@ -311,14 +341,7 @@ extension MoneyDiaryBudgetEditVC: UITableViewDelegate {
 }
 
 extension MoneyDiaryBudgetEditVC: UITextFieldDelegate {
-    
-    // 텍스트 필드를 터치할 때 호출되는 메서드
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        // 현재 포커스를 가진 텍스트 필드가 있을 경우 키보드 내리기
-        self.view.endEditing(true)
-        return true
-    }
-    
+
     // 입력이 끝났을 때 호출되는 메서드
     func textFieldDidEndEditing(_ textField: UITextField) {
         let section = textField.tag / 1000
@@ -328,55 +351,96 @@ extension MoneyDiaryBudgetEditVC: UITextFieldDelegate {
             // 카테고리 입력
             budgetList[section].items[row].category = textField.text ?? ""
         } else {
-            // 금액 입력 시 콤마를 제거하고 숫자로 변환하여 저장
-            let amountText = textField.text?.replacingOccurrences(of: ",", with: "") ?? "0"
-            let amount = Int64(amountText) ?? 0
-            budgetList[section].items[row - 100].amount = amount
+            // 금액 입력
+            updateAmount(for: section, row: row, text: textField.text)
+//            moneyDiaryBudgetEditView.tableView.reloadSections(IndexSet(integer: section), with: .none)
         }
         
-        // 해당 섹션만 리로드
-        print("\(section)")
-        moneyDiaryBudgetEditView.tableView.reloadSections(IndexSet(integer: section), with: .none)
+        // 총 합계 텍스트만 업데이트
+        updateSectionHeader(forSection: section)
+    }
+    
+    private func updateSectionHeader(forSection section: Int) {
+        // 헤더 뷰의 레이블 텍스트를 직접 업데이트
+        guard let headerView = moneyDiaryBudgetEditView.tableView.headerView(forSection: section) as? MoneyDiaryBudgetEditHeaderView else {
+            return
+        }
+        
+        // 섹션의 총 합계 업데이트
+        headerView.amountLabel.text = "\(setSectionAmount(forSection: section))"
+        // 전체 총합계 업데이트
+        moneyDiaryBudgetEditView.totalView.amountLabel.text = "\(setTotalAmount())"
     }
     
     // 텍스트 필드의 내용이 변경될 때 호출되는 메서드
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        // 숫자 필드만 처리
-        if textField.tag % 1000 >= 100 { // amountTextField에 해당하는 tag로 확인
-            // 숫자 및 백스페이스만 허용
-            if !CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: string)) && string != "" {
-                return false
-            }
-            
-            // 현재 텍스트와 새로운 텍스트를 조합
-            let currentText = textField.text ?? ""
-            let newText = (currentText as NSString).replacingCharacters(in: range, with: string)
-            
-            // 콤마 제거 후 숫자 포맷 적용
-            let numberWithoutComma = newText.replacingOccurrences(of: ",", with: "")
-            
-            // 첫 자리 0 방지
-            let numberWithoutLeadingZero = numberWithoutComma.hasPrefix("0") ? String(numberWithoutComma.dropFirst()) : numberWithoutComma
-            
-            // 포맷된 텍스트를 텍스트 필드에 적용
-            let formattedText = formatNumberWithComma(numberWithoutLeadingZero)
-            textField.text = formattedText
-            
+        guard textField.tag % 1000 >= 100 else { return true } // amountTextField만 처리
+        
+        if !isValidAmountInput(string) {
             return false
+        }
+        
+        // 현재 텍스트와 새로운 텍스트를 조합
+        let currentText = textField.text ?? ""
+        let newText = (currentText as NSString).replacingCharacters(in: range, with: string)
+        
+        // 콤마 제거 후 숫자 포맷 적용
+        let formattedText = formatNumberWithComma(newText)
+        textField.text = formattedText
+        
+        return false
+    }
+
+    // 숫자에 콤마를 추가하는 함수
+    private func formatNumberWithComma(_ number: String) -> String {
+        let numberString = number.replacingOccurrences(of: ",", with: "")
+        guard let numberValue = Int(numberString) else { return number }
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        return numberFormatter.string(from: NSNumber(value: numberValue)) ?? number
+    }
+    
+    // Return 버튼을 눌렀을 때 호출되는 메서드
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let section = textField.tag / 1000
+        let row = textField.tag % 1000
+        
+        if row < 100 {
+            // categoryTextField인 경우
+            moveToNextField(from: textField, section: section, row: row)
+        } else {
+            // amountTextField인 경우
+            textField.resignFirstResponder()
         }
         
         return true
     }
-    // 숫자에 콤마를 추가하는 함수
-    private func formatNumberWithComma(_ number: String) -> String {
-        let numberString = number.replacingOccurrences(of: ",", with: "")
+    
+    // 금액 업데이트 함수
+    private func updateAmount(for section: Int, row: Int, text: String?) {
+        let amountText = text?.replacingOccurrences(of: ",", with: "") ?? "0"
+        let amount = Int64(amountText) ?? 0
+        budgetList[section].items[row - 100].amount = amount
+    }
+    
+    // 유효한 금액 입력 확인
+    private func isValidAmountInput(_ string: String) -> Bool {
+        return CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: string)) || string.isEmpty
+    }
+    
+    // 다음 텍스트 필드로 이동하는 함수
+    private func moveToNextField(from textField: UITextField, section: Int, row: Int) {
+        let nextIndexPath = IndexPath(row: row, section: section)
         
-        if let numberValue = Int(numberString) {
-            let numberFormatter = NumberFormatter()
-            numberFormatter.numberStyle = .decimal
-            return numberFormatter.string(from: NSNumber(value: numberValue)) ?? number
+        if let nextCell = moneyDiaryBudgetEditView.tableView.cellForRow(at: nextIndexPath) as? MoneyDiaryBudgetEditCell {
+            nextCell.amountTextField.becomeFirstResponder()
+        } else {
+            let nextRowIndexPath = IndexPath(row: row + 1, section: section)
+            if let nextCell = moneyDiaryBudgetEditView.tableView.cellForRow(at: nextRowIndexPath) as? MoneyDiaryBudgetEditCell {
+                nextCell.categoryTextField.becomeFirstResponder()
+            } else {
+                textField.resignFirstResponder()
+            }
         }
-        
-        return number
     }
 }

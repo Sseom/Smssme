@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import DGCharts
 
 struct CalendarItem {
     var date: Date
@@ -52,4 +53,10 @@ struct TransactionItem {
     }
 }
 
+// 차트 % 표시 클래스
+class PercentageValueFormatter: ValueFormatter {
+    func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String {
+        return String(format: "%.1f%%", value) // 값 뒤에 % 기호 추가
+    }
+}
 
