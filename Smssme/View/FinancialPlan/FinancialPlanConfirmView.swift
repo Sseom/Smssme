@@ -55,6 +55,9 @@ final class FinancialPlanConfirmView: UIView {
     let editButton = ActionButtonBorder().createButton(text: "수정", color: UIColor.black, textColor: UIColor.black)
     let deleteButton = ActionButtonBlack2().createButton(text: "플랜삭제", color: UIColor.black, textColor: UIColor.white)
     
+    let monthTargetTitle = ContentLabel().createLabel(with: "이번달 저축 목표", color: UIColor(hex: "#060b11"))
+    let monthTarget = ContentBoldLabel().createLabel(with: "", color: UIColor(hex: "#333333"))
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
