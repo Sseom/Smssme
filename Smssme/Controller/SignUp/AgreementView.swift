@@ -26,7 +26,7 @@ class AgreementView: UIView {
     }()
     let maleCheckBoxLabel: UILabel = {
         let label = UILabel()
-        label.text = "개인정도 처리 동의"
+        label.text = "개인정보 처리 동의"
         label.font = .systemFont(ofSize: 18)
         label.textColor = .darkGray
 //        label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal) //더 넓어지게

@@ -11,6 +11,8 @@ import UIKit
 class NickNameVC: UIViewController {
     private let nicknameView = NickNameView()
     private var textField = UITextField()
+    var userData = UserData()
+    
 
     //MARK: - Life cycle
     override func viewDidLoad() {
@@ -18,7 +20,7 @@ class NickNameVC: UIViewController {
 
         view = nicknameView
         
-        self.navigationItem.title = "회원가입(3/4)"
+        self.navigationItem.title = "(3/4)"
         
         datePickerToolbar()
         
@@ -40,7 +42,11 @@ class NickNameVC: UIViewController {
 
     //MARK: - @objc
     @objc func nextButtonTapped() {
+        userData.nickname = nicknameView.nicknameTextField.text
+        userData.birth = nicknameView.birthdayTextField.text
+        
         let incomeAndLocationVC = IncomeAndLocationVC()
+        incomeAndLocationVC.userData = userData //데이터 전달
         navigationController?.pushViewController(incomeAndLocationVC, animated: true)
     }
     

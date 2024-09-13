@@ -10,13 +10,15 @@ import UIKit
 class EmailVC: UIViewController, UITextFieldDelegate {
     private let emailView = EmailView()
     private var textField = UITextField()
+    var userData = UserData()
     
     //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view = emailView
-        self.navigationItem.title = "회원가입(1/4)"
+        
+        self.navigationItem.title = "회원가입"
         
         emailView.emailTextField.delegate = self
         
@@ -27,8 +29,10 @@ class EmailVC: UIViewController, UITextFieldDelegate {
     
     
     @objc private func onNextButtonTapped() {
-        print(#function)
+        userData.email = emailView.emailTextField.text
+        
         let passwordVC = PasswordVC()
+        passwordVC.userData = userData //데이터 전달
         navigationController?.pushViewController(passwordVC, animated: true)
     }
     

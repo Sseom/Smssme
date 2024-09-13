@@ -9,6 +9,8 @@ import UIKit
 
 class PasswordVC: UIViewController, UITextFieldDelegate  {
     private let passwordView = PasswordView()
+    var userData = UserData()
+    
     
     //MARK: - Life cycle
     override func viewDidLoad() {
@@ -16,7 +18,7 @@ class PasswordVC: UIViewController, UITextFieldDelegate  {
         
         view = passwordView
         
-        self.navigationItem.title = "회원가입(2/4)"
+        self.navigationItem.title = "(2/4)"
         
         passwordView.passwordTextField.delegate = self
         passwordView.passwordCheckTextField.delegate = self
@@ -31,7 +33,10 @@ class PasswordVC: UIViewController, UITextFieldDelegate  {
     
     //MARK: - @objc
     @objc func nextButtonTapped() {
+        userData.password = passwordView.passwordCheckTextField.text
+        
         let nicknameVC = NickNameVC()
+        nicknameVC.userData = userData //데이터 전달
         navigationController?.pushViewController(nicknameVC, animated: true)
     }
     

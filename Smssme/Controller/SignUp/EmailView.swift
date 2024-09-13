@@ -11,7 +11,8 @@ class EmailView: UIView {
     private let commonHeight = 50
     
     //상단 제목 라벨
-    private var titleLabel = LargeTitleLabel().createLabel(with: "회원가입", color: UIColor.black)
+    private var titleLabel = LargeTitleLabel().createLabel(with: "실제 사용 중인 \n이메일 주소를 입력해 주세요.", color: UIColor.black)
+    private let subTitleLabel = SmallTitleLabel().createLabel(with: "비밀번호 재설정 시 인증 메일이 전송됩니다.", color: .lightGray)
     
     //MARK: - 아이디(이메일)
     let emailLabel = SmallTitleLabel().createLabel(with: "이메일 주소", color: .black)
@@ -39,7 +40,7 @@ class EmailView: UIView {
         return label
     }()
     
-  
+    
     //MARK: - 다음 버튼
     
     //다음 버튼
@@ -62,7 +63,7 @@ class EmailView: UIView {
         
         configureUI()
         setupLayout()
- 
+        
     }
     
     
@@ -82,6 +83,7 @@ class EmailView: UIView {
         self.addGestureRecognizer(recognizer)
         
         [titleLabel,
+         subTitleLabel,
          emailLabel,
          emailTextField,
          emailErrorLabel,
@@ -93,29 +95,33 @@ class EmailView: UIView {
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide).inset(24)
             $0.leading.equalTo(safeAreaLayoutGuide).inset(30)
-            
-            emailLabel.snp.makeConstraints {
-                $0.top.equalTo(titleLabel.snp.bottom).offset(30)
-                $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
-            }
-            
-            emailTextField.snp.makeConstraints {
-                $0.top.equalTo(emailLabel.snp.bottom).offset(10)
-                $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
-                $0.height.equalTo(commonHeight)
-            }
-            
-            emailErrorLabel.snp.makeConstraints {
-                $0.top.equalTo(emailTextField.snp.bottom).offset(10)
-                $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(36)
-            }
-            
-
-            nextButton.snp.makeConstraints {
-                $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
-                $0.bottom.equalTo(safeAreaLayoutGuide).inset(280)
-                $0.height.equalTo(commonHeight)
-            }
+        }
+        
+        subTitleLabel.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(10)
+            $0.leading.equalTo(safeAreaLayoutGuide).inset(30)
+        }
+        emailLabel.snp.makeConstraints {
+            $0.top.equalTo(subTitleLabel.snp.bottom).offset(30)
+            $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
+        }
+        
+        emailTextField.snp.makeConstraints {
+            $0.top.equalTo(emailLabel.snp.bottom).offset(10)
+            $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
+            $0.height.equalTo(commonHeight)
+        }
+        
+        emailErrorLabel.snp.makeConstraints {
+            $0.top.equalTo(emailTextField.snp.bottom).offset(10)
+            $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(36)
+        }
+        
+        
+        nextButton.snp.makeConstraints {
+            $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
+            $0.bottom.equalTo(safeAreaLayoutGuide).inset(280)
+            $0.height.equalTo(commonHeight)
         }
         
     }
