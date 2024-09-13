@@ -81,8 +81,6 @@ class MainPageView: UIView {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fill
-        stackView.layer.borderColor = UIColor.black.cgColor
-        stackView.layer.borderWidth = 1
         return stackView
     }()
     
@@ -269,7 +267,7 @@ class MainPageView: UIView {
         }
         
         benefitTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(financialScrollView.snp.bottom).offset(40)
+            $0.top.equalTo(pieChartView.snp.bottom).offset(40)
             $0.left.equalTo(safeAreaLayoutGuide).offset(20)
         }
         
