@@ -10,13 +10,12 @@ import FirebaseAuth
 
 class LoginVC: UIViewController {
     var handle: AuthStateDidChangeListenerHandle?
+    var toastMessage: String?
     
     private let loginVeiw = LoginView()
 
-    
     override func loadView() {
         view = loginVeiw
-
     }
     
     override func viewDidLoad() {
@@ -27,8 +26,15 @@ class LoginVC: UIViewController {
         loginVeiw.passwordTextField.delegate = self
         
         setupAddtarget()
-        
     }
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//
+//        if let message = toastMessage {
+//            Toast.show(message: message, in: self)
+//        }
+//    }
     
     ///인증상태 수신 대기 - 리스터 연결
     ///각각의 앱 뷰에서 앱에 로그인한 사용자에 대한 정보를 얻기 위해 FIRAuth 객체와 리스너를 연결합니다. 
@@ -44,7 +50,6 @@ class LoginVC: UIViewController {
         Auth.auth().removeStateDidChangeListener(handle!)
     }
     
-    
     private func setupAddtarget() {
         // 로그인 버튼 클릭 시
         loginVeiw.loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
@@ -55,9 +60,7 @@ class LoginVC: UIViewController {
         // 비회원 로그인 시
         loginVeiw.unLoginButton.addTarget(self, action: #selector(unloginButtonTapped), for: .touchUpInside)
     }
-    
 
-    
     //MARK: - @objc 로그인
     ///기존 사용자 로그인
     ///기존 사용자가 자신의 이메일 주소와 비밀번호를 사용해 로그인할 수 있는 양식을 만듭니다. 사용자가 양식을 작성하면 signIn 메서드를 호출합니다.
@@ -67,7 +70,6 @@ class LoginVC: UIViewController {
             showAlert(message: "이메일과 패스워드를 입력해주세요.", AlertTitle: "입력 정보 오류", buttonClickTitle: "확인")
             return
         }
-        
         
         FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { [weak self] user, error in
             guard let self = self else { return }
@@ -91,7 +93,6 @@ class LoginVC: UIViewController {
                 }
             } else {
                 showSnycAlert(message: "안녕하세요,\n 로그인되었습니다.", AlertTitle: "로그인 성공", buttonClickTitle: "확인", method: switchToTabBarController)
-                
             }
         }
     }
@@ -114,22 +115,23 @@ class LoginVC: UIViewController {
     
     //MARK: - @objc 회원가입
     @objc private func signupButtonTapped() {
-        print(#function)
         let emailVC = EmailVC()
-        
-        navigationController?.pushViewController(emailVC, animated: true)
-
+        let navController = UINavigationController(rootViewController: emailVC)
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let window = windowScene.windows.first else { return }
+ 
+        window.rootViewController = navController
+        window.makeKeyAndVisible()
     }
-    
     
     //MARK: - @objc 비회원 로그인
     @objc private func unloginButtonTapped() {
         let mainTabBarController = TabBarController()
+        mainTabBarController.selectedIndex = 0
         // 전체화면 전환 (애니메이션 포함)
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let window = windowScene.windows.first else { return }
 
-        
         window.rootViewController = mainTabBarController
         UIView.transition(with: window,
                           duration: 0.5,
@@ -137,7 +139,6 @@ class LoginVC: UIViewController {
                           animations: nil,
                           completion: nil)
     }
-    
 }    
 
 

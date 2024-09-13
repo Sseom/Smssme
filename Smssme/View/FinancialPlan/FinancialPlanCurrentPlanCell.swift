@@ -13,7 +13,7 @@ class FinancialPlanCurrentPlanCell: UICollectionViewCell {
     static let ID = "FinancialPlanCurrentPlanCell"
     private let graphBarArea = ProgressBarView()
     
-    private let currentPlanTitlaLabel = ContentLabel().createLabel(with: "임시플랜", color: UIColor.gray)
+    private let currentPlanTitleLabel = ContentBoldLabel().createLabel(with: "플랜제목", color: UIColor(hex: "#060b11"))
     private let completionRateLabel = ContentLabel().createLabel(with: "", color: UIColor.gray)
     
     override init(frame: CGRect) {
@@ -26,11 +26,11 @@ class FinancialPlanCurrentPlanCell: UICollectionViewCell {
     }
     
     private func setupUI() {
-        [currentPlanTitlaLabel, completionRateLabel, graphBarArea].forEach {
+        [currentPlanTitleLabel, completionRateLabel, graphBarArea].forEach {
             contentView.addSubview($0)
         }
         
-        currentPlanTitlaLabel.snp.makeConstraints {
+        currentPlanTitleLabel.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.leading.equalToSuperview()
         }
@@ -41,7 +41,7 @@ class FinancialPlanCurrentPlanCell: UICollectionViewCell {
         }
         
         graphBarArea.snp.makeConstraints {
-            $0.top.equalTo(currentPlanTitlaLabel.snp.bottom).offset(10)
+            $0.top.equalTo(currentPlanTitleLabel.snp.bottom).offset(10)
             $0.leading.equalToSuperview().offset(0)
             $0.trailing.equalToSuperview().offset(-10)
             $0.height.equalTo(20)
@@ -50,7 +50,7 @@ class FinancialPlanCurrentPlanCell: UICollectionViewCell {
     
     func configure(item: FinancialPlan, repository: FinancialPlanRepository) {
         self.repository = repository
-        currentPlanTitlaLabel.text = item.title
+        currentPlanTitleLabel.text = item.title
         let completionRate = calculateCompletionRate(plan: item)
         completionRateLabel.text = "달성률 \(Int(completionRate * 100))%"
         graphBarArea.setProgress(CGFloat(completionRate))

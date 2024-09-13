@@ -51,8 +51,10 @@ class TabBarController: UITabBarController {
             rootViewController: { // 진행중 플랜있다면 진행중인 플랜 페이지로
                 let repository = FinancialPlanRepository()
                 if repository.getAllFinancialPlans().isEmpty {
+                    print("\(repository.getAllFinancialPlans())")
                     return FinancialPlanSelectionVC()
                 } else {
+                    print("")
                     return FinancialPlanCurrentPlanVC(repository: repository)
                 }
             }()

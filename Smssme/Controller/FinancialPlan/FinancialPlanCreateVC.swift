@@ -65,8 +65,15 @@ extension FinancialPlanCreateVC {
     @objc func confirmButtonTapped() {
         if validateInputs() {
             buttonTapSaveData()
-            let financialPlanCurrentPlanVC = FinancialPlanCurrentPlanVC()
-            navigationController?.pushViewController(financialPlanCurrentPlanVC, animated: true)
+            let tabBar = TabBarController()
+            
+            tabBar.selectedIndex = 2
+            
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let window = windowScene.windows.first {
+                window.rootViewController = tabBar
+                window.makeKeyAndVisible()
+            }
         } else {
             print("입력값 오류")
         }
@@ -207,3 +214,4 @@ extension FinancialPlanCreateVC {
         return false
     }
 }
+

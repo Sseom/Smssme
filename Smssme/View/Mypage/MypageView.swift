@@ -13,7 +13,6 @@ class MypageView: UIView {
     // 테이블뷰
     lazy var tableView = UITableView(frame: .zero, style: .grouped)
     
-    
     // 마이페이지 라벨
     var myPageTitleLabel = LargeTitleLabel().createLabel(with: "마이페이지", color: .black)
     
