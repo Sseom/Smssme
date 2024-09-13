@@ -86,7 +86,7 @@ class FinancialPlanConfirmVC: UIViewController, FinancialPlanEditDelegate {
             case "로맨틱 결혼식":
                 return "weddingConfirm"
             case "황금빛 은퇴자금":
-                return "seniorConfirm"
+                return "retirementConfirm"
             default:
                 return "myPlanConfirm"
             }
