@@ -13,7 +13,7 @@ class FinancialPlanCurrentPlanCell: UICollectionViewCell {
     static let ID = "FinancialPlanCurrentPlanCell"
     private let graphBarArea = ProgressBarView()
     
-    private let currentPlanTitleLabel = ContentBoldLabel().createLabel(with: "플랜제목", color: UIColor(hex: "#060b11"))
+    private let currentPlanTitleLabel = ContentLabel().createLabel(with: "플랜제목", color: UIColor(hex: "#060b11"))
     private let completionRateLabel = ContentLabel().createLabel(with: "", color: UIColor.gray)
     
     override init(frame: CGRect) {
