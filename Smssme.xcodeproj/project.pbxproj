@@ -47,6 +47,7 @@
 		744FB0962C93D81800208685 /* AssetsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744FB0952C93D81800208685 /* AssetsListView.swift */; };
 		744FB0982C93D88300208685 /* AssetsListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744FB0972C93D88300208685 /* AssetsListVC.swift */; };
 		744FB09A2C93D94000208685 /* AssetsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744FB0992C93D94000208685 /* AssetsListCell.swift */; };
+		744FB09C2C94096B00208685 /* AssetsListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744FB09B2C94096B00208685 /* AssetsListHeaderView.swift */; };
 		746F807E2C8841F300BBAEAF /* MoneyDiaryEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746F80752C8841F300BBAEAF /* MoneyDiaryEditView.swift */; };
 		746F807F2C8841F300BBAEAF /* MoneyDiaryBudgetEditHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746F80762C8841F300BBAEAF /* MoneyDiaryBudgetEditHeaderView.swift */; };
 		746F80802C8841F300BBAEAF /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746F80772C8841F300BBAEAF /* DatePickerView.swift */; };
@@ -146,6 +147,7 @@
 		744FB0952C93D81800208685 /* AssetsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsListView.swift; sourceTree = "<group>"; };
 		744FB0972C93D88300208685 /* AssetsListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsListVC.swift; sourceTree = "<group>"; };
 		744FB0992C93D94000208685 /* AssetsListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsListCell.swift; sourceTree = "<group>"; };
+		744FB09B2C94096B00208685 /* AssetsListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsListHeaderView.swift; sourceTree = "<group>"; };
 		746F80752C8841F300BBAEAF /* MoneyDiaryEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyDiaryEditView.swift; sourceTree = "<group>"; };
 		746F80762C8841F300BBAEAF /* MoneyDiaryBudgetEditHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyDiaryBudgetEditHeaderView.swift; sourceTree = "<group>"; };
 		746F80772C8841F300BBAEAF /* DatePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
@@ -523,6 +525,7 @@
 			isa = PBXGroup;
 			children = (
 				744FB0992C93D94000208685 /* AssetsListCell.swift */,
+				744FB09B2C94096B00208685 /* AssetsListHeaderView.swift */,
 				74707FB52C84C6C300F7000C /* AssetsEditView.swift */,
 				744FB0952C93D81800208685 /* AssetsListView.swift */,
 			);
@@ -703,6 +706,7 @@
 				5F413EFF2C805CC200004703 /* MypageView.swift in Sources */,
 				746F80802C8841F300BBAEAF /* DatePickerView.swift in Sources */,
 				E517F33C2C892F7A00CB8680 /* KoreanCurrencyFormatter.swift in Sources */,
+				744FB09C2C94096B00208685 /* AssetsListHeaderView.swift in Sources */,
 				746F807F2C8841F300BBAEAF /* MoneyDiaryBudgetEditHeaderView.swift in Sources */,
 				E5F344D82C806A58006F9A91 /* FinancialPlanCurrentPlanVC.swift in Sources */,
 				746F80912C8842B200BBAEAF /* MoneyDiaryVC.swift in Sources */,

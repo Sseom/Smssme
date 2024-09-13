@@ -12,8 +12,6 @@ class MoneyDiaryBudgetEditView: UIView {
     // MARK: - Component Properties
     let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         return tableView
     }()
     

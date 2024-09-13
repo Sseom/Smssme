@@ -21,11 +21,18 @@ struct CalendarItem {
 }
 
 struct AssetsItem {
+    var uuid: UUID?
     var category: String?
     var title: String?
     var amount: Int64
     var note: String?
 }
+
+struct AssetsList {
+    let title: String
+    var items: [AssetsItem]
+}
+
 
 struct BudgetItem {
     var amount: Int64

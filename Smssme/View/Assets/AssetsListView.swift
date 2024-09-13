@@ -14,18 +14,19 @@ class AssetsListView: UIView {
     //MARK: - Component Properties
     let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         return tableView
+    }()
+    
+    let addButton: UIBarButtonItem = {
+        let barButton = UIBarButtonItem()
+        barButton.title = "자산 추가"
+        return barButton
     }()
     
     // MARK: - View Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .white
-        // 터치시 키보드 내림
-        let recognizer = UITapGestureRecognizer(target: self, action: #selector(touch))
-        self.addGestureRecognizer(recognizer)
         setupUI()
     }
     
@@ -37,12 +38,15 @@ class AssetsListView: UIView {
     
     // MARK: - Private Method
     private func setupUI() {
+        [tableView].forEach {
+            self.addSubview($0)
+        }
         
+        tableView.snp.makeConstraints {
+            $0.edges.equalTo(self.safeAreaLayoutGuide)
+        }
     }
     
     //MARK: - Objc
-    @objc func touch() {
-        self.endEditing(true)
-    }
-
+    
 }

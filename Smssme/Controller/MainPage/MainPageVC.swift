@@ -69,7 +69,7 @@ class MainPageVC: UIViewController {
     }
     
     private func setChart() {
-        mainPageView.pieChartView.delegate = self
+//        mainPageView.pieChartView.delegate = self
         var dataSet: PieChartDataSet
         if dataEntries.count != 0 {
             dataSet = PieChartDataSet(entries: dataEntries, label: "")
@@ -83,7 +83,7 @@ class MainPageVC: UIViewController {
             dataSet.valueColors = dataSet.colors.map { _ in
                 return .darkGray
             }
-            mainPageView.chartCenterButton.setTitle("자산추가", for: .normal)
+            mainPageView.chartCenterButton.setTitle("자산편집", for: .normal)
             mainPageView.pieChartView.alpha = 1.0
         } else {
             // 데이터 없을시 더미데이터
@@ -130,21 +130,21 @@ class MainPageVC: UIViewController {
     }
     
     @objc func editViewPush() {
-        navigationController?.pushViewController(AssetsEditVC(), animated: true)
+        navigationController?.pushViewController(AssetsListVC(), animated: true)
     }
 }
 
-extension MainPageVC: ChartViewDelegate {
-    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        if entry is PieChartDataEntry {
-            mainPageView.pieChartView.highlightValues(nil)
-            guard let index = dataEntries.firstIndex(of: entry as! PieChartDataEntry) else { return }
-            let uuid = uuids[index]
-            
-            let assetsEditVC = AssetsEditVC()
-            assetsEditVC.uuid = uuid
-            
-            self.navigationController?.pushViewController(assetsEditVC, animated: true)
-        }
-    }
-}
+//extension MainPageVC: ChartViewDelegate {
+//    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+//        if entry is PieChartDataEntry {
+//            mainPageView.pieChartView.highlightValues(nil)
+//            guard let index = dataEntries.firstIndex(of: entry as! PieChartDataEntry) else { return }
+//            let uuid = uuids[index]
+//            
+//            let assetsEditVC = AssetsListVC()
+//            assetsEditVC.uuid = uuid
+//            
+//            self.navigationController?.pushViewController(assetsEditVC, animated: true)
+//        }
+//    }
+//}
