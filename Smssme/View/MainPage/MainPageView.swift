@@ -11,6 +11,7 @@ class MainPageView: UIView {
 //    private let financialTitleLabel = SmallTitleLabel().createLabel(with: "오늘의 주요 경제 지표", color: .black)
     private let benefitTitleLabel = SmallTitleLabel().createLabel(with: "2024 청년 혜택 총정리", color: .black)
     
+
 //    private let todayFinancialArray: [TodayFinancial] = [
 //        TodayFinancial(title: "KOSPI", value: 5678.91, range: -1),
 //        TodayFinancial(title: "KOSDAQ", value: 234.2, range: 0),
@@ -77,6 +78,8 @@ class MainPageView: UIView {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fill
+        stackView.layer.borderColor = UIColor.black.cgColor
+        stackView.layer.borderWidth = 1
         return stackView
     }()
     
