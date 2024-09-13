@@ -11,6 +11,8 @@ import UIKit
 class NickNameVC: UIViewController {
     private let nicknameView = NickNameView()
     private var textField = UITextField()
+    var userData = UserData()
+    
 
     //MARK: - Life cycle
     override func viewDidLoad() {
@@ -18,7 +20,7 @@ class NickNameVC: UIViewController {
 
         view = nicknameView
         
-        self.navigationItem.title = "회원가입"
+        self.navigationItem.title = "(3/4)"
         
         datePickerToolbar()
         
@@ -40,7 +42,11 @@ class NickNameVC: UIViewController {
 
     //MARK: - @objc
     @objc func nextButtonTapped() {
+        userData.nickname = nicknameView.nicknameTextField.text
+        userData.birth = nicknameView.birthdayTextField.text
+        
         let incomeAndLocationVC = IncomeAndLocationVC()
+        incomeAndLocationVC.userData = userData //데이터 전달
         navigationController?.pushViewController(incomeAndLocationVC, animated: true)
     }
     
@@ -125,19 +131,19 @@ extension NickNameVC: UITextFieldDelegate {
         return true
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard textField.text!.count < 10 else { return false } // 10 글자로 제한
+        return true
+    }
     
     // 모든 내용 입력돼야 버튼 활성화
     @objc private func textFieldEditingChanged(_ textField: UITextField) {
 
         // 공백 입력 방지 -> 중간에 입력할 시에는 적용되는 문제 있음
-        if textField.text?.count == 1 {
-            if textField.text?.first == " " {
-                textField.text = ""
-                return
-            }
-        }
+        textField.text = textField.text?.trimmingCharacters(in: .whitespaces)
+        
         guard
-            let nickname = nicknameView.nicknameTextField.text, !nickname.isEmpty,
+            let nickname = nicknameView.nicknameTextField.text, nickname.count > 1 && nickname.count < 11,
             let birth = nicknameView.birthdayTextField.text, !birth.isEmpty
         else {
             nicknameView.nextButton.backgroundColor = .systemGray5
@@ -147,5 +153,5 @@ extension NickNameVC: UITextFieldDelegate {
         nicknameView.nextButton.backgroundColor = .systemBlue
         nicknameView.nextButton.isEnabled = true
     }
-    
+
 }

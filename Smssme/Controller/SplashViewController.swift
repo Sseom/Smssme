@@ -61,7 +61,7 @@ class SplashViewController: UIViewController {
         
         window.rootViewController = loginVC
         UIView.transition(with: window,
-                          duration: 0.5,
+                          duration: 0.3,
                           options: [.transitionCrossDissolve],
                           animations: nil,
                           completion: nil)

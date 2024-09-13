@@ -91,8 +91,7 @@ class MypageVC: UIViewController {
 
     // 로그인 버튼 클릭 시 로그인 화면으로 이동
     @objc private func handleLoginButton() {
-        let loginVC = LoginVC() // 로그인 화면으로 이동하는 코드
-        navigationController?.pushViewController(loginVC, animated: true)
+        MypageVC().switchToLoginVC()
     }
     
     //MARK: - 테이블뷰 관련 메서드
@@ -164,7 +163,7 @@ class MypageVC: UIViewController {
     }
     
     // 로그인VC으로 화면전환
-    private func switchToLoginVC() {
+    func switchToLoginVC() {
         let loginVC = LoginVC()
         let navController = UINavigationController(rootViewController: loginVC)
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,

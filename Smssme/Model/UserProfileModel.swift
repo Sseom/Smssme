@@ -8,22 +8,24 @@
 import Foundation
 
 struct UserData {
-    var email: String
-    var password: String
-    var nickname: String
-    var birth: String
-    var gender: String
-    var income: String
-    var location: String
+    var email: String?
+    var password: String?
+    var nickname: String?
+    var birth: String?
+    var gender: String?
+    var income: String?
+    var location: String?
     
+    // Firebase에 저장할 데이터로 변환
     func toDictionary() -> [String: Any] {
         return [
-            "email": email,
-            "nickname": nickname,
-            "birth": birth,
-            "gender": "선택안함",
-            "income": income,
-            "location": location
+            "email": email ?? "",
+            "password": password ?? "",
+            "nickname": nickname ?? "",
+            "birth": birth ?? "",
+            "gender": gender ?? "선택안함",
+            "income": income ?? "",
+            "location": location ?? ""
         ]
     }
 }

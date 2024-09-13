@@ -19,7 +19,7 @@ class FirebaseManager {
         self.db = Firestore.firestore()
     }
     
-    // 회원가입 처리 함수
+    // 회원가입 처리
     func registerUser(email: String, password: String, completion: @escaping (Result<String, Error>) -> Void) {
         auth.createUser(withEmail: email, password: password) { authResult, error in
             if let error = error {
