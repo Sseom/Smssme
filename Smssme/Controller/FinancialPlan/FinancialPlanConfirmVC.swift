@@ -41,7 +41,7 @@ class FinancialPlanConfirmVC: UIViewController, FinancialPlanEditDelegate {
         super.viewDidLoad()
         view.backgroundColor = .white
         configure(with: financialPlan)
-        repository.printAllFinancialPlans()
+//        repository.printAllFinancialPlans() 저장된 플랜 확인용
         setupButtonActions()
     }
     
@@ -86,7 +86,7 @@ class FinancialPlanConfirmVC: UIViewController, FinancialPlanEditDelegate {
             case "로맨틱 결혼식":
                 return "weddingConfirm"
             case "황금빛 은퇴자금":
-                return "retireConfirm"
+                return "seniorConfirm"
             default:
                 return "myPlanConfirm"
             }
