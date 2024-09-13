@@ -18,6 +18,7 @@ protocol FinancialPlanUpdateDelegate: AnyObject {
 class FinancialPlanConfirmVC: UIViewController, FinancialPlanEditDelegate {
     weak var deleteDelegate: FinancialPlanDeleteDelegate?
     weak var updateDelegate: FinancialPlanUpdateDelegate?
+    private var centerImage: String = ""
     private let confirmView = FinancialPlanConfirmView()
     private let financialPlanManager: FinancialPlanManager
     private var financialPlan: FinancialPlan
@@ -28,6 +29,8 @@ class FinancialPlanConfirmVC: UIViewController, FinancialPlanEditDelegate {
         self.financialPlan = financialPlan
         self.repository = repository
         super.init(nibName: nil, bundle: nil)
+        
+        self.centerImage = getImageName(for: financialPlan.title ?? "")
     }
     
     required init?(coder: NSCoder) {
@@ -54,22 +57,40 @@ class FinancialPlanConfirmVC: UIViewController, FinancialPlanEditDelegate {
     
     private func configure(with plan: FinancialPlan) {
         confirmView.confirmLargeTitle.text = "\(plan.title ?? "")"
-        confirmView.amountGoalLabel.text = "목표금액 \(plan.amount.formattedAsCurrency)원"
-        confirmView.currentSavedLabel.text = "달성금액 \(plan.deposit.formattedAsCurrency)원"
+        confirmView.confirmImage.image = UIImage(named: centerImage)
+        confirmView.amountGoalLabel.text = "\(plan.amount.formattedAsCurrency)원"
+        confirmView.currentSavedLabel.text = "\(plan.deposit.formattedAsCurrency)원"
 
         if let endDate = plan.endDate {
             let formattedDate = FinancialPlanDateModel.dateFormatter.string(from: endDate)
-            confirmView.endDateLabel.text = "목표날짜 \(formattedDate)" }
+            confirmView.endDateLabel.text = "\(formattedDate)" }
 
         if let endDate = plan.endDate {
             let calendar = Calendar.current
             let now = Date()
             let components = calendar.dateComponents([.day], from: now, to: endDate)
             if let daysLeft = components.day {
-                confirmView.daysLeftLabel.text = "남은 날짜 \(daysLeft)일"
+                confirmView.daysLeftLabel.text = "\(daysLeft)일"
             }
         }
     }
+    
+    private func getImageName(for title: String) -> String {
+            switch title {
+            case "잊지못할 인생여행":
+                return "travelConfirm"
+            case "드림카 프로젝트":
+                return "carConfirm"
+            case "내집 마련의 꿈":
+                return "houseConfirm"
+            case "로맨틱 결혼식":
+                return "weddingConfirm"
+            case "황금빛 은퇴자금":
+                return "retireConfirm"
+            default:
+                return "myPlanConfirm"
+            }
+        }
 }
 
 // MARK: - 버튼 액션 관련

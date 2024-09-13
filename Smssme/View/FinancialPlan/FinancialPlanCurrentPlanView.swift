@@ -31,7 +31,7 @@ final class FinancialPlanCurrentPlanView: UIView {
     }
     
     var onAddPlanButtonTapped: (() -> Void)?
-    private lazy var addPlanButton = ActionButton().createButton(text: "플랜 추가", color: UIColor.blue, textColor: UIColor.white, method: { [weak self] in
+    private lazy var addPlanButton = ActionButtonBlack().createButton(text: "플랜 추가", color: UIColor.black, textColor: UIColor.white, method: { [weak self] in
         self?.onAddPlanButtonTapped?()
     })
     
@@ -63,7 +63,7 @@ final class FinancialPlanCurrentPlanView: UIView {
         }
         
         addPlanButton.snp.makeConstraints {
-            $0.top.equalTo(currentPlanCollectionView.snp.bottom).offset(40)
+            $0.top.equalTo(currentPlanCollectionView.snp.bottom)
             $0.width.equalTo(80)
             $0.height.equalTo(40)
             $0.centerX.equalToSuperview()
