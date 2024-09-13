@@ -10,6 +10,7 @@ import FirebaseAuth
 
 class LoginVC: UIViewController {
     var handle: AuthStateDidChangeListenerHandle?
+    var toastMessage: String?
     
     private let loginVeiw = LoginView()
 
@@ -25,8 +26,15 @@ class LoginVC: UIViewController {
         loginVeiw.passwordTextField.delegate = self
         
         setupAddtarget()
-        
     }
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//
+//        if let message = toastMessage {
+//            Toast.show(message: message, in: self)
+//        }
+//    }
     
     ///인증상태 수신 대기 - 리스터 연결
     ///각각의 앱 뷰에서 앱에 로그인한 사용자에 대한 정보를 얻기 위해 FIRAuth 객체와 리스너를 연결합니다. 
@@ -107,11 +115,13 @@ class LoginVC: UIViewController {
     
     //MARK: - @objc 회원가입
     @objc private func signupButtonTapped() {
-        print(#function)
         let emailVC = EmailVC()
-        
-        navigationController?.pushViewController(emailVC, animated: true)
-
+        let navController = UINavigationController(rootViewController: emailVC)
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let window = windowScene.windows.first else { return }
+ 
+        window.rootViewController = navController
+        window.makeKeyAndVisible()
     }
     
     //MARK: - @objc 비회원 로그인

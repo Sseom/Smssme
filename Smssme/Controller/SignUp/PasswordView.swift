@@ -12,7 +12,7 @@ class PasswordView: UIView {
     private let loginView = LoginView()
     
     //상단 제목 라벨
-    private var titleLabel = LargeTitleLabel().createLabel(with: "비밀번호 입력 페이지가 될수도?", color: UIColor.black)
+//    private var titleLabel = LargeTitleLabel().createLabel(with: "비밀번호 입력 페이지가 될수도?", color: UIColor.black)
     
     //MARK: - 비밀번호
     let passwordLabel = SmallTitleLabel().createLabel(with: "비밀번호", color: .black)
@@ -37,9 +37,9 @@ class PasswordView: UIView {
     // 1개 이상의 영문, 숫자, 특수문자를 포함
     let passwordErrorLabel: UILabel = {
         let label = UILabel()
-        label.text = "비밀번호는 최소 6자 이상이어야 합니다."
-        label.textColor = .red
+        label.text = ""
         label.font = .systemFont(ofSize: 16)
+        label.numberOfLines = 0
         label.isHidden = false
         return label
     }()
@@ -63,8 +63,7 @@ class PasswordView: UIView {
     
     let passwordCheckErrorLabel: UILabel = {
         let label = UILabel()
-        label.text = "비밀번호가 일치하지 않습니다."
-        label.textColor = .red
+        label.text = ""
         label.font = .systemFont(ofSize: 16)
         label.isHidden = false
         return label
@@ -113,8 +112,7 @@ class PasswordView: UIView {
         
         self.addGestureRecognizer(recognizer)
         
-        [titleLabel, 
-         passwordLabel,
+        [passwordLabel,
          passwordTextField,
          passwordErrorLabel,
          passwordCheckTextField,
@@ -123,13 +121,13 @@ class PasswordView: UIView {
     }
     
     private func setupLayout() {
-        titleLabel.snp.makeConstraints {
-            $0.top.equalTo(safeAreaLayoutGuide).inset(24)
-            $0.leading.equalTo(safeAreaLayoutGuide).inset(30)
-        }
+//        titleLabel.snp.makeConstraints {
+//            $0.top.equalTo(safeAreaLayoutGuide).inset(24)
+//            $0.leading.equalTo(safeAreaLayoutGuide).inset(30)
+//        }
         
         passwordLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(30)
+            $0.top.equalTo(safeAreaLayoutGuide).offset(30)
             $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
         }
         
