@@ -15,6 +15,7 @@ class MoneyDiaryView: UIView {
         let chartView = PieChartView()
         chartView.noDataText = "작성된 내역이 없습니다."
         chartView.isHidden = true
+        chartView.highlightPerTapEnabled = false
         return chartView
     }()
     

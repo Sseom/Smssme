@@ -23,7 +23,7 @@ class TabBarController: UITabBarController {
         if let user  = Auth.auth().currentUser {
             self.selectedViewController = viewControllers?[0]
         } else {
-            self.selectedViewController = viewControllers?[3]
+            self.selectedViewController = viewControllers?[2]
         }
     }
     
@@ -32,7 +32,7 @@ class TabBarController: UITabBarController {
         let mainPage = tabBarNavigationController(
             unselectedImage: UIImage(systemName: "house.fill") ?? UIImage(),
             selectedImage: UIImage(systemName: "house.fill") ?? UIImage(),
-            isNavigationBarHidden: false,
+            isNavigationBarHidden: true,
             rootViewController: MainPageVC()
         )
         

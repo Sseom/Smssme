@@ -10,11 +10,11 @@ import FirebaseAuth
 import FirebaseFirestore
 
 // 성별 선택 tag
-enum GenderTags: Int {
-    case male = 1
-    case female = 2
-    case none = 3 
-}
+//enum GenderTags: Int {
+//    case male = 1
+//    case female = 2
+//    case none = 3 
+//}
 
 final class SignUpView: UIView {
     

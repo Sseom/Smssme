@@ -62,6 +62,7 @@ class MainPageView: UIView {
     let pieChartView: PieChartView = {
         let pieChartView = PieChartView()
         pieChartView.rotationEnabled = false
+        pieChartView.legend.enabled = false
         return pieChartView
     }()
     
@@ -69,8 +70,10 @@ class MainPageView: UIView {
         let button = UIButton()
         button.setTitle("자산 추가", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.layer.cornerRadius = 10
-        button.backgroundColor = .systemGray4
+        button.backgroundColor = .clear
+        button.titleLabel?.font = .systemFont(ofSize: 12)
+        button.titleLabel?.numberOfLines = 2
+        button.titleLabel?.textAlignment = .center
         return button
     }()
     
@@ -244,10 +247,9 @@ class MainPageView: UIView {
         }
         
         chartCenterButton.snp.makeConstraints {
-            $0.centerX.equalTo(pieChartView)
-            $0.top.equalTo(pieChartView.snp.top).offset(120)
-            $0.height.equalTo(40)
-            $0.width.equalTo(80)
+            $0.center.equalTo(pieChartView)
+            $0.height.equalTo(120)
+            $0.width.equalTo(120)
         }
         
 //        financialTitleLabel.snp.makeConstraints {
