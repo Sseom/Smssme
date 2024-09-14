@@ -12,17 +12,21 @@ class MoneyDiaryBudgetEditView: UIView {
     // MARK: - Component Properties
     let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         return tableView
     }()
     
-    let totalView: MoneyDiaryBudgetEditHeaderView = MoneyDiaryBudgetEditHeaderView(section: 3, titleText: "잉여금액")
+    let totalView: MoneyDiaryBudgetEditHeaderView = {
+        let headerView = MoneyDiaryBudgetEditHeaderView()
+        
+        headerView.titleLabel.text = "잉여금액"
+        return headerView
+    }()
     
     // MARK: - View Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
+        
         setupGestureRecognizer()
     }
     
@@ -53,7 +57,7 @@ class MoneyDiaryBudgetEditView: UIView {
     
     private func setupGestureRecognizer() {
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-        recognizer.cancelsTouchesInView = false // Allow touches to be processed by other views
+        recognizer.cancelsTouchesInView = false
         self.addGestureRecognizer(recognizer)
     }
     

@@ -36,6 +36,11 @@ class AssetsEditVC: UIViewController {
         setData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = false
+    }
+    
     // MARK: - Method
     
     // MARK: - Private Method
@@ -83,18 +88,31 @@ class AssetsEditVC: UIViewController {
             print("유효한 자산이 아닙니다.")
         }
     }
+    
+    // 뒤로가기전에 차트를 다시 그려주는 메서드
+    private func popupViewController() {
+        if let mainPageVC = navigationController?.viewControllers.last(where: { $0 is MainPageVC }) as? MainPageVC {
+            
+            mainPageVC.setChartData()
+            
+            navigationController?.popViewController(animated: true)
+        } else {
+            // MainPageVC가 네비게이션 스택에 없는 경우 처리
+            print("MainPageVC를 찾을 수 없습니다.")
+        }
+    }
 
     
     // MARK: - Objc
     @objc func saveButtonTapped() {
         saveAssets()
-        navigationController?.popViewController(animated: true)
+        popupViewController()
     }
     @objc func cancelButtonTapped() {
         navigationController?.popViewController(animated: true)
     }
     @objc func deleteButtonTapped() {
         deleteAssets()
-        navigationController?.popViewController(animated: true)
+        popupViewController()
     }
 }

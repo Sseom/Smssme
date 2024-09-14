@@ -10,6 +10,7 @@ import FirebaseAuth
 
 class LoginVC: UIViewController {
     var handle: AuthStateDidChangeListenerHandle?
+    var toastMessage: String?
     
     private let loginVeiw = LoginView()
 
@@ -20,9 +21,20 @@ class LoginVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(hex: "#3756f4")
-        setupAddtarget()
         
+        loginVeiw.emailTextField.delegate = self
+        loginVeiw.passwordTextField.delegate = self
+        
+        setupAddtarget()
     }
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//
+//        if let message = toastMessage {
+//            Toast.show(message: message, in: self)
+//        }
+//    }
     
     ///인증상태 수신 대기 - 리스터 연결
     ///각각의 앱 뷰에서 앱에 로그인한 사용자에 대한 정보를 얻기 위해 FIRAuth 객체와 리스너를 연결합니다. 
@@ -100,23 +112,16 @@ class LoginVC: UIViewController {
                                 completion: nil)
     }
     
-    //MARK: - 자동로그인/ 아이디저장 체크박스
-    @objc func checkBoxTapped(_ checkBox: UIButton) {
-        checkBox.isSelected.toggle()
-        // 선택 상태에 따라 동작 추가 가능
-        if checkBox.isSelected {
-            print("tag \(checkBox.tag) 체크박스 선택됨")
-        } else {
-            print("tag \(checkBox.tag) 체크박스 선택 해제됨")
-        }
-    }
-    
     
     //MARK: - @objc 회원가입
     @objc private func signupButtonTapped() {
-        print(#function)
-        let signupVC = SignUpVC()
-        navigationController?.pushViewController(signupVC, animated: true)
+        let emailVC = EmailVC()
+        let navController = UINavigationController(rootViewController: emailVC)
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let window = windowScene.windows.first else { return }
+ 
+        window.rootViewController = navController
+        window.makeKeyAndVisible()
     }
     
     //MARK: - @objc 비회원 로그인
@@ -136,3 +141,15 @@ class LoginVC: UIViewController {
     }
 }    
 
+
+extension LoginVC: UITextFieldDelegate {
+    // 엔터 누르면 포커스 이동 후 키보드 내림
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField ==  loginVeiw.emailTextField {
+            loginVeiw.passwordTextField.becomeFirstResponder()
+        } else if textField ==  loginVeiw.passwordTextField {
+            loginVeiw.passwordTextField.resignFirstResponder()
+        }
+        return true
+    }
+}

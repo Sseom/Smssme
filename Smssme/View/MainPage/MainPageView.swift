@@ -11,6 +11,7 @@ class MainPageView: UIView {
 //    private let financialTitleLabel = SmallTitleLabel().createLabel(with: "오늘의 주요 경제 지표", color: .black)
     private let benefitTitleLabel = SmallTitleLabel().createLabel(with: "2024 청년 혜택 총정리", color: .black)
     
+
 //    private let todayFinancialArray: [TodayFinancial] = [
 //        TodayFinancial(title: "KOSPI", value: 5678.91, range: -1),
 //        TodayFinancial(title: "KOSDAQ", value: 234.2, range: 0),
@@ -61,6 +62,7 @@ class MainPageView: UIView {
     let pieChartView: PieChartView = {
         let pieChartView = PieChartView()
         pieChartView.rotationEnabled = false
+        pieChartView.legend.enabled = false
         return pieChartView
     }()
     
@@ -68,8 +70,10 @@ class MainPageView: UIView {
         let button = UIButton()
         button.setTitle("자산 추가", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.layer.cornerRadius = 10
-        button.backgroundColor = .systemGray4
+        button.backgroundColor = .clear
+        button.titleLabel?.font = .systemFont(ofSize: 12)
+        button.titleLabel?.numberOfLines = 2
+        button.titleLabel?.textAlignment = .center
         return button
     }()
     
@@ -241,10 +245,9 @@ class MainPageView: UIView {
         }
         
         chartCenterButton.snp.makeConstraints {
-            $0.centerX.equalTo(pieChartView)
-            $0.top.equalTo(pieChartView.snp.top).offset(120)
-            $0.height.equalTo(40)
-            $0.width.equalTo(80)
+            $0.center.equalTo(pieChartView)
+            $0.height.equalTo(120)
+            $0.width.equalTo(120)
         }
         
 //        financialTitleLabel.snp.makeConstraints {
@@ -264,7 +267,7 @@ class MainPageView: UIView {
         }
         
         benefitTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(financialScrollView.snp.bottom).offset(40)
+            $0.top.equalTo(pieChartView.snp.bottom).offset(40)
             $0.left.equalTo(safeAreaLayoutGuide).offset(20)
         }
         

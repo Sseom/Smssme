@@ -11,16 +11,29 @@ import SnapKit
 class FinancialPlanCell: UICollectionViewCell {
     static let ID = "FinancialPlanCell"
     
-    private let titleLabel = SmallTitleLabel().createLabel(with: "", color: UIColor.black)
+    private let titleLabel = ContentBoldLabel().createLabel(with: "", color: UIColor.black)
     private let descriptionLabel = ContentLabel().createLabel(with: "", color: UIColor(hex: "#333333"))
+    
+    // 아이콘 사용 보류
+//    private let iconView: UIImageView = {
+//        let imageView = UIImageView()
+//        imageView.contentMode = .scaleAspectFit
+//        imageView.backgroundColor = .clear
+//        return imageView
+//    }()
+    
     private let startLabel: UILabel = {
         let label = UILabel()
-        label.text = "시작하기"
         label.textAlignment = .center
         label.textColor = UIColor(hex: "#333333")
         label.backgroundColor = UIColor(hex: "#e3e3e3")
         label.layer.cornerRadius = 5
         label.clipsToBounds = true
+        let fontSize: CGFloat = 18
+        let kernValue = fontSize * -0.04
+        label.attributedText = NSAttributedString(string: "시작하기", attributes: [
+            .kern: kernValue
+        ])
         return label
     }()
     
@@ -37,12 +50,24 @@ class FinancialPlanCell: UICollectionViewCell {
     private func setupUI() {
         contentView.layer.cornerRadius = 10
         contentView.layer.masksToBounds = true
-        [titleLabel, descriptionLabel, startLabel].forEach {
+        [
+//            iconView,
+         titleLabel, 
+         descriptionLabel,
+         startLabel
+        ].forEach {
             contentView.addSubview($0)
         }
         
+//        iconView.snp.makeConstraints {
+//            $0.top.equalToSuperview().offset(24)
+//            $0.leading.equalToSuperview().offset(16)
+//            $0.width.equalTo(60)
+//            $0.height.equalTo(60)
+//        }
+        
         titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(40)
+            $0.top.equalToSuperview().offset(32)
             $0.leading.equalToSuperview().offset(16)
             $0.trailing.equalToSuperview().offset(-16)
         }
@@ -71,7 +96,7 @@ class FinancialPlanCell: UICollectionViewCell {
     }
     
     func configure(with item: PlanItem) {
-        //        cellBackImage.image = UIImage(named: item.imageName)
+//        iconView.image = UIImage(named: item.imageName)
         titleLabel.text = item.title
         descriptionLabel.text = item.description
         

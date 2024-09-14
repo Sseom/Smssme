@@ -26,7 +26,7 @@ class BaseLabelFactory: LabelFactory {
 class LargeTitleLabel: BaseLabelFactory {
     override func createLabel(with text: String, color: UIColor) -> UILabel {
         let label = super.createLabel(with: text, color: color)
-        label.font = UIFont.boldSystemFont(ofSize: 22)
+        label.font = UIFont.boldSystemFont(ofSize: 24)
         return label
     }
 }
@@ -34,7 +34,7 @@ class LargeTitleLabel: BaseLabelFactory {
 class SmallTitleLabel: BaseLabelFactory {
     override func createLabel(with text: String, color: UIColor) -> UILabel {
         let label = super.createLabel(with: text, color: color)
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.font = UIFont.boldSystemFont(ofSize: 18)
         return label
     }
 }
@@ -44,10 +44,31 @@ class ContentLabel: BaseLabelFactory {
         let label = super.createLabel(with: text, color: color)
         label.font = UIFont.systemFont(ofSize: 16)
         label.numberOfLines = 0
+        label.lineBreakMode = .byCharWrapping
+        let fontSize: CGFloat = 16
+        let kernValue = fontSize * -0.04
+        label.attributedText = NSAttributedString(string: text, attributes: [
+            .kern: kernValue,
+            .foregroundColor: color
+        ])
         return label
     }
 }
 
+class ContentBoldLabel: BaseLabelFactory {
+    override func createLabel(with text: String, color: UIColor) -> UILabel {
+        let label = super.createLabel(with: text, color: color)
+        label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        label.numberOfLines = 0
+        let fontSize: CGFloat = 16
+        let kernValue = fontSize * -0.04
+        label.attributedText = NSAttributedString(string: text, attributes: [
+            .kern: kernValue,
+            .foregroundColor: color
+        ])
+        return label
+    }
+}
 
 // MARK: - 앱 전체에서 공통적으로 사용될 버튼
 
@@ -68,7 +89,7 @@ class BaseButton: ButtonFactory {
     }
 }
 
-class ActionButton {
+class ActionButtonBlack {
     func createButton(text: String, color: UIColor, textColor: UIColor, method: @escaping () -> Void) -> UIButton {
         let button = UIButton()
         button.setTitle(text, for: .normal)
@@ -80,6 +101,34 @@ class ActionButton {
         button.addAction(UIAction(handler: { _ in
             method()
         }), for: .touchUpInside)
+        return button
+    }
+}
+
+class ActionButtonBlack2 {
+    func createButton(text: String, color: UIColor, textColor: UIColor) -> UIButton {
+        let button = UIButton()
+        button.setTitle(text, for: .normal)
+        button.setTitleColor(textColor, for: .normal)
+        button.backgroundColor = color
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        button.layer.cornerRadius = 20
+        button.clipsToBounds = true
+        return button
+    }
+}
+
+class ActionButtonBorder {
+    func createButton(text: String, color: UIColor, textColor: UIColor) -> UIButton {
+        let button = UIButton()
+        button.setTitle(text, for: .normal)
+        button.setTitleColor(textColor, for: .normal)
+        button.backgroundColor = .white
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        button.layer.borderColor = color.cgColor
+        button.layer.borderWidth = 1
+        button.layer.cornerRadius = 20
+        button.clipsToBounds = true
         return button
     }
 }

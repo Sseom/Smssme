@@ -17,6 +17,7 @@ class MypageVC: UIViewController {
     private let mypageView = MypageView()
     private let mypageViewCell = MypageViewCell()
     
+    var isLoggedIn: Bool = false
     let db = Firestore.firestore()
     
     
@@ -46,9 +47,52 @@ class MypageVC: UIViewController {
         checkLoginStatus()
     }
     
-        override func viewWillAppear(_ animated: Bool) {
-            self.checkLoginStatus()
+    override func viewWillAppear(_ animated: Bool) {
+        self.checkLoginStatus()
+        
+        // 로그인 상태에 따른 테이블뷰 표시 여부
+        if isLoggedIn {
+            mypageView.tableView.isHidden = false
+        } else {
+            mypageView.tableView.isHidden = true
+            addLoginButton()
         }
+    }
+    
+    
+    // 로그인 버튼 추가
+    private func addLoginButton() {
+        let label = UILabel()
+        label.text = "로그인 후 이용 가능해요."
+        label.textColor = .lightGray
+        
+        let loginButton = UIButton(type: .system)
+        loginButton.setTitle("로그인 하러 가기", for: .normal)
+        loginButton.titleLabel?.font = .boldSystemFont(ofSize: 18)
+        loginButton.tintColor = .black
+        loginButton.layer.borderColor = UIColor.systemGray5.cgColor
+        loginButton.layer.borderWidth = 1
+        loginButton.layer.cornerRadius = 10
+        loginButton.addTarget(self, action: #selector(handleLoginButton), for: .touchUpInside)
+        
+        [label, loginButton].forEach { view.addSubview($0)}
+        
+        label.snp.makeConstraints {
+            $0.center.equalToSuperview()
+        }
+        
+        loginButton.snp.makeConstraints {
+            $0.top.equalTo(label.snp.bottom).offset(16)
+            $0.width.equalTo(200)
+            $0.height.equalTo(50)
+            $0.centerX.equalToSuperview()
+        }
+    }
+
+    // 로그인 버튼 클릭 시 로그인 화면으로 이동
+    @objc private func handleLoginButton() {
+        MypageVC().switchToLoginVC()
+    }
     
     //MARK: - 테이블뷰 관련 메서드
     func tableviewSetup() {
@@ -119,7 +163,7 @@ class MypageVC: UIViewController {
     }
     
     // 로그인VC으로 화면전환
-    private func switchToLoginVC() {
+    func switchToLoginVC() {
         let loginVC = LoginVC()
         let navController = UINavigationController(rootViewController: loginVC)
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
@@ -142,10 +186,13 @@ class MypageVC: UIViewController {
         if let user  = Auth.auth().currentUser {
             // 로그인 상태라면
             print("사용자 uid: \(user.uid)")
+            isLoggedIn = true
             loadUserData(uid: user.uid)
             
         } else {
             // 비로그인 상태라면
+            isLoggedIn = false
+            
             print("로그인 없이 둘러보기 상태입니다.")
             self.tableViewHeaderSetUp(nickname: "로그인해주세요. ", email: "슴씀이의 더 많은 정보를 이용하러 가기!")
         }
@@ -334,7 +381,7 @@ extension MypageVC: UITableViewDataSource {
     
     // 각 섹션에 몇 개의 행이 있을지를 반환
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        data[section].count
+        return data[section].count
     }
     
     // 특정 섹션의 특정 행에 표시될 셀을 구성하고 반환
