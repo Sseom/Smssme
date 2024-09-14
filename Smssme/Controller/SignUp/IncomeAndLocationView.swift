@@ -34,7 +34,7 @@ class IncomeAndLocationView: UIView {
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 24, weight: .semibold, scale: .large)
         button.setBackgroundImage(UIImage(systemName: "checkmark.circle"), for: .normal)
         button.setBackgroundImage(UIImage(systemName: "checkmark.circle.fill"), for: .selected)
-        button.setContentHuggingPriority(.defaultHigh, for: .horizontal) //자신의 크기 유지
+//        button.setContentHuggingPriority(.defaultHigh, for: .horizontal) //자신의 크기 유지
         button.tag = GenderTags.male.rawValue
         return button
     }()

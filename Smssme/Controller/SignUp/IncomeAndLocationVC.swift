@@ -13,6 +13,7 @@ class IncomeAndLocationVC: UIViewController {
     private let passwordView = PasswordView()
     private let nicknameView = NickNameView()
     private let incomeAndLocationView = IncomeAndLocationView()
+    private var selectedGender: String = ""
     
     private var selectedCheckBox: UIButton?
     private let incomePickerView = UIPickerView()
@@ -41,9 +42,6 @@ class IncomeAndLocationVC: UIViewController {
         
         view = incomeAndLocationView
         
-        incomeAndLocationView.nextButton.backgroundColor = .systemBlue
-        incomeAndLocationView.nextButton.isEnabled = true
-        
         incomePickerView.tag = 1
         locationPickerView.tag = 2
         
@@ -51,59 +49,62 @@ class IncomeAndLocationVC: UIViewController {
         configPickerView()
         configToolbar()
         
-        //        incomeAndLocationView..addTarget(self, action: #selector(textFieldEditingChanged(_:, _:)), for: .editingChanged)
-        incomeAndLocationView.incomeTextField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
         
-        incomeAndLocationView.locationTextField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
-        
-        incomeAndLocationView.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
     }
     
     //MARK: - func
     private func setupAddtarget() {
-        
-        //        if let user = Auth.auth().currentUser {
-        //            signupView.signupButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
-        //        } else {
-        //            // 회원가입 버튼 클릭
-        //            signupView.signupButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
-        //        }
-        //체크박스 버튼 클릭 시
+        // 체크박스 버튼 클릭 시
         incomeAndLocationView.maleCheckBox.addTarget(self, action: #selector(checkBoxTapped), for: .touchUpInside)
         incomeAndLocationView.femaleCheckBox.addTarget(self, action: #selector(checkBoxTapped), for: .touchUpInside)
         incomeAndLocationView.noneCheckBox.addTarget(self, action: #selector(checkBoxTapped), for: .touchUpInside)
+         
+        // 다음 버튼 클릭 시
+        incomeAndLocationView.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+        
     }
     
+    // 버튼 활성화를 위한 유효성 검증
+    private func validateForm() {
+        selectedGender = incomeAndLocationView.maleCheckBox.isSelected ? "male" : incomeAndLocationView.femaleCheckBox.isSelected ? "female" : "none"
+        let income = incomeAndLocationView.incomeTextField.text ?? ""
+        let location = incomeAndLocationView.locationTextField.text ?? ""
+        
+        print("수입 입력 여부: \(income)")
+         print("지역 입력 여부: \(location)")
+         print("성별 선택 여부: \(selectedGender)")
+        
+        if !selectedGender.isEmpty && !income.isEmpty && !location.isEmpty {
+            incomeAndLocationView.nextButton.backgroundColor = .systemBlue
+            incomeAndLocationView.nextButton.isEnabled = true
+        } else {
+            incomeAndLocationView.nextButton.backgroundColor = .systemGray5
+            incomeAndLocationView.nextButton.isEnabled = false
+        }
+    }
     
     //MARK: - @objc
     @objc func nextButtonTapped() {
-//        userData.gender = incomePickerView.text
+        userData.gender = selectedGender
         userData.income = incomeAndLocationView.incomeTextField.text
         userData.location = incomeAndLocationView.locationTextField.text
         
-        
         // 모든 정보가 입력되었으므로 Firebase에 저장
         FirebaseManager.shared.registerUser(email: userData.email ?? "", password: userData.password ?? "") { result in
-               switch result {
-               case .success(let uid):
-                   FirebaseManager.shared.saveUserData(uid: uid, userData: self.userData) { saveResult in
-                       switch saveResult {
-                       case .success:
-                           print("사용자 정보 저장 성공")
-                           // 로그인 화면으로 전환
-//                           DispatchQueue.main.async {
-//                               let loginVC = LoginVC()
-//                               loginVC.toastMessage = "회원가입 완료!"
-//                               self.navigationController?.setViewControllers([loginVC], animated: true)
-//                           }
-                       case .failure(let error):
-                           print("사용자 정보 저장 실패: \(error.localizedDescription)")
-                       }
-                   }
-               case .failure(let error):
-                   print("회원가입 실패: \(error.localizedDescription)")
-               }
-           }
+            switch result {
+            case .success(let uid):
+                FirebaseManager.shared.saveUserData(uid: uid, userData: self.userData) { saveResult in
+                    switch saveResult {
+                    case .success:
+                        print("사용자 정보 저장 성공")
+                    case .failure(let error):
+                        print("사용자 정보 저장 실패: \(error.localizedDescription)")
+                    }
+                }
+            case .failure(let error):
+                print("회원가입 실패: \(error.localizedDescription)")
+            }
+        }
         
         showSnycAlert(message: "회원가입이 완료되었습니다. \n감사합니다.", AlertTitle: "회원가입 성공", buttonClickTitle: "확인") {
             SplashViewController().showLoginVC()
@@ -117,16 +118,16 @@ class IncomeAndLocationVC: UIViewController {
         if incomeAndLocationView.locationTextField.isFirstResponder {
             let locationRow = locationPickerView.selectedRow(inComponent: 0)
             incomeAndLocationView.locationTextField.text = pickerLocationData[locationRow]
-            print("선택한 위치: \(incomeAndLocationView.locationTextField.text ?? "")")
         } else if incomeAndLocationView.incomeTextField.isFirstResponder {
             let incomeRow = incomePickerView.selectedRow(inComponent: 0)
             incomeAndLocationView.incomeTextField.text = pickerIncomeData[incomeRow]
-            print("선택한 소득구간: \(incomeAndLocationView.incomeTextField.text ?? "")")
         }
         
         // 텍스트필드 입력 마치고 키보드 숨기기
         incomeAndLocationView.incomeTextField.resignFirstResponder()
         incomeAndLocationView.locationTextField.resignFirstResponder()
+        
+        validateForm()
     }
     
     // 피커뷰 "취소" 클릭 시 textfield의 텍스트 값을 nil로 처리 후 입력창 내리기
@@ -137,29 +138,6 @@ class IncomeAndLocationVC: UIViewController {
         incomeAndLocationView.locationTextField.resignFirstResponder()
     }
     
-    
-    // 모든 내용 입력돼야 버튼 활성화
-    @objc private func textFieldEditingChanged(_ textField: UITextField,_ checkBox: UIButton) {
-        
-//        guard
-//            //            let gender = incomeAndLocationView.maleCheckBox.isSelected ? "male" : incomeAndLocationView.femaleCheckBox.isSelected ? "female" : incomeAndLocationView.noneCheckBox.isSelected ? "none" : nil ,
-//            let income = incomeAndLocationView.incomeTextField.text,
-//            let location = incomeAndLocationView.locationTextField.text
-//        else { return }
-//        
-//        if !income.isEmpty && !income.isEmpty {
-//            incomeAndLocationView.nextButton.backgroundColor = .systemBlue
-//            incomeAndLocationView.nextButton.isEnabled = true
-//        } else {
-            incomeAndLocationView.nextButton.backgroundColor = .systemGray5
-            incomeAndLocationView.nextButton.isEnabled = false
-        
-        
-//        }
-        
-//        }
-        
-    }
     
     //MARK: - 성별 체크박스
     @objc func checkBoxTapped(_ checkBox: UIButton) {
@@ -178,19 +156,8 @@ class IncomeAndLocationVC: UIViewController {
             // 새로운 체크박스를 선택
             checkBox.isSelected = true
             selectedCheckBox = checkBox
-            
-            if let tagType = GenderTags(rawValue: checkBox.tag) {
-                switch tagType {
-                case .male:
-                    print("tag: \(GenderTags(rawValue: 1)) - 남성 체크박스 선택됨")
-                case .female:
-                    print("tag: \(checkBox.tag) - 여성 체크박스 선택됨")
-                case .none:
-                    print("tag: \(checkBox.tag) - 선택안함 체크박스 선택됨")
-                }
-            }
-            
         }
+        validateForm()
     }
 }
 
@@ -270,7 +237,3 @@ extension IncomeAndLocationVC: UIPickerViewDelegate, UIPickerViewDataSource {
     }
 }
 
-//MARK: - extension - TextField
-extension IncomeAndLocationVC: UITextFieldDelegate {
-    
-}

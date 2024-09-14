@@ -13,11 +13,11 @@ class NickNameVC: UIViewController {
     private var textField = UITextField()
     var userData = UserData()
     
-    
+
     //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         view = nicknameView
         
         datePickerToolbar()
@@ -33,11 +33,11 @@ class NickNameVC: UIViewController {
         
         nicknameView.nicknameTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         nicknameView.birthdayTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
-        
+       
         nicknameView.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
     }
     
-    
+
     //MARK: - @objc
     @objc func nextButtonTapped() {
         userData.nickname = nicknameView.nicknameTextField.text
@@ -48,21 +48,22 @@ class NickNameVC: UIViewController {
         navigationController?.pushViewController(incomeAndLocationVC, animated: true)
     }
     
-    //MARK: - 데이트피커뷰 선택 시
-    @objc func dateChange(_ sender: UIDatePicker) {
-        nicknameView.birthdayTextField.text = dateFormat(date: sender.date)
+
+    
+    //MARK: - func - 버튼 활성화를 위한 유효성 검증 메서드
+    private func validateForm() {
+        let nickname = nicknameView.nicknameTextField.text ?? ""
+        let birth = nicknameView.birthdayTextField.text ?? ""
         
-        guard
-            let nickname = nicknameView.nicknameTextField.text, !nickname.isEmpty,
-            let birth = nicknameView.birthdayTextField.text, !birth.isEmpty
-        else {
+        if nickname.count >= 2 && nickname.count <= 10 && !birth.isEmpty {
+            nicknameView.nextButton.backgroundColor = .systemBlue
+            nicknameView.nextButton.isEnabled = true
+        } else {
             nicknameView.nextButton.backgroundColor = .systemGray5
             nicknameView.nextButton.isEnabled = false
-            return
         }
-        nicknameView.nextButton.backgroundColor = .systemBlue
-        nicknameView.nextButton.isEnabled = true
     }
+    
     
     // 텍스트 필드에 들어갈 텍스트를 DateFormatter 변환
     private func dateFormat(date: Date) -> String {
@@ -92,6 +93,12 @@ class NickNameVC: UIViewController {
     }
     
     
+    //MARK: - 데이트피커뷰 선택 시
+    @objc func dateChange(_ sender: UIDatePicker) {
+        nicknameView.birthdayTextField.text = dateFormat(date: sender.date)
+        validateForm()
+    }
+    
     @objc
     private func dateCancelPicker() {
         nicknameView.birthdayTextField.text = nil
@@ -101,9 +108,8 @@ class NickNameVC: UIViewController {
     @objc func dateDonePicker() {
         nicknameView.birthdayTextField.text = dateFormat(date: nicknameView.datePickerView.date)
         nicknameView.birthdayTextField.resignFirstResponder()
-    }
+        }
 }
-
 
 
 //MARK: - UITextField extension
@@ -136,21 +142,11 @@ extension NickNameVC: UITextFieldDelegate {
     
     // 모든 내용 입력돼야 버튼 활성화
     @objc private func textFieldEditingChanged(_ textField: UITextField) {
-        
+
         // 공백 입력 방지 -> 중간에 입력할 시에는 적용되는 문제 있음
         textField.text = textField.text?.trimmingCharacters(in: .whitespaces)
         
-        if let nickname = nicknameView.nicknameTextField.text,
-           let birth = nicknameView.birthdayTextField.text,
-           nickname.count > 1 && nickname.count < 11 &&  !birth.isEmpty {
-            nicknameView.nextButton.backgroundColor = .systemBlue
-            nicknameView.nextButton.isEnabled = true
-        }
-        else {
-            nicknameView.nextButton.backgroundColor = .systemGray5
-            nicknameView.nextButton.isEnabled = false
-            return
-        }
+        validateForm()
     }
-    
+
 }
