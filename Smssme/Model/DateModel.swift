@@ -51,12 +51,13 @@ struct TransactionItem {
     let Amount: Int
     let isIncom: Bool
     let transactionDate: Date
-    
-    init(name: String = "", Amount: Int = 0, isIncom: Bool = true, transactionDate: Date = Date()) {
+    let memo: String
+    init(name: String = "", Amount: Int = 0, isIncom: Bool = true, transactionDate: Date = Date(), memo: String = "") {
         self.name = name
         self.Amount = Amount
         self.isIncom = isIncom
         self.transactionDate = transactionDate
+        self.memo = memo
     }
 }
 

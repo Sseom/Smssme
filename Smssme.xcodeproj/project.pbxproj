@@ -91,6 +91,7 @@
 		9F86E6CF2C92AB7100619F7D /* AutomaticTransactionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F86E6CE2C92AB7100619F7D /* AutomaticTransactionVC.swift */; };
 		9F9F6E4B2C89AF3500F1EDA6 /* MoneyDiaryCreatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F6E4A2C89AF3500F1EDA6 /* MoneyDiaryCreatVC.swift */; };
 		9F9F6E4D2C89AF5300F1EDA6 /* MoneyDiaryCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F6E4C2C89AF5300F1EDA6 /* MoneyDiaryCreateView.swift */; };
+		9FB5C68C2C952DEA00B5AF6D /* PopMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 9FB5C68B2C952DEA00B5AF6D /* PopMenu */; };
 		9FE549BF2C801E4D00E6075E /* FinancialPlanConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE549BE2C801E4D00E6075E /* FinancialPlanConfirmView.swift */; };
 		E517F2822C8782F200CB8680 /* FinancialPlanManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2812C8782F200CB8680 /* FinancialPlanManager.swift */; };
 		E517F33C2C892F7A00CB8680 /* KoreanCurrencyFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F33B2C892F7A00CB8680 /* KoreanCurrencyFormatter.swift */; };
@@ -219,6 +220,7 @@
 				5F3EAE4A2C7EF73500FF15E5 /* FirebaseAnalytics in Frameworks */,
 				5F3EAE4E2C7EF73500FF15E5 /* FirebaseFirestore in Frameworks */,
 				5F3EAE502C7EF73500FF15E5 /* FirebaseFunctions in Frameworks */,
+				9FB5C68C2C952DEA00B5AF6D /* PopMenu in Frameworks */,
 				5F3EAE4C2C7EF73500FF15E5 /* FirebaseAuth in Frameworks */,
 				E5FBA1332C7CCCBE00D26E5F /* SnapKit in Frameworks */,
 				74707F802C806A5900F7000C /* DGCharts in Frameworks */,
@@ -597,6 +599,7 @@
 				5F3EAE4F2C7EF73500FF15E5 /* FirebaseFunctions */,
 				5F3EAE512C7EF73500FF15E5 /* FirebaseStorage */,
 				74707F7F2C806A5900F7000C /* DGCharts */,
+				9FB5C68B2C952DEA00B5AF6D /* PopMenu */,
 			);
 			productName = Smssme;
 			productReference = 740350532C773E9B00122B2E /* Smssme.app */;
@@ -630,6 +633,7 @@
 				E5FBA1312C7CCCBE00D26E5F /* XCRemoteSwiftPackageReference "SnapKit" */,
 				5F3EAE482C7EF73400FF15E5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				74707F7E2C806A5900F7000C /* XCRemoteSwiftPackageReference "Charts" */,
+				9FB5C68A2C952DEA00B5AF6D /* XCRemoteSwiftPackageReference "PopMenu" */,
 			);
 			productRefGroup = 740350542C773E9B00122B2E /* Products */;
 			projectDirPath = "";
@@ -1007,6 +1011,14 @@
 				minimumVersion = 5.1.0;
 			};
 		};
+		9FB5C68A2C952DEA00B5AF6D /* XCRemoteSwiftPackageReference "PopMenu" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CaliCastle/PopMenu.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		E5FBA1312C7CCCBE00D26E5F /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -1047,6 +1059,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 74707F7E2C806A5900F7000C /* XCRemoteSwiftPackageReference "Charts" */;
 			productName = DGCharts;
+		};
+		9FB5C68B2C952DEA00B5AF6D /* PopMenu */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FB5C68A2C952DEA00B5AF6D /* XCRemoteSwiftPackageReference "PopMenu" */;
+			productName = PopMenu;
 		};
 		E5FBA1322C7CCCBE00D26E5F /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -46,17 +46,53 @@ class MoneyDiaryView: UIView {
         return segmentController
     }()
 
+    lazy var floatingButton: UIButton = {
+        let button = UIButton()
+        var config = UIButton.Configuration.filled()
+        config.cornerStyle = .capsule
+        config.image = UIImage(systemName: "plus")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))
+        button.configuration = config
+        button.layer.shadowRadius = 10
+        button.layer.shadowOpacity = 0.3
+        return button
+    }()
+    
+    let pencilButton: UIButton = {
+        let button = UIButton()
+        var config = UIButton.Configuration.filled()
+        config.cornerStyle = .capsule
+        config.image = UIImage(systemName: "pencil")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))
+        button.configuration = config
+        button.layer.shadowRadius = 10
+        button.layer.shadowOpacity = 0.3
+        button.alpha = 0.0
+        return button
+    }()
+    
+    let quickMessageButton: UIButton = {
+        let button = UIButton()
+        var config = UIButton.Configuration.filled()
+        config.cornerStyle = .capsule
+        
+        config.image = UIImage(systemName: "opticaldiscdrive")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))
+        button.configuration = config
+        button.layer.shadowRadius = 10
+        button.layer.shadowOpacity = 0.3
+        button.alpha = 0.0
+        
+        return button
+    }()
 
     
     let moveBudgetButton = BaseButton().createButton(text: "예산안", color: .systemGray.withAlphaComponent(0.5), textColor: .black)
     
     let todayButton = BaseButton().createButton(text: "오늘", color: .systemGray.withAlphaComponent(0.5), textColor: .black)
     
-    private let pencilButton: UIButton = {
-        let button = UIButton()
-        button.setBackgroundImage(UIImage(named: "pencilButton"), for: .normal)
-        return button
-    }()
+//    private let pencilButton: UIButton = {
+//        let button = UIButton()
+//        button.setBackgroundImage(UIImage(named: "pencilButton"), for: .normal)
+//        return button
+//    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -105,11 +141,11 @@ class MoneyDiaryView: UIView {
             chartView,
             todayButton,
             segmentController,
+            floatingButton,
             pencilButton,
-            
-
+            quickMessageButton,
             moveBudgetButton,
-            pencilButton
+            
 
         ].forEach { self.addSubview($0) }
         
@@ -161,13 +197,33 @@ class MoneyDiaryView: UIView {
             $0.horizontalEdges.equalTo(self.snp.horizontalEdges)
             $0.bottom.equalTo(self.snp.bottom)
         }
+        floatingButton.snp.makeConstraints {
+                    $0.trailing.equalToSuperview().inset(20)
+                    $0.bottom.equalToSuperview().inset(40)
+                    $0.width.height.equalTo(60)
+                }
 
-        pencilButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview().offset(-60)
-            $0.trailing.equalToSuperview().offset(-20)
-            $0.width.height.equalTo(50)
-        }
+                pencilButton.snp.makeConstraints {
+                    $0.centerX.equalTo(floatingButton.snp.centerX)
+                    $0.bottom.equalTo(floatingButton.snp.top).offset(-15)
+                    $0.width.height.equalTo(40)
+                }
+
+                quickMessageButton.snp.makeConstraints {
+                    $0.centerX.equalTo(floatingButton.snp.centerX)
+                    $0.bottom.equalTo(pencilButton.snp.top).offset(-15)
+                    $0.width.height.equalTo(40)
+                }
+        
+
+//        pencilButton.snp.makeConstraints {
+//            $0.bottom.equalToSuperview().offset(-60)
+//            $0.trailing.equalToSuperview().offset(-20)
+//            $0.width.height.equalTo(50)
+//        }
     }
+    
+
     
 }
 

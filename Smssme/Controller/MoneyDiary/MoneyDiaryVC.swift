@@ -8,6 +8,7 @@
 import DGCharts
 import SnapKit
 import UIKit
+import PopMenu
 
 final class MoneyDiaryVC: UIViewController {
     private var diaries: [Diary] = []
@@ -19,6 +20,14 @@ final class MoneyDiaryVC: UIViewController {
     private var calendarDate = Date()
     private var calendarItems = [CalendarItem]()
     let datePicker = DatePickerView()
+    private var animation: UIViewPropertyAnimator?
+    
+    private var isActive: Bool = false {
+        didSet {
+            showActionButtons()
+        }
+    }
+    
     
     init(moneyDiaryView: MoneyDiaryView) {
         self.moneyDiaryView = moneyDiaryView
@@ -109,7 +118,17 @@ final class MoneyDiaryVC: UIViewController {
         moneyDiaryView.dateButton.addTarget(self, action: #selector(didTapMoveButton), for: .touchUpInside)
         datePicker.confirmButton.addTarget(self, action: #selector(didTapMove), for: .touchUpInside)
         moneyDiaryView.moveBudgetButton.addTarget(self, action: #selector(didTapBudgetButton), for: .touchUpInside)
+        moneyDiaryView.floatingButton.addTarget(self, action: #selector(didTapFloatingButton), for: .touchUpInside)
+        moneyDiaryView.quickMessageButton.addTarget(self, action: #selector(automaticSavingMessage), for: .touchUpInside)
     }
+    
+    @objc func automaticSavingMessage(){
+        let viewController = AutomaticTransactionVC()
+        self.navigationController?.pushViewController(viewController, animated: false)
+        
+    }
+    
+    
     
     private func setChart(centerTotalValue: Int64) {
 //        moneyDiaryView.chartView.delegate = self
@@ -247,6 +266,63 @@ extension MoneyDiaryVC {
 }
 
 extension MoneyDiaryVC {
+
+    
+    
+    @objc private func didTapFloatingButton() {
+        isActive.toggle()
+    }
+    
+    private func showActionButtons() {
+        popButtons()
+        rotateFloatingButton()
+    }
+    
+    private func popButtons() {
+        if isActive {
+            moneyDiaryView.pencilButton.layer.transform = CATransform3DMakeScale(0.4, 0.4, 1)
+            UIView.animate(withDuration: 0.3, delay: 0.2, usingSpringWithDamping: 0.55, initialSpringVelocity: 0.3, options: [.curveEaseInOut], animations: { [weak self] in
+                guard let self = self else { return }
+                moneyDiaryView.pencilButton.layer.transform = CATransform3DIdentity
+                moneyDiaryView.pencilButton.alpha = 1.0
+                
+            })
+            moneyDiaryView.quickMessageButton.layer.transform = CATransform3DMakeScale(0.4, 0.4, 1)
+            UIView.animate(withDuration: 0.3, delay: 0.2, usingSpringWithDamping: 0.55, initialSpringVelocity: 0.3, options: [.curveEaseInOut], animations: { [weak self] in
+                guard let self = self else { return }
+                moneyDiaryView.quickMessageButton.layer.transform = CATransform3DIdentity
+                moneyDiaryView.quickMessageButton.alpha = 1.0
+                
+            })
+        } else {
+            UIView.animate(withDuration: 0.15, delay: 0.2, options: []) { [weak self] in
+                guard let self = self else { return }
+                moneyDiaryView.pencilButton.layer.transform = CATransform3DMakeScale(0.4, 0.4, 0.1)
+                moneyDiaryView.pencilButton.alpha = 0.0
+                
+                moneyDiaryView.quickMessageButton.layer.transform = CATransform3DMakeScale(0.4, 0.4, 0.1)
+                moneyDiaryView.quickMessageButton.alpha = 0.0
+                
+                
+            }
+        }
+    }
+    
+    private func rotateFloatingButton() {
+        let animation = CABasicAnimation(keyPath: "transform.rotation.z")
+        let fromValue = isActive ? 0 : CGFloat.pi / 4
+        let toValue = isActive ? CGFloat.pi / 4 : 0
+        animation.fromValue = fromValue
+        animation.toValue = toValue
+        animation.duration = 0.3
+        animation.fillMode = .forwards
+        animation.isRemovedOnCompletion = false
+        moneyDiaryView.floatingButton.layer.add(animation, forKey: nil)
+    }
+}
+
+
+extension MoneyDiaryVC {
     
     //objc method
     @objc private func didTapBudgetButton() {
@@ -299,6 +375,7 @@ extension MoneyDiaryVC {
     
     // 연필 아이콘 동작
     private func pencilButtonAction() {
+        
         let action = UIAction { [weak self] _ in
             self?.navigationController?.pushViewController(MoneyDiaryCreationVC(diaryManager: DiaryCoreDataManager(), transactionItem2: Diary()), animated: true)
         }
