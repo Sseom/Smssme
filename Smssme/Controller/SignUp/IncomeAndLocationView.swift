@@ -18,6 +18,13 @@ class IncomeAndLocationView: UIView {
     
     private let commonHeight = 50
     
+    //MARK: - 회원가입 진행 상황 Progress Bar
+    var progressBar: UIProgressView = {
+        let bar = UIProgressView()
+        bar.setProgress(1.0, animated: true)
+        return bar
+    }()
+    
     //MARK: - 성별 선택
     let genderTitleLabel = SmallTitleLabel().createLabel(with: "성별", color: .black)
     
@@ -44,7 +51,7 @@ class IncomeAndLocationView: UIView {
         let button = UIButton()
         button.setBackgroundImage(UIImage(systemName: "checkmark.circle"), for: .normal)
         button.setBackgroundImage(UIImage(systemName: "checkmark.circle.fill"), for: .selected)
-//        button.setContentHuggingPriority(.defaultHigh, for: .horizontal) //자신의 크기 유지
+        //        button.setContentHuggingPriority(.defaultHigh, for: .horizontal) //자신의 크기 유지
         button.tag = GenderTags.female.rawValue
         return button
     }()
@@ -55,7 +62,7 @@ class IncomeAndLocationView: UIView {
         label.textColor = .darkGray
         return label
     }()
-
+    
     
     // 선택안함 체크박스
     var noneCheckBox: UIButton = {
@@ -72,7 +79,7 @@ class IncomeAndLocationView: UIView {
         label.textColor = .darkGray
         return label
     }()
-
+    
     
     //MARK: - 소득 구간 선택
     private let incomeTitleLabel = SmallTitleLabel().createLabel(with: "소득 구간", color: .black)
@@ -111,7 +118,7 @@ class IncomeAndLocationView: UIView {
     
     let agreementLabel: UILabel = {
         let label = UILabel()
-        label.text = "회원가입 버튼을 누르면, 개인정보취급방침 및\n이용약관을 읽고 동의 한 것으로 간주합니다."
+        label.text = "'회원가입'을 누르는것으로 개인정보취급방침 및\n필수 이용약관에 동의한 것으로 간주합니다."
         label.numberOfLines = 0
         label.font = .systemFont(ofSize: 14)
         label.textAlignment = .center
@@ -138,7 +145,7 @@ class IncomeAndLocationView: UIView {
         configureUI()
         setupLayout()
     }
-        
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -154,7 +161,7 @@ class IncomeAndLocationView: UIView {
         
         self.addGestureRecognizer(recognizer)
         
-        [ //titleLabel,
+        [progressBar,
          genderTitleLabel,
          maleCheckBox,
          maleCheckBoxLabel,
@@ -169,7 +176,7 @@ class IncomeAndLocationView: UIView {
          agreementLabel,
          nextButton].forEach {self.addSubview($0)}
     }
-
+    
     private func loadGender(gender: String?) {
         if gender == "male" {
             self.maleCheckBox.isSelected = true
@@ -187,9 +194,13 @@ class IncomeAndLocationView: UIView {
     }
     
     private func setupLayout() {
-   
+        progressBar.snp.makeConstraints {
+            $0.top.equalTo(safeAreaLayoutGuide).inset(5)
+            $0.horizontalEdges.equalToSuperview()
+        }
+        
         genderTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(safeAreaLayoutGuide).inset(30)
+            $0.top.equalTo(progressBar.snp.bottom).offset(20)
             $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
         }
         
@@ -225,7 +236,7 @@ class IncomeAndLocationView: UIView {
             $0.leading.equalTo(noneCheckBox.snp.trailing).offset(5)
             $0.centerY.equalTo(maleCheckBox)
         }
-            
+        
         incomeTitleLabel.snp.makeConstraints {
             $0.top.equalTo(noneLabel
                 .snp.bottom).offset(30)

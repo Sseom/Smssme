@@ -38,6 +38,9 @@
 		5FE4006D2C917A92001D0FD1 /* UserProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE4006C2C917A92001D0FD1 /* UserProfileModel.swift */; };
 		5FE4006F2C917B4E001D0FD1 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE4006E2C917B4E001D0FD1 /* FirebaseManager.swift */; };
 		5FE400712C93CAD3001D0FD1 /* ToastMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE400702C93CAD3001D0FD1 /* ToastMessage.swift */; };
+		5FE400742C949E15001D0FD1 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE400732C949E15001D0FD1 /* NetworkManager.swift */; };
+		5FE400762C949E89001D0FD1 /* APIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE400752C949E89001D0FD1 /* APIModel.swift */; };
+		5FE400782C949EB8001D0FD1 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE400772C949EB8001D0FD1 /* Endpoint.swift */; };
 		740350572C773E9B00122B2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740350562C773E9B00122B2E /* AppDelegate.swift */; };
 		740350592C773E9B00122B2E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740350582C773E9B00122B2E /* SceneDelegate.swift */; };
 		740350612C773E9B00122B2E /* Smssme.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7403505F2C773E9B00122B2E /* Smssme.xcdatamodeld */; };
@@ -131,6 +134,9 @@
 		5FE4006C2C917A92001D0FD1 /* UserProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileModel.swift; sourceTree = "<group>"; };
 		5FE4006E2C917B4E001D0FD1 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		5FE400702C93CAD3001D0FD1 /* ToastMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessage.swift; sourceTree = "<group>"; };
+		5FE400732C949E15001D0FD1 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		5FE400752C949E89001D0FD1 /* APIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIModel.swift; sourceTree = "<group>"; };
+		5FE400772C949EB8001D0FD1 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		740350532C773E9B00122B2E /* Smssme.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Smssme.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		740350562C773E9B00122B2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		740350582C773E9B00122B2E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -285,6 +291,15 @@
 			path = Firebase;
 			sourceTree = "<group>";
 		};
+		5FE400722C949DE9001D0FD1 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				5FE400732C949E15001D0FD1 /* NetworkManager.swift */,
+				5FE400772C949EB8001D0FD1 /* Endpoint.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		7403504A2C773E9B00122B2E = {
 			isa = PBXGroup;
 			children = (
@@ -306,6 +321,7 @@
 			children = (
 				74707FC12C85D78D00F7000C /* Smssme.entitlements */,
 				5FA88FFF2C8581B200549363 /* GoogleService-Info.plist */,
+				5FE400722C949DE9001D0FD1 /* Network */,
 				5FA890032C85B1F400549363 /* Firebase */,
 				740350742C7740BE00122B2E /* View */,
 				740350732C7740AA00122B2E /* Controller */,
@@ -338,6 +354,7 @@
 				E5BF5E462C8597820093FD2D /* FinancialPlanDateModel.swift */,
 				E517F33B2C892F7A00CB8680 /* KoreanCurrencyFormatter.swift */,
 				5FE4006C2C917A92001D0FD1 /* UserProfileModel.swift */,
+				5FE400752C949E89001D0FD1 /* APIModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -644,6 +661,7 @@
 				9F2FA5852C868EB100A9731D /* DateManager.swift in Sources */,
 				74707F952C81B5DF00F7000C /* Assets+CoreDataProperties.swift in Sources */,
 				74707FA42C81B82600F7000C /* User+CoreDataClass.swift in Sources */,
+				5FE400742C949E15001D0FD1 /* NetworkManager.swift in Sources */,
 				746F807E2C8841F300BBAEAF /* MoneyDiaryEditView.swift in Sources */,
 				5F18A2132C8DB33500BC70B7 /* PasswordVC.swift in Sources */,
 				746F80832C8841F300BBAEAF /* MoneyDiaryCalendarCell.swift in Sources */,
@@ -653,6 +671,7 @@
 				9F9F6E4D2C89AF5300F1EDA6 /* MoneyDiaryCreateView.swift in Sources */,
 				740350A82C7E229100122B2E /* TabBarController.swift in Sources */,
 				E5FBA13F2C7E0A0800D26E5F /* FinancialPlanSelectView.swift in Sources */,
+				5FE400762C949E89001D0FD1 /* APIModel.swift in Sources */,
 				5FA890092C85B30800549363 /* FirebaseFirestoreManager.swift in Sources */,
 				74707F982C81B79500F7000C /* Budget+CoreDataClass.swift in Sources */,
 				74707F992C81B79500F7000C /* Budget+CoreDataProperties.swift in Sources */,
@@ -702,6 +721,7 @@
 				5F3EAE192C7E182400FF15E5 /* LoginView.swift in Sources */,
 				5F3EAE5B2C7F36E500FF15E5 /* SignUpVC.swift in Sources */,
 				E5FBA13B2C7E095300D26E5F /* FinancialPlanSelectionVC.swift in Sources */,
+				5FE400782C949EB8001D0FD1 /* Endpoint.swift in Sources */,
 				5FE400692C8DE94F001D0FD1 /* UITextField.swift in Sources */,
 				E5FBA1432C7E0B8B00D26E5F /* FinancialPlanCreateView.swift in Sources */,
 				5FE400712C93CAD3001D0FD1 /* ToastMessage.swift in Sources */,

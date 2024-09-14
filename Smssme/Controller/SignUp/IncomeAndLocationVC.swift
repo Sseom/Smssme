@@ -32,7 +32,7 @@ class IncomeAndLocationVC: UIViewController {
         "10억 원 초과"]
     
     // 지역 선택지
-    let pickerLocationData = ["서울" , "경기도", "인천" , "부산" , "강원도" ,"대구", "전라도", "충청도", "경상도", "광주", "울산", "대전" , "제주도"]
+    let pickerLocationData = ["서울" , "경기도", "인천" , "부산" , "강원도" ,"대구", "전라북도", "전라남도", "충청북도", "충청남도", "경상북도", "경상남도", "광주", "울산", "대전" , "제주도"]
     
     
     //MARK: - Life cycle
@@ -40,7 +40,6 @@ class IncomeAndLocationVC: UIViewController {
         super.viewDidLoad()
         
         view = incomeAndLocationView
-        self.navigationItem.title = "(4/4)"
         
         incomeAndLocationView.nextButton.backgroundColor = .systemBlue
         incomeAndLocationView.nextButton.isEnabled = true

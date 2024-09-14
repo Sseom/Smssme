@@ -27,17 +27,16 @@ class EmailVC: UIViewController, UITextFieldDelegate {
         emailView.nextButton.addTarget(self, action: #selector(onNextButtonTapped), for: .touchUpInside)
     }
     
-    
+    //MARK: - '다음' 버튼 이벤트
     @objc private func onNextButtonTapped() {
         userData.email = emailView.emailTextField.text
-        
+
         let passwordVC = PasswordVC()
         passwordVC.userData = userData //데이터 전달
         navigationController?.pushViewController(passwordVC, animated: true)
     }
     
 }
-
 
 
 //MARK: - 유효성검사  UITextField extension

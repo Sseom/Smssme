@@ -13,14 +13,12 @@ class NickNameVC: UIViewController {
     private var textField = UITextField()
     var userData = UserData()
     
-
+    
     //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        view = nicknameView
         
-        self.navigationItem.title = "(3/4)"
+        view = nicknameView
         
         datePickerToolbar()
         
@@ -35,11 +33,11 @@ class NickNameVC: UIViewController {
         
         nicknameView.nicknameTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         nicknameView.birthdayTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
-       
+        
         nicknameView.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
     }
     
-
+    
     //MARK: - @objc
     @objc func nextButtonTapped() {
         userData.nickname = nicknameView.nicknameTextField.text
@@ -103,7 +101,7 @@ class NickNameVC: UIViewController {
     @objc func dateDonePicker() {
         nicknameView.birthdayTextField.text = dateFormat(date: nicknameView.datePickerView.date)
         nicknameView.birthdayTextField.resignFirstResponder()
-        }
+    }
 }
 
 
@@ -138,20 +136,21 @@ extension NickNameVC: UITextFieldDelegate {
     
     // 모든 내용 입력돼야 버튼 활성화
     @objc private func textFieldEditingChanged(_ textField: UITextField) {
-
+        
         // 공백 입력 방지 -> 중간에 입력할 시에는 적용되는 문제 있음
         textField.text = textField.text?.trimmingCharacters(in: .whitespaces)
         
-        guard
-            let nickname = nicknameView.nicknameTextField.text, nickname.count > 1 && nickname.count < 11,
-            let birth = nicknameView.birthdayTextField.text, !birth.isEmpty
+        if let nickname = nicknameView.nicknameTextField.text,
+           let birth = nicknameView.birthdayTextField.text,
+           nickname.count > 1 && nickname.count < 11 &&  !birth.isEmpty {
+            nicknameView.nextButton.backgroundColor = .systemBlue
+            nicknameView.nextButton.isEnabled = true
+        }
         else {
             nicknameView.nextButton.backgroundColor = .systemGray5
             nicknameView.nextButton.isEnabled = false
             return
         }
-        nicknameView.nextButton.backgroundColor = .systemBlue
-        nicknameView.nextButton.isEnabled = true
     }
-
+    
 }

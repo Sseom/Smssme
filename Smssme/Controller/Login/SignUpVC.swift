@@ -34,6 +34,7 @@ class SignUpVC: UIViewController, KeyboardEvader {
     let pickerIncomeData = [
         "1,200만 원 이하",
         "1,200만 원 초과 ~ 4,600만 원 이하",
+        "4,600만 원 초과 ~ 8,800만 원 이하",
         "8,800만 원 초과 ~ 1억 5천만 원 이하",
         "1억 5천만 원 초과 ~ 3억 원 이하",
         "3억 원 초과 ~ 5억 원 이하",
