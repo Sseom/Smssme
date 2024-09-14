@@ -56,7 +56,7 @@ class MoneyDiaryView: UIView {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
         config.cornerStyle = .capsule
-        config.image = UIImage(systemName: "plus")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))
+        config.image = UIImage(systemName: "pencil")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))
         button.configuration = config
         button.layer.shadowRadius = 10
         button.layer.shadowOpacity = 0.3
@@ -68,7 +68,7 @@ class MoneyDiaryView: UIView {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
         config.cornerStyle = .capsule
-        config.image = UIImage(systemName: "pencil")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))
+        config.image = UIImage(systemName: "paintbrush.pointed.fill")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))
         button.configuration = config
         button.layer.shadowRadius = 10
         button.layer.shadowOpacity = 0.3
@@ -81,7 +81,7 @@ class MoneyDiaryView: UIView {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
         config.cornerStyle = .capsule
-        config.image = UIImage(systemName: "text.insert")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))
+        config.image = UIImage(systemName: "wand.and.rays")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))
         button.configuration = config
         button.layer.shadowRadius = 10
         button.layer.shadowOpacity = 0.3

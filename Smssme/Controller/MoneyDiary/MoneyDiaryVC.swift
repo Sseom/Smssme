@@ -8,7 +8,7 @@
 import DGCharts
 import SnapKit
 import UIKit
-import PopMenu
+
 
 final class MoneyDiaryVC: UIViewController {
     private var diaries: [Diary] = []
@@ -170,6 +170,7 @@ final class MoneyDiaryVC: UIViewController {
         
         moveToSomeDate(temp1)
     }
+    
     func configureAmountOfMonth() {
         
         let firstDay = DateManager.shared.getFirstDayInMonth(date: self.calendarDate)
@@ -293,8 +294,8 @@ extension MoneyDiaryVC {
         self.moveToSomeDate(Date())
         
     }
+    
     @objc private func segmentChanged(_ sender: UISegmentedControl) {
-        
         updateView(selectedIndex: sender.selectedSegmentIndex)
     }
     
