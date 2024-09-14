@@ -114,10 +114,11 @@ class AutomaticTransactionVC: UIViewController {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        dateFormatter.timeZone = TimeZone.init(secondsFromGMT: 32400)
         let thistime = "\(currentYear)-\(selectedMonthDay) \(selectedTime)"
         
         let savetime = dateFormatter.date(from: thistime) ?? Date()
+        
         return savetime
     }
     

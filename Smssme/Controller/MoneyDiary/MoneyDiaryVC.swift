@@ -180,8 +180,10 @@ final class MoneyDiaryVC: UIViewController {
     }
 }
 
+
+//collectionView 구성
 extension MoneyDiaryVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let viewController = DailyTransactionVC(transactionView: DailyTransactionView())
         viewController.setDate(day: self.calendarItems[indexPath.row].date)
@@ -228,19 +230,17 @@ extension MoneyDiaryVC {
     
     private func updateDays() {
         self.calendarItems.removeAll()
+        
         let temp = DateManager.shared.configureDays(currentMonth: calendarDate)
         let thisMonth = calendar.component(.month, from: calendarDate)
         
-        for i in temp {
-            if calendar.component(.month, from: i) != thisMonth {
-                calendarItems.append(CalendarItem(date: i, isThisMonth: false))
-            } else {
-                calendarItems.append(CalendarItem(date: i, isThisMonth: true))
-            }
+        calendarItems = temp.map { i in
+            CalendarItem(date: i, isThisMonth: calendar.component(.month, from: i) == thisMonth)
         }
         
         self.moneyDiaryView.calendarView.calendarCollectionView.reloadData()
     }
+    
     private func moveToSomeDate(_ when: Date? ){
         guard let safeDate = when
         else { return }
@@ -250,75 +250,22 @@ extension MoneyDiaryVC {
         self.setChartData()
     }
     
-    private func transformToAble(date: Date) -> Date? {
-        
-        var components = calendar.dateComponents([.year, .month, .day], from: date)
-        //20241201->Int : Id 처럼
-        //        dateFormatter.dateFormat = "yyyy-MM-dd"
-        
-        //        dateFormatter.
-        components.hour = 0
-        components.minute = 0
-        components.second = 0
-        let dateWithoutTime = calendar.date(from: components)
-        return dateWithoutTime
-    }
+
 }
 
+//생성버튼 동작
 extension MoneyDiaryVC {
 
-    
-    
     @objc private func didTapFloatingButton() {
         isActive.toggle()
     }
     
     private func showActionButtons() {
-        popButtons()
-        rotateFloatingButton()
+        moneyDiaryView.popButtons(isActive: isActive)
+        moneyDiaryView.rotateFloatingButton(isActive: isActive)
     }
     
-    private func popButtons() {
-        if isActive {
-            moneyDiaryView.pencilButton.layer.transform = CATransform3DMakeScale(0.4, 0.4, 1)
-            UIView.animate(withDuration: 0.3, delay: 0.2, usingSpringWithDamping: 0.55, initialSpringVelocity: 0.3, options: [.curveEaseInOut], animations: { [weak self] in
-                guard let self = self else { return }
-                moneyDiaryView.pencilButton.layer.transform = CATransform3DIdentity
-                moneyDiaryView.pencilButton.alpha = 1.0
-                
-            })
-            moneyDiaryView.quickMessageButton.layer.transform = CATransform3DMakeScale(0.4, 0.4, 1)
-            UIView.animate(withDuration: 0.3, delay: 0.2, usingSpringWithDamping: 0.55, initialSpringVelocity: 0.3, options: [.curveEaseInOut], animations: { [weak self] in
-                guard let self = self else { return }
-                moneyDiaryView.quickMessageButton.layer.transform = CATransform3DIdentity
-                moneyDiaryView.quickMessageButton.alpha = 1.0
-                
-            })
-        } else {
-            UIView.animate(withDuration: 0.15, delay: 0.2, options: []) { [weak self] in
-                guard let self = self else { return }
-                moneyDiaryView.pencilButton.layer.transform = CATransform3DMakeScale(0.4, 0.4, 0.1)
-                moneyDiaryView.pencilButton.alpha = 0.0
-                
-                moneyDiaryView.quickMessageButton.layer.transform = CATransform3DMakeScale(0.4, 0.4, 0.1)
-                moneyDiaryView.quickMessageButton.alpha = 0.0
-                
-                
-            }
-        }
-    }
-    
-    private func rotateFloatingButton() {
-        let animation = CABasicAnimation(keyPath: "transform.rotation.z")
-        let fromValue = isActive ? 0 : CGFloat.pi / 4
-        let toValue = isActive ? CGFloat.pi / 4 : 0
-        animation.fromValue = fromValue
-        animation.toValue = toValue
-        animation.duration = 0.3
-        animation.fillMode = .forwards
-        animation.isRemovedOnCompletion = false
-        moneyDiaryView.floatingButton.layer.add(animation, forKey: nil)
-    }
+
 }
 
 
@@ -332,6 +279,7 @@ extension MoneyDiaryVC {
         let viewController = MoneyDiaryBudgetEditVC(currentYear: components.year ?? 0, currentMonth: components.month ?? 0)
         self.navigationController?.pushViewController(viewController, animated: true)
     }
+    
     @objc private func didPreviousButtonTouched(_ sender: UIButton) {
         self.moveToSomeDate(self.calendar.date(byAdding: DateComponents(month: -1), to: self.calendarDate))
     }
