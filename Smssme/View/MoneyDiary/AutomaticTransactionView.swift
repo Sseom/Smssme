@@ -3,21 +3,17 @@
 //  Smssme
 //
 //  Created by KimRin on 9/12/24.
-//
+// 코드검토 (2024.09.15)
 
 import UIKit
 import SnapKit
 
 class AutomaticTransactionView: UIView {
     
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "자동지출추가입력기능"
-        label.textAlignment = .center
-        label.font = UIFont.boldSystemFont(ofSize: 24)
-        return label
-    }()
+    private let titleLabel: UILabel = LargeTitleLabel().createLabel(with: "지출내역 자동입력 기능", color: .black)
     
+    let submitButton: UIButton = ActionButtonBorder().createButton(text: "변환하여 저장하기", color: UIColor.systemBlue, textColor: .white)
+
      let inputTextView: UITextView = {
         let textView = UITextView()
         textView.layer.borderWidth = 1
@@ -27,17 +23,6 @@ class AutomaticTransactionView: UIView {
         return textView
     }()
     
-     let submitButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("제출", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .medium)
-        button.backgroundColor = UIColor.systemBlue
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 8
-        return button
-    }()
-    
-    // MARK: - Lifecycle
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -48,16 +33,19 @@ class AutomaticTransactionView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Setup UI
     private func setupUI() {
+        titleLabel.textAlignment = .center
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 24)
+        submitButton.backgroundColor = .systemBlue
+        submitButton.titleLabel?.font = .boldSystemFont(ofSize: 18)
         self.backgroundColor = .white
         
-        // Add subviews
-        self.addSubview(titleLabel)
-        self.addSubview(inputTextView)
-        self.addSubview(submitButton)
+        [
+            titleLabel,
+            inputTextView,
+            submitButton
+        ].forEach { addSubview($0) }
         
-        // Layout using SnapKit
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(20)
             $0.centerX.equalToSuperview()
@@ -73,7 +61,6 @@ class AutomaticTransactionView: UIView {
         submitButton.snp.makeConstraints {
             $0.top.equalTo(inputTextView.snp.bottom).offset(20)
             $0.centerX.equalToSuperview()
-
             $0.horizontalEdges.equalTo(inputTextView)
             $0.height.equalTo(50)
         }

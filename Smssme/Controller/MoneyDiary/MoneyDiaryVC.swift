@@ -124,6 +124,7 @@ final class MoneyDiaryVC: UIViewController {
     
     @objc func automaticSavingMessage(){
         let viewController = AutomaticTransactionVC()
+        isActive.toggle()
         self.navigationController?.pushViewController(viewController, animated: false)
         
     }
@@ -328,8 +329,10 @@ extension MoneyDiaryVC {
         let action = UIAction { [weak self] _ in
             self?.navigationController?.pushViewController(MoneyDiaryCreationVC(diaryManager: DiaryCoreDataManager(), transactionItem2: Diary()), animated: true)
         }
+        
         moneyDiaryView.addActionToPencilButton(action)
     }
+    
 }
 
 extension MoneyDiaryVC:  UIPickerViewDelegate,UIPickerViewDataSource {

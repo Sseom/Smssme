@@ -3,14 +3,16 @@
 //  Smssme
 //
 //  Created by KimRin on 9/12/24.
-//
+//코드검토 (2024.09.15) -- 진행중
 
 import UIKit
 import SnapKit
 
 class AutomaticTransactionVC: UIViewController {
     private let automaticView = AutomaticTransactionView()
+    
     var transactionItem = TransactionItem()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addTarget()
@@ -31,7 +33,10 @@ class AutomaticTransactionVC: UIViewController {
     @objc func saveData() {
         if let text = automaticView.inputTextView.text {
             let temp = extractPaymentDetails(from: text)
-            saveCurrentData()
+            if transactionItem.Amount != 0 {
+                saveCurrentData()
+            }
+            
         }
         self.navigationController?.popViewController(animated: false)
         
@@ -80,8 +85,8 @@ class AutomaticTransactionVC: UIViewController {
         let contentPattern = "\\b[\\w가-힣]+\\b"
         let contentString = extractMatches(from: remainingText, using: contentPattern).first?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "결제내용 없음"
 
+        let amount = RegexManager.shared.convertStringToInt(from: amountString)
         
-        let amount = convertStringToInt(from: amountString) ?? 0
         let date: Date = makeDate(date: dateString, time: timeString)
         let title = contentString
 
@@ -92,17 +97,11 @@ class AutomaticTransactionVC: UIViewController {
                                           memo: text
         )
 
-        print(transactionItem.name,transactionItem.Amount,transactionItem.transactionDate)
-        
         return transactionItem
     }
     
     
-    func convertStringToInt(from string: String) -> Int? {
-        // "원" 및 쉼표 제거
-        let cleanedString = string.components(separatedBy: CharacterSet(charactersIn: ",원")).joined()
-        return Int(cleanedString)
-    }
+
     
     func makeDate(date:String, time: String?) -> Date {
         let calendar = Calendar.current
@@ -112,9 +111,9 @@ class AutomaticTransactionVC: UIViewController {
         
         selectedMonthDay.replace(at: 2, with: "-")
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+        let dateFormatter = DateFormatter.YMDHM
         dateFormatter.timeZone = TimeZone.init(secondsFromGMT: 32400)
+        
         let thistime = "\(currentYear)-\(selectedMonthDay) \(selectedTime)"
         
         let savetime = dateFormatter.date(from: thistime) ?? Date()
