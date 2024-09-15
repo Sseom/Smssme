@@ -315,7 +315,7 @@ extension MoneyDiaryBudgetEditVC: UITableViewDataSource {
 extension MoneyDiaryBudgetEditVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "MoneyDiaryBudgetEditHeaderView") as? MoneyDiaryBudgetEditHeaderView else {
-            return nil
+            return UITableViewHeaderFooterView()
         }
         
         headerView.titleLabel.text = "\(budgetList[section].title)"

@@ -143,7 +143,7 @@ extension FinancialPlanCreateVC {
             
             print("새로운 계획이 저장되었습니다: \(newPlan)")
             repository.printFinancialPlan(withId: newPlan.id)
-            repository.printAllFinancialPlans()
+//            repository.printAllFinancialPlans() 저장된 플랜 확인용
             return newPlan
         } catch {
             showAlert(message: "계획 저장 실패: \(error.localizedDescription)")

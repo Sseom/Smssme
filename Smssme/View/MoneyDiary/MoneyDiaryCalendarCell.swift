@@ -10,10 +10,10 @@ import SnapKit
 
 final class CalendarCollectionViewCell: UICollectionViewCell, CellReusable {
     
+    var todayItem: CalendarItem?
     let dayLabel = SmallTitleLabel().createLabel(with: "", color: .black)
     let incomeLabel = SmallTitleLabel().createLabel(with: "", color: .blue)
     let expenseLabel = SmallTitleLabel().createLabel(with: "", color: .red)
-    var currentDate: Date?
     private let totalAmountLabel = SmallTitleLabel().createLabel(with: "", color: .black)
     private lazy var moneyStackView = {
         let stackView = UIStackView(arrangedSubviews: [self.incomeLabel, self.expenseLabel, self.totalAmountLabel])
@@ -29,105 +29,74 @@ final class CalendarCollectionViewCell: UICollectionViewCell, CellReusable {
         setupCellUI()
         setupAutoLayout()
         self.backgroundColor = .white
-        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
-        
         self.layer.borderColor = UIColor.gray.cgColor
         self.layer.borderWidth = 0.2
     }
     
     func updateDate(item: CalendarItem) {
-        currentDate = item.date
-        
+        self.todayItem = item
         isThisMonth(today: item)
-        
-        //당일날테두리 변경
         isToday(currentDay: item.date)
-        dateStringFormatter(date: item.date)
-        
-        
-        
-        
-        
         dayLabel.text = dateStringFormatter(date: item.date)
-        
-        
-        
-        guard let temp = DiaryCoreDataManager.shared.fetchDiaries(on: item.date)
-        else { return }
-        var income = 0
-        var expense = 0
-        
-        for i in temp {
-            if i.statement  {
-                income += Int(i.amount)
-            }
-            else {
-                expense += Int(i.amount)
-            }
+        print(item.date,item.weekSection)
+        if item.weekSection == 1 {
+            self.backgroundColor = .systemGray
         }
-        let totalAmount = income + (-expense)
+        if item.weekSection == 2 {
+            self.backgroundColor = .systemPink
+        }
+        
+        guard let temp = DiaryCoreDataManager.shared.fetchDiaries(on: item.date) else { return }
+        
+        let (income, expense) = temp.reduce((0, 0)) { accumulator, i in
+            i.statement ? (accumulator.0 + Int(i.amount), accumulator.1) : (accumulator.0, accumulator.1 + Int(i.amount)) }
+        
+        let totalAmount = income - expense
         
         self.expenseLabel.text = expense == 0 ? "" : "\(expense)"
         self.incomeLabel.text = income == 0 ? "" : "\(income)"
         self.totalAmountLabel.text = totalAmount == 0 ? "" : "\(totalAmount)"
     }
+    
+    
     private func dateStringFormatter(date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd"
-        let temp = dateFormatter.string(from: date)
-        let dayString = matchPattern(today: temp)
+        let today = DateFormatter.day.string(from: date)
+        let dayString = RegexManager.shared.removeLeadingZeros(from: today)
+        let month = String(Calendar.current.component(.month, from: date))
         
-        if dayString == "1" {
-            let month = String(Calendar.current.component(.month, from: date))
-            let monthString = matchPattern(today: month)
-            return "\(month).\(dayString)"
-        } else {
-            return dayString
-        }
+        return dayString == "1" ? "\(month).\(dayString)" : dayString
+        
     }
     
     
-    //정규표현식
-    private func matchPattern(today: String) -> String {
-        
-        let regexPattern = "\\b0+(\\d{1,})\\b"
-        do {
-            let regex = try NSRegularExpression(pattern: regexPattern)
-            
-            // NSRegularExpression에서 처리된 결과를 대체하는 함수
-            let result = regex.stringByReplacingMatches(in: today, options: [], range: NSRange(today.startIndex..., in: today), withTemplate: "$1")
-            return result
-            
-        } catch {
-            return "Invalid regex pattern"
-            
-        }
-        
-    }
     private func isThisMonth(today: CalendarItem) {
         let weekday = DateManager.shared.getWeekdayNum(month: today.date)
         
         switch weekday {
-        case 1: self.dayLabel.textColor = .red
-        case 7: self.dayLabel.textColor = .blue
-        default: self.dayLabel.textColor = .black
+        case 1: 
+            self.dayLabel.textColor = .red
+        case 7: 
+            
+            self.dayLabel.textColor = .blue
+        default: 
+            self.dayLabel.textColor = .black
         }
         
         if today.isThisMonth != true {
             dayLabel.textColor = self.dayLabel.textColor.withAlphaComponent(0.4)
             }
-        else {
-            
-        }
+        
 
     }
+    
     private func isToday(currentDay: Date) {
         let today = DateManager.shared.transformDateWithoutTime(date: Date())
         if currentDay == today {

@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
 
-        window.rootViewController = TabBarController()
+        window.rootViewController = SplashViewController()
         
 //        window.rootViewController = MoneyDiaryCreationVC(diaryManager: DiaryCoreDataManager(), transactionItem2: Diary())
 //        window.rootViewController = TabBarController()

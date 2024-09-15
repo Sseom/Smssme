@@ -7,18 +7,9 @@
 
 import UIKit
 
-class DateManager {
+final class DateManager {
     var calendar = Calendar.current
     static let shared = DateManager()
-    /*
-     한국시간을 적용하고싶지만 뽑아내는 시간자체가 UTC로 옵니다
-     즉 한국시간의 09-01-16:00 +0900 인  KST로 저장을해도
-     이값이 전달되는게 아니라
-     그 값을 변환한서 -9시간된 09-01-09:00 +0000 인
-     utc값으로 주더라구요
-     기준을 utc로 설정했습니다. 참고하세요
-     또한 Date타입은 시간을 항상 동반합니다
-     */
     private init() {}
 
     func configureDays (currentMonth: Date) -> [Date] {
@@ -132,4 +123,42 @@ class DateManager {
         let components = calendar.dateComponents([.day], from: startOfDay, to: endOfDay)
         return components.day
     }
+}
+
+extension DateFormatter {
+    static let yearMonthDay: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }()
+    
+    static let year: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy"
+        return formatter
+    }()
+    
+    static let day: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd"
+        return formatter
+    }()
+    
+    static let YMDHM: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        return formatter
+    }()
+    
+    static let yearMonth: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM"
+        return formatter
+    }()
+    
+    static let yearMonthKR: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy년 MM월 "
+        return formatter
+    }()
 }
