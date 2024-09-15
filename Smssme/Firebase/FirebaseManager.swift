@@ -9,7 +9,7 @@ import FirebaseAuth
 import FirebaseFirestore
 
 class FirebaseManager {
-    static let shared = FirebaseManager()  // 싱글톤
+    static let shared = FirebaseManager()  
     
     let auth: Auth
     let db: Firestore
@@ -36,15 +36,5 @@ class FirebaseManager {
             completion(.success(uid))
         }
     }
-    
-    // 사용자 데이터 저장
-    func saveUserData(uid: String, userData: UserData, completion: @escaping (Result<Void, Error>) -> Void) {
-        db.collection("users").document(uid).setData(userData.toDictionary()) { error in
-            if let error = error {
-                completion(.failure(error))
-            } else {
-                completion(.success(()))
-            }
-        }
-    }
+
 }

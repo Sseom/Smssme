@@ -8,18 +8,6 @@
 import FirebaseFirestore
 import FirebaseAuth
 
-
-//// 모델로 추후 뺄 예정
-//struct UserProfile {
-//    let email: String
-//    let nickName: String
-//    let birthday: String
-//    let gender: String
-//    let income: String
-//    let location: String
-//}
-
-
 /// Firestore 데이터베이스와 관련된 CRUD(생성, 읽기, 업데이트, 삭제) 작업을 관리합니다.
 final class FirebaseFirestoreManager {
     static let shared = FirebaseFirestoreManager()
@@ -53,9 +41,10 @@ final class FirebaseFirestoreManager {
         }
     }
     
+    
     // 사용자 가입정보 저장
-    func saveUserData(uid: String, userData: [String: Any], completion: @escaping (Result<Void, Error>) -> Void) {
-        Firestore.firestore().collection("users").document(uid).setData(userData) { error in
+    func saveUserData(uid: String, userData: UserData, completion: @escaping (Result<Void, Error>) -> Void) {
+        Firestore.firestore().collection("users").document(uid).setData(userData.toDictionary()) { error in
             if let error = error {
                 completion(.failure(error))
             } else {
@@ -64,10 +53,7 @@ final class FirebaseFirestoreManager {
         }
     }
     
-    
-    
     //MARK: - 파이어베이스 회원정보 읽기
-    
     func fetchUserData(uid: String, completion: @escaping (Result<[String: Any], Error>) -> Void) {
         Firestore.firestore().collection("users").document(uid).getDocument { document, error in
             if let error = error {

@@ -93,7 +93,7 @@ class IncomeAndLocationVC: UIViewController {
         FirebaseManager.shared.registerUser(email: userData.email ?? "", password: userData.password ?? "") { result in
             switch result {
             case .success(let uid):
-                FirebaseManager.shared.saveUserData(uid: uid, userData: self.userData) { saveResult in
+                FirebaseFirestoreManager.shared.saveUserData(uid: uid, userData: self.userData) { saveResult in
                     switch saveResult {
                     case .success:
                         print("사용자 정보 저장 성공")
