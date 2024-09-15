@@ -9,8 +9,8 @@ import UIKit
 import SnapKit
 
 final class CalendarCollectionViewCell: UICollectionViewCell, CellReusable {
-    var currentDate: Date?
     
+    var todayItem: CalendarItem?
     let dayLabel = SmallTitleLabel().createLabel(with: "", color: .black)
     let incomeLabel = SmallTitleLabel().createLabel(with: "", color: .blue)
     let expenseLabel = SmallTitleLabel().createLabel(with: "", color: .red)
@@ -42,10 +42,17 @@ final class CalendarCollectionViewCell: UICollectionViewCell, CellReusable {
     }
     
     func updateDate(item: CalendarItem) {
-        currentDate = item.date
+        self.todayItem = item
         isThisMonth(today: item)
         isToday(currentDay: item.date)
         dayLabel.text = dateStringFormatter(date: item.date)
+        print(item.date,item.weekSection)
+        if item.weekSection == 1 {
+            self.backgroundColor = .systemGray
+        }
+        if item.weekSection == 2 {
+            self.backgroundColor = .systemPink
+        }
         
         guard let temp = DiaryCoreDataManager.shared.fetchDiaries(on: item.date) else { return }
         
@@ -74,9 +81,13 @@ final class CalendarCollectionViewCell: UICollectionViewCell, CellReusable {
         let weekday = DateManager.shared.getWeekdayNum(month: today.date)
         
         switch weekday {
-        case 1: self.dayLabel.textColor = .red
-        case 7: self.dayLabel.textColor = .blue
-        default: self.dayLabel.textColor = .black
+        case 1: 
+            self.dayLabel.textColor = .red
+        case 7: 
+            
+            self.dayLabel.textColor = .blue
+        default: 
+            self.dayLabel.textColor = .black
         }
         
         if today.isThisMonth != true {

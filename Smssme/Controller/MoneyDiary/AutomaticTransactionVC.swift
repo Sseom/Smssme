@@ -30,6 +30,11 @@ class AutomaticTransactionVC: UIViewController {
         }
         
         automaticView.submitButton.addTarget(self, action: #selector(saveData), for: .touchUpInside)
+        automaticView.howToUseButton.addTarget(self, action: #selector(showHowToUseView), for: .touchUpInside)
+    }
+    
+    @objc func showHowToUseView() {
+        
     }
 
     @objc func saveData() {

@@ -126,9 +126,43 @@ extension MoneyDiaryVC: UICollectionViewDataSource, UICollectionViewDelegate, UI
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarCollectionViewCell.reuseIdentifier, for: indexPath) as? CalendarCollectionViewCell else { return UICollectionViewCell() }
         
+        var currentWeekSection = 0  // 주차 값을 0으로 시작
+
+        for (index, calendarItem) in self.calendarItems.enumerated() {
+            // 이번 달 날짜만 처리
+            if calendarItem.isThisMonth {
+                let weekDay = DateManager.shared.getWeekdayNum(month: calendarItem.date)
+                
+                // 만약 현재 요일이 일요일이면 새로운 주가 시작되므로 `weekSection` 값을 증가시킴
+                if weekDay == 1 && index != 0 {
+                    currentWeekSection += 1
+                }
+                
+                // 현재 주차 값을 설정
+                self.calendarItems[index].weekSection = currentWeekSection
+            }
+        }
+//        let nowDay = self.calendarItems[indexPath.item]
+//        
+//        if nowDay.isThisMonth == true {
+//            let weekDay = DateManager.shared.getWeekdayNum(month: nowDay.date)
+//            
+//            if weekDay == 1 {
+//                for i in 0 ..< 42 {
+//                    self.calendarItems[i].weekSection += 1
+//                }
+//                
+//            }
+//        }
+        
         cell.updateDate(item: self.calendarItems[indexPath.item])
         
         return cell
+    }
+    
+    func makeTrafficLightLogic() -> Bool{
+        
+        return true
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

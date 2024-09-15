@@ -14,6 +14,8 @@ class AutomaticTransactionView: UIView {
     
     let submitButton: UIButton = ActionButtonBorder().createButton(text: "변환하여 저장하기", color: UIColor.systemBlue, textColor: .white)
 
+    let howToUseButton: UIButton = BaseButton().createButton(text: "사용 방법", color: .systemBlue, textColor: .white)
+    
      let inputTextView: UITextView = {
         let textView = UITextView()
         textView.layer.borderWidth = 1
@@ -43,12 +45,13 @@ class AutomaticTransactionView: UIView {
         [
             titleLabel,
             inputTextView,
-            submitButton
+            submitButton,
+            howToUseButton
         ].forEach { addSubview($0) }
         
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(20)
-            $0.centerX.equalToSuperview()
+            $0.leading.equalToSuperview().offset(20)
         }
         
         inputTextView.snp.makeConstraints {
@@ -63,6 +66,12 @@ class AutomaticTransactionView: UIView {
             $0.centerX.equalToSuperview()
             $0.horizontalEdges.equalTo(inputTextView)
             $0.height.equalTo(50)
+        }
+        
+        howToUseButton.snp.makeConstraints {
+            $0.centerY.equalTo(titleLabel.snp.centerY)
+            $0.width.equalTo(80)
+            $0.trailing.equalToSuperview().offset(-20)
         }
     }
 
