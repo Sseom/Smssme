@@ -19,7 +19,7 @@ class FirebaseManager {
         self.db = Firestore.firestore()
     }
     
-    // 회원가입 처리
+    //MARK: - 회원가입
     func registerUser(email: String, password: String, completion: @escaping (Result<String, Error>) -> Void) {
         auth.createUser(withEmail: email, password: password) { authResult, error in
             if let error = error {
@@ -36,5 +36,33 @@ class FirebaseManager {
             completion(.success(uid))
         }
     }
+    
+    //MARK: - 이메일 인증
+    func sendEmailVerification() {
+        auth.currentUser?.sendEmailVerification(completion: { error in
+            if let error = error {
+                print("이메일 인증 오류: \(error.localizedDescription)")
+            } else {
+                print("이메일 인증 전송 완료")
+            }
+        })
+    }
+    
+    //MARK: - 비밀번호 찾기
+    func resetPassword(email: String, completion: @escaping (Error?) -> Void) {
+        auth.sendPasswordReset(withEmail: email) { error in
+            completion(error)
+        }
+    }
+    
+    //MARK: - 로그인
+    
+    
+    //MARK: - 로그아웃
+    
+    
+    //MARK: - 회원탈퇴
+    
+    
 
 }
