@@ -16,9 +16,11 @@ class CalendarView: UIView {
         let flowLayout = UICollectionViewFlowLayout()
                 flowLayout.sectionInset = UIEdgeInsets.zero
         flowLayout.minimumLineSpacing = 0
+//        flowLayout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.register(CalendarCollectionViewCell.self, forCellWithReuseIdentifier: CalendarCollectionViewCell.reuseIdentifier)
         collectionView.backgroundColor = .white
+//        collectionView.isPagingEnabled = true// 임ㅅ
         return collectionView
     }()
     
