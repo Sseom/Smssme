@@ -3,7 +3,8 @@
 //  Smssme
 //
 //  Created by KimRin on 9/12/24.
-//코드검토 (2024.09.15) -- 진행중
+//코드검토 (2024.09.15)// 정규표현식 이해의 대한 어려움
+//어떻게 풀어서 쓸것이며 어떻게 더 정확히 값을 뽑아낼수있을까 
 
 import UIKit
 import SnapKit
@@ -15,27 +16,28 @@ class AutomaticTransactionVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addTarget()
-        view.addSubview(automaticView)
+        setupUI()
+
+    }
+    
+    func setupUI() {
+        [
+            automaticView
+        ].forEach { view.addSubview($0) }
+        //사용방법 버튼 구성?
         self.automaticView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide)
         }
-    }
-    
-    func addTarget() {
+        
         automaticView.submitButton.addTarget(self, action: #selector(saveData), for: .touchUpInside)
     }
-    
-    
-    
-    
-    
+
     @objc func saveData() {
         if let text = automaticView.inputTextView.text {
-            let temp = extractPaymentDetails(from: text)
-            if transactionItem.Amount != 0 {
-                saveCurrentData()
-            }
+            
+                self.transactionItem = extractPaymentDetails(from: text)
+                saveCurrentData(item: self.transactionItem)
+            
             
         }
         self.navigationController?.popViewController(animated: false)
@@ -55,48 +57,31 @@ class AutomaticTransactionVC: UIViewController {
         }
     }
 
-    // 결제 세부사항을 추출하는 함수
-    func extractPaymentDetails(from text: String) -> TransactionItem{
 
-        let datePattern = "\\d{2}/\\d{2}"
-        let dateString = extractMatches(from: text, using: datePattern).first ?? "결제날짜 없음"
+    func extractPaymentDetails(from text: String) -> TransactionItem{
+        let dateString = RegexManager.shared.extractDate(from: text)
+        let timeString = RegexManager.shared.extractTime(from: text)
+        let amountString = RegexManager.shared.extractAmount(from: text)
+        let titleString = RegexManager.shared.extractContent(from: text)
         
-        // 2. 결제 시간 추출
-        let timePattern = "\\d{2}:\\d{2}"
-        let timeString = extractMatches(from: text, using: timePattern).first ?? "11:11"
-        
-        // 3. 결제 금액 추출
-        let amountPattern = "\\d{1,3}(,\\d{3})*원" // 금액 추출
-        let amountString = extractMatches(from: text, using: amountPattern).first ?? "결제금액 없음"
-        
-        // 4. 결제 내용 추출 (결제 시간과 결제 금액 이후의 첫 번째 단어를 추출)
         var remainingText = text
         
-        // 결제 시간과 결제 금액 뒤에 남은 텍스트를 추출
         if let timeRange = text.range(of: timeString) {
             remainingText = String(text[timeRange.upperBound...]).trimmingCharacters(in: .whitespacesAndNewlines)
         }
-        
         if let amountRange = remainingText.range(of: amountString) {
             remainingText = String(remainingText[amountRange.upperBound...]).trimmingCharacters(in: .whitespacesAndNewlines)
         }
         
-        // 결제내용에서 첫 번째 의미 있는 단어를 추출
-        let contentPattern = "\\b[\\w가-힣]+\\b"
-        let contentString = extractMatches(from: remainingText, using: contentPattern).first?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "결제내용 없음"
-
         let amount = RegexManager.shared.convertStringToInt(from: amountString)
-        
         let date: Date = makeDate(date: dateString, time: timeString)
-        let title = contentString
-
-        transactionItem = TransactionItem(name: title,
+        
+        transactionItem = TransactionItem(name: titleString,
                                           Amount: amount,
                                           isIncom: false,
                                           transactionDate: date,
                                           memo: text
         )
-
         return transactionItem
     }
     
@@ -121,16 +106,16 @@ class AutomaticTransactionVC: UIViewController {
         return savetime
     }
     
-    @objc func saveCurrentData() {
-        let date = transactionItem.transactionDate
-        let amount = Int64(transactionItem.Amount)
-        let statement = transactionItem.isIncom
-      
-        let titleTextField = transactionItem.name
-        let categoryTextField = ""
-        let memo = transactionItem.memo
-        DiaryCoreDataManager.shared.createDiary(title: titleTextField, date: date, amount: amount, statement: statement, category: categoryTextField, note: memo, userId: "userKim")
+    func saveCurrentData(item: TransactionItem) {
         
+        let date = item.transactionDate
+        let amount = Int64(item.Amount)
+        let statement = item.isIncom
+        let titleTextField = item.name
+        let categoryTextField = ""
+        let memo = item.memo
+        
+        DiaryCoreDataManager.shared.createDiary(title: titleTextField, date: date, amount: amount, statement: statement, category: categoryTextField, note: memo, userId: "userKim")
         self.navigationController?.popViewController(animated: false)
         
     }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DateManager {
+final class DateManager {
     var calendar = Calendar.current
     static let shared = DateManager()
     private init() {}
@@ -147,6 +147,18 @@ extension DateFormatter {
     static let YMDHM: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        return formatter
+    }()
+    
+    static let yearMonth: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM"
+        return formatter
+    }()
+    
+    static let yearMonthKR: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy년 MM월 "
         return formatter
     }()
 }
