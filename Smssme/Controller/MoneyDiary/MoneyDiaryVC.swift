@@ -3,22 +3,33 @@
 //  Smssme
 //
 //  Created by KimRin on 8/28/24.
-//
+// 09/15 진행중
 
 import DGCharts
 import SnapKit
 import UIKit
 
+
 final class MoneyDiaryVC: UIViewController {
+
+    private lazy var scrollView = UIScrollView()
+    private let moneyDiaryView: MoneyDiaryView
+    private let datePicker = DatePickerView()
+    
     private var diaries: [Diary] = []
     private var dataEntries: [PieChartDataEntry] = []
-    private lazy var scrollView = UIScrollView()
-    let moneyDiaryView: MoneyDiaryView
-    var calendar = Calendar.current
-    private let dateFormatter = DateFormatter()
+
+    private var calendar = Calendar.current
     private var calendarDate = Date()
     private var calendarItems = [CalendarItem]()
-    let datePicker = DatePickerView()
+    private var animation: UIViewPropertyAnimator?
+    
+    private var isActive: Bool = false {
+        didSet {
+            showActionButtons()
+        }
+    }
+    
     
     init(moneyDiaryView: MoneyDiaryView) {
         self.moneyDiaryView = moneyDiaryView
@@ -43,37 +54,7 @@ final class MoneyDiaryVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.configureAmountOfMonth()
-        
         self.moneyDiaryView.calendarView.calendarCollectionView.reloadData()
-    }
-    
-    func setChartData() {
-        if let diaries = DiaryCoreDataManager.shared.fetchDiaries(from: DateManager.shared.getFirstDayInMonth(date: calendarDate), to: DateManager.shared.getlastDayInMonth(date: calendarDate)){
-            
-            let totalAmount = diaries.filter { !$0.statement }
-                .reduce(0) { $0 + $1.amount }
-            
-            dataEntries = Dictionary(grouping: diaries.filter { !$0.statement }, by: { $0.category ?? "" })
-                .mapValues { $0.reduce(0) { $0 + $1.amount } }
-                .map {
-                    return PieChartDataEntry(value: (Double($1) / Double(totalAmount)) * 100, label: $0)
-                }
-            setChart(centerTotalValue: totalAmount)
-        } else {
-            return
-        }
-    }
-    
-    private func updateView(selectedIndex: Int) {
-        
-        if selectedIndex != 0 {
-            moneyDiaryView.calendarView.isHidden = true
-            moneyDiaryView.chartView.isHidden = false
-            setChartData()
-        } else {
-            moneyDiaryView.calendarView.isHidden = false
-            moneyDiaryView.chartView.isHidden = true
-        }
     }
     
     private func setupUI() {
@@ -82,9 +63,7 @@ final class MoneyDiaryVC: UIViewController {
         [
             self.moneyDiaryView
         ].forEach { self.scrollView.addSubview($0) }
-        
         moveToSomeDate(Date())
-        
         moneyDiaryView.calendarView.calendarCollectionView.dataSource = self
         moneyDiaryView.calendarView.calendarCollectionView.delegate = self
         datePicker.pickerView.delegate = self
@@ -100,19 +79,118 @@ final class MoneyDiaryVC: UIViewController {
         }
     }
     
-    
     private func setupActions() {
         moneyDiaryView.previousButton.addTarget(self, action: #selector(self.didPreviousButtonTouched), for: .touchUpInside)
         moneyDiaryView.nextButton.addTarget(self, action: #selector(self.didNextButtonTouched), for: .touchUpInside)
         moneyDiaryView.segmentController.addTarget(self, action: #selector(segmentChanged), for: .valueChanged)
         moneyDiaryView.todayButton.addTarget(self, action: #selector(self.didTodayButtonTouched), for: .touchUpInside)
         moneyDiaryView.dateButton.addTarget(self, action: #selector(didTapMoveButton), for: .touchUpInside)
-        datePicker.confirmButton.addTarget(self, action: #selector(didTapMove), for: .touchUpInside)
+        datePicker.confirmButton.addTarget(self, action: #selector(didChoiceYearMonth), for: .touchUpInside)
         moneyDiaryView.moveBudgetButton.addTarget(self, action: #selector(didTapBudgetButton), for: .touchUpInside)
+        moneyDiaryView.floatingButton.addTarget(self, action: #selector(didTapFloatingButton), for: .touchUpInside)
+        moneyDiaryView.quickMessageButton.addTarget(self, action: #selector(didTapAutoSaving), for: .touchUpInside)
+    }
+    
+}
+
+//collectionView 구성
+extension MoneyDiaryVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
+    private func updateCalendar() {
+        let date = DateFormatter.yearMonthKR.string(from: self.calendarDate)
+        self.moneyDiaryView.dateButton.setTitle(date, for: .normal)
+        
+        self.calendarItems.removeAll()
+        let temp = DateManager.shared.configureDays(currentMonth: calendarDate)
+        let thisMonth = calendar.component(.month, from: calendarDate)
+        
+        calendarItems = temp.map { i in
+            CalendarItem(date: i, isThisMonth: calendar.component(.month, from: i) == thisMonth)
+        }
+        
+        self.moneyDiaryView.calendarView.calendarCollectionView.reloadData()
+        
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let viewController = DailyTransactionVC(transactionView: DailyTransactionView())
+        viewController.setDate(day: self.calendarItems[indexPath.row].date)
+        self.navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        42//셀개수 고정 (6주 * 7일)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarCollectionViewCell.reuseIdentifier, for: indexPath) as? CalendarCollectionViewCell else { return UICollectionViewCell() }
+        
+        var currentWeekSection = 0  // 주차 값을 0으로 시작
+
+        for (index, calendarItem) in self.calendarItems.enumerated() {
+            // 이번 달 날짜만 처리
+            if calendarItem.isThisMonth {
+                let weekDay = DateManager.shared.getWeekdayNum(month: calendarItem.date)
+                
+                // 만약 현재 요일이 일요일이면 새로운 주가 시작되므로 `weekSection` 값을 증가시킴
+                if weekDay == 1 && index != 0 {
+                    currentWeekSection += 1
+                }
+                
+                // 현재 주차 값을 설정
+                self.calendarItems[index].weekSection = currentWeekSection
+            }
+        }
+//        let nowDay = self.calendarItems[indexPath.item]
+//        
+//        if nowDay.isThisMonth == true {
+//            let weekDay = DateManager.shared.getWeekdayNum(month: nowDay.date)
+//            
+//            if weekDay == 1 {
+//                for i in 0 ..< 42 {
+//                    self.calendarItems[i].weekSection += 1
+//                }
+//                
+//            }
+//        }
+        
+        cell.updateDate(item: self.calendarItems[indexPath.item])
+        
+        return cell
+    }
+    
+    func makeTrafficLightLogic() -> Bool{
+        
+        return true
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let totalWidth = collectionView.frame.width
+        let numberOfItemsPerRow: CGFloat = 7  // 가로로 7개 배치
+        let itemWidth = totalWidth / numberOfItemsPerRow
+        let itemHeight = itemWidth * 1.3
+        return CGSize(width: itemWidth, height: itemHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0 //여백없음
+    }
+}
+
+//ChartView 구성
+extension MoneyDiaryVC : ChartViewDelegate {
+    
+    func configureAmountOfMonth() {
+        let firstDay = DateManager.shared.getFirstDayInMonth(date: self.calendarDate)
+        let lastDay = DateManager.shared.getlastDayInMonth(date: self.calendarDate)
+        guard let diaries = DiaryCoreDataManager.shared.fetchDiaries(from: firstDay, to: lastDay)
+        else { return }
+        self.diaries = diaries
     }
     
     private func setChart(centerTotalValue: Int64) {
-//        moneyDiaryView.chartView.delegate = self
+        //        moneyDiaryView.chartView.delegate = self
         
         if !dataEntries.isEmpty {
             let dataSet = PieChartDataSet(entries: dataEntries, label: "")
@@ -135,127 +213,42 @@ final class MoneyDiaryVC: UIViewController {
         }
     }
     
-    @objc func didTapMove() {
-        let selectedYearValue = datePicker.years[datePicker.pickerView.selectedRow(inComponent: 0)]
-        let selectedMonthValue = datePicker.months[datePicker.pickerView.selectedRow(inComponent: 1)]
-        var selectedDate = ""
-        if selectedMonthValue >= 10 {
-            selectedDate = "\(selectedYearValue)-\(selectedMonthValue)"}
-        else {selectedDate = "\(selectedYearValue)-0\(selectedMonthValue)"}
-        let dateformatter1 = DateFormatter()
-        dateformatter1.dateFormat = "yyyy-MM"
-        
-        let temp1 = dateformatter1.date(from: selectedDate)
-        
-        self.dismiss(animated: true)
-        
-        moveToSomeDate(temp1)
-    }
-    func configureAmountOfMonth() {
-        
-        let firstDay = DateManager.shared.getFirstDayInMonth(date: self.calendarDate)
-        let lastDay = DateManager.shared.getlastDayInMonth(date: self.calendarDate)
-        guard let diaries = DiaryCoreDataManager.shared.fetchDiaries(from: firstDay, to: lastDay)
-        else { return }
-        self.diaries = diaries
-    }
-}
-
-extension MoneyDiaryVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let viewController = DailyTransactionVC(transactionView: DailyTransactionView())
-        viewController.setDate(day: self.calendarItems[indexPath.row].date)
-        self.navigationController?.pushViewController(viewController, animated: true)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        42//셀개수 고정 (6주 * 7일)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarCollectionViewCell.reuseIdentifier, for: indexPath) as? CalendarCollectionViewCell else { return UICollectionViewCell() }
-        
-        cell.updateDate(item: self.calendarItems[indexPath.item])
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let totalWidth = collectionView.frame.width
-        let numberOfItemsPerRow: CGFloat = 7  // 가로로 7개 배치
-        let itemWidth = totalWidth / numberOfItemsPerRow
-        let itemHeight = itemWidth * 1.3
-        return CGSize(width: itemWidth, height: itemHeight)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0 //여백없음
-    }
-}
-
-extension MoneyDiaryVC {
-    private func updateCalendar() {
-        self.updateTitle()
-        self.updateDays()
-    }
-    
-    private func updateTitle() {
-        self.dateFormatter.dateFormat = "yyyy년 MM월"
-        let date = self.dateFormatter.string(from: self.calendarDate)
-        
-        self.moneyDiaryView.dateButton.setTitle(date, for: .normal)
-    }
-    
-    private func updateDays() {
-        self.calendarItems.removeAll()
-        let temp = DateManager.shared.configureDays(currentMonth: calendarDate)
-        let thisMonth = calendar.component(.month, from: calendarDate)
-        
-        for i in temp {
-            if calendar.component(.month, from: i) != thisMonth {
-                calendarItems.append(CalendarItem(date: i, isThisMonth: false))
-            } else {
-                calendarItems.append(CalendarItem(date: i, isThisMonth: true))
-            }
+    func setChartData() {
+        if let diaries = DiaryCoreDataManager.shared.fetchDiaries(from: DateManager.shared.getFirstDayInMonth(date: calendarDate), to: DateManager.shared.getlastDayInMonth(date: calendarDate)){
+            
+            let totalAmount = diaries.filter { !$0.statement }
+                .reduce(0) { $0 + $1.amount }
+            
+            dataEntries = Dictionary(grouping: diaries.filter { !$0.statement }, by: { $0.category ?? "" })
+                .mapValues { $0.reduce(0) { $0 + $1.amount } }
+                .map {
+                    return PieChartDataEntry(value: (Double($1) / Double(totalAmount)) * 100, label: $0)
+                }
+            setChart(centerTotalValue: totalAmount)
+        } else {
+            return
         }
-        
-        self.moneyDiaryView.calendarView.calendarCollectionView.reloadData()
-    }
-    private func moveToSomeDate(_ when: Date? ){
-        guard let safeDate = when
-        else { return }
-        let components = self.calendar.dateComponents([.year, .month], from: safeDate)
-        self.calendarDate = self.calendar.date(from: components) ?? Date()
-        self.updateCalendar()
-        self.setChartData()
-    }
-    
-    private func transformToAble(date: Date) -> Date? {
-        
-        var components = calendar.dateComponents([.year, .month, .day], from: date)
-        //20241201->Int : Id 처럼
-        //        dateFormatter.dateFormat = "yyyy-MM-dd"
-        
-        //        dateFormatter.
-        components.hour = 0
-        components.minute = 0
-        components.second = 0
-        let dateWithoutTime = calendar.date(from: components)
-        return dateWithoutTime
     }
 }
 
+//ButtonEvent 구성
 extension MoneyDiaryVC {
+    @objc private func didTapFloatingButton() {
+        isActive.toggle()
+    }
     
-    //objc method
+    private func showActionButtons() {
+        moneyDiaryView.popButtons(isActive: isActive)
+        moneyDiaryView.rotateFloatingButton(isActive: isActive)
+    }
+    
     @objc private func didTapBudgetButton() {
         let calendar = Calendar.current
         let components = calendar.dateComponents([.year, .month], from: calendarDate)
-        
         let viewController = MoneyDiaryBudgetEditVC(currentYear: components.year ?? 0, currentMonth: components.month ?? 0)
         self.navigationController?.pushViewController(viewController, animated: true)
     }
+    
     @objc private func didPreviousButtonTouched(_ sender: UIButton) {
         self.moveToSomeDate(self.calendar.date(byAdding: DateComponents(month: -1), to: self.calendarDate))
     }
@@ -267,15 +260,68 @@ extension MoneyDiaryVC {
     
     @objc private func didTodayButtonTouched(_ sender: UIButton) {
         self.moveToSomeDate(Date())
-        
     }
+    
     @objc private func segmentChanged(_ sender: UISegmentedControl) {
-        
         updateView(selectedIndex: sender.selectedSegmentIndex)
     }
     
-    @objc private func didTapMoveButton(){
+    @objc func didTapAutoSaving() {
+        let viewController = AutomaticTransactionVC()
+        isActive.toggle()
+        self.navigationController?.pushViewController(viewController, animated: false)
         
+    }
+    
+    // 연필 아이콘 동작
+    private func pencilButtonAction() {
+        
+        let action = UIAction { [weak self] _ in
+            self?.navigationController?.pushViewController(MoneyDiaryCreationVC(diaryManager: DiaryCoreDataManager(), transactionItem2: Diary()), animated: true)
+        }
+        
+        moneyDiaryView.addActionToPencilButton(action)
+    }
+    
+    private func updateView(selectedIndex: Int) {
+        
+        if selectedIndex != 0 {
+            moneyDiaryView.calendarView.isHidden = true
+            moneyDiaryView.chartView.isHidden = false
+            setChartData()
+        } else {
+            moneyDiaryView.calendarView.isHidden = false
+            moneyDiaryView.chartView.isHidden = true
+        }
+    }
+    
+    private func moveToSomeDate(_ when: Date? ){
+        guard let safeDate = when
+        else { return }
+        let components = self.calendar.dateComponents([.year, .month], from: safeDate)
+        self.calendarDate = self.calendar.date(from: components) ?? Date()
+        self.updateCalendar()
+        self.setChartData()
+    }
+    
+}
+
+//datePickerView 구성
+extension MoneyDiaryVC:  UIPickerViewDelegate,UIPickerViewDataSource {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        2
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return component == 0 ? datePicker.years.count : datePicker.months.count
+        
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return component == 0 ? "\(datePicker.years[row])년" : "\(datePicker.months[row])월"
+    }
+    
+    @objc private func didTapMoveButton(){
         let modalVc = UIViewController()
         modalVc.view = datePicker
         modalVc.modalPresentationStyle = .pageSheet
@@ -297,36 +343,23 @@ extension MoneyDiaryVC {
         self.present(modalVc, animated: true, completion: nil)
     }
     
-    // 연필 아이콘 동작
-    private func pencilButtonAction() {
-        let action = UIAction { [weak self] _ in
-            self?.navigationController?.pushViewController(MoneyDiaryCreationVC(diaryManager: DiaryCoreDataManager(), transactionItem2: Diary()), animated: true)
-        }
-        moneyDiaryView.addActionToPencilButton(action)
-    }
-}
-
-extension MoneyDiaryVC:  UIPickerViewDelegate,UIPickerViewDataSource {
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        2
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return component == 0 ? datePicker.years.count : datePicker.months.count
+    @objc func didChoiceYearMonth() {
+        let selectedYearValue = datePicker.years[datePicker.pickerView.selectedRow(inComponent: 0)]
+        let selectedMonthValue = datePicker.months[datePicker.pickerView.selectedRow(inComponent: 1)]
+        var selectedDate = ""
+        if selectedMonthValue >= 10 {
+            selectedDate = "\(selectedYearValue)-\(selectedMonthValue)"}
+        else {selectedDate = "\(selectedYearValue)-0\(selectedMonthValue)"}
         
-    }
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return component == 0 ? "\(datePicker.years[row])년" : "\(datePicker.months[row])월"
+        let temp1 = DateFormatter.yearMonth.date(from: selectedDate)
+        
+        self.dismiss(animated: true)
+        
+        moveToSomeDate(temp1)
     }
     
-}
-
-extension MoneyDiaryVC: ChartViewDelegate {
     
 }
-
-
 
 protocol CellReusable {
     static var reuseIdentifier: String { get }

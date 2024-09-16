@@ -22,41 +22,85 @@ class MoneyDiaryView: UIView {
     var dateButton = BaseButton().createButton(text: "날짜", color: .white, textColor: .black)
     let previousButton = {
         let button = UIButton()
-        button.tintColor = .label
+        button.tintColor = .white
         button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
-        button.backgroundColor = .lightGray
+        button.backgroundColor = .blue
         button.layer.cornerRadius = 15
         return button
     }()
     
     let nextButton = {
         let button = UIButton()
-        button.tintColor = .label
+        button.tintColor = .white
         button.setImage(UIImage(systemName: "chevron.right"), for: .normal)
-        button.backgroundColor = .lightGray
+        button.backgroundColor = .blue
         button.layer.cornerRadius = 15
         return button
     }()
 
     let segmentController = {
         let segmentController = UISegmentedControl(items: ["캘린더", "소비내역 차트"])
+        let attributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.white,
+            .font: UIFont.boldSystemFont(ofSize: 18)
+        ]
+        segmentController.setTitleTextAttributes(attributes, for: .normal)
+        
         segmentController.selectedSegmentIndex = 0
-        segmentController.backgroundColor = .lightGray
-        segmentController.selectedSegmentTintColor = .gray
+        segmentController.backgroundColor = .blue.withAlphaComponent(0.6)
+        segmentController.selectedSegmentTintColor = .blue
         return segmentController
     }()
 
-
-    
-    let moveBudgetButton = BaseButton().createButton(text: "예산안", color: .systemGray.withAlphaComponent(0.5), textColor: .black)
-    
-    let todayButton = BaseButton().createButton(text: "오늘", color: .systemGray.withAlphaComponent(0.5), textColor: .black)
-    
-    private let pencilButton: UIButton = {
+    lazy var floatingButton: UIButton = {
         let button = UIButton()
-        button.setBackgroundImage(UIImage(named: "pencilButton"), for: .normal)
+        var config = UIButton.Configuration.filled()
+        config.cornerStyle = .capsule
+        config.image = UIImage(systemName: "pencil")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))
+        button.configuration = config
+        button.layer.shadowRadius = 10
+        button.layer.shadowOpacity = 0.3
+        button.layer.zPosition = 999
         return button
     }()
+    
+    let pencilButton: UIButton = {
+        let button = UIButton()
+        var config = UIButton.Configuration.filled()
+        config.cornerStyle = .capsule
+        config.image = UIImage(systemName: "paintbrush.pointed.fill")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))
+        button.configuration = config
+        button.layer.shadowRadius = 10
+        button.layer.shadowOpacity = 0.3
+        button.alpha = 0.0
+        button.layer.zPosition = 999
+        return button
+    }()
+    
+    let quickMessageButton: UIButton = {
+        let button = UIButton()
+        var config = UIButton.Configuration.filled()
+        config.cornerStyle = .capsule
+        config.image = UIImage(systemName: "wand.and.rays")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))
+        button.configuration = config
+        button.layer.shadowRadius = 10
+        button.layer.shadowOpacity = 0.3
+        button.alpha = 0.0
+        button.layer.zPosition = 999
+        
+        return button
+    }()
+
+    
+    var moveBudgetButton = BaseButton().createButton(text: "예산안", color: .blue.withAlphaComponent(0.9), textColor: .white)
+    
+    var todayButton = BaseButton().createButton(text: "오늘", color: .blue.withAlphaComponent(0.9), textColor: .white)
+    
+//    private let pencilButton: UIButton = {
+//        let button = UIButton()
+//        button.setBackgroundImage(UIImage(named: "pencilButton"), for: .normal)
+//        return button
+//    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -64,7 +108,8 @@ class MoneyDiaryView: UIView {
         configureWeekLabel()
         dateButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 22)
         self.backgroundColor = .white
-        
+        moveBudgetButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        todayButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
     }
     
     required init?(coder: NSCoder) {
@@ -105,12 +150,11 @@ class MoneyDiaryView: UIView {
             chartView,
             todayButton,
             segmentController,
+            floatingButton,
             pencilButton,
+            quickMessageButton,
+            moveBudgetButton
             
-
-            moveBudgetButton,
-            pencilButton
-
         ].forEach { self.addSubview($0) }
         
         
@@ -161,12 +205,73 @@ class MoneyDiaryView: UIView {
             $0.horizontalEdges.equalTo(self.snp.horizontalEdges)
             $0.bottom.equalTo(self.snp.bottom)
         }
+        floatingButton.snp.makeConstraints {
+                    $0.trailing.equalToSuperview().inset(20)
+                    $0.bottom.equalToSuperview().inset(40)
+                    $0.width.height.equalTo(60)
+                }
 
-        pencilButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview().offset(-60)
-            $0.trailing.equalToSuperview().offset(-20)
-            $0.width.height.equalTo(50)
+                pencilButton.snp.makeConstraints {
+                    $0.centerX.equalTo(floatingButton.snp.centerX)
+                    $0.bottom.equalTo(floatingButton.snp.top).offset(-15)
+                    $0.width.height.equalTo(40)
+                }
+
+                quickMessageButton.snp.makeConstraints {
+                    $0.centerX.equalTo(floatingButton.snp.centerX)
+                    $0.bottom.equalTo(pencilButton.snp.top).offset(-15)
+                    $0.width.height.equalTo(40)
+                }
+        
+
+//        pencilButton.snp.makeConstraints {
+//            $0.bottom.equalToSuperview().offset(-60)
+//            $0.trailing.equalToSuperview().offset(-20)
+//            $0.width.height.equalTo(50)
+//        }
+    }
+    
+
+    func popButtons(isActive: Bool) {
+        if isActive {
+            pencilButton.layer.transform = CATransform3DMakeScale(0.4, 0.4, 1)
+            UIView.animate(withDuration: 0.3, delay: 0.2, usingSpringWithDamping: 0.55, initialSpringVelocity: 0.3, options: [.curveEaseInOut], animations: { [weak self] in
+                guard let self = self else { return }
+                pencilButton.layer.transform = CATransform3DIdentity
+                pencilButton.alpha = 1.0
+                
+            })
+            quickMessageButton.layer.transform = CATransform3DMakeScale(0.4, 0.4, 1)
+            UIView.animate(withDuration: 0.3, delay: 0.2, usingSpringWithDamping: 0.55, initialSpringVelocity: 0.3, options: [.curveEaseInOut], animations: { [weak self] in
+                guard let self = self else { return }
+                quickMessageButton.layer.transform = CATransform3DIdentity
+                quickMessageButton.alpha = 1.0
+                
+            })
+        } else {
+            UIView.animate(withDuration: 0.15, delay: 0.2, options: []) { [weak self] in
+                guard let self = self else { return }
+                pencilButton.layer.transform = CATransform3DMakeScale(0.4, 0.4, 0.1)
+                pencilButton.alpha = 0.0
+                
+                quickMessageButton.layer.transform = CATransform3DMakeScale(0.4, 0.4, 0.1)
+                quickMessageButton.alpha = 0.0
+                
+                
+            }
         }
+    }
+    
+    func rotateFloatingButton(isActive: Bool) {
+        let animation = CABasicAnimation(keyPath: "transform.rotation.z")
+        let fromValue = isActive ? 0 : CGFloat.pi / 4
+        let toValue = isActive ? CGFloat.pi / 4 : 0
+        animation.fromValue = fromValue
+        animation.toValue = toValue
+        animation.duration = 0.3
+        animation.fillMode = .forwards
+        animation.isRemovedOnCompletion = false
+        floatingButton.layer.add(animation, forKey: nil)
     }
     
 }

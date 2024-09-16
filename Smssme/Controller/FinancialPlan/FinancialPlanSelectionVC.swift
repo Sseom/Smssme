@@ -5,36 +5,50 @@
 //  Created by 임혜정 on 8/27/24.
 //
 
+import CoreData
 import UIKit
 
 protocol FinancialPlanCreateDelegate: AnyObject {
-    func didCreateFinancialPlan(_ plan: FinancialPlan)
+    func didCreateFinancialPlan(_ plan: FinancialPlanDTO)
 }
 
 final class FinancialPlanSelectionVC: UIViewController {
     weak var createDelegate: FinancialPlanEditDelegate?
     private let financialPlanSelectionView = FinancialPlanSelectionView()
-    private let financialPlanManager = FinancialPlanManager.shared
-    private let planItemStore = PlanItemStore.shared
-    private let repository = FinancialPlanRepository()
-
+    private let planService: FinancialPlanService = FinancialPlanService()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         financialPlanSelectionView.collectionView.dataSource = self
         financialPlanSelectionView.collectionView.delegate = self
+        navigateViewController()
     }
     
     override func loadView() {
         view = financialPlanSelectionView
         view.backgroundColor = UIColor(hex: "#e9f3fd")
     }
+    
+    private func navigateViewController() {
+        let plans = planService.fetchAllFinancialPlans()
+        
+        if plans.isEmpty {
+            // 진행 중인 플랜이 없다면 현재 뷰
+        } else {
+            // 진행 중인 플랜이 있다면 첫 번째 플랜을 사용하여 FinancialPlanCurrentPlanVC로 전환
+            let firstPlan = plans.first!
+            let currentPlanVC = FinancialPlanCurrentPlanVC(planService: planService, planDTO: firstPlan)
+            
+            // 현재 뷰 컨트롤러를 FinancialPlanCurrentPlanVC로 교체
+            navigationController?.setViewControllers([currentPlanVC], animated: true)
+        }
+    }
 }
 
 // MARK: - Collection View Data Source
 extension FinancialPlanSelectionVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return planItemStore.presetPlans.count
+        return PlanType.allCases.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -42,8 +56,8 @@ extension FinancialPlanSelectionVC: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        let plan = planItemStore.presetPlans[indexPath.item]
-        cell.configure(with: plan)
+        let planType = PlanType.allCases[indexPath.item]
+        cell.configure(with: planType)
         cell.cellBackgroundColor(UIColor(hex: "#ffffff"))
         
         return cell
@@ -53,12 +67,14 @@ extension FinancialPlanSelectionVC: UICollectionViewDataSource {
 // MARK: - Collection View Delegate
 extension FinancialPlanSelectionVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedPlan = planItemStore.presetPlans[indexPath.item]
+        let selectedPlanType = PlanType.allCases[indexPath.item]
+        let planTitle = selectedPlanType.title
         
-        if repository.isPlanTitleExists(selectedPlan.title) {
-            showExistingPlanAlert(for: selectedPlan.title)
+        if planService.isPlanTypeExists(selectedPlanType) {
+            showExistingPlanAlert(for: planTitle)
         } else {
-            let createPlanVC = FinancialPlanCreateVC(financialPlanManager: FinancialPlanManager.shared, textFieldArea: CreatePlanTextFieldView(), selectedPlan: selectedPlan, repository: repository)
+            let createPlanVC = FinancialPlanCreateVC(planService: planService)
+            createPlanVC.configure(with: planTitle, planType: selectedPlanType)
             navigationController?.pushViewController(createPlanVC, animated: true)
         }
     }
@@ -79,13 +95,23 @@ extension FinancialPlanSelectionVC: UICollectionViewDelegate {
     }
     
     private func navigateToCurrentPlanVC(with title: String) {
-        guard let plan = repository.getFinancialPlanByTitle(title) else {
+        guard let plan = planService.getFinancialPlanByTitle(title) else {
             print("Error: Plan not found")
             return
         }
         
-        let currentPlanVC = FinancialPlanCurrentPlanVC(repository: repository)
-        currentPlanVC.loadSpecificPlan(plan)
+        let planDTO = FinancialPlanDTO(
+            id: plan.id,
+            title: plan.title,
+            amount: plan.amount,
+            deposit: plan.deposit,
+            startDate: plan.startDate,
+            endDate: plan.endDate,
+            planType: plan.planType
+        )
+        let currentPlanVC = FinancialPlanCurrentPlanVC(planService: planService, planDTO: planDTO)
         navigationController?.pushViewController(currentPlanVC, animated: true)
     }
+    
+    
 }

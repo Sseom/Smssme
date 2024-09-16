@@ -8,19 +8,20 @@
 import UIKit
 
 protocol FinancialPlanEditDelegate: AnyObject {
-    func didUpdateFinancialPlan(_ plan: FinancialPlan)
+    func didUpdateFinancialPlan(_ plan: FinancialPlanDTO)
 }
 
 class FinancialPlanEditPlanVC: UIViewController, UITextFieldDelegate {
     weak var editDelegate: FinancialPlanEditDelegate?
-    private var financialPlan: FinancialPlan
-    private var financialPlanManager: FinancialPlanManager//유효값검사때
     private var createView: FinancialPlanCreateView
+    private let textFieldArea: CreatePlanTextFieldView = CreatePlanTextFieldView()
+    private var planService: FinancialPlanService
+    private var planDTO: FinancialPlanDTO
     
-    init(financialPlanManager: FinancialPlanManager, textFieldArea: CreatePlanTextFieldView, financialPlan: FinancialPlan) { //dto가 필요하다..
+    init(planService: FinancialPlanService, planDTO: FinancialPlanDTO) {
+        self.planService = planService
+        self.planDTO = planDTO
         self.createView = FinancialPlanCreateView(textFieldArea: textFieldArea)
-        self.financialPlanManager = financialPlanManager
-        self.financialPlan = financialPlan
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -32,7 +33,7 @@ class FinancialPlanEditPlanVC: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         view.backgroundColor = .white
         setupActions()
-        configure(with: financialPlan)
+        configure(with: planDTO)
         setupDatePickerTarget()
         setupTextFields()
     }
@@ -57,17 +58,7 @@ extension FinancialPlanEditPlanVC {
     }
     
     private func validateInputs() -> Bool {
-        let isAmountValid = validateAmount()
-        let isDateValid = validateEndDate()
-        
-        if !isAmountValid {
-            showAlert(message: "목표 금액은 양수여야 합니다.")
-        }
-        if !isDateValid {
-            showAlert(message: "종료 날짜는 시작 날짜보다 늦어야 합니다.")
-        }
-        
-        return isAmountValid && isDateValid
+        return validateAmount() && validateAmount()
     }
     
     private func saveUpdatedPlan() {
@@ -84,22 +75,24 @@ extension FinancialPlanEditPlanVC {
         }
         
         do {
-            try financialPlanManager.validateAmount(amount)
-            try financialPlanManager.validateDeposit(deposit)
-            try financialPlanManager.validateDates(start: startDate, end: endDate)
+            let updateDTO = FinancialPlanDTO(
+                id: planDTO.id,
+                title: planDTO.title,
+                amount: amount,
+                deposit: deposit,
+                startDate: startDate,
+                endDate: endDate,
+                planType: planDTO.planType
+            )
             
-            financialPlan.amount = amount
-            financialPlan.deposit = deposit
-            financialPlan.startDate = startDate
-            financialPlan.endDate = endDate
-            financialPlanManager.saveContext()
-            editDelegate?.didUpdateFinancialPlan(financialPlan)
+            try planService.updateFinancialPlan(updateDTO)
+            editDelegate?.didUpdateFinancialPlan(updateDTO)
             
             showAlert(message: "계획이 성공적으로 업데이트되었습니다.") { [weak self] in
                 self?.navigationController?.popViewController(animated: true)
             }
         } catch {
-            showAlert(message: "계획 업데이트 실패: \(error.localizedDescription)")
+            showAlert(message: "목표날짜는 시작날짜 이후여야합니다")
         }
     }
     
@@ -113,17 +106,17 @@ extension FinancialPlanEditPlanVC {
 }
 
 extension FinancialPlanEditPlanVC {
-    private func configure(with plan: FinancialPlan) {
+    private func configure(with plan: FinancialPlanDTO) {
         createView.textFieldArea.targetAmountField.text = "\(plan.amount.formattedAsCurrency)"
         createView.textFieldArea.currentSavedField.text = "\(plan.deposit.formattedAsCurrency)"
         
-        if let startDate = plan.startDate {
-            let formattedDate = FinancialPlanDateModel.dateFormatter.string(from: startDate)
-            createView.textFieldArea.startDateField.text = formattedDate }
-        
-        if let endDate = plan.endDate {
-            createView.textFieldArea.endDateField.text = "\(FinancialPlanDateModel.dateFormatter.string(from: plan.endDate!))"
-        }
+//        if let startDate = plan.startDate {
+//            let formattedDate = FinancialPlanDateModel.dateFormatter.string(from: startDate)
+//            createView.textFieldArea.startDateField.text = formattedDate }
+//
+//        if let endDate = plan.endDate {
+//            createView.textFieldArea.endDateField.text = "\(FinancialPlanDateModel.dateFormatter.string(from: plan.endDate))"
+//        }
     }
     
     private func setupDatePickerTarget() {
@@ -139,8 +132,8 @@ extension FinancialPlanEditPlanVC {
         createView.textFieldArea.currentSavedField.delegate = self
         
         // 초기 값 설정
-        createView.textFieldArea.targetAmountField.text = financialPlan.amount.formattedAsCurrency
-        createView.textFieldArea.currentSavedField.text = financialPlan.deposit.formattedAsCurrency
+        createView.textFieldArea.targetAmountField.text = planDTO.amount.formattedAsCurrency
+        createView.textFieldArea.currentSavedField.text = planDTO.deposit.formattedAsCurrency
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -152,9 +145,9 @@ extension FinancialPlanEditPlanVC {
             
             // int 값 저장
             if textField == createView.textFieldArea.targetAmountField {
-                financialPlan.amount = KoreanCurrencyFormatter.shared.number(from: formattedText) ?? 0
+                planDTO.amount = KoreanCurrencyFormatter.shared.number(from: formattedText) ?? 0
             } else if textField == createView.textFieldArea.currentSavedField {
-                financialPlan.deposit = KoreanCurrencyFormatter.shared.number(from: formattedText) ?? 0
+                planDTO.deposit = KoreanCurrencyFormatter.shared.number(from: formattedText) ?? 0
             }
         }
         return false
@@ -184,7 +177,7 @@ extension FinancialPlanEditPlanVC {
         }
         
         do {
-            try financialPlanManager.validateAmount(amount)
+            try planService.validateAmount(amount)
             return true
         } catch ValidationError.negativeAmount {
             showAlert(message: "금액은 0보다 커야 합니다.")
@@ -209,7 +202,7 @@ extension FinancialPlanEditPlanVC {
             return false
         }
         do {
-            try financialPlanManager.validateDates(start: startDate, end: endDate)
+            try planService.validateDates(start: startDate, end: endDate)
             return true
         } catch {
             return false

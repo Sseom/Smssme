@@ -11,7 +11,7 @@ import SnapKit
 class DatePickerView: UIView {
     let pickerView = UIPickerView()
     let titleLabel = LargeTitleLabel().createLabel(with: "날짜선택", color: .black)
-    let confirmButton = BaseButton().createButton(text: "이동", color: .black, textColor: .white)
+    var confirmButton = BaseButton().createButton(text: "날짜로 이동", color: .blue.withAlphaComponent(0.7), textColor: .white)
     let years = Array(2000...Calendar.current.component(.year, from: Date()) + 10)
     let months = Array(1...12)
     
@@ -33,6 +33,7 @@ class DatePickerView: UIView {
          confirmButton
         ].forEach { self.addSubview($0) }
 
+        confirmButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
     }
     
     private func setupAutoLayout(){
