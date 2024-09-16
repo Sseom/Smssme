@@ -47,10 +47,9 @@ class EmailView: UIView {
         return label
     }()
     
+    let checkEmailButton = BaseButton().createButton(text: "중복확인", color: .systemBlue, textColor: .white)
     
     //MARK: - 다음 버튼
-    
-    //다음 버튼
     var nextButton: UIButton = {
         let button = UIButton()
         button.setTitle("다음", for: .normal)
@@ -93,6 +92,7 @@ class EmailView: UIView {
          subTitleLabel,
          emailLabel,
          emailTextField,
+         checkEmailButton,
          emailErrorLabel,
          nextButton
         ].forEach {self.addSubview($0)}
@@ -120,7 +120,15 @@ class EmailView: UIView {
         
         emailTextField.snp.makeConstraints {
             $0.top.equalTo(emailLabel.snp.bottom).offset(10)
-            $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
+            $0.leading.equalTo(safeAreaLayoutGuide).inset(30)
+            $0.height.equalTo(commonHeight)
+        }
+        
+        checkEmailButton.snp.makeConstraints {
+            $0.top.equalTo(emailTextField.snp.top)
+            $0.leading.equalTo(emailTextField.snp.trailing).offset(5)
+            $0.trailing.equalTo(safeAreaLayoutGuide).inset(30)
+            $0.width.equalTo(80)
             $0.height.equalTo(commonHeight)
         }
         

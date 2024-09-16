@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 // 성별
 class IncomeAndLocationVC: UIViewController {
@@ -41,6 +42,7 @@ class IncomeAndLocationVC: UIViewController {
         super.viewDidLoad()
         
         view = incomeAndLocationView
+        incomeAndLocationView.agreementTextVeiw.delegate = self
         
         incomePickerView.tag = 1
         locationPickerView.tag = 2
@@ -58,7 +60,7 @@ class IncomeAndLocationVC: UIViewController {
         incomeAndLocationView.maleCheckBox.addTarget(self, action: #selector(checkBoxTapped), for: .touchUpInside)
         incomeAndLocationView.femaleCheckBox.addTarget(self, action: #selector(checkBoxTapped), for: .touchUpInside)
         incomeAndLocationView.noneCheckBox.addTarget(self, action: #selector(checkBoxTapped), for: .touchUpInside)
-         
+        
         // 다음 버튼 클릭 시
         incomeAndLocationView.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
         
@@ -66,13 +68,14 @@ class IncomeAndLocationVC: UIViewController {
     
     // 버튼 활성화를 위한 유효성 검증
     private func validateForm() {
-        selectedGender = incomeAndLocationView.maleCheckBox.isSelected ? "male" : incomeAndLocationView.femaleCheckBox.isSelected ? "female" : "none"
+        selectedGender = incomeAndLocationView.maleCheckBox.isSelected ? "male" : incomeAndLocationView.femaleCheckBox.isSelected ? "female" :
+        incomeAndLocationView.noneCheckBox.isSelected ? "none" : ""
         let income = incomeAndLocationView.incomeTextField.text ?? ""
         let location = incomeAndLocationView.locationTextField.text ?? ""
         
         print("수입 입력 여부: \(income)")
-         print("지역 입력 여부: \(location)")
-         print("성별 선택 여부: \(selectedGender)")
+        print("지역 입력 여부: \(location)")
+        print("성별 선택 여부: \(selectedGender)")
         
         if !selectedGender.isEmpty && !income.isEmpty && !location.isEmpty {
             incomeAndLocationView.nextButton.backgroundColor = .systemBlue
@@ -161,6 +164,16 @@ class IncomeAndLocationVC: UIViewController {
     }
 }
 
+
+//MARK: - extension - TextView
+extension IncomeAndLocationVC: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        
+        let safariVC = SFSafariViewController(url: URL)
+        present(safariVC, animated: true, completion: nil)
+        return false
+    }
+}
 
 //MARK: - extension - PickerView
 extension IncomeAndLocationVC: UIPickerViewDelegate, UIPickerViewDataSource {

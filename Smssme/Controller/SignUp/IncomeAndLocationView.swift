@@ -116,13 +116,21 @@ class IncomeAndLocationView: UIView {
         return textField
     }()
     
-    let agreementLabel: UILabel = {
-        let label = UILabel()
-        label.text = "'회원가입'을 누르는것으로 개인정보취급방침 및\n필수 이용약관에 동의한 것으로 간주합니다."
-        label.numberOfLines = 0
-        label.font = .systemFont(ofSize: 14)
-        label.textAlignment = .center
-        return label
+//    let agreementLabel: UILabel = {
+//        let label = UILabel()
+//        label.text = "'회원가입'을 누르는것으로 개인정보취급방침 및\n필수 이용약관에 동의한 것으로 간주합니다."
+//        label.numberOfLines = 0
+//        label.font = .systemFont(ofSize: 14)
+//        label.textAlignment = .center
+//        return label
+//    }()
+    
+    let agreementTextVeiw: UITextView = {
+        let textView = UITextView()
+        textView.isEditable = false
+        textView.isSelectable = true
+        textView.isScrollEnabled = false
+        return textView
     }()
     
     //MARK: - 다음 버튼
@@ -142,6 +150,7 @@ class IncomeAndLocationView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        configureTextView()
         configureUI()
         setupLayout()
     }
@@ -151,6 +160,46 @@ class IncomeAndLocationView: UIView {
     }
     
     //MARK: - func
+    private func configureTextView() {
+        let text = "'회원가입'을 누르는것으로 개인정보취급방침 및\n필수 이용약관에 동의한 것으로 간주합니다."
+        let attributedString = NSMutableAttributedString(string: text)
+        
+        // 개인정보취급방침
+        let privacyRange = NSString(string: text).range(of: "개인정보취급방침")
+        attributedString.addAttribute(.link, 
+                                      value: "https://valley-porch-b6d.notion.site/ce887a60fc15484f82f92194a3a44d2d",
+                                      range: privacyRange)
+        attributedString.addAttribute(.underlineStyle,
+                                      value: NSUnderlineStyle.single.rawValue,
+                                      range: privacyRange)
+        
+        // 필수이용약관
+        let termsRange = NSString(string: text).range(of: "필수 이용약관")
+        attributedString.addAttribute(.link,
+                                      value: "https://valley-porch-b6d.notion.site/ce887a60fc15484f82f92194a3a44d2d",
+                                      range: termsRange)
+        attributedString.addAttribute(.underlineStyle, 
+                                      value: NSUnderlineStyle.single.rawValue,
+                                      range: termsRange)
+        
+        // 가운데 정렬을 위한 paragraphStyle 설정
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        let fullRange = NSRange(location: 0, length: attributedString.length)
+        attributedString.addAttribute(.paragraphStyle, value: paragraphStyle, range: fullRange)
+
+        // 글씨 크기 설정
+        let font = UIFont.systemFont(ofSize: 15) // 원하는 폰트와 크기로 설정
+        attributedString.addAttribute(.font, value: font, range: fullRange)
+        
+        agreementTextVeiw.attributedText = attributedString
+        
+        agreementTextVeiw.linkTextAttributes = [
+            .foregroundColor: UIColor.systemBlue,
+            .underlineStyle: NSUnderlineStyle.single.rawValue
+        ]
+    }
+    
     private func configureUI() {
         self.backgroundColor = .white
         
@@ -173,7 +222,8 @@ class IncomeAndLocationView: UIView {
          incomeTextField,
          locationTitleLabel,
          locationTextField,
-         agreementLabel,
+//         agreementLabel,
+         agreementTextVeiw,
          nextButton].forEach {self.addSubview($0)}
     }
     
@@ -260,9 +310,10 @@ class IncomeAndLocationView: UIView {
             $0.height.equalTo(commonHeight)
         }
         
-        agreementLabel.snp.makeConstraints {
-            $0.top.equalTo(locationTextField.snp.bottom).offset(25)
+        agreementTextVeiw.snp.makeConstraints {
+            $0.top.equalTo(locationTextField.snp.bottom).offset(10)
             $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
+            $0.height.equalTo(55)
         }
         nextButton.snp.makeConstraints {
             $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)

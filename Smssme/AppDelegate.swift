@@ -7,16 +7,24 @@
 
 import CoreData
 import FirebaseCore
+import KakaoSDKCommon
 import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Use Firebase library to configure APIs
+        
+        // 파이어베이스 초기화
         FirebaseApp.configure()
+        
+        // 카카오 로그인 초기화
+        if let kakaoAppKey = Bundle.main.object(forInfoDictionaryKey: "KakaoAppKey") as? String {
+            KakaoSDK.initSDK(appKey: kakaoAppKey)
+        }
         return true
     }
+
 
     // MARK: UISceneSession Lifecycle
 

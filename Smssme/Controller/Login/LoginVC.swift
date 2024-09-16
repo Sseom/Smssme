@@ -5,8 +5,10 @@
 //  Created by ahnzihyeon on 8/27/24.
 //
 
-import UIKit
+import KakaoSDKUser
 import FirebaseAuth
+import UIKit
+
 
 class LoginVC: UIViewController {
     var handle: AuthStateDidChangeListenerHandle?
@@ -54,6 +56,9 @@ class LoginVC: UIViewController {
         // 로그인 버튼 클릭 시
         loginVeiw.loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
         
+        // 카카오 로그인 버튼 클릭 시
+        loginVeiw.kakaoLoginButton.addTarget(self, action: #selector(kakaoLoginButtonTapped), for: .touchUpInside)
+        
         // 회원가입 버튼 클릭 시 회원가입 뷰로 이동
         loginVeiw.signupButton.addTarget(self, action: #selector(signupButtonTapped), for: .touchUpInside)
         
@@ -96,6 +101,53 @@ class LoginVC: UIViewController {
             }
         }
     }
+    
+    //MARK: - 카카오 로그인
+    @objc private func kakaoLoginButtonTapped() {
+        // 카카오톡으로 로그인
+        if UserApi.isKakaoTalkLoginAvailable() {
+            UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in
+                if let error = error {
+                    print("카카오톡 로그인 오류: \n\(error)")
+                } else {
+                    print("Login Success.")
+                    // 로그인 성공 시 처리
+                    print("카카오톡 로그인 성공 AccessToken:\n \(String(describing: oauthToken?.accessToken))")
+                }
+            }
+        } else {
+            // 카카오 계정으로 로그인
+            UserApi.shared.loginWithKakaoAccount { (oauthToken, error) in
+                if let error = error {
+                    print("카카오 계정 로그인 오류: \n\(error)")
+                } else {
+                    print("카카오 계정으로 Login Success.")
+                    // 로그인 성공 시 처리
+                    print("카카오 계정 로그인 성공 AccessToken: \(String(describing: oauthToken?.accessToken))")
+                    
+                    self.requestUserInfo()
+                }
+            }
+        }
+
+    }
+    
+    private func requestUserInfo() {
+        UserApi.shared.me { (user, error) in
+            if let error = error {
+                print("사용자 정보 요청 오류: \n\(error)")
+            } else {
+                print("사용자 정보 요청 성공")
+                if let user = user {
+                    print("사용자 ID: \(user.id ?? 0)")
+                    print("닉네임: \(user.kakaoAccount?.profile?.nickname ?? "")")
+                    print("이메일: \(user.kakaoAccount?.email ?? "")")
+//                    print("성별: \(user.kakaoAccount?.gender?.rawValue ?? "")")
+//                    print("생일: \(user.kakaoAccount?.birthday ?? "")")
+                }
+            }
+        }
+}
     
     //MARK: - 로그인 하고 탭바컨트롤러로 전환
     func switchToTabBarController() {

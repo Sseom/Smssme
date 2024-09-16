@@ -54,6 +54,12 @@ final class LoginView: UIView {
         return stackView
     }()
     
+    let kakaoLoginButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "kakao_login.png"), for: .normal)
+        return button
+    }()
+    
     let signupButton = BaseButton().createButton(text: "회원가입", color: #colorLiteral(red: 0.9121415615, green: 0.9536862969, blue: 1, alpha: 1), textColor: UIColor.systemBlue)
     
     let unLoginButton = BaseButton().createButton(text: "로그인 없이 둘러보기", color: .clear, textColor: UIColor(hex: "#333333"))
@@ -80,9 +86,15 @@ final class LoginView: UIView {
     private func configureUI() {
         self.backgroundColor = .white
         
-        [emailTextField, passwordTextField].forEach {loginStackView.addArrangedSubview($0)}
+        [emailTextField, 
+         passwordTextField].forEach {loginStackView.addArrangedSubview($0)}
         
-        [logoImageView, loginStackView,loginButton, signupButton, unLoginButton].forEach {self.addSubview($0)}
+        [logoImageView,
+         loginStackView,
+         loginButton,
+         kakaoLoginButton,
+         signupButton,
+         unLoginButton].forEach {self.addSubview($0)}
         
     }
     
@@ -108,9 +120,16 @@ final class LoginView: UIView {
             $0.height.equalTo(textFieldHeight)
         }
         
-        signupButton.snp.makeConstraints {
+        kakaoLoginButton.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.top.equalTo(loginButton.snp.bottom).offset(8)
+            $0.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(textFieldHeight)
+        }
+        
+        signupButton.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(kakaoLoginButton.snp.bottom).offset(8)
             $0.horizontalEdges.equalToSuperview().inset(30)
             $0.height.equalTo(textFieldHeight)
         }
@@ -147,11 +166,5 @@ final class LoginView: UIView {
         textField.rightView = eyeButton
         textField.rightViewMode = .always
     }
-    
-    
-    
-//    @objc
-//    func passwordSecureMode() {
-//        passwordTextField.isSecureTextEntry.toggle()
-//    }
+
 }

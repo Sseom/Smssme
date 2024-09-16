@@ -37,9 +37,27 @@ class FirebaseManager {
         }
     }
     
+    //MARK: - 이메일 중복 확인
+    func checkEmail(email: String, completion: @escaping (Bool) -> Void) {
+        db.collection("users").whereField("email", isEqualTo: email).getDocuments { [weak self] querySnapshot, error in
+            if let error = error { //nil이 아닐 경우 아래 구문 실행 -> 에러가 있다. -> 현재 오류 발생 이유: 파베 데이터 접근 권한 없음. 보안상 이유.
+                print("이메일 존재 확인 여부 오류: \n \(error.localizedDescription)")
+                      completion(false)
+                return
+            }
+            
+            if let documents = querySnapshot?.documents, !documents.isEmpty {
+                completion(true) // 이미 존재하는 이메일
+            } else {
+                completion(false)
+            }
+        }
+    }
+    
     //MARK: - 이메일 인증
+    // 현재 로그인한 사용자의 정보가 인자로 전달되어야 한다. 즉, 회원가입 된 사용자들에게만 이메일 인증 요청 가능...
     func sendEmailVerification() {
-        auth.currentUser?.sendEmailVerification(completion: { error in
+        auth.currentUser?.sendEmailVerification(completion: { [weak self] error in
             if let error = error {
                 print("이메일 인증 오류: \(error.localizedDescription)")
             } else {
@@ -51,7 +69,26 @@ class FirebaseManager {
     //MARK: - 비밀번호 찾기
     func resetPassword(email: String, completion: @escaping (Error?) -> Void) {
         auth.sendPasswordReset(withEmail: email) { error in
-            completion(error)
+            if let error = error {
+                print("비밀번호 재설정 메일 발송을 실패했습니다.:\n \(error.localizedDescription)")
+                completion(error)
+                return
+            }
+            print("비밀번호 재설정 메일 발송을 성공했습니다. ")
+            completion(nil)
+        }
+    }
+    
+    // 비밀번호 재설정 코드와 새 비밀번호를 사용하여 비밀번호를 업데이트
+    func confirmPasswordReset(code: String, newPassword: String, completion: @escaping (Error?) -> Void) {
+        Auth.auth().confirmPasswordReset(withCode: code, newPassword: newPassword) { error in
+            if let error = error {
+                print("Error confirming password reset: \(error.localizedDescription)")
+                completion(error)
+                return
+            }
+            print("Password has been reset successfully!")
+            completion(nil)
         }
     }
     

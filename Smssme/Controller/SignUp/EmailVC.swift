@@ -17,20 +17,36 @@ class EmailVC: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         view = emailView
-        
         self.navigationItem.title = "회원가입"
         
         emailView.emailTextField.delegate = self
+        setAddtarget()
         
+    }
+    
+    private func setAddtarget() {
         emailView.emailTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
-        
+        emailView.checkEmailButton.addTarget(self, action: #selector(checkEmailButtonTapped), for: .touchUpInside)
         emailView.nextButton.addTarget(self, action: #selector(onNextButtonTapped), for: .touchUpInside)
+    }
+    
+    //MARK: - '중복확인' 버튼 이벤트
+    @objc private func checkEmailButtonTapped() {
+        FirebaseManager.shared.checkEmail(email: emailView.emailTextField.text ?? "") { exists in
+            print("텍스트필드에 입력한 이메일: \(self.emailView.emailTextField.text ?? "")")
+            if exists {
+                self.emailView.emailErrorLabel.text = "중복된 이메일입니다"
+            } else {
+                self.emailView.emailErrorLabel.text = "사용 가능한 이메일입니다."
+                self.emailView.emailErrorLabel.textColor = .systemGreen
+            }
+        }
     }
     
     //MARK: - '다음' 버튼 이벤트
     @objc private func onNextButtonTapped() {
         userData.email = emailView.emailTextField.text
-
+        
         let passwordVC = PasswordVC()
         passwordVC.userData = userData //데이터 전달
         navigationController?.pushViewController(passwordVC, animated: true)
@@ -51,7 +67,8 @@ extension EmailVC {
         if textField == emailView.emailTextField {
             
             if isValidEmail(email: updatedText) {
-                emailView.emailErrorLabel.text = ""
+                emailView.emailErrorLabel.text = "사용 가능한 이메일입니다."
+                emailView.emailErrorLabel.textColor = .systemGreen
                 emailView.nextButton.backgroundColor = .systemBlue
                 emailView.nextButton.isEnabled = true
             } else {
