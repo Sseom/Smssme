@@ -95,15 +95,8 @@ class FinancialPlanCell: UICollectionViewCell {
         layer.shadowRadius = 3
     }
     
-    func configure(with item: PlanItem) {
-//        iconView.image = UIImage(named: item.imageName)
-        titleLabel.text = item.title
-        descriptionLabel.text = item.description
-        
-        // 사용자 정의 플랜인 경우
-        if let uuid = item.uuid {
-            // UUID를 사용한 추가
-            self.tag = uuid.hashValue
-        }
+    func configure(with planType: PlanType) {
+        titleLabel.text = planType.title
+        descriptionLabel.text = planType.planDescription
     }
 }
