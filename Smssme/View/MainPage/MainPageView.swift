@@ -84,6 +84,7 @@ class MainPageView: UIView {
         return stackView
     }()
     
+    private let benefitVerticalTableView = UITableView()
     
     // MARK: - View Init
     override init(frame: CGRect) {
@@ -204,7 +205,8 @@ class MainPageView: UIView {
 //            financialTitleLabel,
             financialScrollView,
             benefitTitleLabel,
-            benefitVerticalStackView
+            benefitVerticalStackView,
+            benefitVerticalTableView
         ].forEach {
             contentView.addSubview($0)
         }
@@ -273,6 +275,12 @@ class MainPageView: UIView {
         
         benefitVerticalStackView.snp.makeConstraints {
             $0.top.equalTo(benefitTitleLabel.snp.bottom).offset(5)
+            $0.left.right.equalToSuperview().inset(20)
+        }
+        
+        benefitVerticalTableView.snp.makeConstraints {
+            $0.top.equalTo(benefitVerticalStackView.snp.bottom).offset(5)
+            $0.height.equalTo(200)
             $0.left.right.equalToSuperview().inset(20)
             $0.bottom.equalToSuperview().offset(-20)
         }
