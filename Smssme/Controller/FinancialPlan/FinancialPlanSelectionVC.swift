@@ -21,27 +21,11 @@ final class FinancialPlanSelectionVC: UIViewController {
         super.viewDidLoad()
         financialPlanSelectionView.collectionView.dataSource = self
         financialPlanSelectionView.collectionView.delegate = self
-        navigateViewController()
     }
     
     override func loadView() {
         view = financialPlanSelectionView
         view.backgroundColor = UIColor(hex: "#e9f3fd")
-    }
-    
-    private func navigateViewController() {
-        let plans = planService.fetchAllFinancialPlans()
-        
-        if plans.isEmpty {
-            // 진행 중인 플랜이 없다면 현재 뷰
-        } else {
-            // 진행 중인 플랜이 있다면 첫 번째 플랜을 사용하여 FinancialPlanCurrentPlanVC로 전환
-            let firstPlan = plans.first!
-            let currentPlanVC = FinancialPlanCurrentPlanVC(planService: planService, planDTO: firstPlan)
-            
-            // 현재 뷰 컨트롤러를 FinancialPlanCurrentPlanVC로 교체
-            navigationController?.setViewControllers([currentPlanVC], animated: true)
-        }
     }
 }
 
@@ -112,6 +96,4 @@ extension FinancialPlanSelectionVC: UICollectionViewDelegate {
         let currentPlanVC = FinancialPlanCurrentPlanVC(planService: planService, planDTO: planDTO)
         navigationController?.pushViewController(currentPlanVC, animated: true)
     }
-    
-    
 }
