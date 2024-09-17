@@ -51,12 +51,11 @@ final class FinancialPlanConfirmView: UIView {
     let endDateLabel = ContentBoldLabel().createLabel(with: "", color: UIColor(hex: "#333333"))
     let daysLeftTitleLabel = ContentLabel().createLabel(with: "남은날짜", color: UIColor(hex: "#060b11"))
     let daysLeftLabel = ContentBoldLabel().createLabel(with: "", color: UIColor(hex: "#333333"))
+    let monthlyGoalsTitleLabel = ContentLabel().createLabel(with: "이번달 목표금액", color: UIColor(hex: "#060b11"))
+    let monthlyGoalsLabel = ContentBoldLabel().createLabel(with: "", color: UIColor(hex: "#333333"))
     
     let editButton = ActionButtonBorder().createButton(text: "수정", color: UIColor.black, textColor: UIColor.black)
     let deleteButton = ActionButtonBlack2().createButton(text: "플랜삭제", color: UIColor.black, textColor: UIColor.white)
-    
-    let monthTargetTitle = ContentLabel().createLabel(with: "이번달 저축 목표", color: UIColor(hex: "#060b11"))
-    let monthTarget = ContentBoldLabel().createLabel(with: "", color: UIColor(hex: "#333333"))
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -80,19 +79,19 @@ final class FinancialPlanConfirmView: UIView {
         confirmImage.snp.makeConstraints {
             $0.top.equalTo(confirmLargeTitle.snp.bottom).offset(50)
             $0.width.equalTo(300)
-            $0.height.equalTo(260)
+            $0.height.equalTo(240)
             $0.centerX.equalToSuperview()
         }
         
         contentStackView.snp.makeConstraints {
-            $0.top.equalTo(confirmImage.snp.bottom)
+            $0.top.equalTo(confirmImage.snp.bottom).offset(-20)
             $0.width.equalTo(300)
             $0.height.equalTo(200)
             $0.centerX.equalToSuperview()
         }
         
         buttonsView.snp.makeConstraints {
-            $0.top.equalTo(contentStackView.snp.bottom).offset(10)
+            $0.top.equalTo(contentStackView.snp.bottom).offset(20)
             $0.width.equalTo(300)
             $0.height.equalTo(40)
             $0.centerX.equalToSuperview()
@@ -108,7 +107,8 @@ final class FinancialPlanConfirmView: UIView {
             amountGoalLabel,
             currentSavedLabel,
             endDateLabel,
-            daysLeftLabel
+            monthlyGoalsLabel,
+            daysLeftLabel,
         ].forEach {
             contentStackView.addSubview($0)
         }
@@ -123,8 +123,13 @@ final class FinancialPlanConfirmView: UIView {
             $0.trailing.equalToSuperview()
         }
         
-        endDateLabel.snp.makeConstraints {
+        monthlyGoalsLabel.snp.makeConstraints {
             $0.top.equalTo(currentSavedLabel.snp.bottom).offset(16)
+            $0.trailing.equalToSuperview()
+        }
+        
+        endDateLabel.snp.makeConstraints {
+            $0.top.equalTo(monthlyGoalsLabel.snp.bottom).offset(16)
             $0.trailing.equalToSuperview()
         }
         
@@ -141,7 +146,9 @@ final class FinancialPlanConfirmView: UIView {
             amountGoalTitleLabel,
             currentSavedTitleLabel,
             endDateTitleLabel,
-            daysLeftTitleLabel
+            monthlyGoalsTitleLabel,
+            daysLeftTitleLabel,
+            
         ].forEach {
             contentStackView.addSubview($0)
         }
@@ -156,8 +163,13 @@ final class FinancialPlanConfirmView: UIView {
             $0.leading.equalToSuperview()
         }
         
-        endDateTitleLabel.snp.makeConstraints {
+        monthlyGoalsTitleLabel.snp.makeConstraints {
             $0.top.equalTo(currentSavedTitleLabel.snp.bottom).offset(16)
+            $0.leading.equalToSuperview()
+        }
+        
+        endDateTitleLabel.snp.makeConstraints {
+            $0.top.equalTo(monthlyGoalsTitleLabel.snp.bottom).offset(16)
             $0.leading.equalToSuperview()
         }
         

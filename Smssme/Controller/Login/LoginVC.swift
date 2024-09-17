@@ -13,7 +13,8 @@ class LoginVC: UIViewController {
     var toastMessage: String?
     
     private let loginVeiw = LoginView()
-
+    private let planService = FinancialPlanService()
+    
     override func loadView() {
         view = loginVeiw
     }
@@ -28,16 +29,16 @@ class LoginVC: UIViewController {
         setupAddtarget()
     }
     
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//
-//        if let message = toastMessage {
-//            Toast.show(message: message, in: self)
-//        }
-//    }
+    //    override func viewDidAppear(_ animated: Bool) {
+    //        super.viewDidAppear(animated)
+    //
+    //        if let message = toastMessage {
+    //            Toast.show(message: message, in: self)
+    //        }
+    //    }
     
     ///인증상태 수신 대기 - 리스터 연결
-    ///각각의 앱 뷰에서 앱에 로그인한 사용자에 대한 정보를 얻기 위해 FIRAuth 객체와 리스너를 연결합니다. 
+    ///각각의 앱 뷰에서 앱에 로그인한 사용자에 대한 정보를 얻기 위해 FIRAuth 객체와 리스너를 연결합니다.
     ///이 리스너는 사용자의 로그인 상태가 변경될 때마다 호출됩니다.
     override func viewWillAppear(_ animated: Bool) {
         // [START auth_listener]
@@ -60,7 +61,7 @@ class LoginVC: UIViewController {
         // 비회원 로그인 시
         loginVeiw.unLoginButton.addTarget(self, action: #selector(unloginButtonTapped), for: .touchUpInside)
     }
-
+    
     //MARK: - @objc 로그인
     ///기존 사용자 로그인
     ///기존 사용자가 자신의 이메일 주소와 비밀번호를 사용해 로그인할 수 있는 양식을 만듭니다. 사용자가 양식을 작성하면 signIn 메서드를 호출합니다.
@@ -85,16 +86,37 @@ class LoginVC: UIViewController {
                     self.showAlert(message: "올바르지 않은 이메일 형식입니다.", AlertTitle: "이메일 형식 오류", buttonClickTitle: "확인")
                 case .expiredActionCode:
                     self.showAlert(message: "인증 코드가 만료되었습니다. 새 인증 코드를 요청하세요." , AlertTitle: "경고", buttonClickTitle: "확인")
-                               
+                    
                 case .invalidCredential:
                     self.showAlert(message: "사용자 인증 정보가 유효하지 않습니다.", AlertTitle: "경고", buttonClickTitle: "확인")
                 default:
                     self.showAlert(message: error.localizedDescription, AlertTitle: "에러 발생", buttonClickTitle: "확인")
                 }
             } else {
-                showSnycAlert(message: "안녕하세요,\n 로그인되었습니다.", AlertTitle: "로그인 성공", buttonClickTitle: "확인", method: switchToTabBarController)
+//                showSnycAlert(message: "안녕하세요,\n 로그인되었습니다.", AlertTitle: "로그인 성공", buttonClickTitle: "확인", method: switchToTabBarController)
+                self.checkUsersPlan()
             }
         }
+    }
+    
+    //MARK: -로그인 후 플랜이 없는 경우 hj
+    private func checkUsersPlan() {
+        let plans = planService.fetchAllFinancialPlans()
+        if plans.isEmpty {
+            showSnycAlert(message: "안녕하세요, 자산 플랜을 생성해 주세요", AlertTitle: "로그인되었습니다", buttonClickTitle: "확인", method: switchToPlanSelectVC)
+        } else {
+            showSnycAlert(message: "안녕하세요, 로그인되었습니다", AlertTitle: "로그인되었습니다", buttonClickTitle: "확인", method: switchToTabBarController)
+        }
+    }
+    
+    func switchToPlanSelectVC() {
+        let tabBarController = TabBarController()
+        tabBarController.selectedIndex = 2
+        print("로그인하고 페이지 전환")
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let window = windowScene.windows.first else {return}
+        
+        window.rootViewController = tabBarController
     }
     
     //MARK: - 로그인 하고 탭바컨트롤러로 전환
@@ -104,12 +126,12 @@ class LoginVC: UIViewController {
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let window = windowScene.windows.first else {return}
         
-              window.rootViewController = tabBarController
-              UIView.transition(with: window,
-                                duration: 0.5,
-                                options: [.transitionCrossDissolve],
-                                animations: nil,
-                                completion: nil)
+        window.rootViewController = tabBarController
+        UIView.transition(with: window,
+                          duration: 0.5,
+                          options: [.transitionCrossDissolve],
+                          animations: nil,
+                          completion: nil)
     }
     
     
@@ -119,7 +141,7 @@ class LoginVC: UIViewController {
         let navController = UINavigationController(rootViewController: emailVC)
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let window = windowScene.windows.first else { return }
- 
+        
         window.rootViewController = navController
         window.makeKeyAndVisible()
     }
@@ -131,7 +153,7 @@ class LoginVC: UIViewController {
         // 전체화면 전환 (애니메이션 포함)
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let window = windowScene.windows.first else { return }
-
+        
         window.rootViewController = mainTabBarController
         UIView.transition(with: window,
                           duration: 0.5,
@@ -139,7 +161,7 @@ class LoginVC: UIViewController {
                           animations: nil,
                           completion: nil)
     }
-}    
+}
 
 
 extension LoginVC: UITextFieldDelegate {

@@ -41,12 +41,16 @@ class FinancialPlanConfirmVC: UIViewController, FinancialPlanEditDelegate {
         super.viewDidLoad()
         view.backgroundColor = .white
         configure(with: planDTO)
-//        repository.printAllFinancialPlans() 저장된 플랜 확인용
         setupButtonActions()
+        debugP(with: planDTO)
     }
     
     override func loadView() {
         view = confirmView
+    }
+    
+    func debugP(with plan: FinancialPlanDTO) {
+        print("\(BudgetService().calculateSavings(plan: plan, startDate: plan.startDate, endDate: plan.endDate, amount: plan.amount))")
     }
     
     func didUpdateFinancialPlan(_ plan: FinancialPlanDTO) {
@@ -60,11 +64,16 @@ class FinancialPlanConfirmVC: UIViewController, FinancialPlanEditDelegate {
         confirmView.confirmImage.image = UIImage(named: centerImage)
         confirmView.amountGoalLabel.text = "\(plan.amount.formattedAsCurrency)원"
         confirmView.currentSavedLabel.text = "\(plan.deposit.formattedAsCurrency)원"
-        confirmView.endDateLabel.text = FinancialPlanDateModel.dateFormatter.string(from: plan.endDate)
         
+        confirmView.monthlyGoalsLabel.text =
+        "\(BudgetService().calculateSavings(plan: plan, startDate: plan.startDate, endDate: plan.endDate, amount: plan.amount).formattedAsCurrency)원"
+        
+        confirmView.endDateLabel.text = FinancialPlanDateModel.dateFormatter.string(from: plan.endDate)
         let calendar = Calendar.current
         let now = Date()
         let components = calendar.dateComponents([.day], from: now, to: plan.endDate)
+        
+        
         if let daysLeft = components.day {
             confirmView.daysLeftLabel.text = "\(daysLeft)일"
         }
