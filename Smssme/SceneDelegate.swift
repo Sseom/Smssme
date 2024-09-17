@@ -5,6 +5,7 @@
 //  Created by 전성진 on 8/22/24.
 //
 
+import KakaoSDKAuth
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -26,6 +27,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         self.window = window
         
+    }
+    
+    // 카카오 로그인
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        if let url = URLContexts.first?.url {
+            if (AuthApi.isKakaoTalkLoginUrl(url)) {
+                _ = AuthController.handleOpenUrl(url: url)
+            }
+        }
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {

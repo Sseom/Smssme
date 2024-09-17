@@ -11,14 +11,15 @@ import FirebaseFirestore
 
 
 class SignUpVC: UIViewController, KeyboardEvader {
+    var userData = UserData()
     
     // 파이어베이스매니저로 뺄 프로퍼티
     var userSession: FirebaseAuth.User? = Auth.auth().currentUser //파이어베이스의 유저 정보를 가져옴(로그인 되있는 상태가 아니면 nil)
-    var currentUser: User? // 유저 모델
-    // Firestore의 users 컬렉션 참조
-    let db = Firestore.firestore()
+    //    var currentUser: User? // 유저 모델
+    //    // Firestore의 users 컬렉션 참조
+    //    let db = Firestore.firestore()
     
-
+    
     private let signupView = SignUpView()
     private var selectedCheckBox: UIButton?  // 선택된 체크박스
     
@@ -34,6 +35,7 @@ class SignUpVC: UIViewController, KeyboardEvader {
     let pickerIncomeData = [
         "1,200만 원 이하",
         "1,200만 원 초과 ~ 4,600만 원 이하",
+        "4,600만 원 초과 ~ 8,800만 원 이하",
         "8,800만 원 초과 ~ 1억 5천만 원 이하",
         "1억 5천만 원 초과 ~ 3억 원 이하",
         "3억 원 초과 ~ 5억 원 이하",
@@ -66,12 +68,13 @@ class SignUpVC: UIViewController, KeyboardEvader {
     //MARK: - func
     private func setupAddtarget() {
         
-        //        if let user = Auth.auth().currentUser {
-        //            signupView.signupButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
-        //        } else {
-        //            // 회원가입 버튼 클릭
-        //            signupView.signupButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
-        //        }
+        if let user = Auth.auth().currentUser {
+            signupView.signupButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
+        } else {
+            // 회원가입 버튼 클릭
+//            signupView.signupButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
+        }
+        
         //체크박스 버튼 클릭 시
         signupView.maleCheckBox.addTarget(self, action: #selector(checkBoxTapped), for: .touchUpInside)
         signupView.femaleCheckBox.addTarget(self, action: #selector(checkBoxTapped), for: .touchUpInside)
@@ -106,21 +109,76 @@ class SignUpVC: UIViewController, KeyboardEvader {
                 // 파이어베이스 유저 객체를 가져옴
                 guard let uid = authResult?.user.uid else { return }
                 
-                self.saveUserInfo(uid: uid, nickname: nickname, birthday: birthday, gender: gender, income: income, location: location)
+                //                self.saveUserInfo(uid: uid, nickname: nickname, birthday: birthday, gender: gender, income: income, location: location)
                 
-                self.showSnycAlert(message: "회원가입되었습니다.\n 감사합니다.", AlertTitle: "회원가입 완료", buttonClickTitle: "확인") {
-                    let loginVC = LoginVC()
-                    print("로그인 페이지로 전환")
-                    SplashViewController().showMainVC()
+                FirebaseFirestoreManager.shared.saveUserData(uid: uid, userData: self.userData) { saveResult in
+                    switch saveResult {
+                    case .success:
+                        print("사용자 정보 저장 성공")
+                    case .failure(let error):
+                        print("사용자 정보 저장 실패: \(error.localizedDescription)")
+                    }
+                    self.showSnycAlert(message: "회원가입되었습니다.\n 감사합니다.", AlertTitle: "회원가입 완료", buttonClickTitle: "확인") {
+                        let loginVC = LoginVC()
+                        print("로그인 페이지로 전환")
+                        SplashViewController().showMainVC()
+                    }
                 }
             }
-            
-            
         }
+        
+
+//                FirebaseFirestoreManager.shared.saveUserData(uid: uid, userData: self.userData) { saveResult in
+//                    switch saveResult {
+//                    case .success:
+//                        print("사용자 정보 저장 성공")
+//                    case .failure(let error):
+//                        print("사용자 정보 저장 실패: \(error.localizedDescription)")
+//                    }
+//                }
+        
+//        func saveUserInfo(uid: String, nickname: String, birthday: String, gender: String, income: String, location: String) {
+//            
+//            // 저장할 데이터 정의
+//            let userData: [String: Any] = [
+//                "nickname": nickname,
+//                "birthday": birthday,
+//                "gender": gender,
+//                "income": income,
+//                "location": location,
+//                "email": Auth.auth().currentUser?.email ?? ""
+//            ]
+//            
+//            // users 컬렉션에 UID를 키로 데이터 저장
+//            db.collection("users").document(uid).setData(userData) { error in
+//                if let error = error {
+//                    print("Error saving user data: \(error.localizedDescription)")
+//                } else {
+//                    print("User data saved successfully!")
+//                }
+//            }
+//        }
+        
+        
     }
     
-    //MARK: - updateUser : 파이어베이스 데이터 업데이트
-    func updateUser() {
+    //MARK: - @objc 회원 가입/ 수정 버튼 클릭
+    
+    @objc private func editButtonTapped() {
+        print("회원정보 수정 클릭!!!!")
+        
+        guard let email = signupView.emaiTextField.text, !email.isEmpty,
+              let nickname = signupView.nicknameTextField.text, !nickname.isEmpty,
+              let birthday = signupView.birthdayTextField.text, !birthday.isEmpty,
+              let gender = signupView.maleCheckBox.isSelected ? "male" : signupView.femaleCheckBox.isSelected ? "female" : signupView.noneCheckBox.isSelected ? "none" : nil , !gender.isEmpty,
+              let income = signupView.incomeTextField.text, !income.isEmpty,
+              let location = signupView.locationTextField.text, !location.isEmpty
+                
+        else {
+            showAlert(message: "모든 항목을 입력해주세요.", AlertTitle: "입력 오류", buttonClickTitle: "확인")
+            return
+        }
+        
         guard let user = Auth.auth().currentUser,
               let nickname = signupView.nicknameTextField.text,
               let birthday = signupView.birthdayTextField.text,
@@ -142,75 +200,8 @@ class SignUpVC: UIViewController, KeyboardEvader {
                 print("유저 정보 수정 실패: \(error.localizedDescription)")
             }
         }
-    }
-    
-    //MARK: - saveUserInfo: 사용자 정보 저장 파이어베이스에 저장
-    func saveUserInfo(uid: String, nickname: String, birthday: String, gender: String, income: String, location: String) {
         
-        // 저장할 데이터 정의
-        let userData: [String: Any] = [
-            "nickname": nickname,
-            "birthday": birthday,
-            "gender": gender,
-            "income": income,
-            "location": location,
-            "email": Auth.auth().currentUser?.email ?? ""
-        ]
-        
-        // users 컬렉션에 UID를 키로 데이터 저장
-        db.collection("users").document(uid).setData(userData) { error in
-            if let error = error {
-                print("Error saving user data: \(error.localizedDescription)")
-            } else {
-                print("User data saved successfully!")
-            }
-        }
-    }
-    
-    
-    
-    //MARK: - @objc 회원 가입/ 수정 버튼 클릭
-    //    @objc private func signUpButtonTapped() {
-    //        print("회원가입 클릭!!!!")
-    //
-    //        guard let email = signupView.emaiTextField.text, !email.isEmpty,
-    //              let password = signupView.passwordTextField.text, !password.isEmpty,
-    //              let nickname = signupView.nicknameTextField.text, !nickname.isEmpty,
-    //              let birthday = signupView.birthdayTextField.text, !birthday.isEmpty,
-    //              let gender = signupView.maleCheckBox.isSelected ? "male" : signupView.femaleCheckBox.isSelected ? "female" : signupView.noneCheckBox.isSelected ? "none" : nil , !gender.isEmpty,
-    //              let income = signupView.incomeTextField.text, !income.isEmpty,
-    //              let location = signupView.locationTextField.text, !location.isEmpty
-    //
-    //        else {
-    //            showAlert(message: "모든 항목을 입력해주세요.", AlertTitle: "입력 오류", buttonClickTitle: "확인")
-    //            return }
-    //
-    //        registerUser(email: email, password: password, nickname: nickname, birthday: birthday, gender: gender, income: income, location: location)
-    //
-    //
-    //    }
-    
-    @objc private func editButtonTapped() {
-        print("회원정보 수정 클릭!!!!")
-        
-        guard let email = signupView.emaiTextField.text, !email.isEmpty,
-              let nickname = signupView.nicknameTextField.text, !nickname.isEmpty,
-              let birthday = signupView.birthdayTextField.text, !birthday.isEmpty,
-              let gender = signupView.maleCheckBox.isSelected ? "male" : signupView.femaleCheckBox.isSelected ? "female" : signupView.noneCheckBox.isSelected ? "none" : nil , !gender.isEmpty,
-              let income = signupView.incomeTextField.text, !income.isEmpty,
-              let location = signupView.locationTextField.text, !location.isEmpty
-                
-        else {
-            showAlert(message: "모든 항목을 입력해주세요.", AlertTitle: "입력 오류", buttonClickTitle: "확인")
-            return
-        }
-        
-        updateUser()
-        
-        showSnycAlert(message: "회원정보 수정이 완료되었습니다.", AlertTitle: "회원정보 수정 완료", buttonClickTitle: "확인") {
-            self.navigationController?.popViewController(animated: true)
-            let mypageView = MypageView()
-        }
+        let mypageView = MypageView()
     }
     
     //MARK: - 성별 체크박스
@@ -231,18 +222,18 @@ class SignUpVC: UIViewController, KeyboardEvader {
             checkBox.isSelected = true
             selectedCheckBox = checkBox
             
-            //            selectedCheckBox?.tag
+            selectedCheckBox?.tag
             
-            //            if let tagType = GenderTags(rawValue: checkBox.tag) {
-            //                switch tagType {
-            //                case .male:
-            //                    print("tag: \(GenderTags(rawValue: 1)) - 남성 체크박스 선택됨")
-            //                case .female:
-            //                    print("tag: \(checkBox.tag) - 여성 체크박스 선택됨")
-            //                case .none:
-            //                    print("tag: \(checkBox.tag) - 선택안함 체크박스 선택됨")
-            //                }
-            //            }
+            if let tagType = GenderTags(rawValue: checkBox.tag) {
+                switch tagType {
+                case .male:
+                    print("tag: \(GenderTags(rawValue: 1)) - 남성 체크박스 선택됨")
+                case .female:
+                    print("tag: \(checkBox.tag) - 여성 체크박스 선택됨")
+                case .none:
+                    print("tag: \(checkBox.tag) - 선택안함 체크박스 선택됨")
+                }
+            }
             
         }
     }
@@ -296,7 +287,7 @@ class SignUpVC: UIViewController, KeyboardEvader {
         
         let cancelButton = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(self.dateCancelPicker))
         
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)  
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
         let doneButton = UIBarButtonItem(title: "선택", style: .plain, target: self, action: #selector(self.dateDonePicker))
         

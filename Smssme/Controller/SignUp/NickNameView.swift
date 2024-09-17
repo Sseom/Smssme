@@ -10,7 +10,14 @@ import UIKit
 class NickNameView: UIView {
     private let commonHeight = 50
     
-    //상단 제목 라벨
+    //MARK: - 회원가입 진행 상황 Progress Bar
+    var progressBar: UIProgressView = {
+        let bar = UIProgressView()
+        bar.setProgress(0.7, animated: true)
+        return bar
+    }()
+    
+    //MARK: - 상단 제목 라벨
     private var titleLabel = LargeTitleLabel().createLabel(with: "닉네임과 생년월일", color: UIColor.black)
     
     
@@ -108,7 +115,8 @@ class NickNameView: UIView {
         
         self.addGestureRecognizer(recognizer)
         
-        [titleLabel,
+        [progressBar,
+         titleLabel,
          nicknameLabel,
          nicknameTextField,
          nicknameErrorLabel,
@@ -118,8 +126,13 @@ class NickNameView: UIView {
     }
     
     private func setupLayout() {
+        progressBar.snp.makeConstraints {
+            $0.top.equalTo(safeAreaLayoutGuide).inset(5)
+            $0.horizontalEdges.equalToSuperview()
+        }
+        
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(safeAreaLayoutGuide).inset(24)
+            $0.top.equalTo(progressBar.snp.bottom).offset(20)
             $0.leading.equalTo(safeAreaLayoutGuide).inset(30)
         }
         

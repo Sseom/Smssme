@@ -23,7 +23,7 @@ struct UserData {
             "password": password ?? "",
             "nickname": nickname ?? "",
             "birth": birth ?? "",
-            "gender": gender ?? "선택안함",
+            "gender": gender ?? "",
             "income": income ?? "",
             "location": location ?? ""
         ]
