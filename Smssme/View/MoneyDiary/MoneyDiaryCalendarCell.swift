@@ -39,6 +39,7 @@ final class CalendarCollectionViewCell: UICollectionViewCell, CellReusable {
         super.prepareForReuse()
         self.layer.borderColor = UIColor.gray.cgColor
         self.layer.borderWidth = 0.2
+        self.backgroundColor = .white
     }
     
     func updateDate(item: CalendarItem) {

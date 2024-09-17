@@ -142,27 +142,50 @@ extension MoneyDiaryVC: UICollectionViewDataSource, UICollectionViewDelegate, UI
                 self.calendarItems[index].weekSection = currentWeekSection
             }
         }
-//        let nowDay = self.calendarItems[indexPath.item]
-//        
-//        if nowDay.isThisMonth == true {
-//            let weekDay = DateManager.shared.getWeekdayNum(month: nowDay.date)
-//            
-//            if weekDay == 1 {
-//                for i in 0 ..< 42 {
-//                    self.calendarItems[i].weekSection += 1
-//                }
-//                
-//            }
-//        }
+
+        // 색깔을 정하는 기준이 오늘기점보다 이전기준이여야 측정가능
+        // 일요일이 되었을때만 실행
+        //그 주에 지출이력이 없는경우에는 칠하지 않음
+        //미래시점은 칠하지 않음
+        //
         
         cell.updateDate(item: self.calendarItems[indexPath.item])
         
         return cell
     }
     
-    func makeTrafficLightLogic() -> Bool{
+    func makeTrafficLightLogic(sectionAmount: Int, monthBudget: Int, sectionCount: Int ) -> UIColor{
+        //각 컬러값
+        let redLight = UIColor(hex: "#FF7052")
+        let greenLight = UIColor(hex: "#2DC76D")
+        let yellowLight = UIColor(hex: "#FFC800")
         
-        return true
+        
+        let lastDayNum = DateManager.shared.endOfDateNumber(month: calendarDate)
+        //하루 예산안
+        let dayAmount = Double(monthBudget) / Double(lastDayNum)
+        //한주의 예산안
+        let weekAmount = Int(dayAmount) * sectionCount
+        
+        let yellowLightDeadLine = Int(Double(weekAmount) * 1.1)
+        
+        let greenLightRange = 0 ... weekAmount
+        let yellowLightRange = weekAmount + 1 ... yellowLightDeadLine
+        
+        
+        switch sectionAmount {
+            
+        case greenLightRange:
+            return greenLight
+            
+        case yellowLightRange:
+            return yellowLight
+            
+        default:
+            return redLight
+            
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
