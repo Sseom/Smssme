@@ -47,13 +47,9 @@ final class CalendarCollectionViewCell: UICollectionViewCell, CellReusable {
         isThisMonth(today: item)
         isToday(currentDay: item.date)
         dayLabel.text = dateStringFormatter(date: item.date)
-        print(item.date,item.weekSection)
-        if item.weekSection == 1 {
-            self.backgroundColor = .systemGray
-        }
-        if item.weekSection == 2 {
-            self.backgroundColor = .systemPink
-        }
+//        print(item.date,item.weekSection)
+        
+
         
         guard let temp = DiaryCoreDataManager.shared.fetchDiaries(on: item.date) else { return }
         

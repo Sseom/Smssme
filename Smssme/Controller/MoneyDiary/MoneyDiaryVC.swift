@@ -126,33 +126,97 @@ extension MoneyDiaryVC: UICollectionViewDataSource, UICollectionViewDelegate, UI
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarCollectionViewCell.reuseIdentifier, for: indexPath) as? CalendarCollectionViewCell else { return UICollectionViewCell() }
         
-        var currentWeekSection = 0  // 주차 값을 0으로 시작
+        configureCell()
 
-        for (index, calendarItem) in self.calendarItems.enumerated() {
-            // 이번 달 날짜만 처리
-            if calendarItem.isThisMonth {
-                let weekDay = DateManager.shared.getWeekdayNum(month: calendarItem.date)
-                
-                // 만약 현재 요일이 일요일이면 새로운 주가 시작되므로 `weekSection` 값을 증가시킴
-                if weekDay == 1 && index != 0 {
-                    currentWeekSection += 1
-                }
-                
-                // 현재 주차 값을 설정
-                self.calendarItems[index].weekSection = currentWeekSection
-            }
-        }
 
-        // 색깔을 정하는 기준이 오늘기점보다 이전기준이여야 측정가능
-        // 일요일이 되었을때만 실행
-        //그 주에 지출이력이 없는경우에는 칠하지 않음
-        //미래시점은 칠하지 않음
-        //
+        
+        
+        
         
         cell.updateDate(item: self.calendarItems[indexPath.item])
         
         return cell
     }
+    
+    func configureCell() {
+        var currentWeekSection = 0  // 주차 값을 0으로 시작
+        var sections: [Int] = [0, 0, 0, 0, 0, 0]
+        
+        for (index, calendarItem) in self.calendarItems.enumerated() {
+            // 이번 달 날짜만 처리
+            if calendarItem.isThisMonth {
+                let weekDay = DateManager.shared.getWeekdayNum(month: calendarItem.date)
+                if weekDay == 1 && index != 0 {
+                    currentWeekSection += 1
+                    
+                    
+                }
+                switch currentWeekSection {
+                case 0: sections[0] += 1
+                case 1: sections[1] += 1
+                case 2: sections[2] += 1
+                case 3: sections[3] += 1
+                case 4: sections[4] += 1
+                case 5: sections[5] += 1
+                default: sections[6] += 1
+                }
+                // 현재 주차 값을 설정
+                self.calendarItems[index].weekSection = currentWeekSection
+                
+                print(calendarItems[index].weekSection)
+            }
+        }
+        //        var sectionAmounts: [Int] = [0, 0, 0, 0, 0, 0]
+        //
+        //        for (index, item) in self.calendarItems.enumerated() {
+        //            if item.weekSection == 0 {
+        //                var arr: [Date] = []
+        //                arr.append(calendarItems[index].date)
+        //                print(arr)
+        //                if let temp = DiaryCoreDataManager.shared.fetchDiaries(from: arr[0], to: arr[arr.index(arr.endIndex, offsetBy: -1)])
+        //                {
+        //                    for i in temp {
+        //                        if !i.statement {
+        //                            sectionAmounts[0] += Int(i.amount)
+        //                        }
+        //
+        //                }
+        //
+        //
+        //                }
+        //
+        //
+        //            }
+        //        }
+        //        print(sectionAmounts[0])
+
+        //
+        //        DiaryCoreDataManager.shared.fetchDiaries(from: <#T##Date#>, to: <#T##Date#>)
+        //        let sectionAmount  =
+                let currentMonthBudget = 1500000
+                
+                let today = DateManager.shared.transformDateWithoutTime(date: Date())
+                for (index, item) in calendarItems.enumerated() {
+                    
+        //            if calendarItems[index].date < today && currentMonthBudget != 0 {
+        //                makeTrafficLightLogic(
+        //                    sectionAmount: <#T##Int#>,
+        //                    monthBudget: currentMonthBudget,
+        //                    sectionCount: index)
+        //            }
+                }
+                
+                
+                
+                
+            
+//            print(sections)
+            
+        
+    }
+    
+
+    
     
     func makeTrafficLightLogic(sectionAmount: Int, monthBudget: Int, sectionCount: Int ) -> UIColor{
         //각 컬러값
