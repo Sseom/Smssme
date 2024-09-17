@@ -10,15 +10,13 @@ import UIKit
 class PasswordVC: UIViewController, UITextFieldDelegate  {
     private let passwordView = PasswordView()
     var userData = UserData()
-    
+
     
     //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view = passwordView
-        
-        self.navigationItem.title = "(2/4)"
         
         passwordView.passwordTextField.delegate = self
         passwordView.passwordCheckTextField.delegate = self
@@ -31,7 +29,7 @@ class PasswordVC: UIViewController, UITextFieldDelegate  {
     }
     
     
-    //MARK: - @objc
+    //MARK: - '다음' 버튼 이벤트
     @objc func nextButtonTapped() {
         userData.password = passwordView.passwordCheckTextField.text
         
@@ -50,7 +48,7 @@ extension PasswordVC {
         guard let stringRange = Range(range, in: currentText) else {return false} //NSRange 타입을 Swift의 Range<String.Index>로 변환
         let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
         
-        guard updatedText.count < 12 else { return false } // 12 글자로 제한
+        guard updatedText.count < 20 else { return false } // 20자 글자수로 제한
         
         // 유효성 검사
         if textField == passwordView.passwordTextField  {
@@ -58,7 +56,7 @@ extension PasswordVC {
                 passwordView.passwordErrorLabel.text = "사용가능한 비밀번호입니다."
                 passwordView.passwordErrorLabel.textColor = .systemGreen
             } else {
-                passwordView.passwordErrorLabel.text = "비밀번호는 6자리 이상 12자리 이하, \n영어 대문자 또는 소문자 + 특수문자를 포함해야 합니다."
+                passwordView.passwordErrorLabel.text = "비밀번호는 6자리 이상 20자리 이하, \n영어 대문자 또는 소문자 + 숫자를 포함해야 합니다."
                 passwordView.passwordErrorLabel.textColor = .red
             }
             
@@ -70,7 +68,7 @@ extension PasswordVC {
     // 이메일 유효성 검사
     private func isValidPassword(password: String) -> Bool {
         // 이메일 형식 검증을 위한 정규 표현식
-        let passwordRegex = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+=-]).{6,12}"
+        let passwordRegex = "^(?=.*[A-Za-z])(?=.*[0-9]).{6,20}"
         let passwordPred = NSPredicate(format: "SELF MATCHES %@", passwordRegex)
         return passwordPred.evaluate(with: password)
     }

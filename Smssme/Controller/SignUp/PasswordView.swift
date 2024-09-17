@@ -11,8 +11,12 @@ class PasswordView: UIView {
     private let commonHeight = 50
     private let loginView = LoginView()
     
-    //상단 제목 라벨
-//    private var titleLabel = LargeTitleLabel().createLabel(with: "비밀번호 입력 페이지가 될수도?", color: UIColor.black)
+    //MARK: - 회원가입 진행 상황 Progress Bar
+    var progressBar: UIProgressView = {
+        let bar = UIProgressView()
+        bar.progress = 0.4
+        return bar
+    }()
     
     //MARK: - 비밀번호
     let passwordLabel = SmallTitleLabel().createLabel(with: "비밀번호", color: .black)
@@ -112,7 +116,8 @@ class PasswordView: UIView {
         
         self.addGestureRecognizer(recognizer)
         
-        [passwordLabel,
+        [progressBar,
+         passwordLabel,
          passwordTextField,
          passwordErrorLabel,
          passwordCheckTextField,
@@ -121,13 +126,13 @@ class PasswordView: UIView {
     }
     
     private func setupLayout() {
-//        titleLabel.snp.makeConstraints {
-//            $0.top.equalTo(safeAreaLayoutGuide).inset(24)
-//            $0.leading.equalTo(safeAreaLayoutGuide).inset(30)
-//        }
+        progressBar.snp.makeConstraints {
+            $0.top.equalTo(safeAreaLayoutGuide).inset(5)
+            $0.horizontalEdges.equalToSuperview()
+        }
         
         passwordLabel.snp.makeConstraints {
-            $0.top.equalTo(safeAreaLayoutGuide).offset(30)
+            $0.top.equalTo(progressBar.snp.bottom).offset(20)
             $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
         }
         

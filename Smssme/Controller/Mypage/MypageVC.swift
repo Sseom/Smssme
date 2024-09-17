@@ -12,6 +12,7 @@ import SnapKit
 import UIKit
 
 
+
 class MypageVC: UIViewController {
     
     private let mypageView = MypageView()
@@ -37,6 +38,8 @@ class MypageVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.title = "마이페이지"
+        
         mypageView.tableView.dataSource = self
         mypageView.tableView.delegate = self
         
@@ -44,7 +47,7 @@ class MypageVC: UIViewController {
         mypageView.tableView.register(MypageViewCell.self, forCellReuseIdentifier: "MypageViewCell")
         tableviewSetup()
         setupAddtarget()
-        checkLoginStatus()
+//        checkLoginStatus()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,7 +70,7 @@ class MypageVC: UIViewController {
         label.textColor = .lightGray
         
         let loginButton = UIButton(type: .system)
-        loginButton.setTitle("로그인 하러 가기", for: .normal)
+        loginButton.setTitle("회원가입/로그인 하기", for: .normal)
         loginButton.titleLabel?.font = .boldSystemFont(ofSize: 18)
         loginButton.tintColor = .black
         loginButton.layer.borderColor = UIColor.systemGray5.cgColor
@@ -194,7 +197,7 @@ class MypageVC: UIViewController {
             isLoggedIn = false
             
             print("로그인 없이 둘러보기 상태입니다.")
-            self.tableViewHeaderSetUp(nickname: "로그인해주세요. ", email: "슴씀이의 더 많은 정보를 이용하러 가기!")
+            self.tableViewHeaderSetUp(nickname: "로그인해주세요.   〉", email: "회원가입하고 씀씀이의 더 많은 정보를 이용해보세요.")
         }
     }
     

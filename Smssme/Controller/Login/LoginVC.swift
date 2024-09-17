@@ -5,8 +5,11 @@
 //  Created by ahnzihyeon on 8/27/24.
 //
 
-import UIKit
+import KakaoSDKAuth
+import KakaoSDKUser
 import FirebaseAuth
+import UIKit
+
 
 class LoginVC: UIViewController {
     var handle: AuthStateDidChangeListenerHandle?
@@ -54,6 +57,9 @@ class LoginVC: UIViewController {
     private func setupAddtarget() {
         // 로그인 버튼 클릭 시
         loginVeiw.loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+        
+        // 카카오 로그인 버튼 클릭 시
+//        loginVeiw.kakaoLoginButton.addTarget(self, action: #selector(kakaoLoginButtonTapped), for: .touchUpInside)
         
         // 회원가입 버튼 클릭 시 회원가입 뷰로 이동
         loginVeiw.signupButton.addTarget(self, action: #selector(signupButtonTapped), for: .touchUpInside)
