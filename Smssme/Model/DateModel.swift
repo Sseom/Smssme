@@ -77,9 +77,11 @@ enum ExpenseType: String {
     case housing = "주거비"
     case medical = "의료비"
     case food = "식비"
-    case entertainment = "여가활동비"
-    case shopping = "쇼핑"
-    case traffic = "교통비"
+//    case entertainment = "여가활동비"
+//    case shopping = "쇼핑"
+//    case traffic = "교통비"
+    //보험료, 교육비
+    // 기부금
     // sfSymbols -> 16이상 버전으로만 구성
     var imageName: String {
         switch self {
@@ -89,12 +91,12 @@ enum ExpenseType: String {
             return "pill.circle"
         case .food:
             return "fork.knife.circle.fill"
-        case .entertainment:
-            return "party.popper"
-        case .shopping:
-            return "cart"
-        case .traffic:
-            return "car.circle.fill"
+//        case .entertainment:
+//            return "party.popper"
+//        case .shopping:
+//            return "cart"
+//        case .traffic:
+//            return "car.circle.fill"
         }
     }
     
