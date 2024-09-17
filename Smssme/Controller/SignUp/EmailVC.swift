@@ -30,18 +30,6 @@ class EmailVC: UIViewController, UITextFieldDelegate {
         emailView.nextButton.addTarget(self, action: #selector(onNextButtonTapped), for: .touchUpInside)
     }
     
-    //MARK: - '중복확인' 버튼 이벤트
-    @objc private func checkEmailButtonTapped() {
-        FirebaseManager.shared.checkEmail(email: emailView.emailTextField.text ?? "") { exists in
-            print("텍스트필드에 입력한 이메일: \(self.emailView.emailTextField.text ?? "")")
-            if exists {
-                self.emailView.emailErrorLabel.text = "중복된 이메일입니다"
-            } else {
-                self.emailView.emailErrorLabel.text = "사용 가능한 이메일입니다."
-                self.emailView.emailErrorLabel.textColor = .systemGreen
-            }
-        }
-    }
     
     //MARK: - '다음' 버튼 이벤트
     @objc private func onNextButtonTapped() {
@@ -52,8 +40,30 @@ class EmailVC: UIViewController, UITextFieldDelegate {
         navigationController?.pushViewController(passwordVC, animated: true)
     }
     
+    
+    //MARK: - '중복확인' 버튼 이벤트
+    @objc private func checkEmailButtonTapped() {
+        
+        guard let email = emailView.emailTextField.text, !email.isEmpty else {
+            return
+        }
+        
+        // 이메일 형식이 유효할 때만 중복 검사
+        if isValidEmail(email: email) {
+            FirebaseManager.shared.checkEmail(email: email) { exists in
+                if exists {
+                    self.updateOnNextButton(isValidFormat: true, isEmailDuplicate: true, message: "중복된 이메일입니다.", textColor: .systemRed)
+                } else {
+                    self.updateOnNextButton(isValidFormat: true, isEmailDuplicate: false, message: "사용 가능한 이메일입니다.", textColor: .systemGreen)
+                }
+            }
+        } else {
+            updateOnNextButton(isValidFormat: false, isEmailDuplicate: false, message: "유효하지 않은 이메일 형식입니다.", textColor: .systemRed)
+        }
+        
+    }
+    
 }
-
 
 //MARK: - 유효성검사  UITextField extension
 extension EmailVC {
@@ -63,33 +73,46 @@ extension EmailVC {
         guard let stringRange = Range(range, in: currentText) else {return false} //NSRange 타입을 Swift의 Range<String.Index>로 변환
         let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
         
-        // 유효성 검사
+        // 이메일 형식 유효성 검사
         if textField == emailView.emailTextField {
             
             if isValidEmail(email: updatedText) {
-                emailView.emailErrorLabel.text = "사용 가능한 이메일입니다."
+                emailView.emailErrorLabel.text = "유효한 이메일 형식입니다. 중복검사를 해주세요."
                 emailView.emailErrorLabel.textColor = .systemGreen
-                emailView.nextButton.backgroundColor = .systemBlue
-                emailView.nextButton.isEnabled = true
             } else {
-                emailView.emailErrorLabel.text = "유효하지 않은 이메일 주소입니다."
-                emailView.nextButton.backgroundColor = .systemGray5
-                emailView.nextButton.isEnabled = false
-                
+                emailView.emailErrorLabel.text = "유효하지 않은 이메일 형식입니다."
+                emailView.emailErrorLabel.textColor = .systemRed
             }
+            // 이메일 형식만 검증 후 버튼 비활성화 (중복 확인 후 활성화)
+            emailView.nextButton.backgroundColor = .systemGray5
+            emailView.nextButton.isEnabled = false
         }
         return true
     }
     
-    // 이메일 유효성 검사
+    // 이메일 형식 검증을 위한 정규 표현식
     private func isValidEmail(email: String) -> Bool {
-        // 이메일 형식 검증을 위한 정규 표현식
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
         let emailPred = NSPredicate(format: "SELF MATCHES %@", emailRegex)
         return emailPred.evaluate(with: email)
     }
     
+    // 이메일 형식 검사 및 중복 검사에 따른 버튼활성화
+    private func updateOnNextButton(isValidFormat: Bool, isEmailDuplicate: Bool, message:String, textColor: UIColor) {
+        emailView.emailErrorLabel.text = message
+        emailView.emailErrorLabel.textColor = textColor
+        
+        if isValidFormat && !isEmailDuplicate {
+            emailView.nextButton.backgroundColor = .systemBlue
+            emailView.nextButton.isEnabled = true
+        } else {
+            emailView.nextButton.backgroundColor = .systemGray5
+            emailView.nextButton.isEnabled = false
+        }
+    }
+    
 }
+
 
 
 
@@ -115,7 +138,7 @@ extension EmailVC {
     }
     
     
-    // // 공백 입력 방지 -> 중간에 입력할 시에는 적용되는 문제 있음
+    // 공백 입력 방지
     @objc private func textFieldEditingChanged(_ textField: UITextField) {
         textField.text = textField.text?.trimmingCharacters(in: .whitespaces)
     }

@@ -39,8 +39,8 @@ class FirebaseManager {
     
     //MARK: - 이메일 중복 확인
     func checkEmail(email: String, completion: @escaping (Bool) -> Void) {
-        db.collection("users").whereField("email", isEqualTo: email).getDocuments { [weak self] querySnapshot, error in
-            if let error = error { //nil이 아닐 경우 아래 구문 실행 -> 에러가 있다. -> 현재 오류 발생 이유: 파베 데이터 접근 권한 없음. 보안상 이유.
+        db.collection("users").whereField("email", isEqualTo: email).getDocuments { (querySnapshot, error) in
+            if let error = error { //nil이 아닐 경우 아래 구문 실행 -> 에러가 있다.
                 print("이메일 존재 확인 여부 오류: \n \(error.localizedDescription)")
                       completion(false)
                 return

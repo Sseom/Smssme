@@ -5,6 +5,7 @@
 //  Created by ahnzihyeon on 8/27/24.
 //
 
+import KakaoSDKAuth
 import KakaoSDKUser
 import FirebaseAuth
 import UIKit
@@ -15,7 +16,7 @@ class LoginVC: UIViewController {
     var toastMessage: String?
     
     private let loginVeiw = LoginView()
-
+    
     override func loadView() {
         view = loginVeiw
     }
@@ -30,16 +31,16 @@ class LoginVC: UIViewController {
         setupAddtarget()
     }
     
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//
-//        if let message = toastMessage {
-//            Toast.show(message: message, in: self)
-//        }
-//    }
+    //    override func viewDidAppear(_ animated: Bool) {
+    //        super.viewDidAppear(animated)
+    //
+    //        if let message = toastMessage {
+    //            Toast.show(message: message, in: self)
+    //        }
+    //    }
     
     ///인증상태 수신 대기 - 리스터 연결
-    ///각각의 앱 뷰에서 앱에 로그인한 사용자에 대한 정보를 얻기 위해 FIRAuth 객체와 리스너를 연결합니다. 
+    ///각각의 앱 뷰에서 앱에 로그인한 사용자에 대한 정보를 얻기 위해 FIRAuth 객체와 리스너를 연결합니다.
     ///이 리스너는 사용자의 로그인 상태가 변경될 때마다 호출됩니다.
     override func viewWillAppear(_ animated: Bool) {
         // [START auth_listener]
@@ -65,7 +66,7 @@ class LoginVC: UIViewController {
         // 비회원 로그인 시
         loginVeiw.unLoginButton.addTarget(self, action: #selector(unloginButtonTapped), for: .touchUpInside)
     }
-
+    
     //MARK: - @objc 로그인
     ///기존 사용자 로그인
     ///기존 사용자가 자신의 이메일 주소와 비밀번호를 사용해 로그인할 수 있는 양식을 만듭니다. 사용자가 양식을 작성하면 signIn 메서드를 호출합니다.
@@ -90,7 +91,7 @@ class LoginVC: UIViewController {
                     self.showAlert(message: "올바르지 않은 이메일 형식입니다.", AlertTitle: "이메일 형식 오류", buttonClickTitle: "확인")
                 case .expiredActionCode:
                     self.showAlert(message: "인증 코드가 만료되었습니다. 새 인증 코드를 요청하세요." , AlertTitle: "경고", buttonClickTitle: "확인")
-                               
+                    
                 case .invalidCredential:
                     self.showAlert(message: "사용자 인증 정보가 유효하지 않습니다.", AlertTitle: "경고", buttonClickTitle: "확인")
                 default:
@@ -104,94 +105,112 @@ class LoginVC: UIViewController {
     
     //MARK: - 카카오 로그인
     @objc private func kakaoLoginButtonTapped() {
-        // 카카오톡으로 로그인
-        if UserApi.isKakaoTalkLoginAvailable() {
-            UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in
+        
+        // 카카오 토큰이 존재한다면
+        if AuthApi.hasToken() {
+            UserApi.shared.accessTokenInfo { accessTokenInfo, error in
                 if let error = error {
-                    print("카카오톡 로그인 오류: \n\(error)")
+                    print("DEBUG: 카카오톡 토큰 가져오기 에러 \(error.localizedDescription)")
+                    self.kakaoLogin()
                 } else {
-                    print("Login Success.")
-                    // 로그인 성공 시 처리
-                    print("카카오톡 로그인 성공 AccessToken:\n \(String(describing: oauthToken?.accessToken))")
+                    // 토큰 유효성 체크 성공 (필요 시 토큰 갱신됨)
                 }
             }
         } else {
-            // 카카오 계정으로 로그인
-            UserApi.shared.loginWithKakaoAccount { (oauthToken, error) in
-                if let error = error {
-                    print("카카오 계정 로그인 오류: \n\(error)")
-                } else {
-                    print("카카오 계정으로 Login Success.")
-                    // 로그인 성공 시 처리
-                    print("카카오 계정 로그인 성공 AccessToken: \(String(describing: oauthToken?.accessToken))")
-                    
-                    self.requestUserInfo()
-                }
-            }
+            // 토큰이 없는 상태 로그인 필요
+            kakaoLogin()
         }
-
     }
-    
-    private func requestUserInfo() {
-        UserApi.shared.me { (user, error) in
+
+
+private func kakaoLogin() {
+    // 카카오톡으로 로그인
+    if UserApi.isKakaoTalkLoginAvailable() {
+        UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in
             if let error = error {
-                print("사용자 정보 요청 오류: \n\(error)")
+                print("카카오톡 로그인 오류: \n\(error)")
             } else {
-                print("사용자 정보 요청 성공")
-                if let user = user {
-                    print("사용자 ID: \(user.id ?? 0)")
-                    print("닉네임: \(user.kakaoAccount?.profile?.nickname ?? "")")
-                    print("이메일: \(user.kakaoAccount?.email ?? "")")
-//                    print("성별: \(user.kakaoAccount?.gender?.rawValue ?? "")")
-//                    print("생일: \(user.kakaoAccount?.birthday ?? "")")
-                }
+                print("Login Success.")
+                // 로그인 성공 시 처리
+                print("카카오톡 로그인 성공 AccessToken:\n \(String(describing: oauthToken?.accessToken))")
             }
         }
+    } else {
+        // 카카오 계정으로 로그인
+        UserApi.shared.loginWithKakaoAccount { (oauthToken, error) in
+            if let error = error {
+                print("카카오 계정 로그인 오류: \n\(error)")
+            } else {
+                print("카카오 계정으로 Login Success.")
+                // 로그인 성공 시 처리
+                print("카카오 계정 로그인 성공 AccessToken: \(String(describing: oauthToken?.accessToken))")
+                
+                self.requestUserInfo()
+            }
+        }
+    }
 }
-    
-    //MARK: - 로그인 하고 탭바컨트롤러로 전환
-    func switchToTabBarController() {
-        let tabBarController = TabBarController()
-        print("로그인하고 페이지 전환")
-        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-              let window = windowScene.windows.first else {return}
-        
-              window.rootViewController = tabBarController
-              UIView.transition(with: window,
-                                duration: 0.5,
-                                options: [.transitionCrossDissolve],
-                                animations: nil,
-                                completion: nil)
-    }
-    
-    
-    //MARK: - @objc 회원가입
-    @objc private func signupButtonTapped() {
-        let emailVC = EmailVC()
-        let navController = UINavigationController(rootViewController: emailVC)
-        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-              let window = windowScene.windows.first else { return }
- 
-        window.rootViewController = navController
-        window.makeKeyAndVisible()
-    }
-    
-    //MARK: - @objc 비회원 로그인
-    @objc private func unloginButtonTapped() {
-        let mainTabBarController = TabBarController()
-        mainTabBarController.selectedIndex = 0
-        // 전체화면 전환 (애니메이션 포함)
-        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-              let window = windowScene.windows.first else { return }
 
-        window.rootViewController = mainTabBarController
-        UIView.transition(with: window,
-                          duration: 0.5,
-                          options: [.transitionCrossDissolve],
-                          animations: nil,
-                          completion: nil)
+private func requestUserInfo() {
+    UserApi.shared.me { (user, error) in
+        if let error = error {
+            print("사용자 정보 요청 오류: \n\(error)")
+        } else {
+            print("사용자 정보 요청 성공")
+            if let user = user {
+                print("사용자 ID: \(user.id ?? 0)")
+                print("닉네임: \(user.kakaoAccount?.profile?.nickname ?? "")")
+                print("이메일: \(user.kakaoAccount?.email ?? "")")
+                //                    print("성별: \(user.kakaoAccount?.gender?.rawValue ?? "")")
+                //                    print("생일: \(user.kakaoAccount?.birthday ?? "")")
+            }
+        }
     }
-}    
+}
+
+//MARK: - 로그인 하고 탭바컨트롤러로 전환
+func switchToTabBarController() {
+    let tabBarController = TabBarController()
+    print("로그인하고 페이지 전환")
+    guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+          let window = windowScene.windows.first else {return}
+    
+    window.rootViewController = tabBarController
+    UIView.transition(with: window,
+                      duration: 0.5,
+                      options: [.transitionCrossDissolve],
+                      animations: nil,
+                      completion: nil)
+}
+
+
+//MARK: - @objc 회원가입
+@objc private func signupButtonTapped() {
+    let emailVC = EmailVC()
+    let navController = UINavigationController(rootViewController: emailVC)
+    guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+          let window = windowScene.windows.first else { return }
+    
+    window.rootViewController = navController
+    window.makeKeyAndVisible()
+}
+
+//MARK: - @objc 비회원 로그인
+@objc private func unloginButtonTapped() {
+    let mainTabBarController = TabBarController()
+    mainTabBarController.selectedIndex = 0
+    // 전체화면 전환 (애니메이션 포함)
+    guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+          let window = windowScene.windows.first else { return }
+    
+    window.rootViewController = mainTabBarController
+    UIView.transition(with: window,
+                      duration: 0.5,
+                      options: [.transitionCrossDissolve],
+                      animations: nil,
+                      completion: nil)
+}
+}
 
 
 extension LoginVC: UITextFieldDelegate {
