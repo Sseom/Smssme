@@ -48,7 +48,17 @@ class TabBarController: UITabBarController {
             unselectedImage: UIImage(systemName: "note.text.badge.plus") ?? UIImage(),
             selectedImage: UIImage(systemName: "note.text.badge.plus") ?? UIImage(),
             isNavigationBarHidden: false,
-            rootViewController: FinancialPlanSelectionVC()
+            rootViewController: {
+                let planService = FinancialPlanService()
+                let plans = planService.fetchAllFinancialPlans()
+                
+                if plans.isEmpty {
+                    return FinancialPlanSelectionVC()
+                } else {
+                    let firstPlan = plans.first!
+                    return FinancialPlanCurrentPlanVC(planService: planService, planDTO: firstPlan)
+                }
+            }()
         )
         
         // 마이페이지

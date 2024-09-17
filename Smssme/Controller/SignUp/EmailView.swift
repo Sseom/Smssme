@@ -10,7 +10,14 @@ import UIKit
 class EmailView: UIView {
     private let commonHeight = 50
     
-    //상단 제목 라벨
+    //MARK: - 회원가입 진행 상황 Progress Bar
+    var progressBar: UIProgressView = {
+        let bar = UIProgressView()
+        bar.progress = 0.4
+        return bar
+    }()
+    
+    //MARK: - 상단 제목 라벨
     private var titleLabel = LargeTitleLabel().createLabel(with: "실제 사용 중인 \n이메일 주소를 입력해 주세요.", color: UIColor.black)
     private let subTitleLabel = SmallTitleLabel().createLabel(with: "비밀번호 재설정 시 인증 메일이 전송됩니다.", color: .lightGray)
     
@@ -40,10 +47,9 @@ class EmailView: UIView {
         return label
     }()
     
+    let checkEmailButton = BaseButton().createButton(text: "중복확인", color: .systemBlue, textColor: .white)
     
     //MARK: - 다음 버튼
-    
-    //다음 버튼
     var nextButton: UIButton = {
         let button = UIButton()
         button.setTitle("다음", for: .normal)
@@ -66,7 +72,6 @@ class EmailView: UIView {
         
     }
     
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -82,18 +87,25 @@ class EmailView: UIView {
         
         self.addGestureRecognizer(recognizer)
         
-        [titleLabel,
+        [progressBar,
+         titleLabel,
          subTitleLabel,
          emailLabel,
          emailTextField,
+         checkEmailButton,
          emailErrorLabel,
          nextButton
         ].forEach {self.addSubview($0)}
     }
     
     private func setupLayout() {
+        progressBar.snp.makeConstraints {
+            $0.top.equalTo(safeAreaLayoutGuide).inset(5)
+            $0.horizontalEdges.equalToSuperview()
+        }
+        
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(safeAreaLayoutGuide).inset(24)
+            $0.top.equalTo(progressBar.snp.bottom).offset(20)
             $0.leading.equalTo(safeAreaLayoutGuide).inset(30)
         }
         
@@ -108,7 +120,15 @@ class EmailView: UIView {
         
         emailTextField.snp.makeConstraints {
             $0.top.equalTo(emailLabel.snp.bottom).offset(10)
-            $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
+            $0.leading.equalTo(safeAreaLayoutGuide).inset(30)
+            $0.height.equalTo(commonHeight)
+        }
+        
+        checkEmailButton.snp.makeConstraints {
+            $0.top.equalTo(emailTextField.snp.top)
+            $0.leading.equalTo(emailTextField.snp.trailing).offset(5)
+            $0.trailing.equalTo(safeAreaLayoutGuide).inset(30)
+            $0.width.equalTo(80)
             $0.height.equalTo(commonHeight)
         }
         
