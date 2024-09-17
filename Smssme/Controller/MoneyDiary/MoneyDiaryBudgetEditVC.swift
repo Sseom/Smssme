@@ -11,7 +11,7 @@ class MoneyDiaryBudgetEditVC: UIViewController {
     // MARK: - Properties
     private let moneyDiaryBudgetEditView: MoneyDiaryBudgetEditView = MoneyDiaryBudgetEditView()
     private let budgetCoreDataManager: BudgetCoreDataManager = BudgetCoreDataManager()
-    private let financialPlanRepository: FinancialPlanRepository = FinancialPlanRepository()
+    private let financialPlanRepository: FinancialPlanService = FinancialPlanService()
     private let currentYear: Int
     private let currentMonth: Int
     // FIXME: 꼭 넘겨줄때 날짜로 넘겨주게 바꿔줄것!!!!!!!!!!!!!
@@ -132,7 +132,7 @@ class MoneyDiaryBudgetEditVC: UIViewController {
             BudgetItem(amount: $0.amount, statement: $0.statement, category: $0.category ?? "", date: currentDate!)
         }
         
-        let planList: [BudgetItem] = financialPlanRepository.getAllFinancialPlans().map {
+        let planList: [BudgetItem] = financialPlanRepository.fetchAllFinancialPlans().map {
             let currentMonth = String(currentMonth).count == 1 ? "0\(currentMonth)" : "\(currentMonth)"
             let amount = calculateSavings(startDate: $0.startDate, endDate: $0.endDate, amount: $0.amount)["\(currentYear)-\(currentMonth)"]
             return BudgetItem(amount: amount ?? 0, statement: false, category: $0.title ?? "", date: currentDate!)

@@ -15,7 +15,7 @@ class TabBarController: UITabBarController {
         tabBar.itemPositioning = .centered
         view.backgroundColor = .white
         configureController()
-        showFirstView()   
+        showFirstView()
     }
     
     // 로그인 유무에 따라 앱 실행 시 처음 보여줄 탭 설정
@@ -48,17 +48,19 @@ class TabBarController: UITabBarController {
             unselectedImage: UIImage(systemName: "note.text.badge.plus") ?? UIImage(),
             selectedImage: UIImage(systemName: "note.text.badge.plus") ?? UIImage(),
             isNavigationBarHidden: false,
-            rootViewController: { // 진행중 플랜있다면 진행중인 플랜 페이지로
-                let repository = FinancialPlanRepository()
-                if repository.getAllFinancialPlans().isEmpty {
-                    print("\(repository.getAllFinancialPlans())")
+            rootViewController: {
+                let planService = FinancialPlanService()
+                let plans = planService.fetchAllFinancialPlans()
+                
+                if plans.isEmpty {
                     return FinancialPlanSelectionVC()
                 } else {
-                    print("")
-                    return FinancialPlanCurrentPlanVC(repository: repository)
+                    let firstPlan = plans.first!
+                    return FinancialPlanCurrentPlanVC(planService: planService, planDTO: firstPlan)
                 }
             }()
         )
+        
         // 마이페이지
         let myPage = tabBarNavigationController(
             unselectedImage: UIImage(systemName: "person.and.background.striped.horizontal") ?? UIImage(),
