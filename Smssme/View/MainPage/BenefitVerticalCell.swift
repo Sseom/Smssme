@@ -11,6 +11,7 @@ class benefitVerticalCell: UITableViewCell {
     
     // MARK: - Properties
     
+    
     let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "내역"
