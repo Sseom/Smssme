@@ -58,7 +58,7 @@ class LoginVC: UIViewController {
         loginVeiw.loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
         
         // 카카오 로그인 버튼 클릭 시
-        loginVeiw.kakaoLoginButton.addTarget(self, action: #selector(kakaoLoginButtonTapped), for: .touchUpInside)
+//        loginVeiw.kakaoLoginButton.addTarget(self, action: #selector(kakaoLoginButtonTapped), for: .touchUpInside)
         
         // 회원가입 버튼 클릭 시 회원가입 뷰로 이동
         loginVeiw.signupButton.addTarget(self, action: #selector(signupButtonTapped), for: .touchUpInside)
@@ -103,113 +103,49 @@ class LoginVC: UIViewController {
         }
     }
     
-    //MARK: - 카카오 로그인
-    @objc private func kakaoLoginButtonTapped() {
+
+    //MARK: - 로그인 하고 탭바컨트롤러로 전환
+    func switchToTabBarController() {
+        let tabBarController = TabBarController()
+        print("로그인하고 페이지 전환")
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let window = windowScene.windows.first else {return}
         
-        // 카카오 토큰이 존재한다면
-        if AuthApi.hasToken() {
-            UserApi.shared.accessTokenInfo { accessTokenInfo, error in
-                if let error = error {
-                    print("DEBUG: 카카오톡 토큰 가져오기 에러 \(error.localizedDescription)")
-                    self.kakaoLogin()
-                } else {
-                    // 토큰 유효성 체크 성공 (필요 시 토큰 갱신됨)
-                }
-            }
-        } else {
-            // 토큰이 없는 상태 로그인 필요
-            kakaoLogin()
-        }
+        window.rootViewController = tabBarController
+        UIView.transition(with: window,
+                          duration: 0.5,
+                          options: [.transitionCrossDissolve],
+                          animations: nil,
+                          completion: nil)
     }
-
-
-private func kakaoLogin() {
-    // 카카오톡으로 로그인
-    if UserApi.isKakaoTalkLoginAvailable() {
-        UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in
-            if let error = error {
-                print("카카오톡 로그인 오류: \n\(error)")
-            } else {
-                print("Login Success.")
-                // 로그인 성공 시 처리
-                print("카카오톡 로그인 성공 AccessToken:\n \(String(describing: oauthToken?.accessToken))")
-            }
-        }
-    } else {
-        // 카카오 계정으로 로그인
-        UserApi.shared.loginWithKakaoAccount { (oauthToken, error) in
-            if let error = error {
-                print("카카오 계정 로그인 오류: \n\(error)")
-            } else {
-                print("카카오 계정으로 Login Success.")
-                // 로그인 성공 시 처리
-                print("카카오 계정 로그인 성공 AccessToken: \(String(describing: oauthToken?.accessToken))")
-                
-                self.requestUserInfo()
-            }
-        }
+    
+    
+    //MARK: - @objc 회원가입
+    @objc private func signupButtonTapped() {
+        let emailVC = EmailVC()
+        let navController = UINavigationController(rootViewController: emailVC)
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let window = windowScene.windows.first else { return }
+        
+        window.rootViewController = navController
+        window.makeKeyAndVisible()
     }
-}
-
-private func requestUserInfo() {
-    UserApi.shared.me { (user, error) in
-        if let error = error {
-            print("사용자 정보 요청 오류: \n\(error)")
-        } else {
-            print("사용자 정보 요청 성공")
-            if let user = user {
-                print("사용자 ID: \(user.id ?? 0)")
-                print("닉네임: \(user.kakaoAccount?.profile?.nickname ?? "")")
-                print("이메일: \(user.kakaoAccount?.email ?? "")")
-                //                    print("성별: \(user.kakaoAccount?.gender?.rawValue ?? "")")
-                //                    print("생일: \(user.kakaoAccount?.birthday ?? "")")
-            }
-        }
+    
+    //MARK: - @objc 비회원 로그인
+    @objc private func unloginButtonTapped() {
+        let mainTabBarController = TabBarController()
+        mainTabBarController.selectedIndex = 0
+        // 전체화면 전환 (애니메이션 포함)
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let window = windowScene.windows.first else { return }
+        
+        window.rootViewController = mainTabBarController
+        UIView.transition(with: window,
+                          duration: 0.5,
+                          options: [.transitionCrossDissolve],
+                          animations: nil,
+                          completion: nil)
     }
-}
-
-//MARK: - 로그인 하고 탭바컨트롤러로 전환
-func switchToTabBarController() {
-    let tabBarController = TabBarController()
-    print("로그인하고 페이지 전환")
-    guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-          let window = windowScene.windows.first else {return}
-    
-    window.rootViewController = tabBarController
-    UIView.transition(with: window,
-                      duration: 0.5,
-                      options: [.transitionCrossDissolve],
-                      animations: nil,
-                      completion: nil)
-}
-
-
-//MARK: - @objc 회원가입
-@objc private func signupButtonTapped() {
-    let emailVC = EmailVC()
-    let navController = UINavigationController(rootViewController: emailVC)
-    guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-          let window = windowScene.windows.first else { return }
-    
-    window.rootViewController = navController
-    window.makeKeyAndVisible()
-}
-
-//MARK: - @objc 비회원 로그인
-@objc private func unloginButtonTapped() {
-    let mainTabBarController = TabBarController()
-    mainTabBarController.selectedIndex = 0
-    // 전체화면 전환 (애니메이션 포함)
-    guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-          let window = windowScene.windows.first else { return }
-    
-    window.rootViewController = mainTabBarController
-    UIView.transition(with: window,
-                      duration: 0.5,
-                      options: [.transitionCrossDissolve],
-                      animations: nil,
-                      completion: nil)
-}
 }
 
 

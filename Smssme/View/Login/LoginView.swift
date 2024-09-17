@@ -92,7 +92,7 @@ final class LoginView: UIView {
         [logoImageView,
          loginStackView,
          loginButton,
-         kakaoLoginButton,
+//         kakaoLoginButton,
          signupButton,
          unLoginButton].forEach {self.addSubview($0)}
         
@@ -120,16 +120,16 @@ final class LoginView: UIView {
             $0.height.equalTo(textFieldHeight)
         }
         
-        kakaoLoginButton.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalTo(loginButton.snp.bottom).offset(8)
-            $0.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(textFieldHeight)
-        }
+//        kakaoLoginButton.snp.makeConstraints {
+//            $0.centerX.equalToSuperview()
+//            $0.top.equalTo(loginButton.snp.bottom).offset(8)
+//            $0.horizontalEdges.equalToSuperview()
+//            $0.height.equalTo(textFieldHeight)
+//        }
         
         signupButton.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(kakaoLoginButton.snp.bottom).offset(8)
+            $0.top.equalTo(loginButton.snp.bottom).offset(8)
             $0.horizontalEdges.equalToSuperview().inset(30)
             $0.height.equalTo(textFieldHeight)
         }
