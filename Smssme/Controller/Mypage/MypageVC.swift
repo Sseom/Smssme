@@ -30,7 +30,7 @@ class MypageVC: UIViewController {
         ["내 정보 수정"],
         ["알림 설정"],
         ["개인정보처리 방침"],
-        ["로그아웃", "회원탈퇴"]
+        ["비밀번호 찾기", "로그아웃"]
     ]
     
     
@@ -162,7 +162,7 @@ class MypageVC: UIViewController {
         mypageView.logoutButton.addTarget(self, action: #selector(logOutButtonTapped), for: .touchUpInside)
         
         // 회원탈퇴 버튼 이벤트
-        mypageView.deleteUserButton.addTarget(self, action: #selector(deleteUserButtonTapped), for: .touchUpInside)
+//        mypageView.deleteUserButton.addTarget(self, action: #selector(deleteUserButtonTapped), for: .touchUpInside)
     }
     
     // 로그인VC으로 화면전환
@@ -246,22 +246,22 @@ class MypageVC: UIViewController {
     }
     
     //MARK: - @objc 회원탈퇴
-    @objc func deleteUserButtonTapped() {
-        if let user = Auth.auth().currentUser {
-            user.delete { [weak self] error in
-                guard let self = self else { return }
-                if let error = error {
-                    self.showAlert(message: "\(error)", AlertTitle: "오류 발생", buttonClickTitle: "확인 ")
-                } else {
-                    print("회원탈퇴 완료")
-                    self.showSnycAlert(message: "회원탈퇴되었습니다.", AlertTitle: "회원탈퇴 성공", buttonClickTitle: "확인", method: switchToLoginVC)
-                }
-            }
-        } else {
-            showAlert(message: "로그인 정보가 존재하지 않습니다", AlertTitle: "오류 발생", buttonClickTitle: "확인")
-        }
-        
-    }
+//    @objc func deleteUserButtonTapped() {
+//        if let user = Auth.auth().currentUser {
+//            user.delete { [weak self] error in
+//                guard let self = self else { return }
+//                if let error = error {
+//                    self.showAlert(message: "\(error)", AlertTitle: "오류 발생", buttonClickTitle: "확인 ")
+//                } else {
+//                    print("회원탈퇴 완료")
+//                    self.showSnycAlert(message: "회원탈퇴되었습니다.", AlertTitle: "회원탈퇴 성공", buttonClickTitle: "확인", method: switchToLoginVC)
+//                }
+//            }
+//        } else {
+//            showAlert(message: "로그인 정보가 존재하지 않습니다", AlertTitle: "오류 발생", buttonClickTitle: "확인")
+//        }
+//        
+//    }
     
 }
 
@@ -289,11 +289,13 @@ extension MypageVC: UITableViewDelegate {
                 print("개인정보처리방침으로 이동")
                 privacyPolicyUrl()
             case (3, 0):
+                print("비밀번호 찾기 클릭")
+                let resetPasswordVC = ResetPasswordVC()
+                navigationController?.pushViewController(resetPasswordVC, animated: true)
+            case (3, 1):
                 print("로그아웃 클릭")
                 logOutButtonTapped()
-            case (3, 1):
-                print("회원탈퇴 클릭")
-                deleteUserButtonTapped()
+//                deleteUserButtonTapped()
             default:
                 break
             }

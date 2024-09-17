@@ -137,7 +137,6 @@ class EmailView: UIView {
             $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(36)
         }
         
-        
         nextButton.snp.makeConstraints {
             $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
             $0.bottom.equalTo(safeAreaLayoutGuide).inset(280)

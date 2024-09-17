@@ -44,6 +44,8 @@
 		5FE4007B2C976504001D0FD1 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5FE4007A2C976504001D0FD1 /* KakaoSDKAuth */; };
 		5FE4007D2C976504001D0FD1 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 5FE4007C2C976504001D0FD1 /* KakaoSDKCommon */; };
 		5FE4007F2C976504001D0FD1 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 5FE4007E2C976504001D0FD1 /* KakaoSDKUser */; };
+		5FE400822C99A43A001D0FD1 /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE400812C99A43A001D0FD1 /* ResetPasswordView.swift */; };
+		5FE400842C99A450001D0FD1 /* ResetPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE400832C99A450001D0FD1 /* ResetPasswordVC.swift */; };
 		740350572C773E9B00122B2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740350562C773E9B00122B2E /* AppDelegate.swift */; };
 		740350592C773E9B00122B2E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740350582C773E9B00122B2E /* SceneDelegate.swift */; };
 		740350612C773E9B00122B2E /* Smssme.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7403505F2C773E9B00122B2E /* Smssme.xcdatamodeld */; };
@@ -147,6 +149,8 @@
 		5FE400752C949E89001D0FD1 /* APIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIModel.swift; sourceTree = "<group>"; };
 		5FE400772C949EB8001D0FD1 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		5FE400802C97E742001D0FD1 /* SecretsConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = SecretsConfig.xcconfig; sourceTree = "<group>"; };
+		5FE400812C99A43A001D0FD1 /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
+		5FE400832C99A450001D0FD1 /* ResetPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordVC.swift; sourceTree = "<group>"; };
 		740350532C773E9B00122B2E /* Smssme.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Smssme.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		740350562C773E9B00122B2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		740350582C773E9B00122B2E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -297,6 +301,8 @@
 			isa = PBXGroup;
 			children = (
 				5F413F002C805CED00004703 /* MypageVC.swift */,
+				5FE400812C99A43A001D0FD1 /* ResetPasswordView.swift */,
+				5FE400832C99A450001D0FD1 /* ResetPasswordVC.swift */,
 			);
 			path = Mypage;
 			sourceTree = "<group>";
@@ -734,12 +740,14 @@
 				746F80812C8841F300BBAEAF /* MoneyDiaryBudgetEditCell.swift in Sources */,
 				E5F344DA2C806A75006F9A91 /* FinancialPlanCurrentPlanView.swift in Sources */,
 				9F06D3122C7EFF9D00DFF5B0 /* DateModel.swift in Sources */,
+				5FE400822C99A43A001D0FD1 /* ResetPasswordView.swift in Sources */,
 				9F06D31A2C801D1F00DFF5B0 /* FinancialPlanConfirmVC.swift in Sources */,
 				5FA88FEF2C80760E00549363 /* CommonAlert.swift in Sources */,
 				E517F2822C8782F200CB8680 /* FinancialPlanManager.swift in Sources */,
 				74707FAF2C81B86100F7000C /* UserCoreDataManager.swift in Sources */,
 				5FA88FEF2C80760E00549363 /* CommonAlert.swift in Sources */,
 				740350592C773E9B00122B2E /* SceneDelegate.swift in Sources */,
+				5FE400842C99A450001D0FD1 /* ResetPasswordVC.swift in Sources */,
 				E5FBA12C2C7C823C00D26E5F /* UIComponentFactory.swift in Sources */,
 				5FA88FF12C842D0A00549363 /* KeyboardEvader.swift in Sources */,
 				5F413EFF2C805CC200004703 /* MypageView.swift in Sources */,
