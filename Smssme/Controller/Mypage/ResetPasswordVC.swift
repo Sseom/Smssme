@@ -14,6 +14,8 @@ class ResetPasswordVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        resetPasswordView.editEmailTextVeiw.delegate = self
+        
         view = resetPasswordView
         self.navigationItem.title = "비밀번호 재설정"
         
@@ -31,6 +33,7 @@ class ResetPasswordVC: UIViewController {
         }
     }
     
+    //MARK: - 이메일 인증 메일 발송 버튼
     @objc private func checkEmailButtonTapped() {
         FirebaseManager.shared.sendEmailVerification { result in
             switch result {
@@ -51,6 +54,7 @@ class ResetPasswordVC: UIViewController {
         }
     }
     
+    //MARK: - 비밀번호 재설정 메일 발송 버튼
     @objc private func sendPasswordResetButtonTapped() {
         guard let email = resetPasswordView.emailTextField.text, !email.isEmpty else {
             showAlert(message: "이메일을 입력해주세요.", AlertTitle: "경고", buttonClickTitle: "확인")
@@ -63,5 +67,20 @@ class ResetPasswordVC: UIViewController {
                 self.showAlert(message: "비밀번호 재설정 메일이 발송되었습니다.\n메일을 확인해주세요.", AlertTitle: "메일 발송 완료", buttonClickTitle: "확인")
             }
         }
+    }
+}
+
+//MARK: - TextView extension
+extension ResetPasswordVC: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        let editEmailRange = NSString(string: textView.text).range(of: "계정 이메일 재설정")
+        
+        // "계정 이메일 재설정"이 클릭된 경우
+        if NSEqualRanges(characterRange, editEmailRange) { // 두 NSRange의 시작 위치와 길이가 같은지 비교
+            let emailVC = EmailVC()
+            navigationController?.pushViewController(emailVC, animated: true)
+            return false
+        }
+        return true
     }
 }

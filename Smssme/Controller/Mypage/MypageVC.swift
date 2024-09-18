@@ -30,7 +30,7 @@ class MypageVC: UIViewController {
         ["내 정보 수정"],
         ["알림 설정"],
         ["개인정보처리 방침"],
-        ["비밀번호 찾기", "로그아웃"]
+        ["비밀번호 재설정", "로그아웃"]
     ]
     
     
@@ -289,7 +289,7 @@ extension MypageVC: UITableViewDelegate {
                 print("개인정보처리방침으로 이동")
                 privacyPolicyUrl()
             case (3, 0):
-                print("비밀번호 찾기 클릭")
+                print("비밀번호 재설정 클릭")
                 let resetPasswordVC = ResetPasswordVC()
                 navigationController?.pushViewController(resetPasswordVC, animated: true)
             case (3, 1):

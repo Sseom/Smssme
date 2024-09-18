@@ -80,7 +80,7 @@ class EmailView: UIView {
     private func configureUI() {
         self.backgroundColor = .white
         
-        // 스크롤뷰에서 빈 화면터치 시 키보드 내려감
+        // 빈 화면터치 시 키보드 내려감
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(self.touch))
         recognizer.numberOfTapsRequired = 1
         recognizer.numberOfTouchesRequired = 1
