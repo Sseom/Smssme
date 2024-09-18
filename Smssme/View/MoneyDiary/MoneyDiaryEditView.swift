@@ -18,8 +18,11 @@ class MoneyDiaryEditView: UIView {
     
     let priceTextField = AmountTextField.createTextField(keyboard: .numberPad, currencyText: "원")
     let titleTextField = AmountTextField.createTextField(keyboard: .default, currencyText: "")
-    let categoryTextField = AmountTextField.createTextField(keyboard: .default, currencyText: "")
+    lazy var categoryTextField = AmountTextField.createTextField(keyboard: .default, currencyText: "")
 //    let noteTextField = BaseTextField().createTextField(placeholder: "메모", textColor: .black)
+    
+    lazy var categoryButton = BaseButton().createButton(text: "기타", color: .systemBlue, textColor: .white)
+    lazy var benfitButton = BaseButton().createButton(text: "기타", color: .systemRed, textColor: .white)
     
     let cancelButton = BaseButton().createButton(text: "취소", color: .lightGray, textColor: .white)
     let saveButton = BaseButton().createButton(text: "저장", color: .systemBlue, textColor: .white)
@@ -32,19 +35,7 @@ class MoneyDiaryEditView: UIView {
         return segmentControl
     }()
     
-    private let contentsView: UIView = {
-        let view = UIView()
-        return view
-    }()
-    
-    private let contentsVerticalStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.distribution = .fill
-        return stackView
-    }()
-    
-    let noteTextField: UITextView = {
+    let noteTextView: UITextView = {
         let textView = UITextView()
         textView.text = "메모"
         textView.textColor = .systemGray4
@@ -57,7 +48,6 @@ class MoneyDiaryEditView: UIView {
     
     let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
-        
         return datePicker
     }()
     
@@ -76,7 +66,7 @@ class MoneyDiaryEditView: UIView {
         self.addGestureRecognizer(recognizer)
         
         priceTextField.delegate = self
-        noteTextField.delegate = self
+        noteTextView.delegate = self
         setupUI()
     }
     
@@ -88,10 +78,29 @@ class MoneyDiaryEditView: UIView {
 
     
     private func setupUI() {
-        [segmentControl, dateLabel, datePicker, priceLabel, priceTextField, titleLabel, titleTextField, categoryLabel, categoryTextField, noteLabel, noteTextField, cancelButton, saveButton].forEach {
+        
+        [segmentControl,
+         dateLabel,
+         datePicker,
+         priceLabel,
+         priceTextField,
+         titleLabel,
+         titleTextField,
+         categoryLabel,
+         categoryTextField,
+         categoryButton,
+         benfitButton,
+         noteLabel,
+         noteTextView,
+         cancelButton,
+         saveButton
+        ].forEach {
             self.addSubview($0)
         }
-        
+        //categoryTextField.isHidden = true
+        categoryTextField.borderStyle = .none
+        priceTextField.textAlignment = .right
+        categoryTextField.se
         // Auto Layout Constraints
         segmentControl.snp.makeConstraints {
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(20)
@@ -100,7 +109,7 @@ class MoneyDiaryEditView: UIView {
         
         dateLabel.snp.makeConstraints {
             $0.top.equalTo(segmentControl.snp.bottom).offset(20)
-            $0.left.equalToSuperview().inset(30)
+            $0.left.equalToSuperview().inset(50)
             $0.width.equalTo(70)
             $0.height.equalTo(34)
         }
@@ -108,13 +117,13 @@ class MoneyDiaryEditView: UIView {
         datePicker.snp.makeConstraints {
             $0.centerY.equalTo(dateLabel)
             $0.left.equalTo(dateLabel.snp.right).offset(10)
-            $0.right.equalToSuperview().inset(30)
+            $0.right.equalToSuperview().inset(50)
             $0.height.equalTo(40)
         }
         
         priceLabel.snp.makeConstraints {
             $0.top.equalTo(dateLabel.snp.bottom).offset(20)
-            $0.left.equalToSuperview().inset(30)
+            $0.left.equalToSuperview().inset(50)
             $0.width.equalTo(70)
             $0.height.equalTo(34)
         }
@@ -122,13 +131,13 @@ class MoneyDiaryEditView: UIView {
         priceTextField.snp.makeConstraints {
             $0.centerY.equalTo(priceLabel)
             $0.left.equalTo(priceLabel.snp.right).offset(10)
-            $0.right.equalToSuperview().inset(30)
+            $0.right.equalToSuperview().inset(50)
             $0.height.equalTo(40)
         }
         
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(priceLabel.snp.bottom).offset(20)
-            $0.left.equalToSuperview().inset(30)
+            $0.left.equalToSuperview().inset(50)
             $0.width.equalTo(70)
             $0.height.equalTo(34)
         }
@@ -136,13 +145,13 @@ class MoneyDiaryEditView: UIView {
         titleTextField.snp.makeConstraints {
             $0.centerY.equalTo(titleLabel)
             $0.left.equalTo(titleLabel.snp.right).offset(10)
-            $0.right.equalToSuperview().inset(30)
+            $0.right.equalToSuperview().inset(50)
             $0.height.equalTo(40)
         }
         
         categoryLabel.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(20)
-            $0.left.equalToSuperview().inset(30)
+            $0.left.equalToSuperview().inset(50)
             $0.width.equalTo(70)
             $0.height.equalTo(34)
         }
@@ -150,33 +159,46 @@ class MoneyDiaryEditView: UIView {
         categoryTextField.snp.makeConstraints {
             $0.centerY.equalTo(categoryLabel)
             $0.left.equalTo(categoryLabel.snp.right).offset(10)
-            $0.right.equalToSuperview().inset(30)
+            $0.right.equalToSuperview().inset(50)
             $0.height.equalTo(40)
+        }
+        
+        categoryButton.snp.makeConstraints{
+            $0.centerY.equalTo(categoryLabel)
+            $0.left.equalTo(categoryLabel.snp.right).offset(10)
+            $0.width.equalTo(100)
+            $0.height.equalTo(25)
+        }
+        benfitButton.snp.makeConstraints{
+            $0.centerY.equalTo(categoryLabel)
+            $0.width.equalTo(100)
+            $0.right.equalToSuperview().inset(50)
+            $0.height.equalTo(25)
         }
         
         noteLabel.snp.makeConstraints {
             $0.top.equalTo(categoryLabel.snp.bottom).offset(20)
-            $0.left.equalToSuperview().inset(30)
+            $0.left.equalToSuperview().inset(50)
             $0.width.equalTo(70)
             $0.height.equalTo(34)
         }
         
-        noteTextField.snp.makeConstraints {
+        noteTextView.snp.makeConstraints {
             $0.top.equalTo(noteLabel)
             $0.left.equalTo(noteLabel.snp.right).offset(10)
-            $0.right.equalToSuperview().inset(30)
+            $0.right.equalToSuperview().inset(50)
             $0.height.equalTo(300)
         }
         
         cancelButton.snp.makeConstraints {
-            $0.top.equalTo(noteTextField.snp.bottom).offset(30)
+            $0.top.equalTo(noteTextView.snp.bottom).offset(30)
             $0.left.equalToSuperview().inset(30)
             $0.right.equalTo(self.snp.centerX).offset(-10)
             $0.height.equalTo(40)
         }
         
         saveButton.snp.makeConstraints {
-            $0.top.equalTo(noteTextField.snp.bottom).offset(30)
+            $0.top.equalTo(noteTextView.snp.bottom).offset(30)
             $0.left.equalTo(self.snp.centerX).offset(10)
             $0.right.equalToSuperview().inset(30)
             $0.height.equalTo(40)
@@ -195,11 +217,17 @@ class MoneyDiaryEditView: UIView {
             priceLabel.text = "지출금액"
             titleLabel.text = "지출명"
             titleTextField.placeholder = "지출명"
+            benfitButton.isHidden = false
+            categoryButton.isHidden = false
+            categoryTextField.isHidden = true
         } else {
             dateLabel.text = "수입일"
             priceLabel.text = "수입금액"
             titleLabel.text = "수입명"
             titleTextField.placeholder = "수입명"
+            benfitButton.isHidden = true
+            categoryButton.isHidden = true
+            categoryTextField.isHidden = false
         }
     }
     

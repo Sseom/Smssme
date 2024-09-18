@@ -72,7 +72,7 @@ class MoneyDiaryCreationVC: UIViewController, UITextFieldDelegate {
         let isIncome = moneyDiaryEditView.segmentControl.selectedSegmentIndex == 1
         let title = moneyDiaryEditView.titleTextField.text ?? ""
         let category = moneyDiaryEditView.categoryTextField.text
-        let note = moneyDiaryEditView.noteTextField.text
+        let note = moneyDiaryEditView.noteTextView.text
         let memo = note == "메모" ? nil : note
         
         DiaryCoreDataManager.shared.createDiary(
