@@ -326,7 +326,7 @@ extension MoneyDiaryVC {
     
     private func showActionButtons() {
         moneyDiaryView.popButtons(isActive: isActive)
-        moneyDiaryView.rotateFloatingButton(isActive: isActive)
+
     }
     
     @objc private func didTapBudgetButton() {

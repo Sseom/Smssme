@@ -54,13 +54,7 @@ class MoneyDiaryView: UIView {
 
     lazy var floatingButton: UIButton = {
         let button = UIButton()
-        var config = UIButton.Configuration.filled()
-        config.cornerStyle = .capsule
-        config.image = UIImage(systemName: "pencil")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))
-        button.configuration = config
-        button.layer.shadowRadius = 10
-        button.layer.shadowOpacity = 0.3
-        button.layer.zPosition = 999
+        button.setImage(UIImage(named: "pencilButton"), for: .normal)
         return button
     }()
     
@@ -68,7 +62,7 @@ class MoneyDiaryView: UIView {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
         config.cornerStyle = .capsule
-        config.image = UIImage(systemName: "paintbrush.pointed.fill")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))
+        config.image = UIImage(systemName: "pencil")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))
         button.configuration = config
         button.layer.shadowRadius = 10
         button.layer.shadowOpacity = 0.3
@@ -81,7 +75,7 @@ class MoneyDiaryView: UIView {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
         config.cornerStyle = .capsule
-        config.image = UIImage(systemName: "wand.and.rays")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))
+        config.image = UIImage(systemName: "text.append")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))
         button.configuration = config
         button.layer.shadowRadius = 10
         button.layer.shadowOpacity = 0.3
@@ -262,17 +256,7 @@ class MoneyDiaryView: UIView {
         }
     }
     
-    func rotateFloatingButton(isActive: Bool) {
-        let animation = CABasicAnimation(keyPath: "transform.rotation.z")
-        let fromValue = isActive ? 0 : CGFloat.pi / 4
-        let toValue = isActive ? CGFloat.pi / 4 : 0
-        animation.fromValue = fromValue
-        animation.toValue = toValue
-        animation.duration = 0.3
-        animation.fillMode = .forwards
-        animation.isRemovedOnCompletion = false
-        floatingButton.layer.add(animation, forKey: nil)
-    }
+
     
 }
 
