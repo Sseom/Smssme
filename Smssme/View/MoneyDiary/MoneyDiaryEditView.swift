@@ -85,71 +85,100 @@ class MoneyDiaryEditView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Method
-    
-    // MARK: - Private Method
-    private func setHorizontalStackView(components: [UIView], distrbution: UIStackView.Distribution) {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = distrbution
-        components.forEach {
-            stackView.addArrangedSubview($0)
-        }
-        
-        contentsVerticalStackView.addArrangedSubview(stackView)
-    }
+
     
     private func setupUI() {
-        [segmentControl, contentsView].forEach {
+        [segmentControl, dateLabel, datePicker, priceLabel, priceTextField, titleLabel, titleTextField, categoryLabel, categoryTextField, noteLabel, noteTextField, cancelButton, saveButton].forEach {
             self.addSubview($0)
         }
         
-        [contentsVerticalStackView].forEach {
-            contentsView.addSubview($0)
-        }
-        
-        // horizontalStackView 세팅
-        setHorizontalStackView(components: [dateLabel, datePicker], distrbution: .fill)
-        setHorizontalStackView(components: [priceLabel, priceTextField], distrbution: .fill)
-        setHorizontalStackView(components: [titleLabel, titleTextField], distrbution: .fill)
-        setHorizontalStackView(components: [categoryLabel, categoryTextField], distrbution: .fill)
-        setHorizontalStackView(components: [noteLabel, noteTextField], distrbution: .fill)
-        setHorizontalStackView(components: [cancelButton, saveButton], distrbution: .fillEqually)
-        
+        // Auto Layout Constraints
         segmentControl.snp.makeConstraints {
-            $0.top.equalTo(self.safeAreaLayoutGuide)
-            $0.left.right.equalTo(self.safeAreaLayoutGuide).inset(30)
+            $0.top.equalTo(self.safeAreaLayoutGuide).offset(20)
+            $0.left.right.equalToSuperview().inset(30)
         }
         
-        contentsView.snp.makeConstraints {
-            $0.top.equalTo(segmentControl.snp.bottom)
-            $0.left.right.bottom.equalTo(self.safeAreaLayoutGuide)
-        }
-        
-        contentsVerticalStackView.snp.makeConstraints {
-            $0.edges.equalToSuperview().inset(30)
-        }
-        
-        // label 길이 정렬
-        [dateLabel,
-         priceLabel,
-         titleLabel,
-         categoryLabel].forEach {
-            $0.snp.makeConstraints {
-                $0.width.equalTo(70)
-                $0.height.equalTo(34)
-            }
-        }
-        
-        noteLabel.snp.makeConstraints {
+        dateLabel.snp.makeConstraints {
+            $0.top.equalTo(segmentControl.snp.bottom).offset(20)
+            $0.left.equalToSuperview().inset(30)
             $0.width.equalTo(70)
+            $0.height.equalTo(34)
         }
         
         datePicker.snp.makeConstraints {
+            $0.centerY.equalTo(dateLabel)
+            $0.left.equalTo(dateLabel.snp.right).offset(10)
+            $0.right.equalToSuperview().inset(30)
             $0.height.equalTo(40)
         }
         
+        priceLabel.snp.makeConstraints {
+            $0.top.equalTo(dateLabel.snp.bottom).offset(20)
+            $0.left.equalToSuperview().inset(30)
+            $0.width.equalTo(70)
+            $0.height.equalTo(34)
+        }
+        
+        priceTextField.snp.makeConstraints {
+            $0.centerY.equalTo(priceLabel)
+            $0.left.equalTo(priceLabel.snp.right).offset(10)
+            $0.right.equalToSuperview().inset(30)
+            $0.height.equalTo(40)
+        }
+        
+        titleLabel.snp.makeConstraints {
+            $0.top.equalTo(priceLabel.snp.bottom).offset(20)
+            $0.left.equalToSuperview().inset(30)
+            $0.width.equalTo(70)
+            $0.height.equalTo(34)
+        }
+        
+        titleTextField.snp.makeConstraints {
+            $0.centerY.equalTo(titleLabel)
+            $0.left.equalTo(titleLabel.snp.right).offset(10)
+            $0.right.equalToSuperview().inset(30)
+            $0.height.equalTo(40)
+        }
+        
+        categoryLabel.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(20)
+            $0.left.equalToSuperview().inset(30)
+            $0.width.equalTo(70)
+            $0.height.equalTo(34)
+        }
+        
+        categoryTextField.snp.makeConstraints {
+            $0.centerY.equalTo(categoryLabel)
+            $0.left.equalTo(categoryLabel.snp.right).offset(10)
+            $0.right.equalToSuperview().inset(30)
+            $0.height.equalTo(40)
+        }
+        
+        noteLabel.snp.makeConstraints {
+            $0.top.equalTo(categoryLabel.snp.bottom).offset(20)
+            $0.left.equalToSuperview().inset(30)
+            $0.width.equalTo(70)
+            $0.height.equalTo(34)
+        }
+        
+        noteTextField.snp.makeConstraints {
+            $0.top.equalTo(noteLabel)
+            $0.left.equalTo(noteLabel.snp.right).offset(10)
+            $0.right.equalToSuperview().inset(30)
+            $0.height.equalTo(300)
+        }
+        
         cancelButton.snp.makeConstraints {
+            $0.top.equalTo(noteTextField.snp.bottom).offset(30)
+            $0.left.equalToSuperview().inset(30)
+            $0.right.equalTo(self.snp.centerX).offset(-10)
+            $0.height.equalTo(40)
+        }
+        
+        saveButton.snp.makeConstraints {
+            $0.top.equalTo(noteTextField.snp.bottom).offset(30)
+            $0.left.equalTo(self.snp.centerX).offset(10)
+            $0.right.equalToSuperview().inset(30)
             $0.height.equalTo(40)
         }
         dateLabel.text = "지출일"
