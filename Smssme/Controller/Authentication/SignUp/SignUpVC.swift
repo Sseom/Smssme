@@ -192,7 +192,7 @@ class SignUpVC: UIViewController, KeyboardEvader {
         db.collection("users").document(user.uid).updateData([
             "nickname": nickname,
             "gender": signupView.maleCheckBox.isSelected ? "male" : signupView.femaleCheckBox.isSelected ? "female" : "none",
-            "birthday": birthday,
+            "birth": birthday,
             "income": income,
             "location": location
         ]) { error in
