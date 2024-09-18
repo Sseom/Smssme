@@ -33,6 +33,7 @@ class EmailView: UIView {
         textField.layer.borderColor = UIColor.systemGray5.cgColor
         textField.layer.cornerRadius = 8
         textField.keyboardType = .emailAddress
+        textField.autocapitalizationType = .none
         textField.clearButtonMode = .always
         textField.addLeftPadding()
         return textField

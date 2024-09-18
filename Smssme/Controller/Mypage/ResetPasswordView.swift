@@ -23,6 +23,7 @@ class ResetPasswordView: UIView {
         textField.layer.borderColor = UIColor.systemGray5.cgColor
         textField.layer.cornerRadius = 8
         textField.keyboardType = .emailAddress
+        textField.autocapitalizationType = .none
         textField.clearButtonMode = .always
         textField.addLeftPadding()
         return textField
@@ -51,12 +52,13 @@ class ResetPasswordView: UIView {
     //MARK: - 비밀번호 인증 버튼
     var sendResetPasswordButton: UIButton = {
         let button = UIButton()
-        button.setTitle("비밀번호 인증", for: .normal)
+        button.setTitle("비밀번호 재설정", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemBlue
+        button.backgroundColor = .systemGray5
         button.titleLabel?.font = .systemFont(ofSize: 16)
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
+        button.isEnabled = false
         button.isHidden = false
         return button
     }()
@@ -79,7 +81,7 @@ class ResetPasswordView: UIView {
     
     //MARK: - func
     private func configureTextView() {
-        let text = "메일을 받을 수 없는 이메일인가요? 계정 이메일 재설정"
+        let text = "메일을 받지 못하셨나요? 계정 이메일 재설정"
         let attributedString = NSMutableAttributedString(string: text)
         
         // "계정 이메일 재설정" 범위

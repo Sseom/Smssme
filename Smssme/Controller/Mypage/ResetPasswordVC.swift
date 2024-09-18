@@ -40,14 +40,19 @@ class ResetPasswordVC: UIViewController {
             case .success:
                 DispatchQueue.main.async {
                     print("이메일 인증 전송 완료")
-                    // 예: 사용자에게 성공 알림을 표시하거나, 다음 화면으로 이동
-                    self.showAlert(message: "이메일 인증 메일 발송 완료되었습니다.\n메일을 확인해주세요.", AlertTitle: "성공", buttonClickTitle: "확인")
+                    
+                    self.showSnycAlert(message: "이메일 인증 메일 발송 완료되었습니다.\n메일을 확인해주세요.", AlertTitle: "성공", buttonClickTitle: "확인") {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            self.resetPasswordView.sendResetPasswordButton.isEnabled = true
+                            self.resetPasswordView.sendResetPasswordButton.backgroundColor = .systemBlue
+                        }
+                    }
                 }
             case .failure(let error):
                 // 이메일 인증 메일 전송 실패 처리
                 DispatchQueue.main.async {
                     print("이메일 인증 오류: \(error.localizedDescription)")
-                    // 예: 사용자에게 실패 알림을 표시
+
                     self.showAlert(message: "이메일 인증 메일 발송에 실패했습니다.\n이메일 주소를 다시 확인해주세요.", AlertTitle: "오류", buttonClickTitle: "확인")
                 }
             }
@@ -64,7 +69,11 @@ class ResetPasswordVC: UIViewController {
             if let error = error {
                 self.showAlert(message: "비밀번호 재설정 메일 발송에 실패했습니다.", AlertTitle: "오류", buttonClickTitle: "확인")
             } else {
-                self.showAlert(message: "비밀번호 재설정 메일이 발송되었습니다.\n메일을 확인해주세요.", AlertTitle: "메일 발송 완료", buttonClickTitle: "확인")
+                self.showSnycAlert(message: "비밀번호 재설정 메일이 발송되었습니다.\n메일을 확인해주세요.", AlertTitle: "메일 발송 완료", buttonClickTitle: "확인") {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
+                        
+                    }
+                }
             }
         }
     }

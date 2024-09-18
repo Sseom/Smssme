@@ -66,7 +66,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     // 이메일 인증 여부 확인
                     if user.isEmailVerified {
                         print("이메일 인증이 완료되었습니다.")
-                        // 이메일 인증 완료 상태에서 비밀번호 인증 버튼 표시
+                        // 이메일 인증 완료 상태에서 비밀번호 재설정 버튼 표시
                         DispatchQueue.main.async {
                             resetPasswordVC.showPasswordVerificationButton()
                         }
