@@ -18,8 +18,9 @@ class MoneyDiaryEditView: UIView {
     
     let priceTextField = AmountTextField.createTextField(keyboard: .numberPad, currencyText: "원")
     let titleTextField = AmountTextField.createTextField(keyboard: .default, currencyText: "")
-    let categoryTextField = AmountTextField.createTextField(keyboard: .default, currencyText: "")
-//    let noteTextField = BaseTextField().createTextField(placeholder: "메모", textColor: .black)
+    lazy var categoryTextField = AmountTextField.createTextField(keyboard: .default, currencyText: "")
+
+    
     
     let cancelButton = BaseButton().createButton(text: "취소", color: .lightGray, textColor: .white)
     let saveButton = BaseButton().createButton(text: "저장", color: .systemBlue, textColor: .white)
@@ -32,19 +33,7 @@ class MoneyDiaryEditView: UIView {
         return segmentControl
     }()
     
-    private let contentsView: UIView = {
-        let view = UIView()
-        return view
-    }()
-    
-    private let contentsVerticalStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.distribution = .fill
-        return stackView
-    }()
-    
-    let noteTextField: UITextView = {
+    let noteTextView: UITextView = {
         let textView = UITextView()
         textView.text = "메모"
         textView.textColor = .systemGray4
@@ -57,7 +46,6 @@ class MoneyDiaryEditView: UIView {
     
     let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
-        
         return datePicker
     }()
     
@@ -75,8 +63,7 @@ class MoneyDiaryEditView: UIView {
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(touch))
         self.addGestureRecognizer(recognizer)
         
-        priceTextField.delegate = self
-        noteTextField.delegate = self
+        noteTextView.delegate = self
         setupUI()
     }
     
@@ -85,71 +72,114 @@ class MoneyDiaryEditView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Method
-    
-    // MARK: - Private Method
-    private func setHorizontalStackView(components: [UIView], distrbution: UIStackView.Distribution) {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = distrbution
-        components.forEach {
-            stackView.addArrangedSubview($0)
-        }
-        
-        contentsVerticalStackView.addArrangedSubview(stackView)
-    }
+
     
     private func setupUI() {
-        [segmentControl, contentsView].forEach {
+        
+        [segmentControl,
+         dateLabel,
+         datePicker,
+         priceLabel,
+         priceTextField,
+         titleLabel,
+         titleTextField,
+         categoryLabel,
+         categoryTextField,
+         noteLabel,
+         noteTextView,
+         cancelButton,
+         saveButton
+        ].forEach {
             self.addSubview($0)
         }
         
-        [contentsVerticalStackView].forEach {
-            contentsView.addSubview($0)
-        }
-        
-        // horizontalStackView 세팅
-        setHorizontalStackView(components: [dateLabel, datePicker], distrbution: .fill)
-        setHorizontalStackView(components: [priceLabel, priceTextField], distrbution: .fill)
-        setHorizontalStackView(components: [titleLabel, titleTextField], distrbution: .fill)
-        setHorizontalStackView(components: [categoryLabel, categoryTextField], distrbution: .fill)
-        setHorizontalStackView(components: [noteLabel, noteTextField], distrbution: .fill)
-        setHorizontalStackView(components: [cancelButton, saveButton], distrbution: .fillEqually)
         
         segmentControl.snp.makeConstraints {
-            $0.top.equalTo(self.safeAreaLayoutGuide)
-            $0.left.right.equalTo(self.safeAreaLayoutGuide).inset(30)
+            $0.top.equalTo(self.safeAreaLayoutGuide).offset(20)
+            $0.left.right.equalToSuperview().inset(30)
         }
         
-        contentsView.snp.makeConstraints {
-            $0.top.equalTo(segmentControl.snp.bottom)
-            $0.left.right.bottom.equalTo(self.safeAreaLayoutGuide)
-        }
-        
-        contentsVerticalStackView.snp.makeConstraints {
-            $0.edges.equalToSuperview().inset(30)
-        }
-        
-        // label 길이 정렬
-        [dateLabel,
-         priceLabel,
-         titleLabel,
-         categoryLabel].forEach {
-            $0.snp.makeConstraints {
-                $0.width.equalTo(70)
-                $0.height.equalTo(34)
-            }
-        }
-        
-        noteLabel.snp.makeConstraints {
+        dateLabel.snp.makeConstraints {
+            $0.top.equalTo(segmentControl.snp.bottom).offset(20)
+            $0.left.equalToSuperview().inset(50)
             $0.width.equalTo(70)
+            $0.height.equalTo(34)
         }
         
         datePicker.snp.makeConstraints {
+            $0.centerY.equalTo(dateLabel)
+            $0.left.equalTo(dateLabel.snp.right).offset(10)
+            $0.right.equalToSuperview().inset(50)
             $0.height.equalTo(40)
         }
         
+        priceLabel.snp.makeConstraints {
+            $0.top.equalTo(dateLabel.snp.bottom).offset(20)
+            $0.left.equalToSuperview().inset(50)
+            $0.width.equalTo(70)
+            $0.height.equalTo(34)
+        }
+        
+        priceTextField.snp.makeConstraints {
+            $0.centerY.equalTo(priceLabel)
+            $0.left.equalTo(priceLabel.snp.right).offset(10)
+            $0.right.equalToSuperview().inset(50)
+            $0.height.equalTo(40)
+        }
+        
+        titleLabel.snp.makeConstraints {
+            $0.top.equalTo(priceLabel.snp.bottom).offset(20)
+            $0.left.equalToSuperview().inset(50)
+            $0.width.equalTo(70)
+            $0.height.equalTo(34)
+        }
+        
+        titleTextField.snp.makeConstraints {
+            $0.centerY.equalTo(titleLabel)
+            $0.left.equalTo(titleLabel.snp.right).offset(10)
+            $0.right.equalToSuperview().inset(50)
+            $0.height.equalTo(40)
+        }
+        
+        categoryLabel.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(20)
+            $0.left.equalToSuperview().inset(50)
+            $0.width.equalTo(70)
+            $0.height.equalTo(34)
+        }
+        
+        categoryTextField.snp.makeConstraints {
+            $0.centerY.equalTo(categoryLabel)
+            $0.left.equalTo(categoryLabel.snp.right).offset(10)
+            $0.right.equalToSuperview().inset(50)
+            $0.height.equalTo(40)
+        }
+        
+        noteLabel.snp.makeConstraints {
+            $0.top.equalTo(categoryLabel.snp.bottom).offset(20)
+            $0.left.equalToSuperview().inset(50)
+            $0.width.equalTo(70)
+            $0.height.equalTo(34)
+        }
+        
+        noteTextView.snp.makeConstraints {
+            $0.top.equalTo(noteLabel)
+            $0.left.equalTo(noteLabel.snp.right).offset(10)
+            $0.right.equalToSuperview().inset(50)
+            $0.height.equalTo(300)
+        }
+        
         cancelButton.snp.makeConstraints {
+            $0.top.equalTo(noteTextView.snp.bottom).offset(30)
+            $0.left.equalToSuperview().inset(30)
+            $0.right.equalTo(self.snp.centerX).offset(-10)
+            $0.height.equalTo(40)
+        }
+        
+        saveButton.snp.makeConstraints {
+            $0.top.equalTo(noteTextView.snp.bottom).offset(30)
+            $0.left.equalTo(self.snp.centerX).offset(10)
+            $0.right.equalToSuperview().inset(30)
             $0.height.equalTo(40)
         }
         dateLabel.text = "지출일"
@@ -166,11 +196,13 @@ class MoneyDiaryEditView: UIView {
             priceLabel.text = "지출금액"
             titleLabel.text = "지출명"
             titleTextField.placeholder = "지출명"
+  
         } else {
             dateLabel.text = "수입일"
             priceLabel.text = "수입금액"
             titleLabel.text = "수입명"
             titleTextField.placeholder = "수입명"
+
         }
     }
     
@@ -195,39 +227,5 @@ extension MoneyDiaryEditView: UITextViewDelegate {
     }
 }
 
-extension MoneyDiaryEditView: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if !CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: string)) && string != "" {
-            return false
-        }
-        
-        var currentText = textField.text ?? ""
-        
-        let newText = (currentText as NSString).replacingCharacters(in: range, with: string)
-        
-        if currentText == "0" && string != "" {
-            currentText = string
-        } else {
-            currentText = newText
-        }
-        
-        let formattedText = formatNumberWithComma(currentText)
-        
-        textField.text = formattedText
-        
-        return false
-    }
-    
-    private func formatNumberWithComma(_ number: String) -> String {
-        let numberString = number.replacingOccurrences(of: ",", with: "")
-        
-        if let numberValue = Int(numberString) {
-            let numberFormatter = NumberFormatter()
-            numberFormatter.numberStyle = .decimal
-            return numberFormatter.string(from: NSNumber(value: numberValue)) ?? number
-        }
-        
-        return number
-    }
-}
+
 
