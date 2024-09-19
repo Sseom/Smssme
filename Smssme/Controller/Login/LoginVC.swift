@@ -107,7 +107,7 @@ class LoginVC: UIViewController {
     
     //MARK: -로그인 후 플랜이 없는 경우 hj
     private func checkUsersPlan() {
-        let plans = planService.fetchAllFinancialPlans()
+        let plans = planService.fetchIncompletedPlans()
         if plans.isEmpty {
             showSnycAlert(message: "안녕하세요, 자산 플랜을 생성해 주세요", AlertTitle: "로그인되었습니다", buttonClickTitle: "확인", method: switchToPlanSelectVC)
         } else {
