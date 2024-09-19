@@ -11,10 +11,10 @@ final class FinancialPlanCurrentPlanVC: UIViewController, FinancialPlanCreateDel
 
     private let financialPlanCurrentView = FinancialPlanCurrentPlanView()
     private var planService: FinancialPlanService
-    private var planDTO: FinancialPlanDTO
+    private var planDTO: FinancialPlanDTO?
     private var plans: [FinancialPlanDTO] = []
     
-    init(planService: FinancialPlanService, planDTO: FinancialPlanDTO) {
+    init(planService: FinancialPlanService, planDTO: FinancialPlanDTO? = nil) {
         self.planService = planService
         self.planDTO = planDTO
         super.init(nibName: nil, bundle: nil)

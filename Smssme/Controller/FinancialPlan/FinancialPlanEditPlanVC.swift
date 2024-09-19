@@ -13,7 +13,7 @@ protocol FinancialPlanEditDelegate: AnyObject {
 
 class FinancialPlanEditPlanVC: UIViewController, UITextFieldDelegate {
     weak var editDelegate: FinancialPlanEditDelegate?
-    private var createView: FinancialPlanCreateView = FinancialPlanCreateView(textFieldArea: CreatePlanTextFieldView())
+    private var createView: FinancialPlanCreationView = FinancialPlanCreationView(textFieldArea: CreatePlanTextFieldView())
     private var planService: FinancialPlanService
     private var planDTO: FinancialPlanDTO
     

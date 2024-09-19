@@ -72,7 +72,20 @@ enum PlanType: Int16, CaseIterable {
     }
     
     var iconName: String {
-        return "carIcon" // 선택창에서 아이콘을 사용하게될시 각 타입에 맞는 이미지 이름으로 변경
+        switch self {
+        case .travel: 
+            return "travelConfirm"
+        case .car:
+            return "carConfirm"
+        case .house:
+            return "houseConfirm"
+        case .wedding:
+            return "weddingConfirm"
+        case .retirement:
+            return "retirementConfirm"
+        case .custom:
+            return "myPlanConfirm"
+        }
     }
 }
 
