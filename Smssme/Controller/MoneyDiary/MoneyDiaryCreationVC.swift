@@ -118,8 +118,8 @@ class MoneyDiaryCreationVC: UIViewController, UITextFieldDelegate {
 // MARK: - 텍스트필드 한국화폐 표기
 extension MoneyDiaryCreationVC {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        switch textField.tag {
-        case 0:
+        
+        if textField.tag == 0 {
             if let currentText = textField.text,
                let textRange = Range(range, in: currentText) {
                 let updatedText = currentText.replacingCharacters(in: textRange, with: string)
@@ -127,29 +127,52 @@ extension MoneyDiaryCreationVC {
                 textField.text = formattedText
             }
             return false
-            
-        case 1:
-            if let currentText = textField.text as NSString? {
-                let updatedText = currentText.replacingCharacters(in: range, with: string)
-                
-                if updatedText == "1234" {
-                    textField.text = "1234"
-                    showAlert(message: "값이 1234입니다!")
-                }
-            }
-            return true
-            
-            default:
-            return true
         }
-        
+        return true
+
     }
     
-    func showAlert(message: String) {
-        let alertController = UIAlertController(title: "알림", message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+    func showAlert(message: String, benefit: String) {
+        let alertController = UIAlertController(title: "혜택 알림", message: message, preferredStyle: .alert)
+        
+        // "확인" 액션: 다른 ViewController로 전환
+        let okAction = UIAlertAction(title: "확인하기", style: .default) { _ in
+            let modalVc = UIViewController()
+            modalVc.view = BenefitView(benefit: benefit)
+            modalVc.modalPresentationStyle = .pageSheet
+            
+            
+            if let sheet = modalVc.sheetPresentationController {
+                sheet.detents = [.medium()]
+                sheet.prefersGrabberVisible = true
+            }
+            
+            self.present(modalVc, animated: true, completion: nil)
+        }
+        
+        // "취소" 액션: 알럿만 닫음
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        
+        // 액션 추가
         alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        
+        // 알럿 표시
         present(alertController, animated: true, completion: nil)
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        let benefitcases = ["주거비", "의료비", "교육비", "보험료", "기부금"]
+        // 사용자가 입력을 마치고 편집이 끝난 후 호출됨
+        if let text = textField.text {
+            // 입력된 값이 benefitcases 배열에 있는지 확인
+            if benefitcases.contains(text) {
+                // 배열에 있는 경우 해당 값을 textField에 유지 (필요시)
+                textField.text = text
+                // 알럿 표시
+                showAlert(message: "받으실수있는 \(text) 혜택이 있어요!",benefit: text)
+            }
+        }
     }
 }
 
