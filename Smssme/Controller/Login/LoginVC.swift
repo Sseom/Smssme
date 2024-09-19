@@ -16,6 +16,7 @@ class LoginVC: UIViewController {
     var toastMessage: String?
     
     private let loginVeiw = LoginView()
+    private let planService = FinancialPlanService()
     
     override func loadView() {
         view = loginVeiw
@@ -98,12 +99,32 @@ class LoginVC: UIViewController {
                     self.showAlert(message: error.localizedDescription, AlertTitle: "에러 발생", buttonClickTitle: "확인")
                 }
             } else {
-                showSnycAlert(message: "안녕하세요,\n 로그인되었습니다.", AlertTitle: "로그인 성공", buttonClickTitle: "확인", method: switchToTabBarController)
+//                showSnycAlert(message: "안녕하세요,\n 로그인되었습니다.", AlertTitle: "로그인 성공", buttonClickTitle: "확인", method: switchToTabBarController)
+                self.checkUsersPlan()
             }
         }
     }
     
-
+    //MARK: -로그인 후 플랜이 없는 경우 hj
+    private func checkUsersPlan() {
+        let plans = planService.fetchIncompletedPlans()
+        if plans.isEmpty {
+            showSnycAlert(message: "안녕하세요, 자산 플랜을 생성해 주세요", AlertTitle: "로그인되었습니다", buttonClickTitle: "확인", method: switchToPlanSelectVC)
+        } else {
+            showSnycAlert(message: "안녕하세요, 로그인되었습니다", AlertTitle: "로그인되었습니다", buttonClickTitle: "확인", method: switchToTabBarController)
+        }
+    }
+    
+    func switchToPlanSelectVC() {
+        let tabBarController = TabBarController()
+        tabBarController.selectedIndex = 2
+        print("로그인하고 페이지 전환")
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let window = windowScene.windows.first else {return}
+        
+        window.rootViewController = tabBarController
+    }
+    
     //MARK: - 로그인 하고 탭바컨트롤러로 전환
     func switchToTabBarController() {
         let tabBarController = TabBarController()

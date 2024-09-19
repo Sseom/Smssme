@@ -92,8 +92,6 @@
 		9F2FA5852C868EB100A9731D /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2FA5842C868EB100A9731D /* DateManager.swift */; };
 		9F86E6CD2C92AB5F00619F7D /* AutomaticTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F86E6CC2C92AB5F00619F7D /* AutomaticTransactionView.swift */; };
 		9F86E6CF2C92AB7100619F7D /* AutomaticTransactionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F86E6CE2C92AB7100619F7D /* AutomaticTransactionVC.swift */; };
-		9F9F6E4B2C89AF3500F1EDA6 /* MoneyDiaryCreatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F6E4A2C89AF3500F1EDA6 /* MoneyDiaryCreatVC.swift */; };
-		9F9F6E4D2C89AF5300F1EDA6 /* MoneyDiaryCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F6E4C2C89AF5300F1EDA6 /* MoneyDiaryCreateView.swift */; };
 		9FE549BF2C801E4D00E6075E /* FinancialPlanConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE549BE2C801E4D00E6075E /* FinancialPlanConfirmView.swift */; };
 		9FF702DB2C966B3F00890E77 /* RegexManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF702DA2C966B3F00890E77 /* RegexManager.swift */; };
 		E517F2822C8782F200CB8680 /* FinancialPlanManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2812C8782F200CB8680 /* FinancialPlanManager.swift */; };
@@ -198,8 +196,6 @@
 		9F2FA5842C868EB100A9731D /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		9F86E6CC2C92AB5F00619F7D /* AutomaticTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomaticTransactionView.swift; sourceTree = "<group>"; };
 		9F86E6CE2C92AB7100619F7D /* AutomaticTransactionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomaticTransactionVC.swift; sourceTree = "<group>"; };
-		9F9F6E4A2C89AF3500F1EDA6 /* MoneyDiaryCreatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDiaryCreatVC.swift; sourceTree = "<group>"; };
-		9F9F6E4C2C89AF5300F1EDA6 /* MoneyDiaryCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDiaryCreateView.swift; sourceTree = "<group>"; };
 		9FE549BE2C801E4D00E6075E /* FinancialPlanConfirmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanConfirmView.swift; sourceTree = "<group>"; };
 		9FF702DA2C966B3F00890E77 /* RegexManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexManager.swift; sourceTree = "<group>"; };
 		E517F2812C8782F200CB8680 /* FinancialPlanManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanManager.swift; sourceTree = "<group>"; };
@@ -434,7 +430,6 @@
 				746F80762C8841F300BBAEAF /* MoneyDiaryBudgetEditHeaderView.swift */,
 				746F807C2C8841F300BBAEAF /* MoneyDiaryBudgetEditView.swift */,
 				746F807A2C8841F300BBAEAF /* MoneyDiaryCalendarCell.swift */,
-				9F9F6E4C2C89AF5300F1EDA6 /* MoneyDiaryCreateView.swift */,
 				746F807D2C8841F300BBAEAF /* MoneyDiaryCalendarView.swift */,
 				746F80752C8841F300BBAEAF /* MoneyDiaryEditView.swift */,
 				746F807B2C8841F300BBAEAF /* MoneyDiaryView.swift */,
@@ -457,7 +452,6 @@
 			children = (
 				746F80932C8842B700BBAEAF /* DailyTransaction */,
 				746F808F2C8842B200BBAEAF /* MoneyDiaryBudgetEditVC.swift */,
-				9F9F6E4A2C89AF3500F1EDA6 /* MoneyDiaryCreatVC.swift */,
 				746F808D2C8842B200BBAEAF /* MoneyDiaryEditVC.swift */,
 				746F808E2C8842B200BBAEAF /* MoneyDiaryVC.swift */,
 				E517F33F2C89A41900CB8680 /* MoneyDiaryCreationVC.swift */,
@@ -576,9 +570,9 @@
 			isa = PBXGroup;
 			children = (
 				E5FBA13A2C7E095300D26E5F /* FinancialPlanSelectionVC.swift */,
-				9F06D3192C801D1F00DFF5B0 /* FinancialPlanConfirmVC.swift */,
-				E5F344D72C806A58006F9A91 /* FinancialPlanCurrentPlanVC.swift */,
 				9F06D3172C801CFA00DFF5B0 /* FinancialPlanCreateVC.swift */,
+				E5F344D72C806A58006F9A91 /* FinancialPlanCurrentPlanVC.swift */,
+				9F06D3192C801D1F00DFF5B0 /* FinancialPlanConfirmVC.swift */,
 				E5BF5E442C8587310093FD2D /* FinancialPlanEditPlanVC.swift */,
 			);
 			path = FinancialPlan;
@@ -698,9 +692,7 @@
 				746F80832C8841F300BBAEAF /* MoneyDiaryCalendarCell.swift in Sources */,
 				744FB0982C93D88300208685 /* AssetsListVC.swift in Sources */,
 				E5F344E02C8468DB006F9A91 /* FinancialPlanCurrentPlanCell.swift in Sources */,
-				9F9F6E4B2C89AF3500F1EDA6 /* MoneyDiaryCreatVC.swift in Sources */,
 				74707FA52C81B82600F7000C /* User+CoreDataProperties.swift in Sources */,
-				9F9F6E4D2C89AF5300F1EDA6 /* MoneyDiaryCreateView.swift in Sources */,
 				740350A82C7E229100122B2E /* TabBarController.swift in Sources */,
 				E5F71B3F2C98752F00F3072C /* FinancialPlanService.swift in Sources */,
 				E5FBA13F2C7E0A0800D26E5F /* FinancialPlanSelectView.swift in Sources */,
