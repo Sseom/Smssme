@@ -69,8 +69,8 @@ class MoneyDiaryEditVC: UIViewController {
         moneyDiaryEditView.datePicker.date = transactionItem2.date ?? Date()
         moneyDiaryEditView.titleTextField.text = transactionItem2.title
         moneyDiaryEditView.categoryTextField.text = transactionItem2.category
-        moneyDiaryEditView.noteTextField.textColor = .black
-        moneyDiaryEditView.noteTextField.text = transactionItem2.note
+        moneyDiaryEditView.noteTextView.textColor = .black
+        moneyDiaryEditView.noteTextView.text = transactionItem2.note
         
     }
     
@@ -83,7 +83,7 @@ class MoneyDiaryEditVC: UIViewController {
         else { true }
         let titleTextField = moneyDiaryEditView.titleTextField.text ?? ""
         let categoryTextField = moneyDiaryEditView.categoryTextField.text ?? ""
-        let memo = moneyDiaryEditView.noteTextField.text ?? ""
+        let memo = moneyDiaryEditView.noteTextView.text ?? ""
         let uuid = transactionItem2.key!
         
         DiaryCoreDataManager.shared.updateDiary(with: uuid,
@@ -108,5 +108,7 @@ class MoneyDiaryEditVC: UIViewController {
         self.navigationController?.popViewController(animated: false)
     }
 }
+
+
 
 
