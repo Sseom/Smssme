@@ -17,7 +17,7 @@ class FinancialPlanService {
     }
     
     // MARK: - Create
-    func createFinancialPlan(title: String, amount: Int64, deposit: Int64, startDate: Date, endDate: Date, planType: PlanType) throws -> FinancialPlanDTO {
+    func createFinancialPlan(title: String, amount: Int64, deposit: Int64, startDate: Date, endDate: Date, planType: PlanType, isCompleted: Bool) throws -> FinancialPlanDTO {
         // 유효성 검사
         try validateAmount(amount)
         try validateDeposit(deposit)
@@ -35,7 +35,8 @@ class FinancialPlanService {
             startDate: startDate,
             endDate: endDate,
             planType: Int16(planType.rawValue),
-            customTitle: customTitle
+            customTitle: customTitle,
+            isCompleted: isCompleted
         )
         
         plan.planDescription = planType.planDescription
@@ -62,6 +63,16 @@ class FinancialPlanService {
             .map(convertToDTO)
     }
     
+    // 완료되지 않은 플랜(진행중 플랜)
+    func fetchIncompletedPlans() -> [FinancialPlanDTO] {
+        return fetchAllFinancialPlans().filter { !$0.isCompleted }
+    }
+    
+    // 완료된 플랜만 불러오기
+    func fetchCompletedFinancialPlans() -> [FinancialPlanDTO] {
+        return fetchAllFinancialPlans().filter { $0.isCompleted }
+    }
+    
     // MARK: - Update
     func updateFinancialPlan(_ dto: FinancialPlanDTO) throws {
         try validateAmount(dto.amount)
@@ -75,7 +86,8 @@ class FinancialPlanService {
             deposit: dto.deposit,
             startDate: dto.startDate,
             endDate: dto.endDate,
-            planType: Int16(dto.planType.rawValue)
+            planType: Int16(dto.planType.rawValue), 
+            isCompleted: dto.isCompleted
         )
         
         if dto.planType == .custom {
@@ -96,7 +108,8 @@ class FinancialPlanService {
                 deposit: plan.deposit,
                 startDate: plan.startDate ?? Date(),
                 endDate: plan.endDate ?? Date(),
-                planType: plan.planType
+                planType: plan.planType,
+                isCompleted: plan.isCompleted
             )
         } else {
             throw NSError(domain: "FinancialPlanService", code: 400, userInfo: [NSLocalizedDescriptionKey: "커스텀 플랜만 제목을 변경할 수 있습니다."])
@@ -159,14 +172,17 @@ class FinancialPlanService {
     
     // MARK: - 선택창
     func isPlanTypeExists(_ planType: PlanType) -> Bool {
-        return !fetchFinancialPlans(forType: planType).isEmpty
+        let incompletePlans = fetchIncompletedPlans()
+        let planTypes = Set(incompletePlans.map { PlanType(rawValue: $0.planType.rawValue) })
+        return planTypes.contains(planType)
     }
     
     func getFinancialPlanByTitle(_ title: String) -> FinancialPlanDTO? {
         return fetchAllFinancialPlans().first { $0.title == title }
     }
     
-    // MARK: - dto변환
+    
+    // MARK: - 헬퍼 / dto변환
     private func convertToDTO(_ plan: FinancialPlan) -> FinancialPlanDTO {
         return FinancialPlanDTO(
             id: plan.id,
@@ -175,10 +191,28 @@ class FinancialPlanService {
             deposit: plan.deposit,
             startDate: plan.startDate ?? Date(),
             endDate: plan.endDate ?? Date(),
-            planType: PlanType(rawValue: plan.planType) ?? .custom
+            planType: PlanType(rawValue: plan.planType) ?? .custom,
+            isCompleted: plan.isCompleted
+            
         )
     }
 }
+
+// MARK: - dto
+
+struct FinancialPlanDTO {
+    var id: String
+    var title: String
+    var amount: Int64
+    var deposit: Int64
+    var startDate: Date
+    var endDate: Date
+    var planType: PlanType
+    var customTitle: String?
+    var isCompleted: Bool
+}
+
+// MARK: - 유효성 검사 케이스
 
 enum ValidationError: Error {
     case negativeAmount

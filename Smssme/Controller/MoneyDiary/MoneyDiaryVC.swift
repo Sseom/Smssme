@@ -163,7 +163,7 @@ extension MoneyDiaryVC: UICollectionViewDataSource, UICollectionViewDelegate, UI
                 // 현재 주차 값을 설정
                 self.calendarItems[index].weekSection = currentWeekSection
                 
-                print(calendarItems[index].weekSection)
+//                print(calendarItems[index].weekSection)
             }
         }
         //        var sectionAmounts: [Int] = [0, 0, 0, 0, 0, 0]
@@ -326,7 +326,7 @@ extension MoneyDiaryVC {
     
     private func showActionButtons() {
         moneyDiaryView.popButtons(isActive: isActive)
-        moneyDiaryView.rotateFloatingButton(isActive: isActive)
+
     }
     
     @objc private func didTapBudgetButton() {

@@ -13,15 +13,13 @@ protocol FinancialPlanEditDelegate: AnyObject {
 
 class FinancialPlanEditPlanVC: UIViewController, UITextFieldDelegate {
     weak var editDelegate: FinancialPlanEditDelegate?
-    private var createView: FinancialPlanCreateView
-    private let textFieldArea: CreatePlanTextFieldView = CreatePlanTextFieldView()
+    private var createView: FinancialPlanCreateView = FinancialPlanCreateView(textFieldArea: CreatePlanTextFieldView())
     private var planService: FinancialPlanService
     private var planDTO: FinancialPlanDTO
     
     init(planService: FinancialPlanService, planDTO: FinancialPlanDTO) {
         self.planService = planService
         self.planDTO = planDTO
-        self.createView = FinancialPlanCreateView(textFieldArea: textFieldArea)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -82,7 +80,8 @@ extension FinancialPlanEditPlanVC {
                 deposit: deposit,
                 startDate: startDate,
                 endDate: endDate,
-                planType: planDTO.planType
+                planType: planDTO.planType,
+                isCompleted: false
             )
             
             try planService.updateFinancialPlan(updateDTO)
@@ -109,14 +108,8 @@ extension FinancialPlanEditPlanVC {
     private func configure(with plan: FinancialPlanDTO) {
         createView.textFieldArea.targetAmountField.text = "\(plan.amount.formattedAsCurrency)"
         createView.textFieldArea.currentSavedField.text = "\(plan.deposit.formattedAsCurrency)"
-        
-//        if let startDate = plan.startDate {
-//            let formattedDate = FinancialPlanDateModel.dateFormatter.string(from: startDate)
-//            createView.textFieldArea.startDateField.text = formattedDate }
-//
-//        if let endDate = plan.endDate {
-//            createView.textFieldArea.endDateField.text = "\(FinancialPlanDateModel.dateFormatter.string(from: plan.endDate))"
-//        }
+        createView.textFieldArea.startDateField.text = "\(FinancialPlanDateModel.dateFormatter.string(from: plan.startDate))"
+        createView.textFieldArea.endDateField.text = "\(FinancialPlanDateModel.dateFormatter.string(from: plan.endDate))"
     }
     
     private func setupDatePickerTarget() {

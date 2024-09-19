@@ -28,11 +28,19 @@ public class FinancialPlan: NSManagedObject {
     @NSManaged public var customTitle: String?
     @NSManaged public var planDescription: String?
     @NSManaged public var iconName: String?
+    @objc public var isCompleted: Bool {
+        @objc(isCompleted) get {
+            return primitiveValue(forKey: "isCompleted") as? Bool ?? false
+        }
+        @objc(setIsCompleted:) set {
+            setPrimitiveValue(newValue, forKey: "isCompleted")
+        }
+    }
     
     @NSManaged public var user: User?
     
     public enum Key: String {
-        case id, key, title, startDate, endDate, amount, deposit, user, planType, customTitle, planDescription, iconName
+        case id, key, title, startDate, endDate, amount, deposit, user, planType, customTitle, planDescription, iconName, isCompleted
     }
 }
 
