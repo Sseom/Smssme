@@ -1,36 +1,37 @@
 //
-//  FinancialPlanConfirmVC.swift
+//  FinancialPlanCreateVC.swift
 //  Smssme
 //
-//  Created by 임혜정 on 8/28/24.
+//  Created by 임혜정 on 8/27/24.
 //
 
+import CoreData
 import UIKit
 
-protocol FinancialPlanDeleteDelegate: AnyObject {
-    func didDeleteFinancialPlan(_ plan: FinancialPlanDTO)
+protocol FinancialPlanCreationDelegate: AnyObject {
+    func didCreateFinancialPlan(_ plan: FinancialPlanDTO)
 }
 
-protocol FinancialPlanUpdateDelegate: AnyObject {
-    func didUpdateFinancialPlan(_ plan: FinancialPlanDTO)
-}
+class FinancialPlanCreateVC: UIViewController, UITextFieldDelegate {
+    weak var creationDelegate: FinancialPlanCreationDelegate?
+    private var createView = FinancialPlanCreateView(textFieldArea: CreatePlanTextFieldView())
 
-class FinancialPlanConfirmVC: UIViewController, FinancialPlanEditDelegate {
-    weak var deleteDelegate: FinancialPlanDeleteDelegate?
-    weak var updateDelegate: FinancialPlanUpdateDelegate?
+    private var planService: FinancialPlanService
     
-    private var centerImage: String = ""
-    private let confirmView = FinancialPlanConfirmView()
+    private var selectedPlanTitle: String?
+    private var selectedPlanType: PlanType?
     
-    private let planService: FinancialPlanService
-    private var planDTO: FinancialPlanDTO
-
-    init(planService: FinancialPlanService, planDTO: FinancialPlanDTO) {
+    func configure(with title: String, planType: PlanType) {
+        self.selectedPlanTitle = title
+        self.selectedPlanType = planType
+    }
+    
+    init(planService: FinancialPlanService) {
         self.planService = planService
-        self.planDTO = planDTO
         super.init(nibName: nil, bundle: nil)
         
-        self.centerImage = getImageName(for: planDTO.title)
+        setupInitialDate()
+        setupDatePickerTarget()
     }
     
     required init?(coder: NSCoder) {
@@ -40,119 +41,179 @@ class FinancialPlanConfirmVC: UIViewController, FinancialPlanEditDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        configure(with: planDTO)
-//        repository.printAllFinancialPlans() 저장된 플랜 확인용
-        setupButtonActions()
+        setupActions()
+        setupUI()
+        setupTextFields()
     }
     
     override func loadView() {
-        view = confirmView
+        view = createView
     }
     
-    func didUpdateFinancialPlan(_ plan: FinancialPlanDTO) {
-        self.planDTO = plan
-        configure(with: plan)
-        updateDelegate?.didUpdateFinancialPlan(plan)
+    private func setupUI() {
+        createView.planCreateTitle.text = selectedPlanTitle
     }
     
-    private func configure(with plan: FinancialPlanDTO) {
-        confirmView.confirmLargeTitle.text = "\(plan.title)"
-        confirmView.confirmImage.image = UIImage(named: centerImage)
-        confirmView.amountGoalLabel.text = "\(plan.amount.formattedAsCurrency)원"
-        confirmView.currentSavedLabel.text = "\(plan.deposit.formattedAsCurrency)원"
-        confirmView.endDateLabel.text = FinancialPlanDateModel.dateFormatter.string(from: plan.endDate)
-        
-        let calendar = Calendar.current
-        let now = Date()
-        let components = calendar.dateComponents([.day], from: now, to: plan.endDate)
-        if let daysLeft = components.day {
-            confirmView.daysLeftLabel.text = "\(daysLeft)일"
-        }
+    private func setupTextFields() {
+        createView.textFieldArea.targetAmountField.delegate = self
+        createView.textFieldArea.currentSavedField.delegate = self
     }
-    
-    private func getImageName(for title: String) -> String {
-            switch title {
-            case "잊지못할 인생여행":
-                return "travelConfirm"
-            case "드림카 프로젝트":
-                return "carConfirm"
-            case "내집 마련의 꿈":
-                return "houseConfirm"
-            case "로맨틱 결혼식":
-                return "weddingConfirm"
-            case "황금빛 은퇴자금":
-                return "retirementConfirm"
-            default:
-                return "myPlanConfirm"
-            }
-        }
 }
 
-// MARK: - 버튼 액션 관련
-extension FinancialPlanConfirmVC {
-    private func setupButtonActions() {
-        confirmView.editButton.addAction(UIAction(handler: { [weak self] _ in
-            self?.editButtonTapped()
-        }), for: .touchUpInside)
-        
-        confirmView.deleteButton.addAction(UIAction(handler: { [weak self] _ in
-            self?.deleteButtonTapped()
-        }), for: .touchUpInside)
+// MARK: - 화면전환관련
+extension FinancialPlanCreateVC {
+    private func setupActions() {
+        createView.confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
     }
     
-    private func editButtonTapped() {
-        let financialPlanEditPlanVC = FinancialPlanEditPlanVC(planService: planService, planDTO: planDTO)
-        financialPlanEditPlanVC.editDelegate = self
-        navigationController?.pushViewController(financialPlanEditPlanVC, animated: true)
-    }
-    
-    private func deleteButtonTapped() {
-        let alert = UIAlertController(title: "플랜 삭제", message: "정말로 이 플랜을 삭제하시겠습니까?", preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { [weak self] _ in
-            self?.deletePlan()
-        }))
-        
-        present(alert, animated: true)
-    }
-    
-    private func deletePlan() {
-        do {
-            try planService.deleteFinancialPlan(planDTO)
-            deleteDelegate?.didDeleteFinancialPlan(planDTO)
-            // 모든 플랜이 삭제되었는지 확인
-            if planService.fetchAllFinancialPlans().isEmpty {
-                showAlert(message: "모든 플랜이 삭제되었습니다.") { [weak self] in
-                    self?.navigateToSelectionVC()
+    @objc func confirmButtonTapped() {
+        if validateInputs() {
+            if let newPlan = buttonTapSaveData() {
+                creationDelegate?.didCreateFinancialPlan(newPlan)
+                
+                let tabBar = TabBarController()
+                
+                tabBar.selectedIndex = 2
+                
+                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                   let window = windowScene.windows.first {
+                    window.rootViewController = tabBar
+                    window.makeKeyAndVisible()
                 }
             } else {
-                showAlert(message: "플랜이 성공적으로 삭제되었습니다.") { [weak self] in
-                    self?.navigationController?.popViewController(animated: true)
-                }
+                print("입력값 오류")
             }
-        } catch {
-            showAlert(message: "삭제 중 오류발생했습니다\(error.localizedDescription)")
+        }
+        
+        func validateInputs() -> Bool {
+            return validateAmount() && validateEndDate()
+        }
+    }}
+
+extension FinancialPlanCreateVC {
+    private func setupInitialDate() {
+        let today = Date()
+        createView.textFieldArea.startDateField.text = FinancialPlanDateModel.dateFormatter.string(from: today)
+        createView.textFieldArea.endDateField.text = FinancialPlanDateModel.dateFormatter.string(from: today)
+        
+        if let startDatePicker = createView.textFieldArea.startDateField.inputView as? UIDatePicker {
+            startDatePicker.date = today
+        }
+        if let endDatePicker = createView.textFieldArea.endDateField.inputView as? UIDatePicker {
+            endDatePicker.date = today
         }
     }
     
-    private func navigateToSelectionVC() {
-        let tabBar = TabBarController()
-        
-        tabBar.selectedIndex = 2
-        
-        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-           let window = windowScene.windows.first {
-            window.rootViewController = tabBar
-            window.makeKeyAndVisible()
+    private func setupDatePickerTarget() {
+        if let startDatePicker = createView.textFieldArea.startDateField.inputView as? UIDatePicker {
+            startDatePicker.addTarget(self, action: #selector(datePickerValueChanged(_:)), for: .valueChanged)
+        }
+        if let endDatePicker = createView.textFieldArea.endDateField.inputView as? UIDatePicker {
+            endDatePicker.addTarget(self, action: #selector(datePickerValueChanged(_:)), for: .valueChanged)
         }
     }
     
-    private func showAlert(message: String, completion: (() -> Void)? = nil) {
-        let alert = UIAlertController(title: "알림", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "확인", style: .default) { _ in
-            completion?()
-        })
-        present(alert, animated: true)
+    @objc func datePickerValueChanged(_ sender: UIDatePicker) {
+        if sender == createView.textFieldArea.startDateField.inputView as? UIDatePicker {
+            createView.textFieldArea.startDateField.text = FinancialPlanDateModel.dateFormatter.string(from: sender.date)
+        } else if sender == createView.textFieldArea.endDateField.inputView as? UIDatePicker {
+            createView.textFieldArea.endDateField.text = FinancialPlanDateModel.dateFormatter.string(from: sender.date)
+        }
     }
 }
+
+extension FinancialPlanCreateVC {
+    func buttonTapSaveData() -> FinancialPlanDTO? {
+        guard let amountText = createView.textFieldArea.targetAmountField.text,
+              let amount = KoreanCurrencyFormatter.shared.number(from: amountText),
+              let depositText = createView.textFieldArea.currentSavedField.text,
+              let deposit = KoreanCurrencyFormatter.shared.number(from: depositText),
+              let startDate = FinancialPlanDateModel.dateFormatter.date(from: createView.textFieldArea.startDateField.text ?? ""),
+              let endDate = FinancialPlanDateModel.dateFormatter.date(from: createView.textFieldArea.endDateField.text ?? "") else {
+            showAlert(message: "모든 필드를 올바르게 입력해주세요.")
+            return nil
+        }
+        
+        do {
+            let newPlanDTO = try planService.createFinancialPlan(
+                title: selectedPlanTitle ?? "",
+                amount: amount,
+                deposit: deposit,
+                startDate: startDate,
+                endDate: endDate,
+                planType: selectedPlanType ?? .custom,
+                isCompleted: false
+            )
+            
+            print("새로운 계획이 저장되었습니다: \(newPlanDTO)")
+            return newPlanDTO
+        } catch {
+            showAlert(message: "계획 저장 실패: \(error.localizedDescription)")
+            return nil
+        }
+    }
+    
+    private func showAlert(message: String) {
+        let alert = UIAlertController(title: "알림", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+}
+
+// MARK: - 필드 입력값 유효성 검사
+extension FinancialPlanCreateVC {
+    private func validateAmount() -> Bool {
+        guard let amountText = createView.textFieldArea.targetAmountField.text,
+              !amountText.isEmpty else {
+            showAlert(message: "목표 금액을 입력해주세요.")
+            return false
+        }
+        
+        guard let amount = KoreanCurrencyFormatter.shared.number(from: amountText) else {
+            showAlert(message: "올바른 금액 형식이 아닙니다.")
+            return false
+        }
+        
+        do {
+            try planService.validateAmount(amount)
+            return true
+        } catch ValidationError.negativeAmount {
+            showAlert(message: "목표 금액은 0보다 커야 합니다.")
+            return false
+        } catch {
+            showAlert(message: "금액 검증 중 오류가 발생했습니다.")
+            return false
+        }
+    }
+    
+    private func validateEndDate() -> Bool {
+        guard let endDateString = createView.textFieldArea.endDateField.text,
+              let startDateString = createView.textFieldArea.startDateField.text,
+              let endDate = FinancialPlanDateModel.dateFormatter.date(from: endDateString),
+              let startDate = FinancialPlanDateModel.dateFormatter.date(from: startDateString) else {
+            showAlert(message: "올바른 날짜 형식이 아닙니다.")
+            return false
+        }
+        do {
+            try planService.validateDates(start: startDate, end: endDate)
+            return true
+        } catch {
+            showAlert(message: "종료 날짜는 시작 날짜보다 늦어야 합니다.")
+            return false
+        }
+    }
+}
+
+// MARK: - 텍스트필드 한국화폐 표기
+extension FinancialPlanCreateVC {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if let currentText = textField.text,
+           let textRange = Range(range, in: currentText) {
+            let updatedText = currentText.replacingCharacters(in: textRange, with: string)
+            let formattedText = KoreanCurrencyFormatter.shared.formatForEditing(updatedText)
+            textField.text = formattedText
+        }
+        return false
+    }
+}
+
