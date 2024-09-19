@@ -31,7 +31,7 @@ final class FinancialPlanCurrentPlanView: UIView {
     }
     
     var onAddPlanButtonTapped: (() -> Void)?
-    private lazy var addPlanButton = ActionButtonBlack().createButton(text: "플랜 추가", color: UIColor.black, textColor: UIColor.white, method: { [weak self] in
+    private lazy var addPlanButton = ActionButtonBlack().createButton(text: "새로운 플랜", color: UIColor.black, textColor: UIColor.white, method: { [weak self] in
         self?.onAddPlanButtonTapped?()
     })
     

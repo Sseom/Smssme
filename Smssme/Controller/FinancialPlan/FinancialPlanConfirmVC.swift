@@ -31,7 +31,7 @@ class FinancialPlanConfirmVC: UIViewController, FinancialPlanEditDelegate {
         self.planDTO = planDTO
         super.init(nibName: nil, bundle: nil)
         
-        self.centerImage = getImageName(for: planDTO.title)
+        self.centerImage = planDTO.planType.iconName
     }
     
     required init?(coder: NSCoder) {
@@ -91,23 +91,6 @@ class FinancialPlanConfirmVC: UIViewController, FinancialPlanEditDelegate {
             confirmView.daysLeftLabel.text = "\(daysLeft)일"
         }
     }
-    
-    private func getImageName(for title: String) -> String {
-            switch title {
-            case "잊지못할 인생여행":
-                return "travelConfirm"
-            case "드림카 프로젝트":
-                return "carConfirm"
-            case "내집 마련의 꿈":
-                return "houseConfirm"
-            case "로맨틱 결혼식":
-                return "weddingConfirm"
-            case "황금빛 은퇴자금":
-                return "retirementConfirm"
-            default:
-                return "myPlanConfirm"
-            }
-        }
 }
 
 // MARK: - 버튼 액션 관련
