@@ -91,7 +91,8 @@ extension FinancialPlanSelectionVC: UICollectionViewDelegate {
             deposit: plan.deposit,
             startDate: plan.startDate,
             endDate: plan.endDate,
-            planType: plan.planType
+            planType: plan.planType,
+            isCompleted: plan.isCompleted
         )
         let currentPlanVC = FinancialPlanCurrentPlanVC(planService: planService, planDTO: planDTO)
         navigationController?.pushViewController(currentPlanVC, animated: true)

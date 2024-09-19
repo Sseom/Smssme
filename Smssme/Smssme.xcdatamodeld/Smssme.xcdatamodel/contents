@@ -36,6 +36,7 @@
         <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="iconName" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="isCompleted" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="key" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="planDescription" optional="YES" attributeType="String"/>
         <attribute name="planType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
