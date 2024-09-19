@@ -109,4 +109,10 @@ class MoneyDiaryEditVC: UIViewController {
     }
 }
 
+extension MoneyDiaryEditVC: UITextFieldDelegate {
+
+    
+
+}
+
 

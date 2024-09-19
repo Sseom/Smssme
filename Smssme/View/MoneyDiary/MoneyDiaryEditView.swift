@@ -19,10 +19,8 @@ class MoneyDiaryEditView: UIView {
     let priceTextField = AmountTextField.createTextField(keyboard: .numberPad, currencyText: "원")
     let titleTextField = AmountTextField.createTextField(keyboard: .default, currencyText: "")
     lazy var categoryTextField = AmountTextField.createTextField(keyboard: .default, currencyText: "")
-//    let noteTextField = BaseTextField().createTextField(placeholder: "메모", textColor: .black)
+
     
-    lazy var categoryButton = BaseButton().createButton(text: "기타", color: .systemBlue, textColor: .white)
-    lazy var benfitButton = BaseButton().createButton(text: "기타", color: .systemRed, textColor: .white)
     
     let cancelButton = BaseButton().createButton(text: "취소", color: .lightGray, textColor: .white)
     let saveButton = BaseButton().createButton(text: "저장", color: .systemBlue, textColor: .white)
@@ -65,7 +63,6 @@ class MoneyDiaryEditView: UIView {
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(touch))
         self.addGestureRecognizer(recognizer)
         
-        priceTextField.delegate = self
         noteTextView.delegate = self
         setupUI()
     }
@@ -88,8 +85,6 @@ class MoneyDiaryEditView: UIView {
          titleTextField,
          categoryLabel,
          categoryTextField,
-         categoryButton,
-         benfitButton,
          noteLabel,
          noteTextView,
          cancelButton,
@@ -97,11 +92,8 @@ class MoneyDiaryEditView: UIView {
         ].forEach {
             self.addSubview($0)
         }
-        //categoryTextField.isHidden = true
-        categoryTextField.borderStyle = .none
-        priceTextField.textAlignment = .right
-        categoryTextField.se
-        // Auto Layout Constraints
+        
+        
         segmentControl.snp.makeConstraints {
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(20)
             $0.left.right.equalToSuperview().inset(30)
@@ -163,19 +155,6 @@ class MoneyDiaryEditView: UIView {
             $0.height.equalTo(40)
         }
         
-        categoryButton.snp.makeConstraints{
-            $0.centerY.equalTo(categoryLabel)
-            $0.left.equalTo(categoryLabel.snp.right).offset(10)
-            $0.width.equalTo(100)
-            $0.height.equalTo(25)
-        }
-        benfitButton.snp.makeConstraints{
-            $0.centerY.equalTo(categoryLabel)
-            $0.width.equalTo(100)
-            $0.right.equalToSuperview().inset(50)
-            $0.height.equalTo(25)
-        }
-        
         noteLabel.snp.makeConstraints {
             $0.top.equalTo(categoryLabel.snp.bottom).offset(20)
             $0.left.equalToSuperview().inset(50)
@@ -217,17 +196,13 @@ class MoneyDiaryEditView: UIView {
             priceLabel.text = "지출금액"
             titleLabel.text = "지출명"
             titleTextField.placeholder = "지출명"
-            benfitButton.isHidden = false
-            categoryButton.isHidden = false
-            categoryTextField.isHidden = true
+  
         } else {
             dateLabel.text = "수입일"
             priceLabel.text = "수입금액"
             titleLabel.text = "수입명"
             titleTextField.placeholder = "수입명"
-            benfitButton.isHidden = true
-            categoryButton.isHidden = true
-            categoryTextField.isHidden = false
+
         }
     }
     
@@ -252,39 +227,5 @@ extension MoneyDiaryEditView: UITextViewDelegate {
     }
 }
 
-extension MoneyDiaryEditView: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if !CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: string)) && string != "" {
-            return false
-        }
-        
-        var currentText = textField.text ?? ""
-        
-        let newText = (currentText as NSString).replacingCharacters(in: range, with: string)
-        
-        if currentText == "0" && string != "" {
-            currentText = string
-        } else {
-            currentText = newText
-        }
-        
-        let formattedText = formatNumberWithComma(currentText)
-        
-        textField.text = formattedText
-        
-        return false
-    }
-    
-    private func formatNumberWithComma(_ number: String) -> String {
-        let numberString = number.replacingOccurrences(of: ",", with: "")
-        
-        if let numberValue = Int(numberString) {
-            let numberFormatter = NumberFormatter()
-            numberFormatter.numberStyle = .decimal
-            return numberFormatter.string(from: NSNumber(value: numberValue)) ?? number
-        }
-        
-        return number
-    }
-}
+
 

@@ -52,6 +52,9 @@ class MoneyDiaryCreationVC: UIViewController, UITextFieldDelegate {
 
     private func setupTextFields() {
         moneyDiaryEditView.priceTextField.delegate = self
+        moneyDiaryEditView.categoryTextField.delegate = self
+        moneyDiaryEditView.priceTextField.tag = 0
+        moneyDiaryEditView.categoryTextField.tag = 1
     }
     
     //MARK: - Objc
@@ -115,12 +118,38 @@ class MoneyDiaryCreationVC: UIViewController, UITextFieldDelegate {
 // MARK: - 텍스트필드 한국화폐 표기
 extension MoneyDiaryCreationVC {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if let currentText = textField.text,
-           let textRange = Range(range, in: currentText) {
-            let updatedText = currentText.replacingCharacters(in: textRange, with: string)
-            let formattedText = KoreanCurrencyFormatter.shared.formatForEditing(updatedText)
-            textField.text = formattedText
+        switch textField.tag {
+        case 0:
+            if let currentText = textField.text,
+               let textRange = Range(range, in: currentText) {
+                let updatedText = currentText.replacingCharacters(in: textRange, with: string)
+                let formattedText = KoreanCurrencyFormatter.shared.formatForEditing(updatedText)
+                textField.text = formattedText
+            }
+            return false
+            
+        case 1:
+            if let currentText = textField.text as NSString? {
+                let updatedText = currentText.replacingCharacters(in: range, with: string)
+                
+                if updatedText == "1234" {
+                    textField.text = "1234"
+                    showAlert(message: "값이 1234입니다!")
+                }
+            }
+            return true
+            
+            default:
+            return true
         }
-        return false
+        
+    }
+    
+    func showAlert(message: String) {
+        let alertController = UIAlertController(title: "알림", message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
     }
 }
+
