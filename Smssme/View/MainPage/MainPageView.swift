@@ -8,34 +8,16 @@ class MainPageView: UIView {
     var mainWelcomeTitleLabel = LargeTitleLabel().createLabel(with: "씀씀이의 방문을 \n환영합니다.", color: .black)
     private let totalAssetsTitleLabel = SmallTitleLabel().createLabel(with: "총 자산", color: .black)
     let totalAssetsValueLabel = LargeTitleLabel().createLabel(with: "0 원", color: .black)
-//    private let financialTitleLabel = SmallTitleLabel().createLabel(with: "오늘의 주요 경제 지표", color: .black)
+    //    private let financialTitleLabel = SmallTitleLabel().createLabel(with: "오늘의 주요 경제 지표", color: .black)
     private let benefitTitleLabel = SmallTitleLabel().createLabel(with: "2024 청년 혜택 총정리", color: .black)
     
-
-//    private let todayFinancialArray: [TodayFinancial] = [
-//        TodayFinancial(title: "KOSPI", value: 5678.91, range: -1),
-//        TodayFinancial(title: "KOSDAQ", value: 234.2, range: 0),
-//        TodayFinancial(title: "환율", value: 1.233, range: 0),
-//        TodayFinancial(title: "NASDAQ", value: 4252.33, range: 0)
-//    ]
     
-    private let benefitData: [String] = [
-        "✅ 청년 취업 및 창업 지원",
-        "✅ 청년 주거 지원",
-        "✅ 청년 금융 지원",
-        "✅ 청년 교육 및 자립 지원",
-        "✅ 청년 복지 및 기타지원",
-        "✅ 지역별 혜택"
-    ]
-    
-    private let benefitUrl: [String] = [
-        "https://valley-porch-b6d.notion.site/1-1001c7ac6761489cbf12b3802a8924a7",
-        "https://valley-porch-b6d.notion.site/2-717bb3ae189b4847806ae044d3ddb8b1",
-        "https://valley-porch-b6d.notion.site/3-26ee2c8202ec46de854409179727c949?pvs=25",
-        "https://valley-porch-b6d.notion.site/4-95f275585ec54a00b0994ae2e7310b5c?pvs=25",
-        "https://valley-porch-b6d.notion.site/5-e0eb6ef61c944c82b123284fb58adccc?pvs=4",
-        "https://valley-porch-b6d.notion.site/6-2024-28798ac02443464493f80f299772b47b?pvs=4"
-    ]
+    //    private let todayFinancialArray: [TodayFinancial] = [
+    //        TodayFinancial(title: "KOSPI", value: 5678.91, range: -1),
+    //        TodayFinancial(title: "KOSDAQ", value: 234.2, range: 0),
+    //        TodayFinancial(title: "환율", value: 1.233, range: 0),
+    //        TodayFinancial(title: "NASDAQ", value: 4252.33, range: 0)
+    //    ]
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -63,6 +45,7 @@ class MainPageView: UIView {
         let pieChartView = PieChartView()
         pieChartView.rotationEnabled = false
         pieChartView.legend.enabled = false
+        pieChartView.isUserInteractionEnabled = false
         return pieChartView
     }()
     
@@ -77,21 +60,21 @@ class MainPageView: UIView {
         return button
     }()
     
-    private let benefitVerticalStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.distribution = .fill
-        return stackView
-    }()
+//    private let benefitVerticalStackView: UIStackView = {
+//        let stackView = UIStackView()
+//        stackView.axis = .vertical
+//        stackView.distribution = .fill
+//        return stackView
+//    }()
     
-    private let benefitVerticalTableView = UITableView()
+    let benefitVerticalTableView = UITableView()
     
     // MARK: - View Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
-//        setupTodayFinancia(todayFinanciaData: todayFinancialArray)
-        setupBenefit(benefitData: benefitData)
+        //        setupTodayFinancia(todayFinanciaData: todayFinancialArray)
+//        setupBenefit(benefitData: benefitData)
     }
     
     required init?(coder: NSCoder) {
@@ -136,43 +119,34 @@ class MainPageView: UIView {
     }
     
     //MARK: - 청년 혜택 총정리
-    func setupBenefit(benefitData: [String]) {
-        for (index, benefit) in benefitData.enumerated() {
-            let button = UIButton()
-            button.setTitle(benefit, for: .normal)
-            button.setTitleColor(.black, for: .normal)
-            button.contentHorizontalAlignment = .left
-            button.tag = index
-            
-            button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
-            benefitVerticalStackView.addArrangedSubview(button)
-            
-            button.snp.makeConstraints {
-                $0.width.equalTo(benefitVerticalStackView.snp.width)
-                $0.height.equalTo(60)
-            }
-        }
-        contentView.addSubview(benefitVerticalStackView)
-    }
+//    func setupBenefit(benefitData: [String]) {
+//        for (index, benefit) in benefitData.enumerated() {
+//            let button = UIButton()
+//            button.setTitle(benefit, for: .normal)
+//            button.setTitleColor(.black, for: .normal)
+//            button.contentHorizontalAlignment = .left
+//            button.tag = index
+//            
+//            button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
+//            benefitVerticalStackView.addArrangedSubview(button)
+//            
+//            button.snp.makeConstraints {
+//                $0.width.equalTo(benefitVerticalStackView.snp.width)
+//                $0.height.equalTo(60)
+//            }
+//        }
+//        contentView.addSubview(benefitVerticalStackView)
+//    }
     
     // 청년 혜택 노션 url 연결
-    @objc private func buttonTapped(_ sender: UIButton) {
-          let index = sender.tag
-          if index < benefitUrl.count {
-              let urlString = benefitUrl[index]
-              openSafari(with: urlString)
-          }
-      }
-      
-    // 사파리 연결
-      private func openSafari(with urlString: String) {
-          guard let url = URL(string: urlString) else { return }
-          let safariVC = SFSafariViewController(url: url)
-          if let topController = UIApplication.shared.windows.first?.rootViewController {
-              topController.present(safariVC, animated: true, completion: nil)
-          }
-      }
-
+//    @objc private func buttonTapped(_ sender: UIButton) {
+//        let index = sender.tag
+//        if index < benefitUrl.count {
+//            let urlString = benefitUrl[index]
+//            openSafari(with: urlString)
+//        }
+//    }
+    
     func entryData(values: [Double]) -> [ChartDataEntry] {
         var pieDataEntries: [ChartDataEntry] = []
         for i in 0 ..< values.count {
@@ -202,10 +176,10 @@ class MainPageView: UIView {
             totalAssetsValueLabel,
             pieChartView,
             chartCenterButton,
-//            financialTitleLabel,
+            //            financialTitleLabel,
             financialScrollView,
             benefitTitleLabel,
-            benefitVerticalStackView,
+//            benefitVerticalStackView,
             benefitVerticalTableView
         ].forEach {
             contentView.addSubview($0)
@@ -252,11 +226,11 @@ class MainPageView: UIView {
             $0.width.equalTo(120)
         }
         
-//        financialTitleLabel.snp.makeConstraints {
-//            $0.top.equalTo(pieChartView.snp.bottom).offset(40)
-//            $0.left.equalTo(safeAreaLayoutGuide).offset(20)
-//        }
-//        
+        //        financialTitleLabel.snp.makeConstraints {
+        //            $0.top.equalTo(pieChartView.snp.bottom).offset(40)
+        //            $0.left.equalTo(safeAreaLayoutGuide).offset(20)
+        //        }
+        //
         financialScrollView.snp.makeConstraints {
             $0.top.equalTo(chartCenterButton.snp.bottom).offset(20)
             $0.height.equalTo(40)
@@ -273,14 +247,14 @@ class MainPageView: UIView {
             $0.left.equalTo(safeAreaLayoutGuide).offset(20)
         }
         
-        benefitVerticalStackView.snp.makeConstraints {
-            $0.top.equalTo(benefitTitleLabel.snp.bottom).offset(5)
-            $0.left.right.equalToSuperview().inset(20)
-        }
+//        benefitVerticalStackView.snp.makeConstraints {
+//            $0.top.equalTo(benefitTitleLabel.snp.bottom).offset(5)
+//            $0.left.right.equalToSuperview().inset(20)
+//        }
         
         benefitVerticalTableView.snp.makeConstraints {
-            $0.top.equalTo(benefitVerticalStackView.snp.bottom).offset(5)
-            $0.height.equalTo(200)
+            $0.top.equalTo(benefitTitleLabel.snp.bottom).offset(5)
+            $0.height.equalTo(300)
             $0.left.right.equalToSuperview().inset(20)
             $0.bottom.equalToSuperview().offset(-20)
         }

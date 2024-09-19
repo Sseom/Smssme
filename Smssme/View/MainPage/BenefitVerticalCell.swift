@@ -7,10 +7,9 @@
 
 import UIKit
 
-class benefitVerticalCell: UITableViewCell {
+class BenefitVerticalCell: UITableViewCell {
     
     // MARK: - Properties
-    
     
     let titleLabel: UILabel = {
         let label = UILabel()

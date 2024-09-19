@@ -11,6 +11,8 @@ class AssetsListVC: UIViewController {
     //MARK: - Properties
     private let assetsListView: AssetsListView = AssetsListView()
     private let assetsCoreDataManager: AssetsCoreDataManager = AssetsCoreDataManager()
+    private let financialPlanManager = FinancialPlanManager.shared
+    private let diaryCoreDataManager = DiaryCoreDataManager.shared
     private var assetsList: [AssetsList] = []
     
     // MARK: - ViewController Init
@@ -59,10 +61,17 @@ class AssetsListVC: UIViewController {
     
     private func setAssetsData() {
         let assetsItems: [AssetsItem] = assetsCoreDataManager.selectAllAssets().map {
-            AssetsItem(uuid: $0.key, category: $0.category, title: $0.title, amount: $0.amount, note: $0.note)
+            AssetsItem(uuid: $0.key, category: $0.category, title: $0.title, amount: $0.amount)
         }
         
-        let items = Dictionary(grouping: assetsItems, by: { $0.category })
+        // FIXME: 고쳐 인컴뭐시기
+        let financialPlanItems: [AssetsItem] = financialPlanManager.fetchAllFinancialPlans().map {
+            AssetsItem(uuid: nil, category: "플랜 자산", title: $0.title, amount: $0.amount)
+        }
+        
+        let diaryItems: [AssetsItem] = diaryCoreDataManager.diaryToMonthData(array: diaryCoreDataManager.fetchAllDiaries())
+        
+        let items = Dictionary(grouping: (assetsItems + financialPlanItems + diaryItems), by: { $0.category })
 
         // 각 category에 대한 AssetsList 생성
         var assetsList: [AssetsList] = []
@@ -82,28 +91,6 @@ class AssetsListVC: UIViewController {
         }
         return "\(KoreanCurrencyFormatter.shared.string(from: total)) 원"
     }
-    
-    private func deleteAssets() {
-//        if let uuid = uuid {
-//            assetsCoreDataManager.deleteAssets(uuid: uuid)
-//        } else {
-//            print("유효한 자산이 아닙니다.")
-//        }
-    }
-    
-    // 뒤로가기전에 차트를 다시 그려주는 메서드
-    private func popupViewController() {
-//        if let mainPageVC = navigationController?.viewControllers.last(where: { $0 is MainPageVC }) as? MainPageVC {
-//            
-//            mainPageVC.setChartData()
-//            
-//            navigationController?.popViewController(animated: true)
-//        } else {
-//            // MainPageVC가 네비게이션 스택에 없는 경우 처리
-//            print("MainPageVC를 찾을 수 없습니다.")
-//        }
-    }
-
     
     // MARK: - Objc
     @objc func addButtonTapped() {
