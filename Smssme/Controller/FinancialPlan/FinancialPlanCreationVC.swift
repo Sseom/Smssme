@@ -12,9 +12,9 @@ protocol FinancialPlanCreationDelegate: AnyObject {
     func didCreateFinancialPlan(_ plan: FinancialPlanDTO)
 }
 
-class FinancialPlanCreateVC: UIViewController, UITextFieldDelegate {
+class FinancialPlanCreationVC: UIViewController, UITextFieldDelegate {
     weak var creationDelegate: FinancialPlanCreationDelegate?
-    private var createView = FinancialPlanCreateView(textFieldArea: CreatePlanTextFieldView())
+    private var creationView = FinancialPlanCreationView(textFieldArea: CreatePlanTextFieldView())
 
     private var planService: FinancialPlanService
     
@@ -29,7 +29,6 @@ class FinancialPlanCreateVC: UIViewController, UITextFieldDelegate {
     init(planService: FinancialPlanService) {
         self.planService = planService
         super.init(nibName: nil, bundle: nil)
-        
         setupInitialDate()
         setupDatePickerTarget()
     }
@@ -47,23 +46,31 @@ class FinancialPlanCreateVC: UIViewController, UITextFieldDelegate {
     }
     
     override func loadView() {
-        view = createView
+        view = creationView
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        creationView.showTooltip()
     }
     
     private func setupUI() {
-        createView.planCreateTitle.text = selectedPlanTitle
+//        createView.planCreateTitle.text = selectedPlanTitle
+        creationView.titleTextField.text = selectedPlanTitle
     }
     
     private func setupTextFields() {
-        createView.textFieldArea.targetAmountField.delegate = self
-        createView.textFieldArea.currentSavedField.delegate = self
+        creationView.textFieldArea.targetAmountField.delegate = self
+        creationView.textFieldArea.currentSavedField.delegate = self
+        creationView.titleTextField.delegate = self
+        creationView.titleTextField.returnKeyType = .done
     }
 }
 
 // MARK: - 화면전환관련
-extension FinancialPlanCreateVC {
+extension FinancialPlanCreationVC {
     private func setupActions() {
-        createView.confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
+        creationView.confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
     }
     
     @objc func confirmButtonTapped() {
@@ -90,53 +97,55 @@ extension FinancialPlanCreateVC {
         }
     }}
 
-extension FinancialPlanCreateVC {
+extension FinancialPlanCreationVC {
     private func setupInitialDate() {
         let today = Date()
-        createView.textFieldArea.startDateField.text = FinancialPlanDateModel.dateFormatter.string(from: today)
-        createView.textFieldArea.endDateField.text = FinancialPlanDateModel.dateFormatter.string(from: today)
+        creationView.textFieldArea.startDateField.text = FinancialPlanDateModel.dateFormatter.string(from: today)
+        creationView.textFieldArea.endDateField.text = FinancialPlanDateModel.dateFormatter.string(from: today)
         
-        if let startDatePicker = createView.textFieldArea.startDateField.inputView as? UIDatePicker {
+        if let startDatePicker = creationView.textFieldArea.startDateField.inputView as? UIDatePicker {
             startDatePicker.date = today
         }
-        if let endDatePicker = createView.textFieldArea.endDateField.inputView as? UIDatePicker {
+        if let endDatePicker = creationView.textFieldArea.endDateField.inputView as? UIDatePicker {
             endDatePicker.date = today
         }
     }
     
     private func setupDatePickerTarget() {
-        if let startDatePicker = createView.textFieldArea.startDateField.inputView as? UIDatePicker {
+        if let startDatePicker = creationView.textFieldArea.startDateField.inputView as? UIDatePicker {
             startDatePicker.addTarget(self, action: #selector(datePickerValueChanged(_:)), for: .valueChanged)
         }
-        if let endDatePicker = createView.textFieldArea.endDateField.inputView as? UIDatePicker {
+        if let endDatePicker = creationView.textFieldArea.endDateField.inputView as? UIDatePicker {
             endDatePicker.addTarget(self, action: #selector(datePickerValueChanged(_:)), for: .valueChanged)
         }
     }
     
     @objc func datePickerValueChanged(_ sender: UIDatePicker) {
-        if sender == createView.textFieldArea.startDateField.inputView as? UIDatePicker {
-            createView.textFieldArea.startDateField.text = FinancialPlanDateModel.dateFormatter.string(from: sender.date)
-        } else if sender == createView.textFieldArea.endDateField.inputView as? UIDatePicker {
-            createView.textFieldArea.endDateField.text = FinancialPlanDateModel.dateFormatter.string(from: sender.date)
+        if sender == creationView.textFieldArea.startDateField.inputView as? UIDatePicker {
+            creationView.textFieldArea.startDateField.text = FinancialPlanDateModel.dateFormatter.string(from: sender.date)
+        } else if sender == creationView.textFieldArea.endDateField.inputView as? UIDatePicker {
+            creationView.textFieldArea.endDateField.text = FinancialPlanDateModel.dateFormatter.string(from: sender.date)
         }
     }
 }
 
-extension FinancialPlanCreateVC {
+extension FinancialPlanCreationVC {
     func buttonTapSaveData() -> FinancialPlanDTO? {
-        guard let amountText = createView.textFieldArea.targetAmountField.text,
+        guard let planTitle = creationView.titleTextField.text,
+              
+            let amountText = creationView.textFieldArea.targetAmountField.text,
               let amount = KoreanCurrencyFormatter.shared.number(from: amountText),
-              let depositText = createView.textFieldArea.currentSavedField.text,
+              let depositText = creationView.textFieldArea.currentSavedField.text,
               let deposit = KoreanCurrencyFormatter.shared.number(from: depositText),
-              let startDate = FinancialPlanDateModel.dateFormatter.date(from: createView.textFieldArea.startDateField.text ?? ""),
-              let endDate = FinancialPlanDateModel.dateFormatter.date(from: createView.textFieldArea.endDateField.text ?? "") else {
+              let startDate = FinancialPlanDateModel.dateFormatter.date(from: creationView.textFieldArea.startDateField.text ?? ""),
+              let endDate = FinancialPlanDateModel.dateFormatter.date(from: creationView.textFieldArea.endDateField.text ?? "") else {
             showAlert(message: "모든 필드를 올바르게 입력해주세요.")
             return nil
         }
         
         do {
             let newPlanDTO = try planService.createFinancialPlan(
-                title: selectedPlanTitle ?? "",
+                title: planTitle,
                 amount: amount,
                 deposit: deposit,
                 startDate: startDate,
@@ -161,9 +170,13 @@ extension FinancialPlanCreateVC {
 }
 
 // MARK: - 필드 입력값 유효성 검사
-extension FinancialPlanCreateVC {
+extension FinancialPlanCreationVC {
     private func validateAmount() -> Bool {
-        guard let amountText = createView.textFieldArea.targetAmountField.text,
+        guard let planTitle = creationView.titleTextField.text, (planService.getFinancialPlanByTitle(planTitle) == nil) else {
+            showExistingPlanAlert()
+            return false
+        }
+        guard let amountText = creationView.textFieldArea.targetAmountField.text,
               !amountText.isEmpty else {
             showAlert(message: "목표 금액을 입력해주세요.")
             return false
@@ -186,9 +199,24 @@ extension FinancialPlanCreateVC {
         }
     }
     
+    private func showExistingPlanAlert() {
+        let alert = UIAlertController(title: "알림", message: "같은 제목의 플랜이 있습니다.", preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "제목수정", style: .cancel, handler: nil)
+        
+        let goToCurrentPlanAction = UIAlertAction(title: "진행 플랜 보러가기", style: .default) { [weak self] _ in
+            self?.navigateToCurrentPlanVC()
+        }
+        
+        alert.addAction(cancelAction)
+        alert.addAction(goToCurrentPlanAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
     private func validateEndDate() -> Bool {
-        guard let endDateString = createView.textFieldArea.endDateField.text,
-              let startDateString = createView.textFieldArea.startDateField.text,
+        guard let endDateString = creationView.textFieldArea.endDateField.text,
+              let startDateString = creationView.textFieldArea.startDateField.text,
               let endDate = FinancialPlanDateModel.dateFormatter.date(from: endDateString),
               let startDate = FinancialPlanDateModel.dateFormatter.date(from: startDateString) else {
             showAlert(message: "올바른 날짜 형식이 아닙니다.")
@@ -202,11 +230,21 @@ extension FinancialPlanCreateVC {
             return false
         }
     }
+    
+    private func navigateToCurrentPlanVC() {
+        let currentPlanVC = FinancialPlanCurrentPlanVC(planService: planService)
+        navigationController?.pushViewController(currentPlanVC, animated: true)
+    }
 }
 
-// MARK: - 텍스트필드 한국화폐 표기
-extension FinancialPlanCreateVC {
+// MARK: - 텍스트필드 관련
+extension FinancialPlanCreationVC {
+    // 한국화폐에 맞게 세자리 마다 , 처리
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == creationView.titleTextField {
+            return true  // 타이틀 텍스트 필드의 경우 입력을 허용
+        }
+        
         if let currentText = textField.text,
            let textRange = Range(range, in: currentText) {
             let updatedText = currentText.replacingCharacters(in: textRange, with: string)
@@ -214,6 +252,26 @@ extension FinancialPlanCreateVC {
             textField.text = formattedText
         }
         return false
+    }
+    
+    // 타이틀 입력시작할 시 프리셋제목 지워주기
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == creationView.titleTextField && textField.text == selectedPlanTitle {
+            textField.placeholder = "플랜의 제목을 지어주세요"
+            textField.text = ""
+        }
+    }
+    // 수정사항 없을 시 프리셋제목으로 되돌림
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        let presetTitle = selectedPlanTitle
+        if textField == creationView.titleTextField && textField.text?.isEmpty ?? true {
+            textField.text = presetTitle
+        }
+    }
+    //리턴버튼으로 입력완료
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
 

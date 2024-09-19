@@ -178,7 +178,7 @@ class FinancialPlanService {
     }
     
     func getFinancialPlanByTitle(_ title: String) -> FinancialPlanDTO? {
-        return fetchAllFinancialPlans().first { $0.title == title }
+        return fetchIncompletedPlans().first { $0.title == title }
     }
     
     
