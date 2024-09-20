@@ -150,8 +150,8 @@ class MypageVC: UIViewController {
         [nicknameLabel, emailabel].forEach {header.addSubview($0)}
         
         // 헤더에 탭 제스처 -> 헤더 부분 클릭 시 페이지 이동 등에 쓰일 예정
-//        let headerTapGesture = UITapGestureRecognizer(target: self, action: #selector(headerTapped))
-//        header.addGestureRecognizer(headerTapGesture)
+        //        let headerTapGesture = UITapGestureRecognizer(target: self, action: #selector(headerTapped))
+        //        header.addGestureRecognizer(headerTapGesture)
         
         // 닉네임 오토레이아웃
         nicknameLabel.snp.makeConstraints {
@@ -192,7 +192,7 @@ class MypageVC: UIViewController {
         let safariVC = SFSafariViewController(url: url)
         self.present(safariVC, animated: true, completion: nil)
     }
-
+    
     
     //MARK: - @objc 로그아웃
     @objc func logOutCellTapped() {
@@ -210,21 +210,20 @@ class MypageVC: UIViewController {
         }
     }
     
+    
     //MARK: - @objc 회원탈퇴
-    @objc func deleteUserButtonTapped(uid: String) {
-            FirebaseFirestoreManager.shared.deleteUserData(uid: uid) { result in
-                switch result {
-                case .success(let data):
-                    
-                    print("회원탈퇴 완료")
-                    self.showSnycAlert(message: "회원탈퇴되었습니다.", AlertTitle: "회원탈퇴 성공", buttonClickTitle: "확인", method: self.switchToLoginVC)
-                    
-                case .failure(let error):
-                    self.showAlert(message: "\(error)", AlertTitle: "오류 발생", buttonClickTitle: "확인 ")
-                }
+    @objc func deleteUserButtonTapped(email:String, password: String) {
+        
+        FirebaseManager.shared.deleteUser(email: email, password: password) { success, error in
+            if success {
+                print("회원탈퇴 완료")
+                self.showSnycAlert(message: "회원탈퇴되었습니다.", AlertTitle: "회원탈퇴 성공", buttonClickTitle: "확인", method: self.switchToLoginVC)
+            } else if let error = error {
+                print("회원탈퇴 실패: \(error.localizedDescription)")
+                self.showAlert(message: "\(error)", AlertTitle: "오류 발생", buttonClickTitle: "확인 ")
             }
         }
-    
+    }
 }
 
 
@@ -260,7 +259,8 @@ extension MypageVC: UITableViewDelegate {
                 logOutCellTapped()
             case (3, 2):
                 print("회원탈퇴")
-                //                deleteUserButtonTapped()
+                let reauthenticationVC = ReauthenticationVC()
+                navigationController?.pushViewController(reauthenticationVC, animated: true)
             default:
                 break
             }

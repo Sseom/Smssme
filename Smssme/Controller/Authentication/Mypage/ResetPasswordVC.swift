@@ -86,8 +86,10 @@ extension ResetPasswordVC: UITextViewDelegate {
         
         // "계정 이메일 재설정"이 클릭된 경우
         if NSEqualRanges(characterRange, editEmailRange) { // 두 NSRange의 시작 위치와 길이가 같은지 비교
-            let emailVC = EmailVC()
-            navigationController?.pushViewController(emailVC, animated: true)
+//            let emailVC = EmailVC()
+//            emailVC.navigationItem.title = "이메일 재설정"
+//            navigationController?.pushViewController(emailVC, animated: true)
+            showAlert(message: "준비 중인 페이지입니다.", AlertTitle: "알림", buttonClickTitle: "확인")
             return false
         }
         return true

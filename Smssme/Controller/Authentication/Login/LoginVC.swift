@@ -125,6 +125,7 @@ class LoginVC: UIViewController {
     //MARK: - @objc 회원가입
     @objc private func signupButtonTapped() {
         let emailVC = EmailVC()
+        emailVC.navigationItem.title = "회원가입"
         self.navigationController?.pushViewController(emailVC, animated: true)
     }
     

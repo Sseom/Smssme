@@ -27,7 +27,6 @@ class MainPageVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupWelcomeTitle()
         view.backgroundColor = .white
     }
     
@@ -40,6 +39,7 @@ class MainPageVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setupWelcomeTitle()
         
         self.navigationController?.isNavigationBarHidden = true
     }

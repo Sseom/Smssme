@@ -8,6 +8,20 @@
 import FirebaseAuth
 import FirebaseFirestore
 
+enum AuthError: LocalizedError {
+    case userNotFound
+    case invalidCredentials
+    
+    var errorDescription: String? {
+        switch self {
+        case .userNotFound:
+            return "사용자를 찾을 수 없습니다."
+        case .invalidCredentials:
+            return "입력한 인증 정보가 올바르지 않습니다."
+        }
+    }
+}
+
 class FirebaseManager {
     static let shared = FirebaseManager()
     
@@ -83,7 +97,54 @@ class FirebaseManager {
         }
     }
     
+    //MARK: - 재인증
+    func reauthenticateUser(email: String, password: String?, completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let user = auth.currentUser else {
+            completion(.failure(AuthError.userNotFound))
+            return
+        }
+        
+        let credential = EmailAuthProvider.credential(withEmail: email, password: password ?? "")
+        
+        // 파이어베이스 재인증 메서드
+        user.reauthenticate(with: credential) { authResult, error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(()))
+            }
+            
+        }
+    }
+    
     //MARK: - 이메일 수정
+    func updateEmail(newEmail: String, password: String, completion: @escaping (Bool, Error?) -> Void) {
+        guard let currentEmail = Auth.auth().currentUser?.email else {
+            completion(false, AuthError.userNotFound)
+            return
+        }
+//        reauthenticateUser(email: Auth.auth().currentUser?.email ?? "", password: password) { result in
+//            switch result {
+//            case .success:
+//                Auth.auth().currentUser?.updateEmail(to: newEmail) { error in
+//                    completion(error == nil, error)
+//                }
+                
+                reauthenticateUser(email: currentEmail, password: password) { result in
+                    switch result {
+                    case .success:
+                        Auth.auth().currentUser?.updateEmail(to: newEmail) { error in
+                            if let error = error {
+                                completion(false, error)
+                            } else {
+                                completion(true, nil)
+                            }
+                        }
+            case .failure(let error):
+                completion(false, error)
+            }
+        }
+    }
     
     
     //MARK: - 로그인
@@ -93,7 +154,38 @@ class FirebaseManager {
     
     
     //MARK: - 회원탈퇴
-    
-    
-    
+    func deleteUser(email: String, password: String, completion: @escaping (Bool, Error?) -> Void) {
+        guard let currentEmail = Auth.auth().currentUser?.email else {
+            completion(false, AuthError.userNotFound)
+            return
+        }
+        
+        // 재인증 후 회원탈퇴 처리
+        if email == currentEmail {
+            // 이메일이 같을 경우 재인증 후 회원탈퇴 처리
+            reauthenticateUser(email: currentEmail, password: password) { result in
+                switch result {
+                case .success:
+                    // 재인증 성공 후 계정 삭제
+                    Auth.auth().currentUser?.delete { error in
+                        if let error = error {
+                            completion(false, error)  // 삭제 실패
+                        } else {
+                            completion(true, nil)     // 삭제 성공
+                        }
+                    }
+                case .failure(let error):
+                    // 재인증 실패
+                    completion(false, error)
+                }
+            }
+        } else {
+            // 이메일이 다를 경우 처리
+            completion(false, NSError(domain: "Email mismatch", code: 401, userInfo: [NSLocalizedDescriptionKey: "The entered email does not match the current user's email."]))
+            print("입력하신 이메일과 현재 로그인 된 이메일이 다릅니다.")
+        }
+        
+        
+    }
 }
+
