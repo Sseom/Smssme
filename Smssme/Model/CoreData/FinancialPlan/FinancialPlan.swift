@@ -76,18 +76,5 @@ enum PlanType: Int16, CaseIterable {
     }
 }
 
-
-// MARK: - dto
-
-struct FinancialPlanDTO {
-    var id: String
-    var title: String
-    var amount: Int64
-    var deposit: Int64
-    var startDate: Date
-    var endDate: Date
-    var planType: PlanType
-}
-
 // 차트 공용메서드를 위한 프로토콜
 extension FinancialPlan: ChartDataConvertible {}

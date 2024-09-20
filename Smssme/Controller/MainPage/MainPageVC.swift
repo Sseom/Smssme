@@ -84,25 +84,37 @@ class MainPageVC: UIViewController, UITableViewDelegate {
         let financialPlan = chartDataManager.chartTotalDataMapping(array: financialPlanManager.fetchAllFinancialPlans(), title: "플랜 자산")
         let diary = chartDataManager.diaryToChartData(array: diaryCoreDataManager.fetchDiaries())
         
-        print(diary)
-        
         assetsList.append(financialPlan)
         assetsList.append(diary)
+        assetsList.sort { $0.title! < $1.title! }
         
         let data = chartDataManager.pieChartPercentageData(array: assetsList)
         let entries = data.0
         let totalAmount = data.1
         
+        let predefinedColors: [UIColor] = [
+            UIColor(hex: "#3FB6DC"), // 청록색
+            UIColor(hex: "#2DC76D"), // 녹색
+            UIColor(hex: "#FF7052"), // 주황색
+            UIColor(hex: "#FFC107"), // 노란색
+            UIColor(hex: "#FF5722"), // 진한 주황색 계열
+            UIColor(hex: "#8BC34A"), // 연한 녹색 계열
+            UIColor(hex: "#673AB7"), // 보라색 계열
+            UIColor(hex: "#9C27B0"), // 밝은 보라색 계열
+            UIColor(hex: "#00BCD4"), // 하늘색 계열
+            UIColor(hex: "#E91E63") // 분홍색 계열
+        ]
+        
         var dataSet: PieChartDataSet
         if entries.count != 0 {
             dataSet = PieChartDataSet(entries: entries, label: "")
             dataSet.valueFormatter = PercentageValueFormatter()
-            dataSet.colors = entries.map { _ in
-                return UIColor(red: CGFloat.random(in: 0.5...1),
-                               green: CGFloat.random(in: 0.5...1),
-                               blue: CGFloat.random(in: 0.5...1),
-                               alpha: 1.0)
+            
+            // 미리 정의된 색상 배열을 섹터에 맞춰 순환하여 적용
+            dataSet.colors = entries.enumerated().map { index, _ in
+                return predefinedColors[index % predefinedColors.count]
             }
+            
             dataSet.valueColors = dataSet.colors.map { _ in
                 return .darkGray
             }

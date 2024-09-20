@@ -61,7 +61,7 @@ class AssetsListVC: UIViewController {
     
     private func setAssetsData() {
         let assetsItems: [AssetsItem] = assetsCoreDataManager.selectAllAssets().map {
-            AssetsItem(uuid: $0.key, category: $0.category, title: $0.title, amount: $0.amount)
+            AssetsItem(uuid: $0.key, category: $0.category, title: $0.title, amount: $0.amount, note: $0.note)
         }
         
         // FIXME: 고쳐 인컴뭐시기
@@ -71,7 +71,7 @@ class AssetsListVC: UIViewController {
         
         let diaryItems: [AssetsItem] = diaryCoreDataManager.diaryToMonthData(array: diaryCoreDataManager.fetchAllDiaries())
         
-        let items = Dictionary(grouping: (assetsItems + financialPlanItems + diaryItems), by: { $0.category })
+        let items = Dictionary(grouping: (financialPlanItems + diaryItems + assetsItems), by: { $0.category })
 
         // 각 category에 대한 AssetsList 생성
         var assetsList: [AssetsList] = []
@@ -81,7 +81,10 @@ class AssetsListVC: UIViewController {
             assetsList.append(list)
         }
         
+        assetsList.sort { $0.title < $1.title }
         self.assetsList = assetsList
+        
+        print(assetsList)
         assetsListView.tableView.reloadData()
     }
     
@@ -140,15 +143,29 @@ extension AssetsListVC: UITableViewDelegate {
         headerView.titleLabel.text = assetsList[section].title
         headerView.amountLabel.text = setSectionAmount(forSection: section)
         
-        switch section {
-        case 0:
-            headerView.backgroundView?.backgroundColor = UIColor(hex: "#3FB6DC")
-        case 1:
-            headerView.backgroundView?.backgroundColor = UIColor(hex: "#2DC76D")
-        case 2:
-            headerView.backgroundView?.backgroundColor = UIColor(hex: "#FF7052")
-        default:
-            headerView.backgroundView?.backgroundColor = .lightGray
+        switch section % 10 {
+            case 0:
+                headerView.backgroundView?.backgroundColor = UIColor(hex: "#3FB6DC") // 청록색 계열
+            case 1:
+                headerView.backgroundView?.backgroundColor = UIColor(hex: "#2DC76D") // 녹색 계열
+            case 2:
+                headerView.backgroundView?.backgroundColor = UIColor(hex: "#FF7052") // 주황색 계열
+            case 3:
+                headerView.backgroundView?.backgroundColor = UIColor(hex: "#FFC107") // 노란색 계열
+            case 4:
+                headerView.backgroundView?.backgroundColor = UIColor(hex: "#FF5722") // 진한 주황색 계열
+            case 5:
+                headerView.backgroundView?.backgroundColor = UIColor(hex: "#8BC34A") // 연한 녹색 계열
+            case 6:
+                headerView.backgroundView?.backgroundColor = UIColor(hex: "#673AB7") // 보라색 계열
+            case 7:
+                headerView.backgroundView?.backgroundColor = UIColor(hex: "#9C27B0") // 밝은 보라색 계열
+            case 8:
+                headerView.backgroundView?.backgroundColor = UIColor(hex: "#00BCD4") // 하늘색 계열
+            case 9:
+                headerView.backgroundView?.backgroundColor = UIColor(hex: "#E91E63") // 분홍색 계열
+            default:
+                headerView.backgroundView?.backgroundColor = .lightGray // 예외 처리
         }
         
         return headerView
