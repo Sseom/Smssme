@@ -177,17 +177,19 @@ extension MoneyDiaryVC: UICollectionViewDataSource, UICollectionViewDelegate, UI
         let weekCount = 0
         
         
-//        for (index, calendarItem) in calendarItems.enumerated(){
-//            if calendarItem.isThisMonth {
-//                
-//                calendarItem.weekSection = weekCount
-//                
-//                if DateManager.shared.getFirstWeekday(for: calendarItem.date) = 1 {
-//                    weekCount += 1
-//                }
-//            }
-//
-//        }
+        for (index, calendarItem) in calendarItems.enumerated(){
+            if calendarItem.isThisMonth {
+                
+                calendarItem.weekSection = weekCount
+                
+                if DateManager.shared.getFirstWeekday(for: calendarItem.date) == 1 {
+                    weekCount += 1
+                }//이렇게 될경우 일요일읆 만날때 증가된섹션에 값이 들어가고 한주에는 동일한 섹션값을 가지게됨
+                // 그냥 일자단위로 하루 일자 번
+                
+            }
+
+        }
     }
     
 

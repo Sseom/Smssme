@@ -10,16 +10,16 @@ import DGCharts
 
 struct CalendarItem {
     var date: Date
-    let isWeekOfStart: Bool
+    let dayBudget: Int
     let isThisMonth: Bool
     var weekSection: Int
     //일요일이면 +1 section 값이 동일한 애들끼리 백그라운드 컬러 처리
     init(date: Date = Date(),
-         isWeekOfStart: Bool = false,
+         dayBudget: Bool = false,
          isThisMonth: Bool = true,
          weekSection: Int = 0) {
         self.date = date
-        self.isWeekOfStart = isWeekOfStart
+        self.dayBudget = dayBudget
         self.isThisMonth = isThisMonth
         self.weekSection = weekSection
     }
@@ -73,36 +73,7 @@ class PercentageValueFormatter: ValueFormatter {
     }
 }
 
-enum ExpenseType: String {
-    case housing = "주거비"
-    case medical = "의료비"
-    case food = "식비"
-    case education = "교육비"
-    case insurance = "보험료"
-    case donation = "기부금"
-    case etc = "기타"
-    // sfSymbols -> 16버전으로만 
-    var imageName: String {
-        switch self {
-        case .housing:
-            return "house"
-        case .medical:
-            return "heart.fill"
-        case .food:
-            return "carrot.fill"
-        case .education:
-            return "studentdesk"
-        case .insurance:
-            return "dollarsign"
-        case .donation:
-            return "figure.and.child.holdinghands"
-        case .etc:
-            return "questionmark.folder"
-            
-        }
-    }
-    
-}
+
 
 class Benefit {
     static let shared = Benefit()
