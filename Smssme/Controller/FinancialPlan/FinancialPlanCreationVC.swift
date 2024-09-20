@@ -55,7 +55,6 @@ class FinancialPlanCreationVC: UIViewController, UITextFieldDelegate {
     }
     
     private func setupUI() {
-//        createView.planCreateTitle.text = selectedPlanTitle
         creationView.titleTextField.text = selectedPlanTitle
     }
     

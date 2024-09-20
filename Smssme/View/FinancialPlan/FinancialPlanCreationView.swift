@@ -11,11 +11,11 @@ import SnapKit
 class FinancialPlanCreationView: UIView {
     let textFieldArea: CreatePlanTextFieldView
     
-//    var planCreateTitle = LargeTitleLabel().createLabel(with: "세부자금플랜", color: UIColor.black)
-    
     lazy var titleTextField: UITextField = {
         let textField = UITextField()
         textField.font = UIFont.boldSystemFont(ofSize: 24)
+//        textField.layer.borderWidth = 1
+//        textField.layer.borderColor = UIColor.black.cgColor
         return textField
     }()
     
@@ -45,7 +45,8 @@ class FinancialPlanCreationView: UIView {
 //            planCreateTitle,
             titleTextField,
             tooltipView,
-            textFieldArea, confirmButton].forEach {
+            textFieldArea, 
+            confirmButton].forEach {
                 addSubview($0)
             }
         
