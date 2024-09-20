@@ -120,16 +120,10 @@ extension AssetsListVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let list = assetsList[indexPath.section]
         let cell = tableView.dequeueReusableCell(withIdentifier: "AssetsListCell", for: indexPath) as! AssetsListCell
-  
+        
         cell.assets = list.items[indexPath.row]
         
         return cell
-    }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let assetsEditVC = AssetsEditVC()
-        assetsEditVC.uuid = assetsList[indexPath.section].items[indexPath.row].uuid
-        self.navigationController?.pushViewController(assetsEditVC, animated: true)
-        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
@@ -169,6 +163,20 @@ extension AssetsListVC: UITableViewDelegate {
         }
         
         return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedItem = assetsList[indexPath.section].items[indexPath.row]
+        
+        if selectedItem.category == "플랜 자산" || selectedItem.category == "현금 자산" {
+            tableView.deselectRow(at: indexPath, animated: true)
+            return
+        }
+        
+        let assetsEditVC = AssetsEditVC()
+        assetsEditVC.uuid = selectedItem.uuid
+        self.navigationController?.pushViewController(assetsEditVC, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
