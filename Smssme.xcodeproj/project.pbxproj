@@ -39,9 +39,6 @@
 		5FE400742C949E15001D0FD1 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE400732C949E15001D0FD1 /* NetworkManager.swift */; };
 		5FE400762C949E89001D0FD1 /* APIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE400752C949E89001D0FD1 /* APIModel.swift */; };
 		5FE400782C949EB8001D0FD1 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE400772C949EB8001D0FD1 /* Endpoint.swift */; };
-		5FE4007B2C976504001D0FD1 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5FE4007A2C976504001D0FD1 /* KakaoSDKAuth */; };
-		5FE4007D2C976504001D0FD1 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 5FE4007C2C976504001D0FD1 /* KakaoSDKCommon */; };
-		5FE4007F2C976504001D0FD1 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 5FE4007E2C976504001D0FD1 /* KakaoSDKUser */; };
 		5FE400822C99A43A001D0FD1 /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE400812C99A43A001D0FD1 /* ResetPasswordView.swift */; };
 		5FE400842C99A450001D0FD1 /* ResetPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE400832C99A450001D0FD1 /* ResetPasswordVC.swift */; };
 		5FE400872C9B2F23001D0FD1 /* ReauthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE400862C9B2F23001D0FD1 /* ReauthenticationView.swift */; };
@@ -236,12 +233,9 @@
 				5F3EAE4E2C7EF73500FF15E5 /* FirebaseFirestore in Frameworks */,
 				5F3EAE502C7EF73500FF15E5 /* FirebaseFunctions in Frameworks */,
 				5F3EAE4C2C7EF73500FF15E5 /* FirebaseAuth in Frameworks */,
-				5FE4007D2C976504001D0FD1 /* KakaoSDKCommon in Frameworks */,
 				E5FBA1332C7CCCBE00D26E5F /* SnapKit in Frameworks */,
 				74707F802C806A5900F7000C /* DGCharts in Frameworks */,
 				5F3EAE522C7EF73500FF15E5 /* FirebaseStorage in Frameworks */,
-				5FE4007F2C976504001D0FD1 /* KakaoSDKUser in Frameworks */,
-				5FE4007B2C976504001D0FD1 /* KakaoSDKAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -647,9 +641,6 @@
 				5F3EAE4F2C7EF73500FF15E5 /* FirebaseFunctions */,
 				5F3EAE512C7EF73500FF15E5 /* FirebaseStorage */,
 				74707F7F2C806A5900F7000C /* DGCharts */,
-				5FE4007A2C976504001D0FD1 /* KakaoSDKAuth */,
-				5FE4007C2C976504001D0FD1 /* KakaoSDKCommon */,
-				5FE4007E2C976504001D0FD1 /* KakaoSDKUser */,
 			);
 			productName = Smssme;
 			productReference = 740350532C773E9B00122B2E /* Smssme.app */;
@@ -683,7 +674,6 @@
 				E5FBA1312C7CCCBE00D26E5F /* XCRemoteSwiftPackageReference "SnapKit" */,
 				5F3EAE482C7EF73400FF15E5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				74707F7E2C806A5900F7000C /* XCRemoteSwiftPackageReference "Charts" */,
-				5FE400792C976504001D0FD1 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 			);
 			productRefGroup = 740350542C773E9B00122B2E /* Products */;
 			projectDirPath = "";
@@ -723,7 +713,6 @@
 				744FB0982C93D88300208685 /* AssetsListVC.swift in Sources */,
 				E5F344E02C8468DB006F9A91 /* FinancialPlanCurrentPlanCell.swift in Sources */,
 				74707FA52C81B82600F7000C /* User+CoreDataProperties.swift in Sources */,
-				9F9F6E4D2C89AF5300F1EDA6 /* MoneyDiaryCreateView.swift in Sources */,
 				5FE400872C9B2F23001D0FD1 /* ReauthenticationView.swift in Sources */,
 				740350A82C7E229100122B2E /* TabBarController.swift in Sources */,
 				E5F71B3F2C98752F00F3072C /* FinancialPlanService.swift in Sources */,
@@ -1056,14 +1045,6 @@
 				minimumVersion = 11.1.0;
 			};
 		};
-		5FE400792C976504001D0FD1 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.22.7;
-			};
-		};
 		74707F7E2C806A5900F7000C /* XCRemoteSwiftPackageReference "Charts" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ChartsOrg/Charts";
@@ -1107,21 +1088,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5F3EAE482C7EF73400FF15E5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
-		};
-		5FE4007A2C976504001D0FD1 /* KakaoSDKAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5FE400792C976504001D0FD1 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
-			productName = KakaoSDKAuth;
-		};
-		5FE4007C2C976504001D0FD1 /* KakaoSDKCommon */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5FE400792C976504001D0FD1 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
-			productName = KakaoSDKCommon;
-		};
-		5FE4007E2C976504001D0FD1 /* KakaoSDKUser */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5FE400792C976504001D0FD1 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
-			productName = KakaoSDKUser;
 		};
 		74707F7F2C806A5900F7000C /* DGCharts */ = {
 			isa = XCSwiftPackageProductDependency;
