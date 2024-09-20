@@ -5,8 +5,6 @@
 //  Created by ahnzihyeon on 8/27/24.
 //
 
-import KakaoSDKAuth
-import KakaoSDKUser
 import FirebaseAuth
 import UIKit
 

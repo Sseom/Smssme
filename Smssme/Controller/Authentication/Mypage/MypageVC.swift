@@ -378,7 +378,7 @@ extension MypageVC: UITableViewDataSource {
         // "앱 버전" 셀에만 텍스트 추가
         if indexPath.section == 3 && indexPath.row == 0 {
             let label = UILabel()
-            label.text = "1.2.1"
+            label.text = "1.3.0"
             label.textColor = .lightGray
             label.sizeToFit()
             cell.accessoryView = label
