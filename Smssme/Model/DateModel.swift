@@ -77,31 +77,54 @@ enum ExpenseType: String {
     case housing = "주거비"
     case medical = "의료비"
     case food = "식비"
-//    case entertainment = "여가활동비"
-//    case shopping = "쇼핑"
-//    case traffic = "교통비"
-    //보험료, 교육비
-    // 기부금
-    // sfSymbols -> 16이상 버전으로만 구성
+    case education = "교육비"
+    case insurance = "보험료"
+    case donation = "기부금"
+    case etc = "기타"
+    // sfSymbols -> 16버전으로만 
     var imageName: String {
         switch self {
         case .housing:
-            return "house.circle.fill"
+            return "house"
         case .medical:
-            return "pill.circle"
+            return "heart.fill"
         case .food:
-            return "fork.knife.circle.fill"
-//        case .entertainment:
-//            return "party.popper"
-//        case .shopping:
-//            return "cart"
-//        case .traffic:
-//            return "car.circle.fill"
+            return "carrot.fill"
+        case .education:
+            return "studentdesk"
+        case .insurance:
+            return "dollarsign"
+        case .donation:
+            return "figure.and.child.holdinghands"
+        case .etc:
+            return "questionmark.folder"
+            
         }
     }
     
 }
 
+class Benefit {
+    static let shared = Benefit()
+    
+    private init() {}
+    
+    let benefitData: [String: String] = [
+        "청년 취업 및 창업 지원": "https://valley-porch-b6d.notion.site/1-1001c7ac6761489cbf12b3802a8924a7",
+        "청년 주거 지원": "https://valley-porch-b6d.notion.site/2-717bb3ae189b4847806ae044d3ddb8b1",
+        "청년 금융 지원": "https://valley-porch-b6d.notion.site/3-26ee2c8202ec46de854409179727c949?pvs=25",
+        "청년 교육 및 자립 지원": "https://valley-porch-b6d.notion.site/4-95f275585ec54a00b0994ae2e7310b5c?pvs=25",
+        "청년 복지 및 기타지원": "https://valley-porch-b6d.notion.site/5-e0eb6ef61c944c82b123284fb58adccc?pvs=4",
+        "지역별 혜택": "https://valley-porch-b6d.notion.site/6-2024-28798ac02443464493f80f299772b47b?pvs=4"
+    ]
+}
 
+protocol ChartDataConvertible {
+    var amount: Int64 { get }
+    var title: String? { get }
+}
 
-
+struct ChartData: ChartDataConvertible {
+    var amount: Int64
+    var title: String?
+}

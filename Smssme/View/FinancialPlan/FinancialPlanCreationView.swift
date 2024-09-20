@@ -1,5 +1,5 @@
 //
-//  FinancialPlanCreateView.swift
+//  FinancialPlanCreationView.swift
 //  Smssme
 //
 //  Created by 임혜정 on 8/27/24.
@@ -8,9 +8,26 @@
 import UIKit
 import SnapKit
 
-class FinancialPlanCreateView: UIView {
+class FinancialPlanCreationView: UIView {
     let textFieldArea: CreatePlanTextFieldView
-    var planCreateTitle = LargeTitleLabel().createLabel(with: "세부자금플랜", color: UIColor.black)
+    
+    lazy var titleTextField: UITextField = {
+        let textField = UITextField()
+        textField.font = UIFont.boldSystemFont(ofSize: 24)
+//        textField.layer.borderWidth = 1
+//        textField.layer.borderColor = UIColor.black.cgColor
+        return textField
+    }()
+    
+    private lazy var tooltipView: TooltipView = {
+        let tooltip = TooltipView(text: "제목을 지어주세요")
+        tooltip.isHidden = true
+        tooltip.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideTooltip))
+        tooltip.addGestureRecognizer(tapGesture)
+        return tooltip
+    }()
+    
     lazy var confirmButton = BaseButton().createButton(text: "확인", color: UIColor.black, textColor: UIColor.white)
     
     init(textFieldArea: CreatePlanTextFieldView) {
@@ -24,17 +41,31 @@ class FinancialPlanCreateView: UIView {
     }
     
     private func setupUI() {
-        [planCreateTitle, textFieldArea, confirmButton].forEach {
-            addSubview($0)
-        }
+        [
+//            planCreateTitle,
+            titleTextField,
+            tooltipView,
+            textFieldArea, 
+            confirmButton].forEach {
+                addSubview($0)
+            }
         
-        planCreateTitle.snp.makeConstraints {
+//        planCreateTitle.snp.makeConstraints {
+//            $0.top.equalTo(safeAreaLayoutGuide.snp.top).offset(10)
+//            $0.leading.equalTo(20)
+//        }
+        titleTextField.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide.snp.top).offset(10)
             $0.leading.equalTo(20)
         }
         
+        tooltipView.snp.makeConstraints {
+            $0.leading.equalTo(titleTextField.snp.trailing).offset(10)
+            $0.centerY.equalTo(titleTextField)
+        }
+        
         textFieldArea.snp.makeConstraints {
-            $0.top.equalTo(planCreateTitle.snp.bottom).offset(20)
+            $0.top.equalTo(titleTextField.snp.bottom).offset(20)
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().offset(-20)
             $0.height.equalTo(450)
@@ -45,6 +76,23 @@ class FinancialPlanCreateView: UIView {
             $0.centerX.equalToSuperview()
             $0.width.equalTo(80)
             $0.height.equalTo(40)
+        }
+    }
+    //  툴팁 동작
+    @objc private func hideTooltip() {
+        UIView.animate(withDuration: 0.3) {
+            self.tooltipView.alpha = 0
+        } completion: { _ in
+            self.tooltipView.isHidden = true
+            self.tooltipView.alpha = 1
+        }
+    }
+    
+    func showTooltip() {
+        tooltipView.isHidden = false
+        tooltipView.alpha = 0
+        UIView.animate(withDuration: 0.3) {
+            self.tooltipView.alpha = 1
         }
     }
 }
@@ -131,12 +179,66 @@ class CreatePlanTextFieldView: UIView {
 extension CreatePlanTextFieldView {
     private func setupGestureRecognizer() {
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-        recognizer.cancelsTouchesInView = false // Allow touches to be processed by other views
+        recognizer.cancelsTouchesInView = false
         self.addGestureRecognizer(recognizer)
     }
     
     // MARK: - Objc
     @objc private func handleTap() {
         self.endEditing(true)
+    }
+}
+
+
+// MARK: -  툴팁테스트 , 잘되면 재사용가능하게 분리할 것
+class TooltipView: UIView {
+    private let contentView = UIView()
+    private let label = UILabel()
+    
+    init(text: String) {
+        super.init(frame: .zero)
+        setup(text: text)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setup(text: String) {
+        addSubview(contentView)
+        contentView.addSubview(label)
+        
+        contentView.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+        contentView.layer.cornerRadius = 12
+        contentView.clipsToBounds = true
+        
+        label.text = text
+        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 12)
+        label.numberOfLines = 0
+        
+        contentView.snp.makeConstraints {
+            $0.top.bottom.trailing.equalToSuperview()
+            $0.leading.equalToSuperview().offset(10)  // 세모세모
+        }
+        
+        label.snp.makeConstraints {
+            $0.edges.equalToSuperview().inset(UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 12))
+        }
+    }
+    
+    override func draw(_ rect: CGRect) {
+        let path = UIBezierPath()
+        let point1 = CGPoint(x: 10, y: rect.height / 2 - 7)
+        let point2 = CGPoint(x: 10, y: rect.height / 2 + 7)
+        let point3 = CGPoint(x: 0, y: rect.height / 2)
+        
+        path.move(to: point1)
+        path.addLine(to: point2)
+        path.addLine(to: point3)
+        path.close()
+        
+        UIColor.systemBlue.withAlphaComponent(0.7).setFill()
+        path.fill()
     }
 }

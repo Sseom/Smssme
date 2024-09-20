@@ -52,6 +52,8 @@
 		740350632C773E9C00122B2E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 740350622C773E9C00122B2E /* Assets.xcassets */; };
 		740350662C773E9C00122B2E /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 740350652C773E9C00122B2E /* Base */; };
 		740350A82C7E229100122B2E /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740350A72C7E229100122B2E /* TabBarController.swift */; };
+		741746572C9871DA006D5456 /* BenefitVerticalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741746562C9871DA006D5456 /* BenefitVerticalCell.swift */; };
+		741746592C9B041A006D5456 /* ChartDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741746582C9B041A006D5456 /* ChartDataManager.swift */; };
 		744FB0962C93D81800208685 /* AssetsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744FB0952C93D81800208685 /* AssetsListView.swift */; };
 		744FB0982C93D88300208685 /* AssetsListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744FB0972C93D88300208685 /* AssetsListVC.swift */; };
 		744FB09A2C93D94000208685 /* AssetsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744FB0992C93D94000208685 /* AssetsListCell.swift */; };
@@ -89,13 +91,12 @@
 		74707FB62C84C6C300F7000C /* AssetsEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707FB52C84C6C300F7000C /* AssetsEditView.swift */; };
 		74707FBA2C84CD7A00F7000C /* AssetsEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707FB92C84CD7A00F7000C /* AssetsEditVC.swift */; };
 		9F06D3122C7EFF9D00DFF5B0 /* DateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F06D3112C7EFF9D00DFF5B0 /* DateModel.swift */; };
-		9F06D3182C801CFB00DFF5B0 /* FinancialPlanCreateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F06D3172C801CFA00DFF5B0 /* FinancialPlanCreateVC.swift */; };
+		9F06D3182C801CFB00DFF5B0 /* FinancialPlanCreationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F06D3172C801CFA00DFF5B0 /* FinancialPlanCreationVC.swift */; };
 		9F06D31A2C801D1F00DFF5B0 /* FinancialPlanConfirmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F06D3192C801D1F00DFF5B0 /* FinancialPlanConfirmVC.swift */; };
+		9F20E3712C9C0143003FF56E /* BenefitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F20E3702C9C0143003FF56E /* BenefitView.swift */; };
 		9F2FA5852C868EB100A9731D /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2FA5842C868EB100A9731D /* DateManager.swift */; };
 		9F86E6CD2C92AB5F00619F7D /* AutomaticTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F86E6CC2C92AB5F00619F7D /* AutomaticTransactionView.swift */; };
 		9F86E6CF2C92AB7100619F7D /* AutomaticTransactionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F86E6CE2C92AB7100619F7D /* AutomaticTransactionVC.swift */; };
-		9F9F6E4B2C89AF3500F1EDA6 /* MoneyDiaryCreatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F6E4A2C89AF3500F1EDA6 /* MoneyDiaryCreatVC.swift */; };
-		9F9F6E4D2C89AF5300F1EDA6 /* MoneyDiaryCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F6E4C2C89AF5300F1EDA6 /* MoneyDiaryCreateView.swift */; };
 		9FE549BF2C801E4D00E6075E /* FinancialPlanConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE549BE2C801E4D00E6075E /* FinancialPlanConfirmView.swift */; };
 		9FF702DB2C966B3F00890E77 /* RegexManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF702DA2C966B3F00890E77 /* RegexManager.swift */; };
 		E517F2822C8782F200CB8680 /* FinancialPlanManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2812C8782F200CB8680 /* FinancialPlanManager.swift */; };
@@ -112,8 +113,8 @@
 		E5FBA1332C7CCCBE00D26E5F /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = E5FBA1322C7CCCBE00D26E5F /* SnapKit */; };
 		E5FBA13B2C7E095300D26E5F /* FinancialPlanSelectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FBA13A2C7E095300D26E5F /* FinancialPlanSelectionVC.swift */; };
 		E5FBA13D2C7E099B00D26E5F /* FinancialPlanCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FBA13C2C7E099B00D26E5F /* FinancialPlanCell.swift */; };
-		E5FBA13F2C7E0A0800D26E5F /* FinancialPlanSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FBA13E2C7E0A0800D26E5F /* FinancialPlanSelectView.swift */; };
-		E5FBA1432C7E0B8B00D26E5F /* FinancialPlanCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FBA1422C7E0B8B00D26E5F /* FinancialPlanCreateView.swift */; };
+		E5FBA13F2C7E0A0800D26E5F /* FinancialPlanSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FBA13E2C7E0A0800D26E5F /* FinancialPlanSelectionView.swift */; };
+		E5FBA1432C7E0B8B00D26E5F /* FinancialPlanCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FBA1422C7E0B8B00D26E5F /* FinancialPlanCreationView.swift */; };
 		E5FBA1482C7EC68700D26E5F /* PlanCustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FBA1472C7EC68700D26E5F /* PlanCustomTextField.swift */; };
 		E5FBA1502C804FBA00D26E5F /* UIColorSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FBA14F2C804FBA00D26E5F /* UIColorSet.swift */; };
 /* End PBXBuildFile section */
@@ -160,6 +161,8 @@
 		740350672C773E9C00122B2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		740350A62C7E186600122B2E /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		740350A72C7E229100122B2E /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		741746562C9871DA006D5456 /* BenefitVerticalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenefitVerticalCell.swift; sourceTree = "<group>"; };
+		741746582C9B041A006D5456 /* ChartDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDataManager.swift; sourceTree = "<group>"; };
 		744FB0952C93D81800208685 /* AssetsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsListView.swift; sourceTree = "<group>"; };
 		744FB0972C93D88300208685 /* AssetsListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsListVC.swift; sourceTree = "<group>"; };
 		744FB0992C93D94000208685 /* AssetsListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsListCell.swift; sourceTree = "<group>"; };
@@ -197,13 +200,12 @@
 		74707FB92C84CD7A00F7000C /* AssetsEditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsEditVC.swift; sourceTree = "<group>"; };
 		74707FC12C85D78D00F7000C /* Smssme.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Smssme.entitlements; sourceTree = "<group>"; };
 		9F06D3112C7EFF9D00DFF5B0 /* DateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateModel.swift; sourceTree = "<group>"; };
-		9F06D3172C801CFA00DFF5B0 /* FinancialPlanCreateVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FinancialPlanCreateVC.swift; path = Smssme/Controller/FinancialPlan/FinancialPlanCreateVC.swift; sourceTree = SOURCE_ROOT; };
+		9F06D3172C801CFA00DFF5B0 /* FinancialPlanCreationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FinancialPlanCreationVC.swift; path = Smssme/Controller/FinancialPlan/FinancialPlanCreationVC.swift; sourceTree = SOURCE_ROOT; };
 		9F06D3192C801D1F00DFF5B0 /* FinancialPlanConfirmVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanConfirmVC.swift; sourceTree = "<group>"; };
+		9F20E3702C9C0143003FF56E /* BenefitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenefitView.swift; sourceTree = "<group>"; };
 		9F2FA5842C868EB100A9731D /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		9F86E6CC2C92AB5F00619F7D /* AutomaticTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomaticTransactionView.swift; sourceTree = "<group>"; };
 		9F86E6CE2C92AB7100619F7D /* AutomaticTransactionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomaticTransactionVC.swift; sourceTree = "<group>"; };
-		9F9F6E4A2C89AF3500F1EDA6 /* MoneyDiaryCreatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDiaryCreatVC.swift; sourceTree = "<group>"; };
-		9F9F6E4C2C89AF5300F1EDA6 /* MoneyDiaryCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDiaryCreateView.swift; sourceTree = "<group>"; };
 		9FE549BE2C801E4D00E6075E /* FinancialPlanConfirmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanConfirmView.swift; sourceTree = "<group>"; };
 		9FF702DA2C966B3F00890E77 /* RegexManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexManager.swift; sourceTree = "<group>"; };
 		E517F2812C8782F200CB8680 /* FinancialPlanManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanManager.swift; sourceTree = "<group>"; };
@@ -219,8 +221,8 @@
 		E5FBA12B2C7C823C00D26E5F /* UIComponentFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIComponentFactory.swift; sourceTree = "<group>"; };
 		E5FBA13A2C7E095300D26E5F /* FinancialPlanSelectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FinancialPlanSelectionVC.swift; path = Smssme/Controller/FinancialPlan/FinancialPlanSelectionVC.swift; sourceTree = SOURCE_ROOT; };
 		E5FBA13C2C7E099B00D26E5F /* FinancialPlanCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FinancialPlanCell.swift; path = Smssme/View/FinancialPlan/FinancialPlanCell.swift; sourceTree = SOURCE_ROOT; };
-		E5FBA13E2C7E0A0800D26E5F /* FinancialPlanSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanSelectView.swift; sourceTree = "<group>"; };
-		E5FBA1422C7E0B8B00D26E5F /* FinancialPlanCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FinancialPlanCreateView.swift; path = Smssme/View/FinancialPlan/FinancialPlanCreateView.swift; sourceTree = SOURCE_ROOT; };
+		E5FBA13E2C7E0A0800D26E5F /* FinancialPlanSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanSelectionView.swift; sourceTree = "<group>"; };
+		E5FBA1422C7E0B8B00D26E5F /* FinancialPlanCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FinancialPlanCreationView.swift; path = Smssme/View/FinancialPlan/FinancialPlanCreationView.swift; sourceTree = SOURCE_ROOT; };
 		E5FBA1472C7EC68700D26E5F /* PlanCustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanCustomTextField.swift; sourceTree = "<group>"; };
 		E5FBA14F2C804FBA00D26E5F /* UIColorSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorSet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -443,6 +445,7 @@
 				9F2FA5842C868EB100A9731D /* DateManager.swift */,
 				5FE400682C8DE94F001D0FD1 /* UITextField.swift */,
 				5FE400702C93CAD3001D0FD1 /* ToastMessage.swift */,
+				741746582C9B041A006D5456 /* ChartDataManager.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -456,7 +459,6 @@
 				746F80762C8841F300BBAEAF /* MoneyDiaryBudgetEditHeaderView.swift */,
 				746F807C2C8841F300BBAEAF /* MoneyDiaryBudgetEditView.swift */,
 				746F807A2C8841F300BBAEAF /* MoneyDiaryCalendarCell.swift */,
-				9F9F6E4C2C89AF5300F1EDA6 /* MoneyDiaryCreateView.swift */,
 				746F807D2C8841F300BBAEAF /* MoneyDiaryCalendarView.swift */,
 				746F80752C8841F300BBAEAF /* MoneyDiaryEditView.swift */,
 				746F807B2C8841F300BBAEAF /* MoneyDiaryView.swift */,
@@ -470,6 +472,7 @@
 			children = (
 				746F80892C88424000BBAEAF /* DailyTransactionCell.swift */,
 				746F80882C88424000BBAEAF /* DailyTransactionView.swift */,
+				9F20E3702C9C0143003FF56E /* BenefitView.swift */,
 			);
 			path = DailyTransaction;
 			sourceTree = "<group>";
@@ -479,7 +482,6 @@
 			children = (
 				746F80932C8842B700BBAEAF /* DailyTransaction */,
 				746F808F2C8842B200BBAEAF /* MoneyDiaryBudgetEditVC.swift */,
-				9F9F6E4A2C89AF3500F1EDA6 /* MoneyDiaryCreatVC.swift */,
 				746F808D2C8842B200BBAEAF /* MoneyDiaryEditVC.swift */,
 				746F808E2C8842B200BBAEAF /* MoneyDiaryVC.swift */,
 				E517F33F2C89A41900CB8680 /* MoneyDiaryCreationVC.swift */,
@@ -500,6 +502,7 @@
 			isa = PBXGroup;
 			children = (
 				74707F792C80698C00F7000C /* MainPageView.swift */,
+				741746562C9871DA006D5456 /* BenefitVerticalCell.swift */,
 			);
 			path = MainPage;
 			sourceTree = "<group>";
@@ -598,9 +601,9 @@
 			isa = PBXGroup;
 			children = (
 				E5FBA13A2C7E095300D26E5F /* FinancialPlanSelectionVC.swift */,
-				9F06D3192C801D1F00DFF5B0 /* FinancialPlanConfirmVC.swift */,
+				9F06D3172C801CFA00DFF5B0 /* FinancialPlanCreationVC.swift */,
 				E5F344D72C806A58006F9A91 /* FinancialPlanCurrentPlanVC.swift */,
-				9F06D3172C801CFA00DFF5B0 /* FinancialPlanCreateVC.swift */,
+				9F06D3192C801D1F00DFF5B0 /* FinancialPlanConfirmVC.swift */,
 				E5BF5E442C8587310093FD2D /* FinancialPlanEditPlanVC.swift */,
 			);
 			path = FinancialPlan;
@@ -609,9 +612,9 @@
 		E5FBA1462C7EC64500D26E5F /* FinancialPlan */ = {
 			isa = PBXGroup;
 			children = (
-				E5FBA13E2C7E0A0800D26E5F /* FinancialPlanSelectView.swift */,
+				E5FBA13E2C7E0A0800D26E5F /* FinancialPlanSelectionView.swift */,
 				E5FBA13C2C7E099B00D26E5F /* FinancialPlanCell.swift */,
-				E5FBA1422C7E0B8B00D26E5F /* FinancialPlanCreateView.swift */,
+				E5FBA1422C7E0B8B00D26E5F /* FinancialPlanCreationView.swift */,
 				9FE549BE2C801E4D00E6075E /* FinancialPlanConfirmView.swift */,
 				E5F344D92C806A75006F9A91 /* FinancialPlanCurrentPlanView.swift */,
 				E5F344DF2C8468DB006F9A91 /* FinancialPlanCurrentPlanCell.swift */,
@@ -680,7 +683,6 @@
 				E5FBA1312C7CCCBE00D26E5F /* XCRemoteSwiftPackageReference "SnapKit" */,
 				5F3EAE482C7EF73400FF15E5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				74707F7E2C806A5900F7000C /* XCRemoteSwiftPackageReference "Charts" */,
-				9FB5C68A2C952DEA00B5AF6D /* XCRemoteSwiftPackageReference "PopMenu" */,
 				5FE400792C976504001D0FD1 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 			);
 			productRefGroup = 740350542C773E9B00122B2E /* Products */;
@@ -720,13 +722,12 @@
 				746F80832C8841F300BBAEAF /* MoneyDiaryCalendarCell.swift in Sources */,
 				744FB0982C93D88300208685 /* AssetsListVC.swift in Sources */,
 				E5F344E02C8468DB006F9A91 /* FinancialPlanCurrentPlanCell.swift in Sources */,
-				9F9F6E4B2C89AF3500F1EDA6 /* MoneyDiaryCreatVC.swift in Sources */,
 				74707FA52C81B82600F7000C /* User+CoreDataProperties.swift in Sources */,
 				9F9F6E4D2C89AF5300F1EDA6 /* MoneyDiaryCreateView.swift in Sources */,
 				5FE400872C9B2F23001D0FD1 /* ReauthenticationView.swift in Sources */,
 				740350A82C7E229100122B2E /* TabBarController.swift in Sources */,
 				E5F71B3F2C98752F00F3072C /* FinancialPlanService.swift in Sources */,
-				E5FBA13F2C7E0A0800D26E5F /* FinancialPlanSelectView.swift in Sources */,
+				E5FBA13F2C7E0A0800D26E5F /* FinancialPlanSelectionView.swift in Sources */,
 				5FE400762C949E89001D0FD1 /* APIModel.swift in Sources */,
 				5FA890092C85B30800549363 /* FirebaseFirestoreManager.swift in Sources */,
 				74707F982C81B79500F7000C /* Budget+CoreDataClass.swift in Sources */,
@@ -748,6 +749,7 @@
 				74707FB62C84C6C300F7000C /* AssetsEditView.swift in Sources */,
 				740350572C773E9B00122B2E /* AppDelegate.swift in Sources */,
 				5F18A2152C8DB34800BC70B7 /* PasswordView.swift in Sources */,
+				9F20E3712C9C0143003FF56E /* BenefitView.swift in Sources */,
 				744FB0962C93D81800208685 /* AssetsListView.swift in Sources */,
 				74707FAB2C81B85B00F7000C /* DiaryCoreDataManager.swift in Sources */,
 				746F80902C8842B200BBAEAF /* MoneyDiaryEditVC.swift in Sources */,
@@ -762,6 +764,7 @@
 				5FA88FEF2C80760E00549363 /* CommonAlert.swift in Sources */,
 				E517F2822C8782F200CB8680 /* FinancialPlanManager.swift in Sources */,
 				74707FAF2C81B86100F7000C /* UserCoreDataManager.swift in Sources */,
+				741746572C9871DA006D5456 /* BenefitVerticalCell.swift in Sources */,
 				5FA88FEF2C80760E00549363 /* CommonAlert.swift in Sources */,
 				740350592C773E9B00122B2E /* SceneDelegate.swift in Sources */,
 				5FE400842C99A450001D0FD1 /* ResetPasswordVC.swift in Sources */,
@@ -780,10 +783,11 @@
 				5F413EFF2C805CC200004703 /* MypageView.swift in Sources */,
 				5F3EAE192C7E182400FF15E5 /* LoginView.swift in Sources */,
 				5F3EAE5B2C7F36E500FF15E5 /* SignUpVC.swift in Sources */,
+				741746592C9B041A006D5456 /* ChartDataManager.swift in Sources */,
 				E5FBA13B2C7E095300D26E5F /* FinancialPlanSelectionVC.swift in Sources */,
 				5FE400782C949EB8001D0FD1 /* Endpoint.swift in Sources */,
 				5FE400692C8DE94F001D0FD1 /* UITextField.swift in Sources */,
-				E5FBA1432C7E0B8B00D26E5F /* FinancialPlanCreateView.swift in Sources */,
+				E5FBA1432C7E0B8B00D26E5F /* FinancialPlanCreationView.swift in Sources */,
 				744FB09A2C93D94000208685 /* AssetsListCell.swift in Sources */,
 				5FE400712C93CAD3001D0FD1 /* ToastMessage.swift in Sources */,
 				5F18A2112C8DB31E00BC70B7 /* EmailView.swift in Sources */,
@@ -804,7 +808,7 @@
 				E5FBA1502C804FBA00D26E5F /* UIColorSet.swift in Sources */,
 				74707FA92C81B85800F7000C /* BudgetCoreDataManager.swift in Sources */,
 				E5BF5E452C8587310093FD2D /* FinancialPlanEditPlanVC.swift in Sources */,
-				9F06D3182C801CFB00DFF5B0 /* FinancialPlanCreateVC.swift in Sources */,
+				9F06D3182C801CFB00DFF5B0 /* FinancialPlanCreationVC.swift in Sources */,
 				5FA890102C87344000549363 /* MypageViewCell.swift in Sources */,
 				E5F71B3D2C98749A00F3072C /* FinancialPlan.swift in Sources */,
 				5F3EAE1C2C7E1CC200FF15E5 /* LoginVC.swift in Sources */,
@@ -1066,14 +1070,6 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 5.1.0;
-			};
-		};
-		9FB5C68A2C952DEA00B5AF6D /* XCRemoteSwiftPackageReference "PopMenu" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/CaliCastle/PopMenu.git";
-			requirement = {
-				branch = master;
-				kind = branch;
 			};
 		};
 		E5FBA1312C7CCCBE00D26E5F /* XCRemoteSwiftPackageReference "SnapKit" */ = {

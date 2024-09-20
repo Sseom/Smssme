@@ -11,10 +11,10 @@ final class FinancialPlanCurrentPlanVC: UIViewController, FinancialPlanCreateDel
 
     private let financialPlanCurrentView = FinancialPlanCurrentPlanView()
     private var planService: FinancialPlanService
-    private var planDTO: FinancialPlanDTO
+    private var planDTO: FinancialPlanDTO?
     private var plans: [FinancialPlanDTO] = []
     
-    init(planService: FinancialPlanService, planDTO: FinancialPlanDTO) {
+    init(planService: FinancialPlanService, planDTO: FinancialPlanDTO? = nil) {
         self.planService = planService
         self.planDTO = planDTO
         super.init(nibName: nil, bundle: nil)
@@ -50,7 +50,7 @@ final class FinancialPlanCurrentPlanVC: UIViewController, FinancialPlanCreateDel
     }
     
     private func loadFinancialPlans() {
-        plans = planService.fetchAllFinancialPlans()
+        plans = planService.fetchIncompletedPlans()
         financialPlanCurrentView.currentPlanCollectionView.reloadData()
     }
     
@@ -86,15 +86,15 @@ extension FinancialPlanCurrentPlanVC: UICollectionViewDataSource {
 
 extension FinancialPlanCurrentPlanVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        _ = plans[indexPath.item]
-        let confirmVC = FinancialPlanConfirmVC(planService: planService, planDTO: planDTO)
+        let selectedPlan = plans[indexPath.item]
+        let confirmVC = FinancialPlanConfirmVC(planService: planService, planDTO: selectedPlan)
         confirmVC.deleteDelegate = self
         confirmVC.updateDelegate = self
         navigationController?.pushViewController(confirmVC, animated: true)
     }
 }
 
-// MARK: - FinancialPlanCreateDelegate
+// MARK: - FinancialPlan CUD
 extension FinancialPlanCurrentPlanVC {
     func didCreateFinancialPlan(_ plan: FinancialPlanDTO) {
         plans.insert(plan, at: 0)
@@ -102,27 +102,21 @@ extension FinancialPlanCurrentPlanVC {
             self.financialPlanCurrentView.currentPlanCollectionView.reloadData()
         }
     }
-}
-
-// MARK: - FinancialPlanDeleteDelegate
-extension FinancialPlanCurrentPlanVC {
-    func didDeleteFinancialPlan(_ plan: FinancialPlanDTO) {
-        if let index = plans.firstIndex(where: { $0.id == plan.id }) {
-            plans.remove(at: index)
-            DispatchQueue.main.async {
-                self.financialPlanCurrentView.currentPlanCollectionView.deleteItems(at: [IndexPath(item: index, section: 0)])
-            }
-        }
-    }
-}
-
-// MARK: - FinancialPlanUpdateDelegate
-extension FinancialPlanCurrentPlanVC {
+    
     func didUpdateFinancialPlan(_ plan: FinancialPlanDTO) {
         if let index = plans.firstIndex(where: { $0.id == plan.id }) {
             plans[index] = plan
             DispatchQueue.main.async {
                 self.financialPlanCurrentView.currentPlanCollectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+            }
+        }
+    }
+    
+    func didDeleteFinancialPlan(_ plan: FinancialPlanDTO) {
+        if let index = plans.firstIndex(where: { $0.id == plan.id }) {
+            plans.remove(at: index)
+            DispatchQueue.main.async {
+                self.financialPlanCurrentView.currentPlanCollectionView.deleteItems(at: [IndexPath(item: index, section: 0)])
             }
         }
     }

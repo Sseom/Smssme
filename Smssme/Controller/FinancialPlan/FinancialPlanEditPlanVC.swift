@@ -13,15 +13,15 @@ protocol FinancialPlanEditDelegate: AnyObject {
 
 class FinancialPlanEditPlanVC: UIViewController, UITextFieldDelegate {
     weak var editDelegate: FinancialPlanEditDelegate?
-    private var createView: FinancialPlanCreateView
-    private let textFieldArea: CreatePlanTextFieldView = CreatePlanTextFieldView()
+    private var creationView: FinancialPlanCreationView = FinancialPlanCreationView(textFieldArea: CreatePlanTextFieldView())
     private var planService: FinancialPlanService
     private var planDTO: FinancialPlanDTO
+    
+    private var selectedPlanTitle: String?
     
     init(planService: FinancialPlanService, planDTO: FinancialPlanDTO) {
         self.planService = planService
         self.planDTO = planDTO
-        self.createView = FinancialPlanCreateView(textFieldArea: textFieldArea)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -39,14 +39,14 @@ class FinancialPlanEditPlanVC: UIViewController, UITextFieldDelegate {
     }
     
     override func loadView() {
-        view = createView
+        view = creationView
     }
 }
 
 // MARK: - 화면전환관련
 extension FinancialPlanEditPlanVC {
     private func setupActions() {
-        createView.confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
+        creationView.confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
     }
     
     @objc func confirmButtonTapped() {
@@ -62,12 +62,12 @@ extension FinancialPlanEditPlanVC {
     }
     
     private func saveUpdatedPlan() {
-        guard let amountText = createView.textFieldArea.targetAmountField.text,
+        guard let amountText = creationView.textFieldArea.targetAmountField.text,
               let amount = KoreanCurrencyFormatter.shared.number(from: amountText),
-              let depositText = createView.textFieldArea.currentSavedField.text,
+              let depositText = creationView.textFieldArea.currentSavedField.text,
               let deposit = KoreanCurrencyFormatter.shared.number(from: depositText),
-              let startDateString = createView.textFieldArea.startDateField.text,
-              let endDateString = createView.textFieldArea.endDateField.text,
+              let startDateString = creationView.textFieldArea.startDateField.text,
+              let endDateString = creationView.textFieldArea.endDateField.text,
               let startDate = FinancialPlanDateModel.dateFormatter.date(from: startDateString),
               let endDate = FinancialPlanDateModel.dateFormatter.date(from: endDateString) else {
             print("해결중 에러")
@@ -82,7 +82,8 @@ extension FinancialPlanEditPlanVC {
                 deposit: deposit,
                 startDate: startDate,
                 endDate: endDate,
-                planType: planDTO.planType
+                planType: planDTO.planType,
+                isCompleted: false
             )
             
             try planService.updateFinancialPlan(updateDTO)
@@ -107,33 +108,28 @@ extension FinancialPlanEditPlanVC {
 
 extension FinancialPlanEditPlanVC {
     private func configure(with plan: FinancialPlanDTO) {
-        createView.textFieldArea.targetAmountField.text = "\(plan.amount.formattedAsCurrency)"
-        createView.textFieldArea.currentSavedField.text = "\(plan.deposit.formattedAsCurrency)"
-        
-//        if let startDate = plan.startDate {
-//            let formattedDate = FinancialPlanDateModel.dateFormatter.string(from: startDate)
-//            createView.textFieldArea.startDateField.text = formattedDate }
-//
-//        if let endDate = plan.endDate {
-//            createView.textFieldArea.endDateField.text = "\(FinancialPlanDateModel.dateFormatter.string(from: plan.endDate))"
-//        }
+        creationView.titleTextField.text = plan.title
+        creationView.textFieldArea.targetAmountField.text = "\(plan.amount.formattedAsCurrency)"
+        creationView.textFieldArea.currentSavedField.text = "\(plan.deposit.formattedAsCurrency)"
+        creationView.textFieldArea.startDateField.text = "\(FinancialPlanDateModel.dateFormatter.string(from: plan.startDate))"
+        creationView.textFieldArea.endDateField.text = "\(FinancialPlanDateModel.dateFormatter.string(from: plan.endDate))"
     }
     
     private func setupDatePickerTarget() {
-        if let startDatePicker = createView.textFieldArea.startDateField.inputView as? UIDatePicker {
+        if let startDatePicker = creationView.textFieldArea.startDateField.inputView as? UIDatePicker {
             startDatePicker.addTarget(self, action: #selector(datePickerValueChanged(_:)), for: .valueChanged)
         }
-        if let endDatePicker = createView.textFieldArea.endDateField.inputView as? UIDatePicker {
+        if let endDatePicker = creationView.textFieldArea.endDateField.inputView as? UIDatePicker {
             endDatePicker.addTarget(self, action: #selector(datePickerValueChanged(_:)), for: .valueChanged)
         }
     }
     private func setupTextFields() {
-        createView.textFieldArea.targetAmountField.delegate = self
-        createView.textFieldArea.currentSavedField.delegate = self
+        creationView.textFieldArea.targetAmountField.delegate = self
+        creationView.textFieldArea.currentSavedField.delegate = self
         
         // 초기 값 설정
-        createView.textFieldArea.targetAmountField.text = planDTO.amount.formattedAsCurrency
-        createView.textFieldArea.currentSavedField.text = planDTO.deposit.formattedAsCurrency
+        creationView.textFieldArea.targetAmountField.text = planDTO.amount.formattedAsCurrency
+        creationView.textFieldArea.currentSavedField.text = planDTO.deposit.formattedAsCurrency
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -144,9 +140,9 @@ extension FinancialPlanEditPlanVC {
             textField.text = formattedText
             
             // int 값 저장
-            if textField == createView.textFieldArea.targetAmountField {
+            if textField == creationView.textFieldArea.targetAmountField {
                 planDTO.amount = KoreanCurrencyFormatter.shared.number(from: formattedText) ?? 0
-            } else if textField == createView.textFieldArea.currentSavedField {
+            } else if textField == creationView.textFieldArea.currentSavedField {
                 planDTO.deposit = KoreanCurrencyFormatter.shared.number(from: formattedText) ?? 0
             }
         }
@@ -154,10 +150,10 @@ extension FinancialPlanEditPlanVC {
     }
     
     @objc func datePickerValueChanged(_ sender: UIDatePicker) {
-        if sender == createView.textFieldArea.startDateField.inputView as? UIDatePicker {
-            createView.textFieldArea.startDateField.text = FinancialPlanDateModel.dateFormatter.string(from: sender.date)
-        } else if sender == createView.textFieldArea.endDateField.inputView as? UIDatePicker {
-            createView.textFieldArea.endDateField.text = FinancialPlanDateModel.dateFormatter.string(from: sender.date)
+        if sender == creationView.textFieldArea.startDateField.inputView as? UIDatePicker {
+            creationView.textFieldArea.startDateField.text = FinancialPlanDateModel.dateFormatter.string(from: sender.date)
+        } else if sender == creationView.textFieldArea.endDateField.inputView as? UIDatePicker {
+            creationView.textFieldArea.endDateField.text = FinancialPlanDateModel.dateFormatter.string(from: sender.date)
         }
     }
 }
@@ -165,7 +161,7 @@ extension FinancialPlanEditPlanVC {
 // MARK: - 필드 입력값 유효성 검사
 extension FinancialPlanEditPlanVC {
     private func validateAmount() -> Bool {
-        guard let amountText = createView.textFieldArea.targetAmountField.text,
+        guard let amountText = creationView.textFieldArea.targetAmountField.text,
               !amountText.isEmpty else {
             showAlert(message: "금액을 입력해주세요.")
             return false
@@ -195,8 +191,8 @@ extension FinancialPlanEditPlanVC {
     }
     
     private func validateEndDate() -> Bool {
-        guard let endDateString = createView.textFieldArea.endDateField.text,
-              let startDateString = createView.textFieldArea.startDateField.text,
+        guard let endDateString = creationView.textFieldArea.endDateField.text,
+              let startDateString = creationView.textFieldArea.startDateField.text,
               let endDate = FinancialPlanDateModel.dateFormatter.date(from: endDateString),
               let startDate = FinancialPlanDateModel.dateFormatter.date(from: startDateString) else {
             return false

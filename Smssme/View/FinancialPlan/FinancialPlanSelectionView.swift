@@ -1,5 +1,5 @@
 //
-//  FinancialPlanSelectView.swift
+//  FinancialPlanSelectionView.swift
 //  Smssme
 //
 //  Created by 임혜정 on 8/27/24.

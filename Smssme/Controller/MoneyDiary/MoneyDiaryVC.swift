@@ -163,56 +163,31 @@ extension MoneyDiaryVC: UICollectionViewDataSource, UICollectionViewDelegate, UI
                 // 현재 주차 값을 설정
                 self.calendarItems[index].weekSection = currentWeekSection
                 
-                print(calendarItems[index].weekSection)
+//                print(calendarItems[index].weekSection)
             }
         }
-        //        var sectionAmounts: [Int] = [0, 0, 0, 0, 0, 0]
-        //
-        //        for (index, item) in self.calendarItems.enumerated() {
-        //            if item.weekSection == 0 {
-        //                var arr: [Date] = []
-        //                arr.append(calendarItems[index].date)
-        //                print(arr)
-        //                if let temp = DiaryCoreDataManager.shared.fetchDiaries(from: arr[0], to: arr[arr.index(arr.endIndex, offsetBy: -1)])
-        //                {
-        //                    for i in temp {
-        //                        if !i.statement {
-        //                            sectionAmounts[0] += Int(i.amount)
-        //                        }
-        //
-        //                }
-        //
-        //
-        //                }
-        //
-        //
-        //            }
-        //        }
-        //        print(sectionAmounts[0])
-
-        //
-        //        DiaryCoreDataManager.shared.fetchDiaries(from: <#T##Date#>, to: <#T##Date#>)
-        //        let sectionAmount  =
-                let currentMonthBudget = 1500000
-                
-                let today = DateManager.shared.transformDateWithoutTime(date: Date())
-                for (index, item) in calendarItems.enumerated() {
-                    
-        //            if calendarItems[index].date < today && currentMonthBudget != 0 {
-        //                makeTrafficLightLogic(
-        //                    sectionAmount: <#T##Int#>,
-        //                    monthBudget: currentMonthBudget,
-        //                    sectionCount: index)
-        //            }
-                }
-                
-                
-                
-                
-            
-//            print(sections)
+        
             
         
+    }
+    
+    func configureBackground(monthBudget: Int) {
+        let dayBudget = monthBudget / DateManager.shared.getWeekdayNum(month: self.calendarDate)
+        var weeklyBudgets: [Int: Int] = [:]
+        let weekCount = 0
+        
+        
+//        for (index, calendarItem) in calendarItems.enumerated(){
+//            if calendarItem.isThisMonth {
+//                
+//                calendarItem.weekSection = weekCount
+//                
+//                if DateManager.shared.getFirstWeekday(for: calendarItem.date) = 1 {
+//                    weekCount += 1
+//                }
+//            }
+//
+//        }
     }
     
 
@@ -326,7 +301,7 @@ extension MoneyDiaryVC {
     
     private func showActionButtons() {
         moneyDiaryView.popButtons(isActive: isActive)
-        moneyDiaryView.rotateFloatingButton(isActive: isActive)
+
     }
     
     @objc private func didTapBudgetButton() {

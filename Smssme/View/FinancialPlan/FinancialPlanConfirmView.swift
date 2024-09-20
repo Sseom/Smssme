@@ -10,6 +10,8 @@ import UIKit
 
 final class FinancialPlanConfirmView: UIView {
     let confirmLargeTitle = LargeTitleLabel().createLabel(with: "", color: UIColor.black)
+    let incompleteButtonView = ButtonIncomplete()
+    let completeButtonView = ButtonComplete()
     
     let confirmImage: UIImageView = {
         let image = UIImageView()
@@ -33,7 +35,7 @@ final class FinancialPlanConfirmView: UIView {
         return stackView
     }()
     
-    private let buttonsView: UIStackView = {
+    private let buttonArea: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
@@ -45,18 +47,14 @@ final class FinancialPlanConfirmView: UIView {
     
     let amountGoalTitleLabel = ContentLabel().createLabel(with: "목표금액", color: UIColor(hex: "#060b11"))
     let amountGoalLabel = ContentBoldLabel().createLabel(with: "", color: UIColor(hex: "#333333"))
-    let currentSavedTitleLabel = ContentLabel().createLabel(with: "현재저축금액", color: UIColor(hex: "#060b11"))
+    let currentSavedTitleLabel = ContentLabel().createLabel(with: "지금까지 모은 금액", color: UIColor(hex: "#060b11"))
     let currentSavedLabel = ContentBoldLabel().createLabel(with: "", color: UIColor(hex: "#333333"))
     let endDateTitleLabel = ContentLabel().createLabel(with: "목표날짜", color: UIColor(hex: "#060b11"))
     let endDateLabel = ContentBoldLabel().createLabel(with: "", color: UIColor(hex: "#333333"))
     let daysLeftTitleLabel = ContentLabel().createLabel(with: "남은날짜", color: UIColor(hex: "#060b11"))
     let daysLeftLabel = ContentBoldLabel().createLabel(with: "", color: UIColor(hex: "#333333"))
-    
-    let editButton = ActionButtonBorder().createButton(text: "수정", color: UIColor.black, textColor: UIColor.black)
-    let deleteButton = ActionButtonBlack2().createButton(text: "플랜삭제", color: UIColor.black, textColor: UIColor.white)
-    
-    let monthTargetTitle = ContentLabel().createLabel(with: "이번달 저축 목표", color: UIColor(hex: "#060b11"))
-    let monthTarget = ContentBoldLabel().createLabel(with: "", color: UIColor(hex: "#333333"))
+    let monthlyGoalsTitleLabel = ContentLabel().createLabel(with: "이번달 저축할 금액", color: UIColor(hex: "#060b11"))
+    let monthlyGoalsLabel = ContentBoldLabel().createLabel(with: "", color: UIColor(hex: "#333333"))
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -68,7 +66,12 @@ final class FinancialPlanConfirmView: UIView {
     }
     
     private func setupUI() {
-        [confirmLargeTitle, confirmImage, contentStackView, buttonsView].forEach {
+        [
+            confirmLargeTitle,
+            confirmImage,
+            contentStackView,
+            buttonArea,
+        ].forEach {
             addSubview($0)
         }
         
@@ -80,27 +83,43 @@ final class FinancialPlanConfirmView: UIView {
         confirmImage.snp.makeConstraints {
             $0.top.equalTo(confirmLargeTitle.snp.bottom).offset(50)
             $0.width.equalTo(300)
-            $0.height.equalTo(260)
+            $0.height.equalTo(240)
             $0.centerX.equalToSuperview()
         }
         
         contentStackView.snp.makeConstraints {
-            $0.top.equalTo(confirmImage.snp.bottom)
+            $0.top.equalTo(confirmImage.snp.bottom).offset(-20)
             $0.width.equalTo(300)
             $0.height.equalTo(200)
             $0.centerX.equalToSuperview()
         }
         
-        buttonsView.snp.makeConstraints {
-            $0.top.equalTo(contentStackView.snp.bottom).offset(10)
-            $0.width.equalTo(300)
+        buttonArea.snp.makeConstraints {
+            $0.top.equalTo(contentStackView.snp.bottom).offset(20)
             $0.height.equalTo(40)
-            $0.centerX.equalToSuperview()
+            $0.leading.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().offset(-20)
         }
         
         setupSubTitle()
         setupDataLabel()
-        setupButtons()
+        
+        // 플랜의 완료 가능상태에 따라서 버튼 뷰를 달리함
+        [incompleteButtonView, completeButtonView].forEach {
+            buttonArea.addArrangedSubview($0)
+            // 버튼 뷰 높이 buttonArea에 맞추게
+            $0.snp.makeConstraints {
+                $0.height.equalTo(40)
+            }
+        }
+        
+        incompleteButtonView.isHidden = false
+        completeButtonView.isHidden = true
+    }
+    
+    func updateButtonAreaState(achievable: Bool) {
+        incompleteButtonView.isHidden = achievable
+        completeButtonView.isHidden = !achievable
     }
     
     private func setupDataLabel() {
@@ -108,7 +127,8 @@ final class FinancialPlanConfirmView: UIView {
             amountGoalLabel,
             currentSavedLabel,
             endDateLabel,
-            daysLeftLabel
+            monthlyGoalsLabel,
+            daysLeftLabel,
         ].forEach {
             contentStackView.addSubview($0)
         }
@@ -123,8 +143,13 @@ final class FinancialPlanConfirmView: UIView {
             $0.trailing.equalToSuperview()
         }
         
-        endDateLabel.snp.makeConstraints {
+        monthlyGoalsLabel.snp.makeConstraints {
             $0.top.equalTo(currentSavedLabel.snp.bottom).offset(16)
+            $0.trailing.equalToSuperview()
+        }
+        
+        endDateLabel.snp.makeConstraints {
+            $0.top.equalTo(monthlyGoalsLabel.snp.bottom).offset(16)
             $0.trailing.equalToSuperview()
         }
         
@@ -132,8 +157,6 @@ final class FinancialPlanConfirmView: UIView {
             $0.top.equalTo(endDateLabel.snp.bottom).offset(16)
             $0.trailing.equalToSuperview()
         }
-        
-        
     }
     
     private func setupSubTitle() {
@@ -141,7 +164,9 @@ final class FinancialPlanConfirmView: UIView {
             amountGoalTitleLabel,
             currentSavedTitleLabel,
             endDateTitleLabel,
-            daysLeftTitleLabel
+            monthlyGoalsTitleLabel,
+            daysLeftTitleLabel,
+            
         ].forEach {
             contentStackView.addSubview($0)
         }
@@ -156,8 +181,13 @@ final class FinancialPlanConfirmView: UIView {
             $0.leading.equalToSuperview()
         }
         
-        endDateTitleLabel.snp.makeConstraints {
+        monthlyGoalsTitleLabel.snp.makeConstraints {
             $0.top.equalTo(currentSavedTitleLabel.snp.bottom).offset(16)
+            $0.leading.equalToSuperview()
+        }
+        
+        endDateTitleLabel.snp.makeConstraints {
+            $0.top.equalTo(monthlyGoalsTitleLabel.snp.bottom).offset(16)
             $0.leading.equalToSuperview()
         }
         
@@ -165,32 +195,7 @@ final class FinancialPlanConfirmView: UIView {
             $0.top.equalTo(endDateTitleLabel.snp.bottom).offset(16)
             $0.leading.equalToSuperview()
         }
-        
     }
-    
-    private func setupButtons() {
-        [
-            editButton, 
-            deleteButton
-        ].forEach {
-            buttonsView.addSubview($0)
-        }
-        
-        editButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview().offset(-0)
-            $0.width.equalTo(80)
-            $0.height.equalTo(40)
-            $0.leading.equalToSuperview().offset(60)
-        }
-        
-        deleteButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview().offset(-0)
-            $0.width.equalTo(80)
-            $0.height.equalTo(40)
-            $0.trailing.equalToSuperview().offset(-60)
-        }
-    }
-    
 }
 
 extension FinancialPlanConfirmView {
@@ -212,6 +217,72 @@ extension FinancialPlanConfirmView {
             setImage()
         } else {
             DispatchQueue.main.async(execute: setImage)
+        }
+    }
+}
+
+class ButtonIncomplete: UIView {
+    let editButton = ActionButtonBorder().createButton(text: "수정", color: UIColor.black, textColor: UIColor.black)
+    let deleteButton = ActionButtonBlack2().createButton(text: "플랜삭제", color: UIColor.black, textColor: UIColor.white)
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupButton()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupButton() {
+        [
+            editButton,
+            deleteButton
+        ].forEach {
+            addSubview($0)
+        }
+        editButton.snp.makeConstraints {
+            $0.bottom.equalToSuperview()
+            $0.width.equalTo(80)
+            $0.height.equalTo(40)
+            $0.leading.equalToSuperview().offset(40)
+            $0.centerY.equalToSuperview()
+        }
+        
+        deleteButton.snp.makeConstraints {
+            $0.bottom.equalToSuperview()
+            $0.width.equalTo(80)
+            $0.height.equalTo(40)
+            $0.trailing.equalToSuperview().offset(-40)
+            $0.centerY.equalToSuperview()
+        }
+    }
+}
+
+class ButtonComplete: UIView {
+    let completeButton = ActionButtonBlack2().createButton(text: "완료하기", color: UIColor(hex: "#3756F4"), textColor: UIColor.white)
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupButton()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupButton() {
+        [ //뭔가 추가될지도..
+            completeButton,
+        ].forEach {
+            addSubview($0)
+        }
+        
+        completeButton.snp.makeConstraints {
+            $0.width.equalTo(80)
+            $0.height.equalTo(40)
+            $0.centerY.centerX.equalToSuperview()
+            
         }
     }
 }

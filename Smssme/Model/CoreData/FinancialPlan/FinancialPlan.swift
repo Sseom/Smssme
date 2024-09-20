@@ -28,11 +28,19 @@ public class FinancialPlan: NSManagedObject {
     @NSManaged public var customTitle: String?
     @NSManaged public var planDescription: String?
     @NSManaged public var iconName: String?
+    @objc public var isCompleted: Bool {
+        @objc(isCompleted) get {
+            return primitiveValue(forKey: "isCompleted") as? Bool ?? false
+        }
+        @objc(setIsCompleted:) set {
+            setPrimitiveValue(newValue, forKey: "isCompleted")
+        }
+    }
     
     @NSManaged public var user: User?
     
     public enum Key: String {
-        case id, key, title, startDate, endDate, amount, deposit, user, planType, customTitle, planDescription, iconName
+        case id, key, title, startDate, endDate, amount, deposit, user, planType, customTitle, planDescription, iconName, isCompleted
     }
 }
 
@@ -64,19 +72,22 @@ enum PlanType: Int16, CaseIterable {
     }
     
     var iconName: String {
-        return "carIcon" // 선택창에서 아이콘을 사용하게될시 각 타입에 맞는 이미지 이름으로 변경
+        switch self {
+        case .travel: 
+            return "travelConfirm"
+        case .car:
+            return "carConfirm"
+        case .house:
+            return "houseConfirm"
+        case .wedding:
+            return "weddingConfirm"
+        case .retirement:
+            return "retirementConfirm"
+        case .custom:
+            return "myPlanConfirm"
+        }
     }
 }
 
-
-// MARK: - dto
-
-struct FinancialPlanDTO {
-    var id: String
-    var title: String
-    var amount: Int64
-    var deposit: Int64
-    var startDate: Date
-    var endDate: Date
-    var planType: PlanType
-}
+// 차트 공용메서드를 위한 프로토콜
+extension FinancialPlan: ChartDataConvertible {}
