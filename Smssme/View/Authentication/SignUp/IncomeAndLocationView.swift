@@ -116,15 +116,7 @@ class IncomeAndLocationView: UIView {
         return textField
     }()
     
-//    let agreementLabel: UILabel = {
-//        let label = UILabel()
-//        label.text = "'회원가입'을 누르는것으로 개인정보취급방침 및\n필수 이용약관에 동의한 것으로 간주합니다."
-//        label.numberOfLines = 0
-//        label.font = .systemFont(ofSize: 14)
-//        label.textAlignment = .center
-//        return label
-//    }()
-    
+    // 개인정보 동의 
     let agreementTextVeiw: UITextView = {
         let textView = UITextView()
         textView.isEditable = false
