@@ -11,7 +11,7 @@ class AssetsListVC: UIViewController {
     //MARK: - Properties
     private let assetsListView: AssetsListView = AssetsListView()
     private let assetsCoreDataManager: AssetsCoreDataManager = AssetsCoreDataManager()
-    private let financialPlanManager = FinancialPlanManager.shared
+    private let financialPlanManager = FinancialPlanService()
     private let diaryCoreDataManager = DiaryCoreDataManager.shared
     private var assetsList: [AssetsList] = []
     
@@ -65,8 +65,8 @@ class AssetsListVC: UIViewController {
         }
         
         // FIXME: 고쳐 인컴뭐시기
-        let financialPlanItems: [AssetsItem] = financialPlanManager.fetchAllFinancialPlans().map {
-            AssetsItem(uuid: nil, category: "플랜 자산", title: $0.title, amount: $0.amount)
+        let financialPlanItems: [AssetsItem] = financialPlanManager.fetchIncompletedPlans().map {
+            AssetsItem(uuid: nil, category: "플랜 자산", title: $0.title, amount: $0.deposit)
         }
         
         let diaryItems: [AssetsItem] = diaryCoreDataManager.diaryToMonthData(array: diaryCoreDataManager.fetchAllDiaries())
