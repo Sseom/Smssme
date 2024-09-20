@@ -44,6 +44,8 @@ class LoginVC: UIViewController {
     ///각각의 앱 뷰에서 앱에 로그인한 사용자에 대한 정보를 얻기 위해 FIRAuth 객체와 리스너를 연결합니다.
     ///이 리스너는 사용자의 로그인 상태가 변경될 때마다 호출됩니다.
     override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
+        
         // [START auth_listener]
         handle = Auth.auth().addStateDidChangeListener { auth, user in
         }
@@ -144,12 +146,8 @@ class LoginVC: UIViewController {
     //MARK: - @objc 회원가입
     @objc private func signupButtonTapped() {
         let emailVC = EmailVC()
-        let navController = UINavigationController(rootViewController: emailVC)
-        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-              let window = windowScene.windows.first else { return }
-        
-        window.rootViewController = navController
-        window.makeKeyAndVisible()
+        emailVC.navigationItem.title = "회원가입"
+        self.navigationController?.pushViewController(emailVC, animated: true)
     }
     
     //MARK: - @objc 비회원 로그인

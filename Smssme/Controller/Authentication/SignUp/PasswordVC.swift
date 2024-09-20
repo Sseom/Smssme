@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PasswordVC: UIViewController, UITextFieldDelegate  {
+class PasswordVC: UIViewController {
     private let passwordView = PasswordView()
     var userData = UserData()
 
@@ -78,7 +78,7 @@ extension PasswordVC {
 
 
 //MARK: - 입력 중인 텍스트필드 표시 UITextField extension
-extension PasswordVC {
+extension PasswordVC: UITextFieldDelegate {
     
     // 입력 시작 시
     func textFieldDidBeginEditing(_ textField: UITextField) {

@@ -10,13 +10,11 @@
 		5F18A2062C8DAE8100BC70B7 /* EmailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F18A2052C8DAE8100BC70B7 /* EmailVC.swift */; };
 		5F18A20B2C8DB26400BC70B7 /* NickNameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F18A20A2C8DB26400BC70B7 /* NickNameVC.swift */; };
 		5F18A20D2C8DB29D00BC70B7 /* IncomeAndLocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F18A20C2C8DB29D00BC70B7 /* IncomeAndLocationVC.swift */; };
-		5F18A20F2C8DB2F600BC70B7 /* AgreementVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F18A20E2C8DB2F600BC70B7 /* AgreementVC.swift */; };
 		5F18A2112C8DB31E00BC70B7 /* EmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F18A2102C8DB31E00BC70B7 /* EmailView.swift */; };
 		5F18A2132C8DB33500BC70B7 /* PasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F18A2122C8DB33500BC70B7 /* PasswordVC.swift */; };
 		5F18A2152C8DB34800BC70B7 /* PasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F18A2142C8DB34800BC70B7 /* PasswordView.swift */; };
 		5F18A2172C8DB35400BC70B7 /* NickNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F18A2162C8DB35400BC70B7 /* NickNameView.swift */; };
 		5F18A2192C8DB36B00BC70B7 /* IncomeAndLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F18A2182C8DB36B00BC70B7 /* IncomeAndLocationView.swift */; };
-		5F18A21B2C8DB3AF00BC70B7 /* AgreementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F18A21A2C8DB3AF00BC70B7 /* AgreementView.swift */; };
 		5F3EAE192C7E182400FF15E5 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3EAE182C7E182400FF15E5 /* LoginView.swift */; };
 		5F3EAE1C2C7E1CC200FF15E5 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3EAE1B2C7E1CC200FF15E5 /* LoginVC.swift */; };
 		5F3EAE4A2C7EF73500FF15E5 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 5F3EAE492C7EF73500FF15E5 /* FirebaseAnalytics */; };
@@ -41,9 +39,10 @@
 		5FE400742C949E15001D0FD1 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE400732C949E15001D0FD1 /* NetworkManager.swift */; };
 		5FE400762C949E89001D0FD1 /* APIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE400752C949E89001D0FD1 /* APIModel.swift */; };
 		5FE400782C949EB8001D0FD1 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE400772C949EB8001D0FD1 /* Endpoint.swift */; };
-		5FE4007B2C976504001D0FD1 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5FE4007A2C976504001D0FD1 /* KakaoSDKAuth */; };
-		5FE4007D2C976504001D0FD1 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 5FE4007C2C976504001D0FD1 /* KakaoSDKCommon */; };
-		5FE4007F2C976504001D0FD1 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 5FE4007E2C976504001D0FD1 /* KakaoSDKUser */; };
+		5FE400822C99A43A001D0FD1 /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE400812C99A43A001D0FD1 /* ResetPasswordView.swift */; };
+		5FE400842C99A450001D0FD1 /* ResetPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE400832C99A450001D0FD1 /* ResetPasswordVC.swift */; };
+		5FE400872C9B2F23001D0FD1 /* ReauthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE400862C9B2F23001D0FD1 /* ReauthenticationView.swift */; };
+		5FE4008A2C9B2F9B001D0FD1 /* ReauthenticationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE400892C9B2F9B001D0FD1 /* ReauthenticationVC.swift */; };
 		740350572C773E9B00122B2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740350562C773E9B00122B2E /* AppDelegate.swift */; };
 		740350592C773E9B00122B2E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740350582C773E9B00122B2E /* SceneDelegate.swift */; };
 		740350612C773E9B00122B2E /* Smssme.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7403505F2C773E9B00122B2E /* Smssme.xcdatamodeld */; };
@@ -121,13 +120,11 @@
 		5F18A2052C8DAE8100BC70B7 /* EmailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVC.swift; sourceTree = "<group>"; };
 		5F18A20A2C8DB26400BC70B7 /* NickNameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameVC.swift; sourceTree = "<group>"; };
 		5F18A20C2C8DB29D00BC70B7 /* IncomeAndLocationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeAndLocationVC.swift; sourceTree = "<group>"; };
-		5F18A20E2C8DB2F600BC70B7 /* AgreementVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementVC.swift; sourceTree = "<group>"; };
 		5F18A2102C8DB31E00BC70B7 /* EmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailView.swift; sourceTree = "<group>"; };
 		5F18A2122C8DB33500BC70B7 /* PasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordVC.swift; sourceTree = "<group>"; };
 		5F18A2142C8DB34800BC70B7 /* PasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordView.swift; sourceTree = "<group>"; };
 		5F18A2162C8DB35400BC70B7 /* NickNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameView.swift; sourceTree = "<group>"; };
 		5F18A2182C8DB36B00BC70B7 /* IncomeAndLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeAndLocationView.swift; sourceTree = "<group>"; };
-		5F18A21A2C8DB3AF00BC70B7 /* AgreementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementView.swift; sourceTree = "<group>"; };
 		5F3EAE182C7E182400FF15E5 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		5F3EAE1B2C7E1CC200FF15E5 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		5F3EAE552C7EFAFA00FF15E5 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
@@ -148,6 +145,10 @@
 		5FE400752C949E89001D0FD1 /* APIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIModel.swift; sourceTree = "<group>"; };
 		5FE400772C949EB8001D0FD1 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		5FE400802C97E742001D0FD1 /* SecretsConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = SecretsConfig.xcconfig; sourceTree = "<group>"; };
+		5FE400812C99A43A001D0FD1 /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
+		5FE400832C99A450001D0FD1 /* ResetPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordVC.swift; sourceTree = "<group>"; };
+		5FE400862C9B2F23001D0FD1 /* ReauthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReauthenticationView.swift; sourceTree = "<group>"; };
+		5FE400892C9B2F9B001D0FD1 /* ReauthenticationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReauthenticationVC.swift; sourceTree = "<group>"; };
 		740350532C773E9B00122B2E /* Smssme.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Smssme.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		740350562C773E9B00122B2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		740350582C773E9B00122B2E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -232,12 +233,9 @@
 				5F3EAE4E2C7EF73500FF15E5 /* FirebaseFirestore in Frameworks */,
 				5F3EAE502C7EF73500FF15E5 /* FirebaseFunctions in Frameworks */,
 				5F3EAE4C2C7EF73500FF15E5 /* FirebaseAuth in Frameworks */,
-				5FE4007D2C976504001D0FD1 /* KakaoSDKCommon in Frameworks */,
 				E5FBA1332C7CCCBE00D26E5F /* SnapKit in Frameworks */,
 				74707F802C806A5900F7000C /* DGCharts in Frameworks */,
 				5F3EAE522C7EF73500FF15E5 /* FirebaseStorage in Frameworks */,
-				5FE4007F2C976504001D0FD1 /* KakaoSDKUser in Frameworks */,
-				5FE4007B2C976504001D0FD1 /* KakaoSDKAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,6 +246,10 @@
 			isa = PBXGroup;
 			children = (
 				5F3EAE552C7EFAFA00FF15E5 /* SignUpView.swift */,
+				5F18A2102C8DB31E00BC70B7 /* EmailView.swift */,
+				5F18A2142C8DB34800BC70B7 /* PasswordView.swift */,
+				5F18A2162C8DB35400BC70B7 /* NickNameView.swift */,
+				5F18A2182C8DB36B00BC70B7 /* IncomeAndLocationView.swift */,
 			);
 			path = SignUp;
 			sourceTree = "<group>";
@@ -255,16 +257,11 @@
 		5F18A2072C8DAEA600BC70B7 /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
-				5F18A20E2C8DB2F600BC70B7 /* AgreementVC.swift */,
-				5F18A21A2C8DB3AF00BC70B7 /* AgreementView.swift */,
+				5F3EAE5A2C7F36E500FF15E5 /* SignUpVC.swift */,
 				5F18A2052C8DAE8100BC70B7 /* EmailVC.swift */,
-				5F18A2102C8DB31E00BC70B7 /* EmailView.swift */,
 				5F18A2122C8DB33500BC70B7 /* PasswordVC.swift */,
-				5F18A2142C8DB34800BC70B7 /* PasswordView.swift */,
 				5F18A20A2C8DB26400BC70B7 /* NickNameVC.swift */,
-				5F18A2162C8DB35400BC70B7 /* NickNameView.swift */,
 				5F18A20C2C8DB29D00BC70B7 /* IncomeAndLocationVC.swift */,
-				5F18A2182C8DB36B00BC70B7 /* IncomeAndLocationView.swift */,
 			);
 			path = SignUp;
 			sourceTree = "<group>";
@@ -273,6 +270,7 @@
 			isa = PBXGroup;
 			children = (
 				5F3EAE182C7E182400FF15E5 /* LoginView.swift */,
+				5FE400862C9B2F23001D0FD1 /* ReauthenticationView.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -281,7 +279,7 @@
 			isa = PBXGroup;
 			children = (
 				5F3EAE1B2C7E1CC200FF15E5 /* LoginVC.swift */,
-				5F3EAE5A2C7F36E500FF15E5 /* SignUpVC.swift */,
+				5FE400892C9B2F9B001D0FD1 /* ReauthenticationVC.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -291,6 +289,7 @@
 			children = (
 				5F413EFE2C805CC200004703 /* MypageView.swift */,
 				5FA8900F2C87344000549363 /* MypageViewCell.swift */,
+				5FE400812C99A43A001D0FD1 /* ResetPasswordView.swift */,
 			);
 			path = Mypage;
 			sourceTree = "<group>";
@@ -299,6 +298,7 @@
 			isa = PBXGroup;
 			children = (
 				5F413F002C805CED00004703 /* MypageVC.swift */,
+				5FE400832C99A450001D0FD1 /* ResetPasswordVC.swift */,
 			);
 			path = Mypage;
 			sourceTree = "<group>";
@@ -319,6 +319,26 @@
 				5FE400772C949EB8001D0FD1 /* Endpoint.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		5FE400852C9B2EA7001D0FD1 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				5F3EAE172C7E180200FF15E5 /* Login */,
+				5F18A2042C8DAC7700BC70B7 /* SignUp */,
+				5F413F022C8066AF00004703 /* Mypage */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		5FE400882C9B2F34001D0FD1 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				5F3EAE1A2C7E1AD100FF15E5 /* Login */,
+				5F18A2072C8DAEA600BC70B7 /* SignUp */,
+				5F413F032C8066EA00004703 /* Mypage */,
+			);
+			path = Authentication;
 			sourceTree = "<group>";
 		};
 		7403504A2C773E9B00122B2E = {
@@ -386,11 +406,9 @@
 			children = (
 				740350A72C7E229100122B2E /* TabBarController.swift */,
 				5FA88FFD2C8544DB00549363 /* SplashViewController.swift */,
-				5F3EAE1A2C7E1AD100FF15E5 /* Login */,
-				5F18A2072C8DAEA600BC70B7 /* SignUp */,
+				5FE400882C9B2F34001D0FD1 /* Authentication */,
 				746F808C2C88429F00BBAEAF /* MoneyDiary */,
 				74707FB72C84C80E00F7000C /* Assets */,
-				5F413F032C8066EA00004703 /* Mypage */,
 				74707F7B2C80699400F7000C /* MainPage */,
 				E5FBA1452C7EC62300D26E5F /* FinancialPlan */,
 			);
@@ -400,13 +418,11 @@
 		740350742C7740BE00122B2E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				5FE400852C9B2EA7001D0FD1 /* Authentication */,
 				746F80742C88415900BBAEAF /* MoneyDiary */,
 				74707FB42C84C2BE00F7000C /* Assets */,
 				74707F782C80697100F7000C /* MainPage */,
 				740350B32C805FB900122B2E /* Util */,
-				5F3EAE172C7E180200FF15E5 /* Login */,
-				5F18A2042C8DAC7700BC70B7 /* SignUp */,
-				5F413F022C8066AF00004703 /* Mypage */,
 				E5FBA1462C7EC64500D26E5F /* FinancialPlan */,
 			);
 			path = View;
@@ -625,9 +641,6 @@
 				5F3EAE4F2C7EF73500FF15E5 /* FirebaseFunctions */,
 				5F3EAE512C7EF73500FF15E5 /* FirebaseStorage */,
 				74707F7F2C806A5900F7000C /* DGCharts */,
-				5FE4007A2C976504001D0FD1 /* KakaoSDKAuth */,
-				5FE4007C2C976504001D0FD1 /* KakaoSDKCommon */,
-				5FE4007E2C976504001D0FD1 /* KakaoSDKUser */,
 			);
 			productName = Smssme;
 			productReference = 740350532C773E9B00122B2E /* Smssme.app */;
@@ -661,7 +674,6 @@
 				E5FBA1312C7CCCBE00D26E5F /* XCRemoteSwiftPackageReference "SnapKit" */,
 				5F3EAE482C7EF73400FF15E5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				74707F7E2C806A5900F7000C /* XCRemoteSwiftPackageReference "Charts" */,
-				5FE400792C976504001D0FD1 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 			);
 			productRefGroup = 740350542C773E9B00122B2E /* Products */;
 			projectDirPath = "";
@@ -701,6 +713,7 @@
 				744FB0982C93D88300208685 /* AssetsListVC.swift in Sources */,
 				E5F344E02C8468DB006F9A91 /* FinancialPlanCurrentPlanCell.swift in Sources */,
 				74707FA52C81B82600F7000C /* User+CoreDataProperties.swift in Sources */,
+				5FE400872C9B2F23001D0FD1 /* ReauthenticationView.swift in Sources */,
 				740350A82C7E229100122B2E /* TabBarController.swift in Sources */,
 				E5F71B3F2C98752F00F3072C /* FinancialPlanService.swift in Sources */,
 				E5FBA13F2C7E0A0800D26E5F /* FinancialPlanSelectionView.swift in Sources */,
@@ -735,6 +748,7 @@
 				746F80812C8841F300BBAEAF /* MoneyDiaryBudgetEditCell.swift in Sources */,
 				E5F344DA2C806A75006F9A91 /* FinancialPlanCurrentPlanView.swift in Sources */,
 				9F06D3122C7EFF9D00DFF5B0 /* DateModel.swift in Sources */,
+				5FE400822C99A43A001D0FD1 /* ResetPasswordView.swift in Sources */,
 				9F06D31A2C801D1F00DFF5B0 /* FinancialPlanConfirmVC.swift in Sources */,
 				5FA88FEF2C80760E00549363 /* CommonAlert.swift in Sources */,
 				E517F2822C8782F200CB8680 /* FinancialPlanManager.swift in Sources */,
@@ -742,6 +756,7 @@
 				741746572C9871DA006D5456 /* BenefitVerticalCell.swift in Sources */,
 				5FA88FEF2C80760E00549363 /* CommonAlert.swift in Sources */,
 				740350592C773E9B00122B2E /* SceneDelegate.swift in Sources */,
+				5FE400842C99A450001D0FD1 /* ResetPasswordVC.swift in Sources */,
 				E5FBA12C2C7C823C00D26E5F /* UIComponentFactory.swift in Sources */,
 				5FA88FF12C842D0A00549363 /* KeyboardEvader.swift in Sources */,
 				5F413EFF2C805CC200004703 /* MypageView.swift in Sources */,
@@ -771,17 +786,16 @@
 				5FA88FFE2C8544DB00549363 /* SplashViewController.swift in Sources */,
 				5FE4006D2C917A92001D0FD1 /* UserProfileModel.swift in Sources */,
 				746F80842C8841F300BBAEAF /* MoneyDiaryView.swift in Sources */,
+				5FE4008A2C9B2F9B001D0FD1 /* ReauthenticationVC.swift in Sources */,
 				5F3EAE562C7EFAFA00FF15E5 /* SignUpView.swift in Sources */,
 				E5FBA13D2C7E099B00D26E5F /* FinancialPlanCell.swift in Sources */,
 				5F413F012C805CED00004703 /* MypageVC.swift in Sources */,
 				740350612C773E9B00122B2E /* Smssme.xcdatamodeld in Sources */,
 				746F808A2C88424000BBAEAF /* DailyTransactionView.swift in Sources */,
-				5F18A20F2C8DB2F600BC70B7 /* AgreementVC.swift in Sources */,
 				74707F7D2C8069A600F7000C /* MainPageVC.swift in Sources */,
 				9F86E6CF2C92AB7100619F7D /* AutomaticTransactionVC.swift in Sources */,
 				E5FBA1502C804FBA00D26E5F /* UIColorSet.swift in Sources */,
 				74707FA92C81B85800F7000C /* BudgetCoreDataManager.swift in Sources */,
-				5F18A21B2C8DB3AF00BC70B7 /* AgreementView.swift in Sources */,
 				E5BF5E452C8587310093FD2D /* FinancialPlanEditPlanVC.swift in Sources */,
 				9F06D3182C801CFB00DFF5B0 /* FinancialPlanCreationVC.swift in Sources */,
 				5FA890102C87344000549363 /* MypageViewCell.swift in Sources */,
@@ -932,11 +946,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Smssme/Smssme.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 5KCP3GK583;
+				DEVELOPMENT_TEAM = 5KCP3GK583;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Smssme/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "씀씀";
@@ -954,7 +966,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.smssme.Smssme;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Smssme development provisioning";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -971,12 +982,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Smssme/Smssme.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 5KCP3GK583;
+				DEVELOPMENT_TEAM = 5KCP3GK583;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Smssme/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "씀씀";
@@ -994,7 +1003,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.smssme.Smssme;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Smssme;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1035,14 +1043,6 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 11.1.0;
-			};
-		};
-		5FE400792C976504001D0FD1 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.22.7;
 			};
 		};
 		74707F7E2C806A5900F7000C /* XCRemoteSwiftPackageReference "Charts" */ = {
@@ -1088,21 +1088,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5F3EAE482C7EF73400FF15E5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
-		};
-		5FE4007A2C976504001D0FD1 /* KakaoSDKAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5FE400792C976504001D0FD1 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
-			productName = KakaoSDKAuth;
-		};
-		5FE4007C2C976504001D0FD1 /* KakaoSDKCommon */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5FE400792C976504001D0FD1 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
-			productName = KakaoSDKCommon;
-		};
-		5FE4007E2C976504001D0FD1 /* KakaoSDKUser */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5FE400792C976504001D0FD1 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
-			productName = KakaoSDKUser;
 		};
 		74707F7F2C806A5900F7000C /* DGCharts */ = {
 			isa = XCSwiftPackageProductDependency;

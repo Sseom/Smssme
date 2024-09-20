@@ -180,8 +180,9 @@ class SignUpVC: UIViewController, KeyboardEvader {
         }
         
         guard let user = Auth.auth().currentUser,
+              let password = signupView.passwordTextField.text,
               let nickname = signupView.nicknameTextField.text,
-              let birthday = signupView.birthdayTextField.text,
+              let birth = signupView.birthdayTextField.text,
               let income = signupView.incomeTextField.text,
               let location = signupView.locationTextField.text
         else {
@@ -190,18 +191,21 @@ class SignUpVC: UIViewController, KeyboardEvader {
         // Firestore에서 유저 정보 업데이트
         let db = Firestore.firestore()
         db.collection("users").document(user.uid).updateData([
+            "password": password,
             "nickname": nickname,
             "gender": signupView.maleCheckBox.isSelected ? "male" : signupView.femaleCheckBox.isSelected ? "female" : "none",
-            "birthday": birthday,
+            "birth": birth,
             "income": income,
             "location": location
-        ]) { error in
+        ]) 
+        
+        { error in
             if let error = error {
                 print("유저 정보 수정 실패: \(error.localizedDescription)")
             }
         }
         
-        let mypageView = MypageView()
+        navigationController?.popViewController(animated: true)
     }
     
     //MARK: - 성별 체크박스

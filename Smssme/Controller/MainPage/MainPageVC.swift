@@ -42,6 +42,7 @@ class MainPageVC: UIViewController, UITableViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setupWelcomeTitle()
         
         self.navigationController?.isNavigationBarHidden = true
         

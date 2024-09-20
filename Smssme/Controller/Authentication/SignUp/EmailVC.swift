@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EmailVC: UIViewController, UITextFieldDelegate {
+class EmailVC: UIViewController {
     private let emailView = EmailView()
     private var textField = UITextField()
     var userData = UserData()
@@ -17,17 +17,36 @@ class EmailVC: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         view = emailView
-        self.navigationItem.title = "회원가입"
         
         emailView.emailTextField.delegate = self
         setAddtarget()
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = false
+        
+        if navigationItem.title == "이메일 재설정" {
+            emailView.progressBar.isHidden = true
+            emailView.passwordTextField.isHidden = false
+            
+            emailView.nextButton.setTitle("이메일 재설정", for: .normal)
+            // '이메일 변경' 버튼을 눌렀을 때의 로직
+            emailView.nextButton.removeTarget(self, action: nil, for: .allEvents) //기존의 모든 액션 제거
+            emailView.nextButton.addTarget(self, action: #selector(onEmailChangeButtonTapped), for: .touchUpInside)
+        } else {
+            emailView.nextButton.setTitle("다음", for: .normal)
+            // '다음' 버튼을 눌렀을 때의 로직 (회원가입 진행)
+            emailView.nextButton.removeTarget(self, action: nil, for: .allEvents)
+            emailView.nextButton.addTarget(self, action: #selector(onNextButtonTapped), for: .touchUpInside)
+        }
+        
+    }
+    
     private func setAddtarget() {
         emailView.emailTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         emailView.checkEmailButton.addTarget(self, action: #selector(checkEmailButtonTapped), for: .touchUpInside)
-        emailView.nextButton.addTarget(self, action: #selector(onNextButtonTapped), for: .touchUpInside)
+        //        emailView.nextButton.addTarget(self, action: #selector(onNextButtonTapped), for: .touchUpInside)
     }
     
     
@@ -40,6 +59,23 @@ class EmailVC: UIViewController, UITextFieldDelegate {
         navigationController?.pushViewController(passwordVC, animated: true)
     }
     
+    //MARK: - '이메일 변경' 버튼 이벤트
+    @objc private func onEmailChangeButtonTapped() {
+        //        userData.email = emailView.emailTextField.text
+        guard let newEmail = emailView.emailTextField.text,
+        let password = emailView.passwordTextField.text else { return }
+        
+        FirebaseManager.shared.updateEmail(newEmail: newEmail, password: password) { success, error in
+            if success {
+                self.showSnycAlert(message: "이메일 변경에 성공했습니다.", AlertTitle: "성공", buttonClickTitle: "확인") {
+                    self.navigationController?.popViewController(animated: true)
+                }
+            } else if let error = error {
+                self.showAlert(message: "이메일 변경에 실패했습니다.", AlertTitle: "이메일 변경 실패", buttonClickTitle: "확인")
+                print("이메일 변경에 실패했습니다: \(error)")
+            }
+        }
+    }
     
     //MARK: - '중복확인' 버튼 이벤트
     @objc private func checkEmailButtonTapped() {
@@ -117,7 +153,7 @@ extension EmailVC {
 
 
 //MARK: - 입력 중인 텍스트필드 표시 UITextField extension
-extension EmailVC {
+extension EmailVC: UITextFieldDelegate {
     
     // 입력 시작 시
     func textFieldDidBeginEditing(_ textField: UITextField) {
