@@ -125,7 +125,7 @@ final class DateManager {
     }
 }
 
-fileprivate extension DateFormatter {
+ extension DateFormatter {
     static let yearMonthDay: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"

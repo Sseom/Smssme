@@ -10,12 +10,12 @@ import DGCharts
 
 struct CalendarItem {
     var date: Date
-    let dayBudget: Int
+    var dayBudget: Int
     let isThisMonth: Bool
     var weekSection: Int
     //일요일이면 +1 section 값이 동일한 애들끼리 백그라운드 컬러 처리
     init(date: Date = Date(),
-         dayBudget: Bool = false,
+         dayBudget: Int = 0,
          isThisMonth: Bool = true,
          weekSection: Int = 0) {
         self.date = date

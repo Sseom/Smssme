@@ -126,7 +126,7 @@ extension MoneyDiaryVC: UICollectionViewDataSource, UICollectionViewDelegate, UI
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarCollectionViewCell.reuseIdentifier, for: indexPath) as? CalendarCollectionViewCell else { return UICollectionViewCell() }
         
-        configureCell()
+        
 
 
         
@@ -138,58 +138,57 @@ extension MoneyDiaryVC: UICollectionViewDataSource, UICollectionViewDelegate, UI
         return cell
     }
     
-    func configureCell() {
-        var currentWeekSection = 0  // 주차 값을 0으로 시작
-        var sections: [Int] = [0, 0, 0, 0, 0, 0]
-        
-        for (index, calendarItem) in self.calendarItems.enumerated() {
-            // 이번 달 날짜만 처리
-            if calendarItem.isThisMonth {
-                let weekDay = DateManager.shared.getWeekdayNum(month: calendarItem.date)
-                if weekDay == 1 && index != 0 {
-                    currentWeekSection += 1
-                    
-                    
-                }
-                switch currentWeekSection {
-                case 0: sections[0] += 1
-                case 1: sections[1] += 1
-                case 2: sections[2] += 1
-                case 3: sections[3] += 1
-                case 4: sections[4] += 1
-                case 5: sections[5] += 1
-                default: sections[6] += 1
-                }
-                // 현재 주차 값을 설정
-                self.calendarItems[index].weekSection = currentWeekSection
-                
-//                print(calendarItems[index].weekSection)
-            }
-        }
-        
-            
-        
-    }
     
-    func configureBackground(monthBudget: Int) {
-        let dayBudget = monthBudget / DateManager.shared.getWeekdayNum(month: self.calendarDate)
-        var weeklyBudgets: [Int: Int] = [:]
-        let weekCount = 0
-        
+    func configureBackground(monthBudget: Int?) {
+        //monthBudget이 있을수도 없을수도 있음 없는경우 실행 안함
+        guard let monthBudgetValue = monthBudget else { return }
+        //일일 예산은 월예산나누기/ 당월일수
+        let dayBudget = monthBudgetValue / DateManager.shared.getWeekdayNum(month: self.calendarDate)
+        //섹션번호: 섹션예산으로 잡을 예정
+        var weekSectionWithValue = [0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0]
+        //섹션의 값을 넣어주기 위한 변수 설정
+        var weekCount = 0
+        var weekValue = 0
         
         for (index, calendarItem) in calendarItems.enumerated(){
-            if calendarItem.isThisMonth {
+            if calendarItem.isThisMonth { //이번달일때
                 
-                calendarItem.weekSection = weekCount
+                calendarItems[index].weekSection = weekCount //섹션값을 지정
+                calendarItems[index].dayBudget = dayBudget // 각셀에 일자값 넣기
+                weekValue += dayBudget //주가 바뀌기전까지 주value에 추가
+                
                 
                 if DateManager.shared.getFirstWeekday(for: calendarItem.date) == 1 {
+                    // 근데 일요일 된다면 ?
+                    weekSectionWithValue.updateValue(weekValue, forKey: index)
+                    //변수에 값을 업데이트 하고
                     weekCount += 1
-                }//이렇게 될경우 일요일읆 만날때 증가된섹션에 값이 들어가고 한주에는 동일한 섹션값을 가지게됨
-                // 그냥 일자단위로 하루 일자 번
+                    //섹션값을 올린뒤
+                    weekValue = 0
+                    //주별금액을 초기화 함
+                }
+                
+                
                 
             }
 
+
         }
+        
+        
+        for calendarItem in calendarItems {
+            
+            for i in 0 ..< 6 {
+                if calendarItem.weekSection == i {
+                    weekValue += calendarItem.dayBudget
+                    
+                }
+                weekSectionWithValue.updateValue(weekValue, forKey: i)
+                
+            }
+        }
+        
+        
     }
     
 
