@@ -118,6 +118,7 @@ class BudgetService {
         // 이번 달의 저축액 계산
         let savingsForCurrentMonth = (dailyAmount * Double(daysInCurrentMonth) - Double(plan.deposit))
         
-        return Int64(round(savingsForCurrentMonth))
+        return max(0, Int64(round(savingsForCurrentMonth)))
+//        return Int64(round(savingsForCurrentMonth))
     }
 }
