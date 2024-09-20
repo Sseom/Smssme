@@ -81,7 +81,7 @@ class MainPageVC: UIViewController, UITableViewDelegate {
     func setChart() {
         // 차트에서 표현할 데이터 리스트
         var assetsList = chartDataManager.assetsToChartData(array: assetsCoreDataManager.selectAllAssets())
-        let financialPlan = chartDataManager.chartTotalDataMapping(array: financialPlanManager.fetchAllFinancialPlans(), title: "플랜 자산")
+        let financialPlan = chartDataManager.planToChartData(array: financialPlanManager.fetchAllFinancialPlans(), title: "플랜 자산")
         let diary = chartDataManager.diaryToChartData(array: diaryCoreDataManager.fetchDiaries())
         
         assetsList.append(financialPlan)
