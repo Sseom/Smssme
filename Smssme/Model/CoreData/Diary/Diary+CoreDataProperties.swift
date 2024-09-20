@@ -27,3 +27,5 @@ extension Diary {
 
 }
 
+// 차트 공용메서드를 위한 프로토콜
+extension Diary: ChartDataConvertible {}

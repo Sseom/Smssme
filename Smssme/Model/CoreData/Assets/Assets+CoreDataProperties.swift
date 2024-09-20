@@ -26,6 +26,9 @@ extension Assets {
 
 }
 
-extension Assets : Identifiable {
+extension Assets: Identifiable {
 
 }
+
+// 차트 공용메서드를 위한 프로토콜
+extension Assets: ChartDataConvertible {}

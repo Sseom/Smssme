@@ -104,7 +104,27 @@ enum ExpenseType: String {
     
 }
 
+class Benefit {
+    static let shared = Benefit()
+    
+    private init() {}
+    
+    let benefitData: [String: String] = [
+        "청년 취업 및 창업 지원": "https://valley-porch-b6d.notion.site/1-1001c7ac6761489cbf12b3802a8924a7",
+        "청년 주거 지원": "https://valley-porch-b6d.notion.site/2-717bb3ae189b4847806ae044d3ddb8b1",
+        "청년 금융 지원": "https://valley-porch-b6d.notion.site/3-26ee2c8202ec46de854409179727c949?pvs=25",
+        "청년 교육 및 자립 지원": "https://valley-porch-b6d.notion.site/4-95f275585ec54a00b0994ae2e7310b5c?pvs=25",
+        "청년 복지 및 기타지원": "https://valley-porch-b6d.notion.site/5-e0eb6ef61c944c82b123284fb58adccc?pvs=4",
+        "지역별 혜택": "https://valley-porch-b6d.notion.site/6-2024-28798ac02443464493f80f299772b47b?pvs=4"
+    ]
+}
 
+protocol ChartDataConvertible {
+    var amount: Int64 { get }
+    var title: String? { get }
+}
 
-
-
+struct ChartData: ChartDataConvertible {
+    var amount: Int64
+    var title: String?
+}

@@ -40,8 +40,25 @@ class AutomaticTransactionVC: UIViewController {
         if let text = automaticView.inputTextView.text {
             
                 self.transactionItem = extractPaymentDetails(from: text)
-                saveCurrentData(item: self.transactionItem)
             
+            let alertController = UIAlertController(title: "", message: "", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "확인", style: .default)
+            alertController.addAction(okAction)
+            if transactionItem.Amount == 0 {
+                alertController.title = "저장 실패"
+                alertController.message = "100,000원 형식으로 작성해주세요."
+            }
+            else{
+                let time = DateManager.shared.transformDateWithoutTime(
+                    date: transactionItem.transactionDate)
+                let savedTimeString = DateFormatter.yearMonthDay.string(from: time)
+                saveCurrentData(item: self.transactionItem)
+                alertController.title = "저장 성공"
+                
+                alertController.message = "\(savedTimeString) 날짜에 저장되었습니다!"
+            }
+            
+            present(alertController, animated: true, completion: nil)
             
         }
         self.navigationController?.popViewController(animated: false)
@@ -60,8 +77,13 @@ class AutomaticTransactionVC: UIViewController {
             return []
         }
     }
+    
 
-
+    func showAlert() {
+        
+ 
+        }
+    
     func extractPaymentDetails(from text: String) -> TransactionItem{
         let dateString = RegexManager.shared.extractDate(from: text)
         let timeString = RegexManager.shared.extractTime(from: text)
