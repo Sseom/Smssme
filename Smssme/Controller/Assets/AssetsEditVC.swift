@@ -93,7 +93,7 @@ class AssetsEditVC: UIViewController {
     private func popupViewController() {
         if let mainPageVC = navigationController?.viewControllers.last(where: { $0 is MainPageVC }) as? MainPageVC {
             
-            mainPageVC.setChartData()
+            mainPageVC.setChart()
             
             navigationController?.popViewController(animated: true)
         } else {
@@ -106,13 +106,15 @@ class AssetsEditVC: UIViewController {
     // MARK: - Objc
     @objc func saveButtonTapped() {
         saveAssets()
-        popupViewController()
+//        popupViewController()
+        navigationController?.popViewController(animated: true)
     }
     @objc func cancelButtonTapped() {
         navigationController?.popViewController(animated: true)
     }
     @objc func deleteButtonTapped() {
         deleteAssets()
-        popupViewController()
+//        popupViewController()
+        navigationController?.popViewController(animated: true)
     }
 }

@@ -94,6 +94,39 @@ class DiaryCoreDataManager {
         }
     }
     
+    // 전체 데이터
+    func fetchDiaries() -> [Diary] {
+        let context = DiaryCoreDataManager.shared.context
+        let fetchRequest: NSFetchRequest<Diary> = Diary.fetchRequest()
+
+        do {
+            let diaries = try context.fetch(fetchRequest)
+            return diaries
+        } catch {
+            print("Failed to fetch diaries: \(error)")
+            return []
+        }
+    }
+
+    func diaryToMonthData(array: [Diary]) -> [AssetsItem] {
+        let groupedEntries = Dictionary(grouping: array) { (entry) -> String in
+            let calendar = Calendar.current
+            let month = calendar.component(.month, from: entry.date ?? Date())
+            let year = calendar.component(.year, from: entry.date ?? Date())
+            return "\(year)-\(month)"
+        }
+        
+        let monthArray = groupedEntries.map { monthYear, entries in
+            let totalIncome = entries.filter { $0.statement }.reduce(0) { $0 + $1.amount }
+            let totalExpense = entries.filter { !$0.statement }.reduce(0) { $0 + $1.amount }
+            let netIncome = totalIncome - totalExpense
+            return AssetsItem(uuid: nil, category: "현금 자산", title: "\(monthYear)", amount: netIncome)
+        }
+        
+        return monthArray
+    }
+
+    
     func fetchDiary(with key: UUID) -> Diary? {
         let context = DiaryCoreDataManager.shared.context
         let fetchRequest: NSFetchRequest<Diary> = Diary.fetchRequest()

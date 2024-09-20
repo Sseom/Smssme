@@ -89,4 +89,5 @@ enum PlanType: Int16, CaseIterable {
     }
 }
 
-
+// 차트 공용메서드를 위한 프로토콜
+extension FinancialPlan: ChartDataConvertible {}
