@@ -7,7 +7,7 @@
 
 import CoreData
 import FirebaseCore
-import KakaoSDKCommon
+//import KakaoSDKCommon
 import UIKit
 
 @main
@@ -19,9 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         
         // 카카오 로그인 초기화
-        if let kakaoAppKey = Bundle.main.object(forInfoDictionaryKey: "KakaoAppKey") as? String {
-            KakaoSDK.initSDK(appKey: kakaoAppKey)
-        }
+//        if let KAKAO_APP_KEY = Bundle.main.object(forInfoDictionaryKey: "KAKAO_APP_KEY") as? String {
+//            KakaoSDK.initSDK(appKey: KAKAO_APP_KEY)
+//        }
         return true
     }
 
