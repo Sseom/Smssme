@@ -18,10 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // 파이어베이스 초기화
         FirebaseApp.configure()
         
-        // 카카오 로그인 초기화
-//        if let KAKAO_APP_KEY = Bundle.main.object(forInfoDictionaryKey: "KAKAO_APP_KEY") as? String {
-//            KakaoSDK.initSDK(appKey: KAKAO_APP_KEY)
-//        }
         return true
     }
 

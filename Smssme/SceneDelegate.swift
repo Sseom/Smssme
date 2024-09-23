@@ -6,7 +6,6 @@
 //
 
 import FirebaseAuth
-//import KakaoSDKAuth
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
