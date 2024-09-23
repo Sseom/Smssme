@@ -43,6 +43,7 @@
 		5FE400842C99A450001D0FD1 /* ResetPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE400832C99A450001D0FD1 /* ResetPasswordVC.swift */; };
 		5FE400872C9B2F23001D0FD1 /* ReauthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE400862C9B2F23001D0FD1 /* ReauthenticationView.swift */; };
 		5FE4008A2C9B2F9B001D0FD1 /* ReauthenticationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE400892C9B2F9B001D0FD1 /* ReauthenticationVC.swift */; };
+		5FE4009A2CA087A9001D0FD1 /* StockIndexCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE400992CA087A9001D0FD1 /* StockIndexCell.swift */; };
 		740350572C773E9B00122B2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740350562C773E9B00122B2E /* AppDelegate.swift */; };
 		740350592C773E9B00122B2E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740350582C773E9B00122B2E /* SceneDelegate.swift */; };
 		740350612C773E9B00122B2E /* Smssme.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7403505F2C773E9B00122B2E /* Smssme.xcdatamodeld */; };
@@ -72,7 +73,6 @@
 		74707F7A2C80698C00F7000C /* MainPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707F792C80698C00F7000C /* MainPageView.swift */; };
 		74707F7D2C8069A600F7000C /* MainPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707F7C2C8069A600F7000C /* MainPageVC.swift */; };
 		74707F802C806A5900F7000C /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = 74707F7F2C806A5900F7000C /* DGCharts */; };
-		74707F822C806DA300F7000C /* TodayFinancial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707F812C806DA300F7000C /* TodayFinancial.swift */; };
 		74707F942C81B5DF00F7000C /* Assets+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707F922C81B5DF00F7000C /* Assets+CoreDataClass.swift */; };
 		74707F952C81B5DF00F7000C /* Assets+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707F932C81B5DF00F7000C /* Assets+CoreDataProperties.swift */; };
 		74707F982C81B79500F7000C /* Budget+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74707F962C81B79500F7000C /* Budget+CoreDataClass.swift */; };
@@ -149,6 +149,7 @@
 		5FE400832C99A450001D0FD1 /* ResetPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordVC.swift; sourceTree = "<group>"; };
 		5FE400862C9B2F23001D0FD1 /* ReauthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReauthenticationView.swift; sourceTree = "<group>"; };
 		5FE400892C9B2F9B001D0FD1 /* ReauthenticationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReauthenticationVC.swift; sourceTree = "<group>"; };
+		5FE400992CA087A9001D0FD1 /* StockIndexCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockIndexCell.swift; sourceTree = "<group>"; };
 		740350532C773E9B00122B2E /* Smssme.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Smssme.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		740350562C773E9B00122B2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		740350582C773E9B00122B2E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -180,7 +181,6 @@
 		746F80942C8842C800BBAEAF /* DailyTransactionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyTransactionVC.swift; sourceTree = "<group>"; };
 		74707F792C80698C00F7000C /* MainPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPageView.swift; sourceTree = "<group>"; };
 		74707F7C2C8069A600F7000C /* MainPageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPageVC.swift; sourceTree = "<group>"; };
-		74707F812C806DA300F7000C /* TodayFinancial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayFinancial.swift; sourceTree = "<group>"; };
 		74707F922C81B5DF00F7000C /* Assets+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Assets+CoreDataClass.swift"; sourceTree = "<group>"; };
 		74707F932C81B5DF00F7000C /* Assets+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Assets+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		74707F962C81B79500F7000C /* Budget+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Budget+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -315,6 +315,7 @@
 		5FE400722C949DE9001D0FD1 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				5FE400922CA05620001D0FD1 /* DataModel */,
 				5FE400732C949E15001D0FD1 /* NetworkManager.swift */,
 				5FE400772C949EB8001D0FD1 /* Endpoint.swift */,
 			);
@@ -339,6 +340,14 @@
 				5F413F032C8066EA00004703 /* Mypage */,
 			);
 			path = Authentication;
+			sourceTree = "<group>";
+		};
+		5FE400922CA05620001D0FD1 /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				5FE400752C949E89001D0FD1 /* APIModel.swift */,
+			);
+			path = DataModel;
 			sourceTree = "<group>";
 		};
 		7403504A2C773E9B00122B2E = {
@@ -392,11 +401,9 @@
 			children = (
 				74707F882C81B4D000F7000C /* CoreData */,
 				9F06D3112C7EFF9D00DFF5B0 /* DateModel.swift */,
-				74707F812C806DA300F7000C /* TodayFinancial.swift */,
 				E5BF5E462C8597820093FD2D /* FinancialPlanDateModel.swift */,
 				E517F33B2C892F7A00CB8680 /* KoreanCurrencyFormatter.swift */,
 				5FE4006C2C917A92001D0FD1 /* UserProfileModel.swift */,
-				5FE400752C949E89001D0FD1 /* APIModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -497,6 +504,7 @@
 			children = (
 				74707F792C80698C00F7000C /* MainPageView.swift */,
 				741746562C9871DA006D5456 /* BenefitVerticalCell.swift */,
+				5FE400992CA087A9001D0FD1 /* StockIndexCell.swift */,
 			);
 			path = MainPage;
 			sourceTree = "<group>";
@@ -731,7 +739,6 @@
 				74707FBA2C84CD7A00F7000C /* AssetsEditVC.swift in Sources */,
 				746F80862C8841F300BBAEAF /* MoneyDiaryCalendarView.swift in Sources */,
 				E5BF5E472C8597820093FD2D /* FinancialPlanDateModel.swift in Sources */,
-				74707F822C806DA300F7000C /* TodayFinancial.swift in Sources */,
 				74707F7A2C80698C00F7000C /* MainPageView.swift in Sources */,
 				E5FBA1482C7EC68700D26E5F /* PlanCustomTextField.swift in Sources */,
 				5F18A2192C8DB36B00BC70B7 /* IncomeAndLocationView.swift in Sources */,
@@ -788,6 +795,7 @@
 				746F80842C8841F300BBAEAF /* MoneyDiaryView.swift in Sources */,
 				5FE4008A2C9B2F9B001D0FD1 /* ReauthenticationVC.swift in Sources */,
 				5F3EAE562C7EFAFA00FF15E5 /* SignUpView.swift in Sources */,
+				5FE4009A2CA087A9001D0FD1 /* StockIndexCell.swift in Sources */,
 				E5FBA13D2C7E099B00D26E5F /* FinancialPlanCell.swift in Sources */,
 				5F413F012C805CED00004703 /* MypageVC.swift in Sources */,
 				740350612C773E9B00122B2E /* Smssme.xcdatamodeld in Sources */,

@@ -9,13 +9,19 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>kakao855a9cd20a1d696f68ac783bf130b54a</string>
+				<string>kakao${KAKAO_APP_KEY}</string>
 			</array>
 		</dict>
 		<dict/>
 	</array>
-	<key>KakaoAppKey</key>
+	<key>EXCHANGE_RATE_API_KEY</key>
+	<string>${EXCHANGE_RATE_API_KEY}</string>
+	<key>FRED_API_KEY</key>
+	<string>${FRED_API_KEY}</string>
+	<key>KAKAO_APP_KEY</key>
 	<string>$(KAKAO_APP_KEY)</string>
+	<key>PUBLIC_DATA_API_KEY</key>
+	<string>${PUBLIC_DATA_API_KEY}</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
