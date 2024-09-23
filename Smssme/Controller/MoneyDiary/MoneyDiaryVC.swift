@@ -91,6 +91,135 @@ final class MoneyDiaryVC: UIViewController {
         moneyDiaryView.quickMessageButton.addTarget(self, action: #selector(didTapAutoSaving), for: .touchUpInside)
     }
     
+    func makeTrafficLightLogic(weeklyTransaction: [Int], DayInWeek: [Int], MonthBudget:Int) -> [UIColor]{
+        //각 컬러값
+        let redLight = UIColor(hex: "#FF7052")
+        let greenLight = UIColor(hex: "#2DC76D")
+        let yellowLight = UIColor(hex: "#FFC800")
+        var bgColors: [UIColor] = []
+        let dayBudget = MonthBudget / DateManager.shared.endOfDateNumber(month: self.calendarDate)
+        var weeklyBudget = DayInWeek.map{ $0 * dayBudget }
+        for i in 0 ..< 6 {
+            
+            switch weeklyTransaction[i] {
+                
+            case 0...weeklyBudget[i] :
+                bgColors.append(greenLight)
+                
+            case  weeklyBudget[i] ..< Int(Double(weeklyBudget[i]) * 1.1) :
+                bgColors.append(yellowLight)
+            default:
+                bgColors.append(redLight)
+            }
+            
+        }
+        
+        
+        return bgColors
+    }
+    
+    func temp(calendarItems: [CalendarItem]) -> [Int]{
+        
+        var sections: [Int] = [0, 0, 0, 0, 0, 0]
+        for item in calendarItems { //index.range = 0...28~30
+            
+            if item.isThisMonth {
+                
+                switch item.weekSection {
+                case 0:
+                    sections[0] += 1
+                case 1: sections[1] += 1
+                case 2: sections[2] += 1
+                case 3: sections[3] += 1
+                case 4: sections[4] += 1
+                case 5: sections[5] += 1
+                default: print("fail")
+                }
+            }
+
+        }
+        return sections
+    }
+    
+    func configureBackground(monthBudget: Int?) {
+        guard let monthBudgetValue = monthBudget else { return }
+            let weeklyBudgets = temp(calendarItems: self.calendarItems) // 이러면 각주당 일수나옴
+            var weeks = [[Date]]()
+            var weeklyExpense = [0, 0, 0, 0, 0, 0]
+            for (index, item) in calendarItems.enumerated() {
+                if item.isThisMonth {
+                    switch item.weekSection {
+                    case 0:
+                        weeks[0].append(item.date)
+                    case 1:
+                        weeks[1].append(item.date)
+                    case 2:
+                        weeks[2].append(item.date)
+                    case 3:
+                        weeks[3].append(item.date)
+                    case 4:
+                        weeks[4].append(item.date)
+                    case 5:
+                        weeks[5].append(item.date)
+                    default: print("fail 2")
+                    }
+                }
+            }
+        
+            weeklyExpense[0] = getAmount(dates: weeks[0])
+            weeklyExpense[1] = getAmount(dates: weeks[1])
+            weeklyExpense[2] = getAmount(dates: weeks[2])
+            weeklyExpense[3] = getAmount(dates: weeks[3])
+            weeklyExpense[4] = getAmount(dates: weeks[4])
+            if !weeks[5].isEmpty {
+                weeklyExpense[5] = getAmount(dates: weeks[5])
+            }
+        
+            let colorValue = makeTrafficLightLogic(
+                weeklyTransaction: weeklyExpense,
+                DayInWeek: weeklyBudgets,
+                MonthBudget: 1500000
+            )
+        
+            for i in 0 ..< 42 {
+                if calendarItems[i].isThisMonth {
+                    switch self.calendarItems[i].weekSection {
+                    case 0:
+                        calendarItems[i].backgroundColor = colorValue[0]
+                    case 1:
+                        calendarItems[i].backgroundColor = colorValue[1]
+                    case 2:
+                        calendarItems[i].backgroundColor = colorValue[2]
+                    case 3:
+                        calendarItems[i].backgroundColor = colorValue[3]
+                    case 4:
+                        calendarItems[i].backgroundColor = colorValue[4]
+                    case 5:
+                        calendarItems[i].backgroundColor = colorValue[5]
+                    default:
+                        print(#function)
+                    }
+                }
+                
+            }
+        }
+
+    func getAmount (dates: [Date]) -> Int {
+        var date = dates
+        date = [date.removeFirst(),date.removeLast()]
+        var weekAmount = 0
+        if let weekDiary = DiaryCoreDataManager.shared.fetchDiaries(from: date[0], to: date[1])
+        {
+            for i in weekDiary {
+                if !i.statement {
+                    weekAmount += Int(i.amount)
+                }
+                
+            }
+        }
+        return weekAmount
+    }
+    
 }
 
 //collectionView 구성
@@ -126,12 +255,7 @@ extension MoneyDiaryVC: UICollectionViewDataSource, UICollectionViewDelegate, UI
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarCollectionViewCell.reuseIdentifier, for: indexPath) as? CalendarCollectionViewCell else { return UICollectionViewCell() }
         
-        
-
-
-        
         configureBackground(monthBudget: 1500000)
-        
         
         cell.updateDate(item: self.calendarItems[indexPath.item])
         
@@ -139,225 +263,7 @@ extension MoneyDiaryVC: UICollectionViewDataSource, UICollectionViewDelegate, UI
     }
     
     
-    func configureBackground(monthBudget: Int?) {
-        //monthBudget이 있을수도 없을수도 있음 없는경우 실행 안함
-        guard let monthBudgetValue = monthBudget else { return }
-        //일일 예산은 월예산나누기/ 당월일수
-        let dayBudget = monthBudgetValue / DateManager.shared.getWeekdayNum(month: self.calendarDate)
-        //섹션번호: 섹션예산으로 잡을 예정
-        var weekSectionWithValue = [0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0]
-        //섹션의 값을 넣어주기 위한 변수 설정
-        var weekCount = 0
-        var weekValue = 0
-        
-        for (index, calendarItem) in calendarItems.enumerated(){
-            if calendarItem.isThisMonth { //이번달일때
-                
-                calendarItems[index].weekSection = weekCount
 
-                
-            }
-            
-            
-
-            
-            calWeek()
-            let weeklyBudgets = temp(calendarItems: self.calendarItems) // 이러면 각주당 일수나옴
-            //[3,7,7,7,7]
-            // 7개씩 차례로 들어감 총 42개가
-            //0...6  7...13  14...20  21...27  28...34 35...41
-            //calendar(firstIndex.offset + 7 - weeklyBudget[0]).date
-            var week1 = [Date]()
-            var week2 = [Date]()
-            var week3 = [Date]()
-            var week4 = [Date]()
-            var week5 = [Date]()
-            var week6 = [Date]()
-            
-            var weeklyExpense = [0, 0, 0, 0, 0, 0]
-            
-            for (index, item) in calendarItems.enumerated() {
-                if item.isThisMonth {
-                    switch item.weekSection {
-                    case 0:
-                        week1.append(item.date)
-                    case 1:
-                        week2.append(item.date)
-                    case 2:
-                        week3.append(item.date)
-                    case 3:
-                        week4.append(item.date)
-                    case 4:
-                        week5.append(item.date)
-                    case 5:
-                        week6.append(item.date)
-                    default: print("fail 2")
-                    }
-                }
-                
-            }
-            
-            
-            
-            
-            weeklyExpense[0] = getAmount(dates: week1)
-            weeklyExpense[1] = getAmount(dates: week2)
-            weeklyExpense[2] = getAmount(dates: week3)
-            weeklyExpense[3] = getAmount(dates: week4)
-            weeklyExpense[4] = getAmount(dates: week5)
-            if !week6.isEmpty {
-                weeklyExpense[5] = getAmount(dates: week6)
-            }
-            let colorValue = makeTrafficLightLogic(
-                weeklyTransaction: weeklyExpense,
-                DayInWeek: weeklyBudgets,
-                MonthBudget: 1500000
-            )
-            
-            
-        
-            
-
-            for i in 0 ..< 42 {
-                if calendarItems[i].isThisMonth {
-                    switch self.calendarItems[i].weekSection {
-                    case 0:
-                        calendarItems[i].backgroundColor = colorValue[0]
-                    case 1:
-                        calendarItems[i].backgroundColor = colorValue[1]
-                    case 2:
-                        calendarItems[i].backgroundColor = colorValue[2]
-                    case 3:
-                        calendarItems[i].backgroundColor = colorValue[3]
-                    case 4:
-                        calendarItems[i].backgroundColor = colorValue[4]
-                    case 5:
-                        calendarItems[i].backgroundColor = colorValue[5]
-                    default:
-                        print(#function)
-                    }
-                }
-                
-            }
-
-
-
-        }
-        
-        
-
-        
-        
-    }
-
-    
-    func getAmount (dates: [Date]) -> Int {
-        var date = dates
-        date = [date.removeFirst(),date.removeLast()]
-        var weekAmount = 0
-        if let weekDiary = DiaryCoreDataManager.shared.fetchDiaries(from: date[0], to: date[1])
-        {
-            for i in weekDiary {
-                if !i.statement {
-                    weekAmount += Int(i.amount)
-                }
-                
-            }
-        }
-        
-        
-        return weekAmount
-    }
-    
-    
-    
-    func calWeek() {
-        var weekCount = 0
-
-        
-        for (index,item) in self.calendarItems.enumerated() {
-            
-            if item.isThisMonth {
-                calendarItems[index].weekSection = weekCount
-                if DateManager.shared.getWeekdayNum(month: calendarItems[index].date) == 7 {
-                    weekCount += 1
-                }
-            }
-
-                
-        }
-        weekCount = 0
-    }
-    
-    func temp(calendarItems: [CalendarItem]) -> [Int]{
-        
-        var sections: [Int] = [0, 0, 0, 0, 0, 0]
-        for item in calendarItems { //index.range = 0...28~30
-            
-            if item.isThisMonth {
-                
-                switch item.weekSection {
-                case 0: 
-                    sections[0] += 1
-                    
-                case 1: sections[1] += 1
-                case 2: sections[2] += 1
-                case 3: sections[3] += 1
-                case 4: sections[4] += 1
-                case 5: sections[5] += 1
-                default: print("fail")
-                }
-            }
-
-        }
-        
-
-        
-        return sections
-        
-//        let monthBudgetValue = 1500000
-//        let dayBudget = monthBudgetValue / DateManager.shared.getWeekdayNum(month: self.calendarDate)
-//        var daysInWeek =
-//        var weekValue: Int {
-//            dayBudget * daysInWeek
-        
-        
-    }
-    
-
-    
-    
-    func makeTrafficLightLogic(weeklyTransaction: [Int], DayInWeek: [Int], MonthBudget:Int) -> [UIColor]{
-        //각 컬러값
-        let redLight = UIColor(hex: "#FF7052")
-        let greenLight = UIColor(hex: "#2DC76D")
-        let yellowLight = UIColor(hex: "#FFC800")
-        var bgColors: [UIColor] = []
-        let dayBudget = MonthBudget / DateManager.shared.endOfDateNumber(month: self.calendarDate)
-        var weeklyBudget = DayInWeek.map{ $0 * dayBudget }
-        for i in 0 ..< 6 {
-            
-            switch weeklyTransaction[i] {
-                
-            case 0...weeklyBudget[i] :
-                bgColors.append(greenLight)
-                
-            case  weeklyBudget[i] ..< Int(Double(weeklyBudget[i]) * 1.15) :
-                bgColors.append(yellowLight)
-            
-                
-            default:
-                bgColors.append(redLight)
-                
-                
-            }
-            
-        }
-        
-        
-        return bgColors
-    }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let totalWidth = collectionView.frame.width
         let numberOfItemsPerRow: CGFloat = 7  // 가로로 7개 배치
