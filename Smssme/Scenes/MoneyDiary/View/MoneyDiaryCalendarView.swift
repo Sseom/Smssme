@@ -20,7 +20,7 @@ class CalendarView: UIView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.register(CalendarCollectionViewCell.self, forCellWithReuseIdentifier: CalendarCollectionViewCell.reuseIdentifier)
         collectionView.backgroundColor = .white
-//        collectionView.isPagingEnabled = true// 임ㅅ
+//        collectionView.isPagingEnabled = true//
         return collectionView
     }()
     
@@ -46,10 +46,10 @@ class CalendarView: UIView {
         weekStackView.snp.makeConstraints {
             $0.top.equalTo(self.snp.top)
             $0.horizontalEdges.equalTo(self.snp.horizontalEdges)
-            $0.height.equalTo(18)
+            $0.height.equalTo(22)
         }
         calendarCollectionView.snp.makeConstraints {
-            $0.top.equalTo(self.weekStackView.snp.bottom)
+            $0.top.equalTo(self.weekStackView.snp.bottom).offset(2)
             $0.width.equalTo(self.snp.width)
             $0.height.equalTo(self.snp.width).multipliedBy(1.5)
             

@@ -96,6 +96,7 @@
 		9F06D3122C7EFF9D00DFF5B0 /* DateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F06D3112C7EFF9D00DFF5B0 /* DateModel.swift */; };
 		9F06D31A2C801D1F00DFF5B0 /* FinancialPlanConfirmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F06D3192C801D1F00DFF5B0 /* FinancialPlanConfirmVC.swift */; };
 		9F20E3712C9C0143003FF56E /* BenefitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F20E3702C9C0143003FF56E /* BenefitView.swift */; };
+		9F20E39A2CA1A822003FF56E /* DateFormatter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F20E3992CA1A822003FF56E /* DateFormatter+.swift */; };
 		9F2FA5852C868EB100A9731D /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2FA5842C868EB100A9731D /* DateManager.swift */; };
 		9F86E6CD2C92AB5F00619F7D /* AutomaticTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F86E6CC2C92AB5F00619F7D /* AutomaticTransactionView.swift */; };
 		9F86E6CF2C92AB7100619F7D /* AutomaticTransactionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F86E6CE2C92AB7100619F7D /* AutomaticTransactionVC.swift */; };
@@ -204,6 +205,7 @@
 		9F06D3112C7EFF9D00DFF5B0 /* DateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateModel.swift; sourceTree = "<group>"; };
 		9F06D3192C801D1F00DFF5B0 /* FinancialPlanConfirmVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanConfirmVC.swift; sourceTree = "<group>"; };
 		9F20E3702C9C0143003FF56E /* BenefitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenefitView.swift; sourceTree = "<group>"; };
+		9F20E3992CA1A822003FF56E /* DateFormatter+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+.swift"; sourceTree = "<group>"; };
 		9F2FA5842C868EB100A9731D /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		9F86E6CC2C92AB5F00619F7D /* AutomaticTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomaticTransactionView.swift; sourceTree = "<group>"; };
 		9F86E6CE2C92AB7100619F7D /* AutomaticTransactionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomaticTransactionVC.swift; sourceTree = "<group>"; };
@@ -599,6 +601,7 @@
 			isa = PBXGroup;
 			children = (
 				9F2FA5842C868EB100A9731D /* DateManager.swift */,
+				9F20E3992CA1A822003FF56E /* DateFormatter+.swift */,
 			);
 			path = Date;
 			sourceTree = "<group>";
@@ -820,6 +823,7 @@
 				74707F9C2C81B7E800F7000C /* Diary+CoreDataClass.swift in Sources */,
 				5F18A2172C8DB35400BC70B7 /* NickNameView.swift in Sources */,
 				74707F9D2C81B7E800F7000C /* Diary+CoreDataProperties.swift in Sources */,
+				9F20E39A2CA1A822003FF56E /* DateFormatter+.swift in Sources */,
 				5F18A20D2C8DB29D00BC70B7 /* IncomeAndLocationVC.swift in Sources */,
 				E517F3402C89A41900CB8680 /* MoneyDiaryCreationVC.swift in Sources */,
 				746F808B2C88424000BBAEAF /* DailyTransactionCell.swift in Sources */,

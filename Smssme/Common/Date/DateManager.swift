@@ -9,8 +9,11 @@ import UIKit
 
 final class DateManager {
     var calendar = Calendar.current
+    var dateComponents = DateComponents()
     static let shared = DateManager()
-    private init() {}
+    private init() {
+        self.dateComponents.timeZone = TimeZone(secondsFromGMT: 0)
+    }
 
     func configureDays (currentMonth: Date) -> [Date] {
         var totalDays: [Date] = []
@@ -18,28 +21,61 @@ final class DateManager {
         let firstWeekday = getFirstWeekday(for: currentMonth)
         let lastMonthOfStart = moveToSomeday(when: firstDayInMonth, howLong: -firstWeekday + 1)
         for i in 0 ..< 42 {
-            
                 totalDays.append(moveToSomeday(when: lastMonthOfStart, howLong: i))
             }
         return totalDays
     }
     
+    func make000000(){
+        self.dateComponents.hour = 0
+        self.dateComponents.minute = 0
+        self.dateComponents.second = 0
+    }
+    
+    func make235959(){
+        self.dateComponents.hour = 23
+        self.dateComponents.minute = 59
+        self.dateComponents.second = 59
+    }
+    
+    
     
     func getlastDayInMonth(date: Date) -> Date {
-        let lastDay = endOfDateNumber(month: date)
-        var dateComponents = DateComponents()
+        let lastDay = endOfMonthInDay(month: date)
         dateComponents.year = calendar.component(.year, from: date)
         dateComponents.month = calendar.component(.month, from: date)
         dateComponents.day = lastDay
-        dateComponents.hour = 23
-        dateComponents.minute = 59
-        dateComponents.second = 59
-        dateComponents.timeZone = TimeZone(secondsFromGMT: 0)
-        guard let temp = self.calendar.date(from: dateComponents)
+        make235959()
+        guard let lastDayInMonth = self.calendar.date(from: dateComponents)
         else {
             print(#function)
             return Date()}
-        return temp
+        return lastDayInMonth
+    }
+    
+    func getStartOfDayTime(date: Date) -> Date {
+        let someday = calendar.component(.day, from: date)
+        dateComponents.day = someday
+        make000000()
+        guard let startOfDay = self.calendar.date(from: dateComponents)
+        else {
+            print(#function)
+            return Date()
+        }
+        return startOfDay
+    }
+    
+    //
+    func getEndofDayTime(date: Date) -> Date {
+        let someday = calendar.component(.day, from: date)
+        dateComponents.day = someday
+        make235959()
+        guard let endOfDay = self.calendar.date(from: dateComponents)
+        else {
+            print(#function)
+            return Date()
+        }
+        return endOfDay
     }
     
     
@@ -52,15 +88,23 @@ final class DateManager {
         return temp
     }
     
+    //어떤달로의 이동
+    func moveToSomeMonth(when: Date) -> Date{
+        dateComponents = self.calendar.dateComponents([.year, .month], from: when)
+        guard let date = self.calendar.date(from: dateComponents)
+        else {
+            print(#function)
+            return Date()
+        }
+        return date
+    }
+    
+    //해당달의 첫째날로 변환하기
     func getFirstDayInMonth(date: Date) -> Date {
-        var dateComponents = DateComponents()
         dateComponents.year = calendar.component(.year, from: date)
         dateComponents.month = calendar.component(.month, from: date)
         dateComponents.day = 1
-        dateComponents.hour = 0
-        dateComponents.minute = 0
-        dateComponents.second = 0
-        dateComponents.timeZone = TimeZone(secondsFromGMT: 0)
+        make000000()
         guard let temp = self.calendar.date(from: dateComponents)
         else {
             print(#function)
@@ -68,35 +112,34 @@ final class DateManager {
         return temp
     }
     
-    
-    func getFirstWeekday(for month: Date) -> Int{
-        let temp = getFirstDayInMonth(date: month)
-        let temp2 = calendar.component(.weekday, from: temp)
-        return temp2
+    //해당달의 첫째날짜의 요일구하기
+    func getFirstWeekday(for month: Date) -> Int {
+        let currentMonth = getFirstDayInMonth(date: month)
+        let weekdayValue = getWeekday(month: currentMonth)
+        return weekdayValue
     }
     
-    
-    func endOfDateNumber(month currentDateOfMonth: Date) -> Int {
-        guard let date = self.calendar.range(of: .day, in: .month, for: currentDateOfMonth)
+    //해당달의 일자수 구하기
+    func endOfMonthInDay(month: Date) -> Int {
+        guard let date = self.calendar.range(of: .day, in: .month, for: month)
         else {
             print(#function)
             return 0 }
-        return date.count
+        return date.count // 28, 29, 30, 31
     }
     
-    func getWeekdayNum(month currentMonth: Date) -> Int { // 그냥 요일임 그달의 요일이 아니라
-        return self.calendar.component(.weekday, from: currentMonth)
+    //요일구하기
+    func getWeekday(month: Date) -> Int { // 그냥 요일임 그달의 요일이 아니라
+        return self.calendar.component(.weekday, from: month)
     }
     
     
     
+    //시간을 없애기
     func transformDateWithoutTime (date: Date) -> Date {
-        var components = self.calendar.dateComponents([.year, .month, .day], from: date)
-        components.hour = 0
-        components.minute = 0
-        components.second = 0
-        components.timeZone = TimeZone(secondsFromGMT: 0)
-        guard let dateWithoutTime = calendar.date(from: components)
+        dateComponents = self.calendar.dateComponents([.year, .month, .day], from: date)
+        make000000()
+        guard let dateWithoutTime = calendar.date(from: dateComponents)
         else {
             print(#function)
             return Date()
@@ -104,61 +147,15 @@ final class DateManager {
         return dateWithoutTime
     }
     
-    func moveToSomeMonth(when: Date) -> Date{
-        let components = self.calendar.dateComponents([.year, .month], from: when)
-        guard let date = self.calendar.date(from: components)
-        else {
-            print(#function)
-            return Date()
-        }
-        
-        return date
-    }
+
+    
     
     func daysBetween(start: Date, end: Date) -> Int? {
         let calendar = Calendar.current
         let startOfDay = calendar.startOfDay(for: start)
         let endOfDay = calendar.startOfDay(for: end)
-        
-        let components = calendar.dateComponents([.day], from: startOfDay, to: endOfDay)
-        return components.day
+        dateComponents = calendar.dateComponents([.day], from: startOfDay, to: endOfDay)
+        return dateComponents.day
     }
 }
 
- extension DateFormatter {
-    static let yearMonthDay: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        return formatter
-    }()
-    
-    static let year: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy"
-        return formatter
-    }()
-    
-    static let day: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd"
-        return formatter
-    }()
-    
-    static let YMDHM: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm"
-        return formatter
-    }()
-    
-    static let yearMonth: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM"
-        return formatter
-    }()
-    
-    static let yearMonthKR: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy년 MM월 "
-        return formatter
-    }()
-}

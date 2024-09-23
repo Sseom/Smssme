@@ -22,6 +22,8 @@ final class MoneyDiaryVC: UIViewController {
     private var calendar = Calendar.current
     private var calendarDate = Date()
     private var calendarItems = [CalendarItem]()
+    private var MonthBudget: Int?
+    private var expenseOfDays: [Int]?
     private var animation: UIViewPropertyAnimator?
     
     private var isActive: Bool = false {
@@ -53,6 +55,7 @@ final class MoneyDiaryVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
         self.configureAmountOfMonth()
         self.moneyDiaryView.calendarView.calendarCollectionView.reloadData()
     }
@@ -91,14 +94,19 @@ final class MoneyDiaryVC: UIViewController {
         moneyDiaryView.quickMessageButton.addTarget(self, action: #selector(didTapAutoSaving), for: .touchUpInside)
     }
     
+
+}
+
+// 신호등 로직
+extension MoneyDiaryVC {
     func makeTrafficLightLogic(weeklyTransaction: [Int], DayInWeek: [Int], MonthBudget:Int) -> [UIColor]{
         //각 컬러값
         let redLight = UIColor(hex: "#FF7052")
         let greenLight = UIColor(hex: "#2DC76D")
         let yellowLight = UIColor(hex: "#FFC800")
         var bgColors: [UIColor] = []
-        let dayBudget = MonthBudget / DateManager.shared.endOfDateNumber(month: self.calendarDate)
-        var weeklyBudget = DayInWeek.map{ $0 * dayBudget }
+        let dayBudget = MonthBudget / DateManager.shared.endOfMonthInDay(month: self.calendarDate)
+        let weeklyBudget = DayInWeek.map{ $0 * dayBudget }
         for i in 0 ..< 6 {
             
             switch weeklyTransaction[i] {
@@ -121,13 +129,15 @@ final class MoneyDiaryVC: UIViewController {
     func temp(calendarItems: [CalendarItem]) -> [Int]{
         
         var sections: [Int] = [0, 0, 0, 0, 0, 0]
-        for item in calendarItems { //index.range = 0...28~30
-            
+        var sectionCounter = 0
+        for (index,item) in calendarItems.enumerated() { //index.range = 0...28~30
             if item.isThisMonth {
                 
+                
+                
+                
                 switch item.weekSection {
-                case 0:
-                    sections[0] += 1
+                case 0: sections[0] += 1
                 case 1: sections[1] += 1
                 case 2: sections[2] += 1
                 case 3: sections[3] += 1
@@ -144,9 +154,9 @@ final class MoneyDiaryVC: UIViewController {
     func configureBackground(monthBudget: Int?) {
         guard let monthBudgetValue = monthBudget else { return }
             let weeklyBudgets = temp(calendarItems: self.calendarItems) // 이러면 각주당 일수나옴
-            var weeks = [[Date]]()
+            var weeks = Array(repeating: [Date](), count: 6)
             var weeklyExpense = [0, 0, 0, 0, 0, 0]
-            for (index, item) in calendarItems.enumerated() {
+            for item in calendarItems {
                 if item.isThisMonth {
                     switch item.weekSection {
                     case 0:
@@ -165,6 +175,7 @@ final class MoneyDiaryVC: UIViewController {
                     }
                 }
             }
+        //calendaritemsection값에 안들어가고 있음
         
             weeklyExpense[0] = getAmount(dates: weeks[0])
             weeklyExpense[1] = getAmount(dates: weeks[1])
@@ -183,42 +194,43 @@ final class MoneyDiaryVC: UIViewController {
         
             for i in 0 ..< 42 {
                 if calendarItems[i].isThisMonth {
-                    switch self.calendarItems[i].weekSection {
-                    case 0:
-                        calendarItems[i].backgroundColor = colorValue[0]
-                    case 1:
-                        calendarItems[i].backgroundColor = colorValue[1]
-                    case 2:
-                        calendarItems[i].backgroundColor = colorValue[2]
-                    case 3:
-                        calendarItems[i].backgroundColor = colorValue[3]
-                    case 4:
-                        calendarItems[i].backgroundColor = colorValue[4]
-                    case 5:
-                        calendarItems[i].backgroundColor = colorValue[5]
-                    default:
-                        print(#function)
-                    }
+                    calendarItems[i].backgroundColor = colorValue[calendarItems[i].weekSection]
                 }
                 
             }
         }
 
     func getAmount (dates: [Date]) -> Int {
-        var date = dates
-        date = [date.removeFirst(),date.removeLast()]
-        var weekAmount = 0
-        if let weekDiary = DiaryCoreDataManager.shared.fetchDiaries(from: date[0], to: date[1])
-        {
-            for i in weekDiary {
+        guard dates.count > 0
+        else {
+            print(#function)
+            return 0 }
+        
+        var startOfDay = Date()
+        var endOfDay = Date()
+        var weeklyExpense = 0
+        // 00:00:00부터 23:59:59까지를 위한작업
+        if dates.count == 1 {
+            let today = dates[0]
+            startOfDay = DateManager.shared.getStartOfDayTime(date: today)
+            endOfDay = DateManager.shared.getEndofDayTime(date: today)
+        }
+        
+        else { // 2이상을 보장함
+            let lastIndex = dates.count - 1
+            startOfDay = DateManager.shared.getStartOfDayTime(date: dates[0])
+            endOfDay = DateManager.shared.getEndofDayTime(date: dates[lastIndex])
+        }
+        if let diary = DiaryCoreDataManager.shared.fetchDiaries(from: startOfDay, to: endOfDay) {
+            for i in diary {
                 if !i.statement {
-                    weekAmount += Int(i.amount)
+                    weeklyExpense += Int(i.amount)
                 }
             }
         }
-        return weekAmount
-    }
-    
+            
+        return weeklyExpense
+        }
 }
 
 //collectionView 구성
@@ -226,15 +238,29 @@ extension MoneyDiaryVC: UICollectionViewDataSource, UICollectionViewDelegate, UI
     
     private func updateCalendar() {
         let date = DateFormatter.yearMonthKR.string(from: self.calendarDate)
+        
         self.moneyDiaryView.dateButton.setTitle(date, for: .normal)
         
         self.calendarItems.removeAll()
         let temp = DateManager.shared.configureDays(currentMonth: calendarDate)
         let thisMonth = calendar.component(.month, from: calendarDate)
-        
+        var sectionCount = 0
         calendarItems = temp.map { i in
-            CalendarItem(date: i, isThisMonth: calendar.component(.month, from: i) == thisMonth)
+            
+            let weekDay = DateManager.shared.getWeekday(month: i)
+            
+            let calendar = CalendarItem(date: i,
+                         isThisMonth: calendar.component(.month, from: i) == thisMonth, weekSection: sectionCount )
+            
+            if weekDay == 7 {
+                sectionCount += 1
+            }
+            
+            return calendar
         }
+        
+        
+ 
         
         self.moneyDiaryView.calendarView.calendarCollectionView.reloadData()
         
@@ -254,7 +280,6 @@ extension MoneyDiaryVC: UICollectionViewDataSource, UICollectionViewDelegate, UI
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarCollectionViewCell.reuseIdentifier, for: indexPath) as? CalendarCollectionViewCell else { return UICollectionViewCell() }
         
-        //configureBackground(monthBudget: 1500000)
         
         cell.updateDate(item: self.calendarItems[indexPath.item])
         

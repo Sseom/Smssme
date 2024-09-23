@@ -112,19 +112,26 @@ class MoneyDiaryView: UIView {
     
     private func configureWeekLabel() {
         calendarView.weekStackView.distribution = .fillEqually
-        let dayOfTheWeek = ["일", "월", "화", "수", "목", "금", "토"]
+        
+        let dayOfTheWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
         for i in 0...6 {
             let label = UILabel()
             label.text = dayOfTheWeek[i]
             switch label.text {
-            case "토": label.textColor = .blue
-            case "일": label.textColor = .red
-            default: label.textColor = .black
+            case "Sat": label.backgroundColor = .systemBlue
+            case "Sun": label.backgroundColor = .systemRed
+            default: label.backgroundColor = .black.withAlphaComponent(0.8)
             }
-            label.backgroundColor = .systemGray.withAlphaComponent(0.2)
+            label.layer.borderColor = UIColor.white.cgColor
+            label.layer.borderWidth = 0.5
+            label.textColor = .white
+            
             label.font = .systemFont(ofSize: 13, weight: .bold)
-            label.layer.borderColor = UIColor.systemGray.cgColor
-            label.layer.borderWidth = 1.0
+            
+            
+            
+            
+            
             label.textAlignment = .center
             calendarView.weekStackView.addArrangedSubview(label)
         }

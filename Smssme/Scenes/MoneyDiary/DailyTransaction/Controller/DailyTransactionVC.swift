@@ -31,7 +31,7 @@ class DailyTransactionVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
+        self.navigationController?.isNavigationBarHidden = false
         
         
         
@@ -89,26 +89,11 @@ class DailyTransactionVC: UIViewController {
         today = day
 
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd"
+        dateFormatter.dateFormat = "MM.dd"
         let dayString = dateFormatter.string(from: day)
         self.transactionView.dateLabel.text = "\(dayString)일"
         
     }
-    
-    func counter (amount: Int) -> String {
-        let temp = String(amount)
-        
-        if temp.count > 10 {
-            let temp2 = Double(amount) * 0.001
-            //1500원은 0.15만->
-            //1000000 원 100만?
-            return String(temp2)
-            
-        }
-        else { return temp }
-    }
-    
-    
 
 }
 
