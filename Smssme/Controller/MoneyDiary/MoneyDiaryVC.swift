@@ -178,7 +178,7 @@ final class MoneyDiaryVC: UIViewController {
             let colorValue = makeTrafficLightLogic(
                 weeklyTransaction: weeklyExpense,
                 DayInWeek: weeklyBudgets,
-                MonthBudget: 1500000
+                MonthBudget: monthBudgetValue
             )
         
             for i in 0 ..< 42 {
@@ -214,7 +214,6 @@ final class MoneyDiaryVC: UIViewController {
                 if !i.statement {
                     weekAmount += Int(i.amount)
                 }
-                
             }
         }
         return weekAmount
@@ -255,7 +254,7 @@ extension MoneyDiaryVC: UICollectionViewDataSource, UICollectionViewDelegate, UI
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarCollectionViewCell.reuseIdentifier, for: indexPath) as? CalendarCollectionViewCell else { return UICollectionViewCell() }
         
-        configureBackground(monthBudget: 1500000)
+        //configureBackground(monthBudget: 1500000)
         
         cell.updateDate(item: self.calendarItems[indexPath.item])
         
