@@ -57,7 +57,7 @@ class DailyTransactionCell: UICollectionViewCell, CellReusable {
     
     
     func updateData(transaction: Diary){
-        var dateFormatter = DateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
         let time = dateFormatter.string(from: transaction.date ?? Date())
         

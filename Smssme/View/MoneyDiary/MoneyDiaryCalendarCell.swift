@@ -48,6 +48,9 @@ final class CalendarCollectionViewCell: UICollectionViewCell, CellReusable {
         isToday(currentDay: item.date)
         dayLabel.text = dateStringFormatter(date: item.date)
 //        print(item.date,item.weekSection)
+        if item.date < Date() {
+            self.backgroundColor = item.backgroundColor
+        }
         
 
         
