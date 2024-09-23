@@ -32,6 +32,12 @@ class ChartDataManager {
         return ChartData(amount: Int64(amount), title: title)
     }
     
+    func planToChartData(array: [FinancialPlan], title: String) -> ChartData {
+        let amount = array.reduce(0) { $0 + Double($1.deposit) }
+        
+        return ChartData(amount: Int64(amount), title: title)
+    }
+    
     // Assets을 ChartData로 변환
     func assetsToChartData(array: [Assets]) -> [ChartData] {
         let groupedAssets = Dictionary(grouping: array) { $0.category ?? "기타" }

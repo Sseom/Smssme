@@ -33,6 +33,7 @@ class EmailView: UIView {
         textField.layer.borderColor = UIColor.systemGray5.cgColor
         textField.layer.cornerRadius = 8
         textField.keyboardType = .emailAddress
+        textField.autocapitalizationType = .none
         textField.clearButtonMode = .always
         textField.addLeftPadding()
         return textField
@@ -48,6 +49,24 @@ class EmailView: UIView {
     }()
     
     let checkEmailButton = BaseButton().createButton(text: "중복확인", color: .systemBlue, textColor: .white)
+    
+    lazy var passwordTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "비밀번호를 입력하세요"
+        textField.textColor = .black
+        textField.backgroundColor = .clear
+        textField.layer.borderWidth = 2
+        textField.layer.borderColor = UIColor.systemGray5.cgColor
+        textField.layer.cornerRadius = 8
+        textField.keyboardType = .emailAddress
+        textField.clearButtonMode = .always
+        textField.addLeftPadding()
+        textField.isSecureTextEntry = true
+        textField.textContentType = .oneTimeCode
+        textField.isHidden = true
+        return textField
+    }()
+    
     
     //MARK: - 다음 버튼
     var nextButton: UIButton = {
@@ -80,7 +99,7 @@ class EmailView: UIView {
     private func configureUI() {
         self.backgroundColor = .white
         
-        // 스크롤뷰에서 빈 화면터치 시 키보드 내려감
+        // 빈 화면터치 시 키보드 내려감
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(self.touch))
         recognizer.numberOfTapsRequired = 1
         recognizer.numberOfTouchesRequired = 1
@@ -94,6 +113,7 @@ class EmailView: UIView {
          emailTextField,
          checkEmailButton,
          emailErrorLabel,
+         passwordTextField,
          nextButton
         ].forEach {self.addSubview($0)}
     }
@@ -137,6 +157,11 @@ class EmailView: UIView {
             $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(36)
         }
         
+        passwordTextField.snp.makeConstraints {
+            $0.top.equalTo(emailErrorLabel.snp.bottom).offset(10)
+            $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)
+            $0.height.equalTo(commonHeight)
+        }
         
         nextButton.snp.makeConstraints {
             $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(30)

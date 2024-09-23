@@ -14,7 +14,7 @@ class SplashViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        // 스플래쉬 이미지 임시 사용 중
+        
         let splashImage = UIImageView(image: UIImage(named: "splashImage"))
         splashImage.contentMode = .scaleAspectFit
         view.addSubview(splashImage)
@@ -25,7 +25,7 @@ class SplashViewController: UIViewController {
         }
         
         // 0.5초 후에 로그인 상태 확인
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.checkLoginStatus()
         }
     }
@@ -48,7 +48,7 @@ class SplashViewController: UIViewController {
         
         window.rootViewController = mainTabBarController
         UIView.transition(with: window,
-                          duration: 0.5,
+                          duration: 0.3,
                           options: [.transitionCrossDissolve],
                           animations: nil,
                           completion: nil)
@@ -56,10 +56,11 @@ class SplashViewController: UIViewController {
     
     func showLoginVC() {
         let loginVC = LoginVC()
+        let navController = UINavigationController(rootViewController: loginVC)
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let window = windowScene.windows.first else { return }
         
-        window.rootViewController = loginVC
+        window.rootViewController = navController
         UIView.transition(with: window,
                           duration: 0.3,
                           options: [.transitionCrossDissolve],
