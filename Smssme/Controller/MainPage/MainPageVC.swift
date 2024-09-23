@@ -18,6 +18,11 @@ class MainPageVC: UIViewController, UITableViewDelegate {
     private let diaryCoreDataManager = DiaryCoreDataManager.shared
     var dataEntries: [PieChartDataEntry] = []
     
+    //경제 지표
+    private var financialData: [FinancialData] = []
+
+    
+    
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -37,7 +42,6 @@ class MainPageVC: UIViewController, UITableViewDelegate {
         super.loadView()
         self.view = mainPageView
         setupCenterButtonEvent()
-//        setChart()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,6 +51,7 @@ class MainPageVC: UIViewController, UITableViewDelegate {
         self.navigationController?.isNavigationBarHidden = true
         
         setChart()
+//        setupCollectionView()
     }
     
     private func setupCenterButtonEvent() {
@@ -153,6 +158,35 @@ class MainPageVC: UIViewController, UITableViewDelegate {
         navigationController?.pushViewController(AssetsListVC(), animated: true)
     }
 }
+
+//MARK: - 주요 경제 지표 API 데이터
+//extension MainPageVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+//
+//    func setupCollectionView() {
+//        mainPageView.stockIndexcollectionView.dataSource = self
+//        mainPageView.stockIndexcollectionView.delegate = self
+//        
+//        mainPageView.stockIndexcollectionView.register(StockIndexCell.self, forCellWithReuseIdentifier: StockIndexCell.reuseIdentifier)
+//        view.addSubview(mainPageView.stockIndexcollectionView)
+//
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return 4
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StockIndexCell.reuseIdentifier, for: indexPath) as! StockIndexCell
+////        let item = kospiData[indexPath.item]
+////        cell.configure(with: item)
+//        return cell
+//    }
+//    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        return CGSize(width: 150, height: 80) // 셀 크기
+//    }
+//    
+//}
 
 extension MainPageVC: UITabBarDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
