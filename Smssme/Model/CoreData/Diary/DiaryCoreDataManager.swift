@@ -143,7 +143,6 @@ class DiaryCoreDataManager {
     
     //update
     func updateDiary(with key: UUID, newTitle: String?, newDate: Date?, newAmount: Int64?, newStatement: Bool?, newCategory: String?, newNote: String?, newUserId: String?) {
-        let context = DiaryCoreDataManager.shared.context
         
         if let diaryToUpdate = fetchDiary(with: key) {
             if let newTitle = newTitle {

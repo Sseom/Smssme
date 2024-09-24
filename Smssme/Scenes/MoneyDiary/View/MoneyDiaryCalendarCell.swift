@@ -113,8 +113,6 @@ final class CalendarCollectionViewCell: UICollectionViewCell, CellReusable {
             self.layer.borderColor = UIColor.gray.cgColor
             self.layer.borderWidth = 0.2
         }
-        //today를 calendaritem에서 조회? 한후 그 section값을 구한뒤
-        //그전 섹션까지만 보여주게끔 처리
     }
     
     
@@ -135,7 +133,6 @@ final class CalendarCollectionViewCell: UICollectionViewCell, CellReusable {
             $0.font = .systemFont(ofSize: 15)
             $0.adjustsFontSizeToFitWidth = true
             $0.minimumScaleFactor = 0.6
-            //글자 최소사이즈는 15의 60프로까지(9)까지만 작아짐 넘을경우 셀밖으로 나감
         }
     }
     

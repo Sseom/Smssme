@@ -3,7 +3,7 @@
 //  Smssme
 //
 //  Created by KimRin on 9/23/24.
-//
+//0924 rin
 
 import Foundation
 
@@ -44,4 +44,11 @@ extension DateFormatter {
        
        return formatter
    }()
+    static let hourMinutesKr: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH시 mm분"
+        
+        return formatter
+    }()
+    
 }
