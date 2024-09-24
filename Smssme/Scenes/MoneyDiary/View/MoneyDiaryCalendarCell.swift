@@ -47,7 +47,8 @@ final class CalendarCollectionViewCell: UICollectionViewCell, CellReusable {
         isThisMonth(today: item)
         isToday(currentDay: item.date)
         dayLabel.text = dateStringFormatter(date: item.date)
-//        print(item.date,item.weekSection)
+
+        //여기에서. 섹션 검사를 해야할듯
         if item.date < Date() {
             self.backgroundColor = item.backgroundColor
         }
@@ -60,10 +61,12 @@ final class CalendarCollectionViewCell: UICollectionViewCell, CellReusable {
             i.statement ? (accumulator.0 + Int(i.amount), accumulator.1) : (accumulator.0, accumulator.1 + Int(i.amount)) }
         
         let totalAmount = income - expense
+        if item.isThisMonth {
+            self.expenseLabel.text = expense == 0 ? "" : "\(expense)"
+            self.incomeLabel.text = income == 0 ? "" : "\(income)"
+            self.totalAmountLabel.text = totalAmount == 0 ? "" : "\(totalAmount)"
+        }
         
-        self.expenseLabel.text = expense == 0 ? "" : "\(expense)"
-        self.incomeLabel.text = income == 0 ? "" : "\(income)"
-        self.totalAmountLabel.text = totalAmount == 0 ? "" : "\(totalAmount)"
     }
     
     
@@ -78,20 +81,23 @@ final class CalendarCollectionViewCell: UICollectionViewCell, CellReusable {
     
     
     private func isThisMonth(today: CalendarItem) {
-        let weekday = DateManager.shared.getWeekdayNum(month: today.date)
+        let weekday = DateManager.shared.getWeekday(month: today.date)
         
         switch weekday {
         case 1: 
-            self.dayLabel.textColor = .red
+            self.dayLabel.textColor = .systemRed
         case 7: 
             
-            self.dayLabel.textColor = .blue
-        default: 
+            self.dayLabel.textColor = .systemBlue
+        default:
             self.dayLabel.textColor = .black
         }
         
         if today.isThisMonth != true {
             dayLabel.textColor = self.dayLabel.textColor.withAlphaComponent(0.4)
+            incomeLabel.text = ""
+            expenseLabel.text = ""
+            totalAmountLabel.text = ""
             }
         
 
@@ -127,7 +133,6 @@ final class CalendarCollectionViewCell: UICollectionViewCell, CellReusable {
             $0.font = .systemFont(ofSize: 15)
             $0.adjustsFontSizeToFitWidth = true
             $0.minimumScaleFactor = 0.6
-            //글자 최소사이즈는 15의 60프로까지(9)까지만 작아짐 넘을경우 셀밖으로 나감
         }
     }
     

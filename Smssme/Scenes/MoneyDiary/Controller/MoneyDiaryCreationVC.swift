@@ -12,7 +12,7 @@ protocol MoneyDiaryCreationDelegate: AnyObject {
     func didCreateMoneyDiary(_ diary: Diary)
 }
 
-class MoneyDiaryCreationVC: UIViewController, UITextFieldDelegate {
+final class MoneyDiaryCreationVC: UIViewController, UITextFieldDelegate {
     weak var creationDelegate: MoneyDiaryCreationDelegate?
     private let diaryManager: DiaryCoreDataManager
     var transactionItem: TransactionItem
