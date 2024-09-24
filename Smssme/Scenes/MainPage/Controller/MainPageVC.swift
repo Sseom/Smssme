@@ -217,18 +217,3 @@ extension MainPageVC: UITableViewDataSource {
         return cell
     }
 }
-
-//extension MainPageVC: ChartViewDelegate {
-//    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-//        if entry is PieChartDataEntry {
-//            mainPageView.pieChartView.highlightValues(nil)
-//            guard let index = dataEntries.firstIndex(of: entry as! PieChartDataEntry) else { return }
-//            let uuid = uuids[index]
-//            
-//            let assetsEditVC = AssetsListVC()
-//            assetsEditVC.uuid = uuid
-//            
-//            self.navigationController?.pushViewController(assetsEditVC, animated: true)
-//        }
-//    }
-//}
