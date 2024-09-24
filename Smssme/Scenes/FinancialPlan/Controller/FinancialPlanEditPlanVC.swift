@@ -62,7 +62,8 @@ extension FinancialPlanEditPlanVC {
     }
     
     private func saveUpdatedPlan() {
-        guard let amountText = creationView.textFieldArea.targetAmountField.text,
+        guard let planTitle = creationView.titleTextField.text,
+            let amountText = creationView.textFieldArea.targetAmountField.text,
               let amount = KoreanCurrencyFormatter.shared.number(from: amountText),
               let depositText = creationView.textFieldArea.currentSavedField.text,
               let deposit = KoreanCurrencyFormatter.shared.number(from: depositText),
@@ -77,7 +78,7 @@ extension FinancialPlanEditPlanVC {
         do {
             let updateDTO = FinancialPlanDTO(
                 id: planDTO.id,
-                title: planDTO.title,
+                title: planTitle,
                 amount: amount,
                 deposit: deposit,
                 startDate: startDate,
