@@ -37,24 +37,15 @@ class MainPageView: UIView {
     
     //경제지표 컬렉션뷰
     lazy var stockIndexcollectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCollectionViewLayout())
-        collectionView.register(StockIndexCell.self, forCellWithReuseIdentifier: StockIndexCell.reuseIdentifier)
-        collectionView.backgroundColor = .blue
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
         
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        collectionView.register(StockIndexCell.self, forCellWithReuseIdentifier: StockIndexCell.reuseIdentifier)
+        collectionView.backgroundColor = .green
+
         return collectionView
     }()
-    
-    private func createCollectionViewLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 16
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 20, right: 0)
-        
-        let itemWidth = UIScreen.main.bounds.width - 40
-        layout.itemSize = CGSize(width: itemWidth, height: 80)
-        
-        return layout
-    }
     
     let pieChartView: PieChartView = {
         let pieChartView = PieChartView()
@@ -75,12 +66,6 @@ class MainPageView: UIView {
         return button
     }()
     
-    //    private let benefitVerticalStackView: UIStackView = {
-    //        let stackView = UIStackView()
-    //        stackView.axis = .vertical
-    //        stackView.distribution = .fill
-    //        return stackView
-    //    }()
     
     let benefitVerticalTableView = UITableView()
     
@@ -89,7 +74,6 @@ class MainPageView: UIView {
         super.init(frame: frame)
         setupUI()
         //        setupTodayFinancia(todayFinanciaData: todayFinancialArray)
-        //        setupBenefit(benefitData: benefitData)
     }
     
     required init?(coder: NSCoder) {
@@ -121,47 +105,9 @@ class MainPageView: UIView {
     //            rangeLabel.textAlignment = .left
     //            rangeLabel.textColor = .systemBlue
     //
-    //            financialHorizontalStackView.addArrangedSubview(financialVerticalStackView)
-    //
-    //            [valueLabel, rangeLabel].forEach {
-    //                valueRangeStackView.addArrangedSubview($0)
-    //            }
-    //
-    //            [titleLabel, valueRangeStackView].forEach {
-    //                financialVerticalStackView.addArrangedSubview($0)
-    //            }
-    //        }
-    //    }
+
     
     //MARK: - 청년 혜택 총정리
-    //    func setupBenefit(benefitData: [String]) {
-    //        for (index, benefit) in benefitData.enumerated() {
-    //            let button = UIButton()
-    //            button.setTitle(benefit, for: .normal)
-    //            button.setTitleColor(.black, for: .normal)
-    //            button.contentHorizontalAlignment = .left
-    //            button.tag = index
-    //
-    //            button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
-    //            benefitVerticalStackView.addArrangedSubview(button)
-    //
-    //            button.snp.makeConstraints {
-    //                $0.width.equalTo(benefitVerticalStackView.snp.width)
-    //                $0.height.equalTo(60)
-    //            }
-    //        }
-    //        contentView.addSubview(benefitVerticalStackView)
-    //    }
-    
-    // 청년 혜택 노션 url 연결
-    //    @objc private func buttonTapped(_ sender: UIButton) {
-    //        let index = sender.tag
-    //        if index < benefitUrl.count {
-    //            let urlString = benefitUrl[index]
-    //            openSafari(with: urlString)
-    //        }
-    //    }
-    
     func entryData(values: [Double]) -> [ChartDataEntry] {
         var pieDataEntries: [ChartDataEntry] = []
         for i in 0 ..< values.count {
@@ -193,17 +139,11 @@ class MainPageView: UIView {
             chartCenterButton,
             stockIndexTitleLabel,
             stockIndexcollectionView,
-//            financialScrollView,
             benefitTitleLabel,
-            //            benefitVerticalStackView,
             benefitVerticalTableView
         ].forEach {
             contentView.addSubview($0)
         }
-        
-//        [financialHorizontalStackView].forEach {
-//            financialScrollView.addSubview($0)
-//        }
         
         scrollView.snp.makeConstraints {
             $0.edges.equalToSuperview()
@@ -253,23 +193,10 @@ class MainPageView: UIView {
             $0.left.right.equalToSuperview().offset(20)
         }
         
-        
-        
-//        financialHorizontalStackView.snp.makeConstraints {
-//            $0.edges.equalToSuperview()
-//            $0.height.equalToSuperview()
-//            $0.width.equalTo(4 * 110)
-//        }
-        
         benefitTitleLabel.snp.makeConstraints {
             $0.top.equalTo(stockIndexcollectionView.snp.bottom).offset(40)
             $0.left.equalTo(safeAreaLayoutGuide).offset(20)
         }
-        
-        //        benefitVerticalStackView.snp.makeConstraints {
-        //            $0.top.equalTo(benefitTitleLabel.snp.bottom).offset(5)
-        //            $0.left.right.equalToSuperview().inset(20)
-        //        }
         
         benefitVerticalTableView.snp.makeConstraints {
             $0.top.equalTo(benefitTitleLabel.snp.bottom).offset(5)
