@@ -37,7 +37,7 @@ class MoneyDiaryView: UIView {
         button.layer.cornerRadius = 15
         return button
     }()
-
+    
     let segmentController = {
         let segmentController = UISegmentedControl(items: ["캘린더", "소비내역 차트"])
         let attributes: [NSAttributedString.Key: Any] = [
@@ -45,13 +45,16 @@ class MoneyDiaryView: UIView {
             .font: UIFont.boldSystemFont(ofSize: 18)
         ]
         segmentController.setTitleTextAttributes(attributes, for: .normal)
-        
         segmentController.selectedSegmentIndex = 0
         segmentController.backgroundColor = .blue.withAlphaComponent(0.6)
         segmentController.selectedSegmentTintColor = .blue
         return segmentController
     }()
-
+    
+    var moveBudgetButton = BaseButton().createButton(text: "예산안", color: .blue.withAlphaComponent(0.9), textColor: .white)
+    
+    var todayButton = BaseButton().createButton(text: "오늘", color: .blue.withAlphaComponent(0.9), textColor: .white)
+    
     lazy var floatingButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "pencilButton"), for: .normal)
@@ -67,7 +70,6 @@ class MoneyDiaryView: UIView {
         button.layer.shadowRadius = 10
         button.layer.shadowOpacity = 0.3
         button.alpha = 0.0
-        button.layer.zPosition = 999
         return button
     }()
     
@@ -80,21 +82,9 @@ class MoneyDiaryView: UIView {
         button.layer.shadowRadius = 10
         button.layer.shadowOpacity = 0.3
         button.alpha = 0.0
-        button.layer.zPosition = 999
-        
         return button
     }()
-
     
-    var moveBudgetButton = BaseButton().createButton(text: "예산안", color: .blue.withAlphaComponent(0.9), textColor: .white)
-    
-    var todayButton = BaseButton().createButton(text: "오늘", color: .blue.withAlphaComponent(0.9), textColor: .white)
-    
-//    private let pencilButton: UIButton = {
-//        let button = UIButton()
-//        button.setBackgroundImage(UIImage(named: "pencilButton"), for: .normal)
-//        return button
-//    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -112,19 +102,21 @@ class MoneyDiaryView: UIView {
     
     private func configureWeekLabel() {
         calendarView.weekStackView.distribution = .fillEqually
-        let dayOfTheWeek = ["일", "월", "화", "수", "목", "금", "토"]
+        let dayOfTheWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+        
         for i in 0...6 {
             let label = UILabel()
             label.text = dayOfTheWeek[i]
             switch label.text {
-            case "토": label.textColor = .blue
-            case "일": label.textColor = .red
-            default: label.textColor = .black
+            case "Sat": label.backgroundColor = .systemBlue
+            case "Sun": label.backgroundColor = .systemRed
+            default: label.backgroundColor = .black.withAlphaComponent(0.8)
             }
-            label.backgroundColor = .systemGray.withAlphaComponent(0.2)
+            
+            label.layer.borderColor = UIColor.white.cgColor
+            label.layer.borderWidth = 0.5
+            label.textColor = .white
             label.font = .systemFont(ofSize: 13, weight: .bold)
-            label.layer.borderColor = UIColor.systemGray.cgColor
-            label.layer.borderWidth = 1.0
             label.textAlignment = .center
             calendarView.weekStackView.addArrangedSubview(label)
         }
@@ -153,8 +145,8 @@ class MoneyDiaryView: UIView {
         
         
         self.dateButton.snp.makeConstraints {
-            $0.top.equalTo(self).offset(10)
-            $0.height.equalTo(30)
+            $0.top.equalTo(self).offset(20)
+            $0.height.equalTo(50)
             $0.centerX.equalTo(self)
         }
         self.previousButton.snp.makeConstraints {
@@ -170,25 +162,26 @@ class MoneyDiaryView: UIView {
             
         }
         self.todayButton.snp.makeConstraints {
-            $0.trailing.equalTo(previousButton.snp.leading).offset(-20)
+            $0.leading.equalTo(self.safeAreaLayoutGuide).offset(20)
             $0.centerY.equalTo(self.dateButton)
             $0.height.equalTo(nextButton.snp.height).offset(5)
             $0.width.equalTo(50)
         }
-
+        
         self.moveBudgetButton.snp.makeConstraints {
-
-            $0.leading.equalTo(nextButton.snp.trailing).offset(10)
+            
+            $0.trailing.equalTo(self.safeAreaLayoutGuide).inset(20)
             $0.centerY.equalTo(self.dateButton)
             $0.height.equalTo(nextButton.snp.height).offset(5)
             $0.width.equalTo(65)
         }
         self.segmentController.snp.makeConstraints {
             $0.centerX.equalTo(self)
-            $0.top.equalTo(dateButton.snp.bottom).offset(10)
+            $0.top.equalTo(dateButton.snp.bottom).offset(25)
             $0.height.equalTo(30)
-            $0.leading.trailing.equalTo(self.safeAreaLayoutGuide).inset(20)
+            $0.leading.trailing.equalTo(self.safeAreaLayoutGuide).inset(10)
         }
+        
         self.calendarView.snp.makeConstraints {
             $0.top.equalTo(self.segmentController.snp.bottom).offset(20)
             $0.horizontalEdges.equalTo(self.snp.horizontalEdges)
@@ -199,33 +192,28 @@ class MoneyDiaryView: UIView {
             $0.horizontalEdges.equalTo(self.snp.horizontalEdges)
             $0.bottom.equalTo(self.snp.bottom)
         }
-        floatingButton.snp.makeConstraints {
-                    $0.trailing.equalToSuperview().inset(20)
-                    $0.bottom.equalToSuperview().inset(40)
-                    $0.width.height.equalTo(60)
-                }
-
-                pencilButton.snp.makeConstraints {
-                    $0.centerX.equalTo(floatingButton.snp.centerX)
-                    $0.bottom.equalTo(floatingButton.snp.top).offset(-15)
-                    $0.width.height.equalTo(40)
-                }
-
-                quickMessageButton.snp.makeConstraints {
-                    $0.centerX.equalTo(floatingButton.snp.centerX)
-                    $0.bottom.equalTo(pencilButton.snp.top).offset(-15)
-                    $0.width.height.equalTo(40)
-                }
         
-
-//        pencilButton.snp.makeConstraints {
-//            $0.bottom.equalToSuperview().offset(-60)
-//            $0.trailing.equalToSuperview().offset(-20)
-//            $0.width.height.equalTo(50)
-//        }
+        floatingButton.snp.makeConstraints {
+            $0.trailing.equalToSuperview().inset(20)
+            $0.bottom.equalToSuperview().inset(40)
+            $0.width.height.equalTo(60)
+        }
+        
+        pencilButton.snp.makeConstraints {
+            $0.centerX.equalTo(floatingButton.snp.centerX)
+            $0.bottom.equalTo(floatingButton.snp.top).offset(-15)
+            $0.width.height.equalTo(40)
+        }
+        
+        quickMessageButton.snp.makeConstraints {
+            $0.centerX.equalTo(floatingButton.snp.centerX)
+            $0.bottom.equalTo(pencilButton.snp.top).offset(-15)
+            $0.width.height.equalTo(40)
+        }
+        
     }
     
-
+    
     func popButtons(isActive: Bool) {
         if isActive {
             pencilButton.layer.transform = CATransform3DMakeScale(0.4, 0.4, 1)
@@ -256,7 +244,7 @@ class MoneyDiaryView: UIView {
         }
     }
     
-
+    
     
 }
 
