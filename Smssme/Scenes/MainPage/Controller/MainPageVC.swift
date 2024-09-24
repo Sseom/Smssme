@@ -187,7 +187,7 @@ class MainPageVC: UIViewController, UITableViewDelegate {
             print("코스피 오늘 날짜: \(todayString)")
             print("코스피 일주일 전 날짜: \(sevenDaysAgoString)")
             
-            guard let serviceKey = Bundle.main.object(forInfoDictionaryKey: "") as? String else {return}
+            guard let serviceKey = Bundle.main.object(forInfoDictionaryKey: "PUBLIC_DATA_API_KEY") as? String else {return}
             
             let endpoint = Endpoint(
                 baseURL: "https://apis.data.go.kr",
@@ -209,6 +209,7 @@ class MainPageVC: UIViewController, UITableViewDelegate {
                     let items = response.response.body.items.item
                     if let latestItem = items.max(by: {$0.basDt > $1.basDt}) {
                         print("가장 최신의 코스피 기준 날짜: \(latestItem.basDt)")
+                        
                         print("가장 최신의 코스피 시가: \(latestItem.mkp)")
                         print("가장 최신의 코스피 종가: \(latestItem.clpr)")
                         print("전일 대비 등락 포인트: \(latestItem.vs)")
@@ -217,8 +218,6 @@ class MainPageVC: UIViewController, UITableViewDelegate {
                     } else {
                         print("가져온 코스피 데이터가 없습니다.")
                     }
-                        
-                    print("코스피 데이터 가져오기 성공===============")
                     
                 case .failure(let error):
                     print("코스피 데이터 가져오기 실패 \(error)")
@@ -242,7 +241,7 @@ class MainPageVC: UIViewController, UITableViewDelegate {
             let todayString = dateFormatter.string(from: today)
             let sevenDaysAgoString = dateFormatter.string(from: sevenDaysAgo)
             
-            guard let api_key = Bundle.main.object(forInfoDictionaryKey: "") as? String else {return}
+            guard let api_key = Bundle.main.object(forInfoDictionaryKey: "FRED_API_KEY") as? String else {return}
             
             // 오늘의 S&P 500 데이터를 가져오기 위한 URL 요청 구성
             let endpoint = Endpoint(
