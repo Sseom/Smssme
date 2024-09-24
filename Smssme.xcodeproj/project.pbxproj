@@ -103,8 +103,8 @@
 		9FF702DB2C966B3F00890E77 /* RegexManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF702DA2C966B3F00890E77 /* RegexManager.swift */; };
 		E517F2822C8782F200CB8680 /* FinancialPlanManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2812C8782F200CB8680 /* FinancialPlanManager.swift */; };
 		E517F3402C89A41900CB8680 /* MoneyDiaryCreationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F33F2C89A41900CB8680 /* MoneyDiaryCreationVC.swift */; };
-		E5B926792CA2970E0027984E /* SecretsConfig.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E5B926782CA2970E0027984E /* SecretsConfig.xcconfig */; };
-		E5B9267B2CA2985E0027984E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E5B9267A2CA2985E0027984E /* GoogleService-Info.plist */; };
+		E5B926802CA2FF5E0027984E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E5B9267E2CA2FF5E0027984E /* GoogleService-Info.plist */; };
+		E5B926812CA2FF5E0027984E /* SecretsConfig.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E5B9267F2CA2FF5E0027984E /* SecretsConfig.xcconfig */; };
 		E5B9267D2CA2DF280027984E /* UILabelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B9267C2CA2DF280027984E /* UILabelFactory.swift */; };
 		E5BF5E452C8587310093FD2D /* FinancialPlanEditPlanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BF5E442C8587310093FD2D /* FinancialPlanEditPlanVC.swift */; };
 		E5BF5E472C8597820093FD2D /* FinancialPlanDateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BF5E462C8597820093FD2D /* FinancialPlanDateModel.swift */; };
@@ -213,8 +213,8 @@
 		9FF702DA2C966B3F00890E77 /* RegexManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexManager.swift; sourceTree = "<group>"; };
 		E517F2812C8782F200CB8680 /* FinancialPlanManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanManager.swift; sourceTree = "<group>"; };
 		E517F33F2C89A41900CB8680 /* MoneyDiaryCreationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDiaryCreationVC.swift; sourceTree = "<group>"; };
-		E5B926782CA2970E0027984E /* SecretsConfig.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = SecretsConfig.xcconfig; sourceTree = SOURCE_ROOT; };
-		E5B9267A2CA2985E0027984E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		E5B9267E2CA2FF5E0027984E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		E5B9267F2CA2FF5E0027984E /* SecretsConfig.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = SecretsConfig.xcconfig; sourceTree = SOURCE_ROOT; };
 		E5B9267C2CA2DF280027984E /* UILabelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelFactory.swift; sourceTree = "<group>"; };
 		E5BF5E442C8587310093FD2D /* FinancialPlanEditPlanVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanEditPlanVC.swift; sourceTree = "<group>"; };
 		E5BF5E462C8597820093FD2D /* FinancialPlanDateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanDateModel.swift; sourceTree = "<group>"; };
@@ -330,8 +330,8 @@
 			isa = PBXGroup;
 			children = (
 				74707FC12C85D78D00F7000C /* Smssme.entitlements */,
-				E5B926782CA2970E0027984E /* SecretsConfig.xcconfig */,
-				E5B9267A2CA2985E0027984E /* GoogleService-Info.plist */,
+				E5B9267E2CA2FF5E0027984E /* GoogleService-Info.plist */,
+				E5B9267F2CA2FF5E0027984E /* SecretsConfig.xcconfig */,
 				740350742C7740BE00122B2E /* Scenes */,
 				740350702C77408900122B2E /* Model */,
 				5FE400722C949DE9001D0FD1 /* Network */,
@@ -790,10 +790,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E5B926792CA2970E0027984E /* SecretsConfig.xcconfig in Resources */,
-				E5B9267B2CA2985E0027984E /* GoogleService-Info.plist in Resources */,
+				E5B926812CA2FF5E0027984E /* SecretsConfig.xcconfig in Resources */,
 				740350632C773E9C00122B2E /* Assets.xcassets in Resources */,
 				740350662C773E9C00122B2E /* Base in Resources */,
+				E5B926802CA2FF5E0027984E /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
