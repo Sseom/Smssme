@@ -23,10 +23,7 @@ extension Budget {
     @NSManaged public var date: Date?
     @NSManaged public var id: String?
     @NSManaged public var user: User?
-    
-
 }
 
 extension Budget : Identifiable {
-
 }
