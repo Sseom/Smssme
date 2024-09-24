@@ -86,7 +86,6 @@ class BudgetCoreDataManager {
             print("삭제 실패")
         }
     }
-
 }
 
 class BudgetService {
