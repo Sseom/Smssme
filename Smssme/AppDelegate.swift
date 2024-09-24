@@ -7,7 +7,6 @@
 
 import CoreData
 import FirebaseCore
-//import KakaoSDKCommon
 import UIKit
 
 @main

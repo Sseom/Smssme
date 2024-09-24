@@ -12,8 +12,6 @@ class NetworkManager {
     static let shared = NetworkManager()
     private init() {}
     
-    
-    //MARK: -Completion Handler를 이용한 방법
     func fetch<T: Decodable>(endpoint: Endpoint, completion: @escaping (Result<T, Error>) -> Void) {
         
         var urlComponents = URLComponents(string: endpoint.baseURL + endpoint.path)!
@@ -36,7 +34,6 @@ class NetworkManager {
         }
        
         print("✅ url: \(url)")
-
         
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             

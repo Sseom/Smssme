@@ -19,10 +19,10 @@ class MainPageVC: UIViewController, UITableViewDelegate {
     var dataEntries: [PieChartDataEntry] = []
     
     //경제 지표
-    private var financialData: [FinancialData] = []
+    private var stockIndexDataArray: [StockIndexData] = []
 
     
-    
+    //MARK: - Life cycle
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -33,9 +33,12 @@ class MainPageVC: UIViewController, UITableViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
+        
         setupWelcomeTitle()
         setupTableView()
-        view.backgroundColor = .white
+        setupStockData()
+        
     }
     
     override func loadView() {
@@ -51,9 +54,9 @@ class MainPageVC: UIViewController, UITableViewDelegate {
         self.navigationController?.isNavigationBarHidden = true
         
         setChart()
-//        setupCollectionView()
     }
     
+    //MARK: - func
     private func setupCenterButtonEvent() {
         mainPageView.chartCenterButton.addTarget(self, action: #selector(editViewPush), for: .touchUpInside)
     }
@@ -157,36 +160,213 @@ class MainPageVC: UIViewController, UITableViewDelegate {
     @objc func editViewPush() {
         navigationController?.pushViewController(AssetsListVC(), animated: true)
     }
+    
+    //MARK: - 경제지표 API 호출
+    func setupStockData() {
+        //날짜 포멧
+        let dateFormatter = DateFormatter()
+        
+        fetchKOSPIData()
+        fetchSP500Last7Days()
+        
+        //MARK: - 코스피 데이터 가져오는 메서드
+        func fetchKOSPIData(){
+            //날짜 변환 및 날짜 구하기
+            dateFormatter.dateFormat = "yyyyMMdd"
+            
+            // 오늘 날짜와 7일 전 날짜를 계산
+            let today = Date()
+            guard let sevenDaysAgo = Calendar.current.date(byAdding: .day, value: -7, to: today) else {
+                print("코스피 7일 전 날짜 구하기 오류")
+                return
+            }
+            
+            let todayString = dateFormatter.string(from: today)
+            let sevenDaysAgoString = dateFormatter.string(from: sevenDaysAgo)
+            
+            print("코스피 오늘 날짜: \(todayString)")
+            print("코스피 일주일 전 날짜: \(sevenDaysAgoString)")
+            
+            guard let serviceKey = Bundle.main.object(forInfoDictionaryKey: "PUBLIC_DATA_API_KEY") as? String else {return}
+            
+            let endpoint = Endpoint(
+                baseURL: "https://apis.data.go.kr",
+                path: "/1160100/service/GetMarketIndexInfoService/getStockMarketIndex",
+                queryParameters: [
+                    "serviceKey": serviceKey,
+                    "resultType": "json",
+                    "idxNm": "코스피",
+                    "beginBasDt": sevenDaysAgoString,
+                    "endBasDt": todayString
+                ]
+            )
+            
+            NetworkManager.shared.fetch(endpoint: endpoint) { [weak self] (result: Result< KOSPIResponse, Error>) in
+                switch result {
+                case .success(let response):
+                    print("코스피 데이터 가져오기 성공===============")
+                    
+                    let items = response.response.body.items.item
+                    if let latestItem = items.max(by: {$0.basDt > $1.basDt}) {
+                        print("가장 최신의 코스피 기준 날짜: \(latestItem.basDt)")
+                        
+                        let kospiItem = StockIndexData.convertKOSPIToStockIndex(kospiItem: latestItem)
+                        self?.stockIndexDataArray.append(kospiItem)
+                        
+                        
+                        print("가장 최신의 코스피 시가: \(latestItem.mkp)")
+                        print("구조체 통합 중 코스피 종가(indexValue): \(kospiItem.indexValue)")
+                        print("가장 최신의 코스피 종가: \(latestItem.clpr)")
+                        print("전일 대비 등락 포인트: \(latestItem.vs)")
+                        print("구조체 통합 중 등락포인트: \(kospiItem.changePoint)")
+                        print("전일 대비 등락률: \(latestItem.fltRt)")
+
+                    } else {
+                        print("가져온 코스피 데이터가 없습니다.")
+                    }
+                    
+                case .failure(let error):
+                    print("코스피 데이터 가져오기 실패 \(error)")
+                }
+            }
+        }
+        
+        //MARK: - S&P500 데이터 가져오는 메서드
+        func fetchSP500Last7Days() {
+            
+            //날짜 변환 및 날짜 구하기
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            
+            // 오늘 날짜와 7일 전 날짜를 계산
+            let today = Date()
+            guard let sevenDaysAgo = Calendar.current.date(byAdding: .day, value: -7, to: today) else {
+                print("S&P500 7일 전 날짜 구하기 오류")
+                return
+            }
+            
+            let todayString = dateFormatter.string(from: today)
+            let sevenDaysAgoString = dateFormatter.string(from: sevenDaysAgo)
+            
+            guard let api_key = Bundle.main.object(forInfoDictionaryKey: "FRED_API_KEY") as? String else {return}
+            
+            // 오늘의 S&P 500 데이터를 가져오기 위한 URL 요청 구성
+            let endpoint = Endpoint(
+                baseURL: "https://api.stlouisfed.org",
+                path: "/fred/series/observations",
+                queryParameters: [
+                    "series_id": "SP500",
+                    "api_key": api_key,
+                    "start_date": sevenDaysAgoString,
+                    "end_date": todayString,
+                    "file_type": "json",
+                    "limit": "7",
+                    "sort_order": "desc"
+                ]
+            )
+            
+            //NetworkManager를 통해 데이터 기져오기
+            NetworkManager.shared.fetch(endpoint: endpoint) { [weak self] (result: Result<SP500Response, Error>) in
+                switch result {
+                case .success(let response):
+                    print("거래 데이터를 가져오는데 성공했습니다.")
+                    processSP500Data(response: response)
+                case .failure(let error):
+                    print("거래 데이터를 가져오는데 실패했습니다:\n \(error.localizedDescription)")
+                    
+                }
+            }
+        }
+        
+        //MARK: - S&P500 가장 최근의 데이터 찾는 메서드
+        func processSP500Data(response: SP500Response) {
+            // 최근 7일간의 데이터를 역순으로 정렬 (desc로 요청했기 때문에 이미 정렬되어 있음)
+            let observations = response.observations.sorted { $0.date > $1.date }
+            
+            // 최근 7일 중 가장 최신 데이터와 전날 데이터 추출
+            guard observations.count > 1 else {
+                print("최근 7일 동안 충분한 S&P 500 데이터가 없습니다.")
+                return
+            }
+            
+            // 최신 데이터와 그 전날 데이터를 가져옵니다
+            let latestObservation = observations[0]
+            let previousObservation = observations[1]
+            
+            let latestValueString = latestObservation.value
+            guard let latestValue = Double(latestValueString) else {
+                print("가장 최신 S&P 500 데이터를 숫자로 변환할 수 없습니다.")
+                return
+            }
+            
+            let previousValueString = previousObservation.value
+            guard let previousValue = Double(previousValueString) else {
+                print("전일 S&P 500 데이터를 숫자로 변환할 수 없습니다.")
+                return
+            }
+            
+            // 등락 포인트와 비율 계산
+            let change = latestValue - previousValue
+            let changePercentage = (change / previousValue) * 100
+            
+//            let sp500Item = StockIndexData.convertSP500OToStockIndex(value: <#T##String#>, changeRate: <#T##String#>, changePoint: <#T##String#>)
+//            self.stockIndexDataArray.append(sp500Item)
+            
+            print("가장 최신 S&P 500 지수: \(String(format: "%.2f", latestValue)) (날짜: \(latestObservation.date))")
+            print("전일 S&P 500 지수: \(String(format: "%.2f",previousValue)) (날짜: \(previousObservation.date))")
+            
+            print("전일 대비 등락 포인트: \(String(format: "%.2f", change)) 포인트")
+            print("전일 대비 등락 비율: \(String(format: "%.2f", changePercentage))%")
+        }
+    }
+
 }
 
 //MARK: - 주요 경제 지표 API 데이터
-//extension MainPageVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-//
-//    func setupCollectionView() {
-//        mainPageView.stockIndexcollectionView.dataSource = self
-//        mainPageView.stockIndexcollectionView.delegate = self
-//        
-//        mainPageView.stockIndexcollectionView.register(StockIndexCell.self, forCellWithReuseIdentifier: StockIndexCell.reuseIdentifier)
-//        view.addSubview(mainPageView.stockIndexcollectionView)
-//
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return 4
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StockIndexCell.reuseIdentifier, for: indexPath) as! StockIndexCell
-////        let item = kospiData[indexPath.item]
-////        cell.configure(with: item)
-//        return cell
-//    }
-//    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        return CGSize(width: 150, height: 80) // 셀 크기
-//    }
-//    
-//}
+extension MainPageVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+
+    func setupCollectionView() {
+        mainPageView.stockIndexcollectionView.dataSource = self
+        mainPageView.stockIndexcollectionView.delegate = self
+        
+        mainPageView.stockIndexcollectionView.register(StockIndexCell.self, forCellWithReuseIdentifier: StockIndexCell.reuseIdentifier)
+        view.addSubview(mainPageView.stockIndexcollectionView)
+
+    }
+
+    //MARK: - DataSource
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 4
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StockIndexCell.reuseIdentifier, for: indexPath) as! StockIndexCell
+//        let item = kospiData[indexPath.item]
+//        cell.configure(with: item)
+        return cell
+    }
+    
+    //MARK: - UICollectionViewDelegateFlowLayout
+    // 셀 크기
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let collectionViewWidth = collectionView.bounds.width //현재 컬렉션뷰의 너비
+               let cellItemForRow: CGFloat = 3
+               let minimumSpacing: CGFloat = 2
+               
+               let width = (collectionViewWidth - (cellItemForRow - 1) * minimumSpacing) / cellItemForRow
+               
+        return CGSize(width: width, height: 80)
+    }
+    
+    // MARK: minimumSpacing
+    // 셀들간의 좌우 간격
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 2
+    }
+    // 각 행간의 위아래 간격
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 2
+    }
+}
 
 extension MainPageVC: UITabBarDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
