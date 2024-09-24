@@ -3,42 +3,35 @@
 //  Smssme
 //
 //  Created by KimRin on 8/29/24.
-//
+//0924 rin
 
 import UIKit
 
-class DailyTransactionCell: UICollectionViewCell, CellReusable {
-    let categoryImage: UIImageView = {
-        let image = UIImageView()
-        
-        image.image = UIImage(systemName: "bitcoinsign.circle")
-        
-        return image
-    }()
-    
-    var nameLabel: UILabel = {
+final class DailyTransactionCell: UICollectionViewCell, CellReusable {
+    private let categoryImage = UIImageView()
+    private let nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "월급"
         label.textAlignment = .left
+        label.font = UIFont.boldSystemFont(ofSize: 18)
         return label
     }()
     
-    var amountLabel: UILabel = {
+    private let amountLabel: UILabel = {
         let label = UILabel()
-        label.text = "23,000원"
         label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 15)
         return label
     }()
     
-    let timeLabel: UILabel = {
+    private let timeLabel: UILabel = {
         let label = UILabel()
-        label.text = "05:36"
         label.textColor = .lightGray
         label.textAlignment = .right
+        label.font = UIFont.systemFont(ofSize: 13)
         return label
     }()
     
-    lazy var contentsStackView: UIStackView = {
+    private lazy var contentsStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [nameLabel, amountLabel])
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
@@ -57,17 +50,19 @@ class DailyTransactionCell: UICollectionViewCell, CellReusable {
     
     
     func updateData(transaction: Diary){
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm"
-        let time = dateFormatter.string(from: transaction.date ?? Date())
+        let time = DateFormatter.hourMinutesKr.string(from: transaction.date ?? Date())
         
         amountLabel.text = KoreanCurrencyFormatter.shared.string(from: transaction.amount)
         
         print(transaction.statement)
-        if transaction.statement {  // false: 지출 - red
+        if transaction.statement {
             amountLabel.textColor = .blue
+            categoryImage.image = UIImage(systemName: "plus.circle")
+            categoryImage.tintColor = .systemBlue
         } else {
             amountLabel.textColor = .red
+            categoryImage.image = UIImage(systemName: "minus.circle")
+            categoryImage.tintColor = .systemRed
         }
         
         nameLabel.text = transaction.title
