@@ -9,7 +9,8 @@ import SnapKit
 import UIKit
 
 final class FinancialPlanConfirmView: UIView {
-    let confirmLargeTitle = LargeTitleLabel().createLabel(with: "", color: UIColor.black)
+    let confirmLargeTitle = LabelFactory.titleLabel()
+        .build()
     let incompleteButtonView = ButtonIncomplete()
     let completeButtonView = ButtonComplete()
     

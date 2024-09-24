@@ -12,7 +12,10 @@ class FinancialPlanCell: UICollectionViewCell {
     static let ID = "FinancialPlanCell"
     
     private let titleLabel = ContentBoldLabel().createLabel(with: "", color: UIColor.black)
-    private let descriptionLabel = ContentLabel().createLabel(with: "", color: UIColor(hex: "#333333"))
+    private let descriptionLabel = LabelFactory.bodyLabel()
+        .setColor(.bodyGray)
+        .build()
+
     
     // 아이콘 사용 보류
 //    private let iconView: UIImageView = {
@@ -29,7 +32,7 @@ class FinancialPlanCell: UICollectionViewCell {
         label.backgroundColor = UIColor(hex: "#e3e3e3")
         label.layer.cornerRadius = 5
         label.clipsToBounds = true
-        let fontSize: CGFloat = 18
+        let fontSize: CGFloat = 16
         let kernValue = fontSize * -0.04
         label.attributedText = NSAttributedString(string: "시작하기", attributes: [
             .kern: kernValue

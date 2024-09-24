@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 final class FinancialPlanSelectionView: UIView {
-    private let FinancialPlanLargeTitle = LabelFactory.LargeTitle()
+    private let FinancialPlanLargeTitle = LabelFactory.titleLabel()
         .setText("재무 목표 플랜")
         .build()
 //    private let FinancialPlanLargeTitle = LargeTitleLabel().createLabel(with: "재무 목표 플랜", color: UIColor.black)
