@@ -143,7 +143,6 @@
 		5FE400732C949E15001D0FD1 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		5FE400752C949E89001D0FD1 /* APIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIModel.swift; sourceTree = "<group>"; };
 		5FE400772C949EB8001D0FD1 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
-		5FE400802C97E742001D0FD1 /* SecretsConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = SecretsConfig.xcconfig; sourceTree = "<group>"; };
 		5FE400812C99A43A001D0FD1 /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		5FE400832C99A450001D0FD1 /* ResetPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordVC.swift; sourceTree = "<group>"; };
 		5FE400862C9B2F23001D0FD1 /* ReauthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReauthenticationView.swift; sourceTree = "<group>"; };
@@ -308,7 +307,6 @@
 		7403504A2C773E9B00122B2E = {
 			isa = PBXGroup;
 			children = (
-				5FE400802C97E742001D0FD1 /* SecretsConfig.xcconfig */,
 				740350552C773E9B00122B2E /* Smssme */,
 				740350542C773E9B00122B2E /* Products */,
 			);
@@ -914,7 +912,6 @@
 /* Begin XCBuildConfiguration section */
 		740350682C773E9C00122B2E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5FE400802C97E742001D0FD1 /* SecretsConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -978,7 +975,6 @@
 		};
 		740350692C773E9C00122B2E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5FE400802C97E742001D0FD1 /* SecretsConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
