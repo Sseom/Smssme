@@ -144,7 +144,8 @@ iOSInjectionProject/
 # Firebase 
 GoogleService-Info.plist
 
-#config
+# SecretsConfig
+*.xcconfig
 SecretsConfig.xcconfig
 
-# End of https://www.toptal.com/developers/gitignore/api/macos,swift,xcode,cocoapods
+# End of https://www.toptal.com/developers/gitignore/api/macos,swift,fig
