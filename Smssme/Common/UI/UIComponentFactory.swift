@@ -8,11 +8,11 @@
 import UIKit
 
 // MARK: - 앱 전체에서 공통적으로 사용될 레이블들
-protocol LabelFactory {
-    func createLabel(with text: String, color: UIColor) -> UILabel
-}
+//protocol LabelFactory {
+//    func createLabel(with text: String, color: UIColor) -> UILabel
+//}
 
-class BaseLabelFactory: LabelFactory {
+class BaseLabelFactory {
     func createLabel(with text: String, color: UIColor) -> UILabel {
         let label = UILabel()
         label.textAlignment = .left
@@ -159,3 +159,67 @@ class BaseTextField: TextFieldFactory {
     }
 }
 
+
+
+extension UIColor {
+    static let LargeTitleColor = UIColor(hex: "#060b11")
+    static let mainGreen = UIColor(red: 0/255, green: 255/255, blue: 102/255, alpha: 1.0)
+}
+
+
+class LabelBuilder {
+    private var text: String = ""
+    private var color: UIColor = .black
+    private var font: UIFont = .systemFont(ofSize: 16)
+    private var align: NSTextAlignment = .left
+    
+    
+    static let defaultLetterSpacing: CGFloat = 1.5
+
+    static func applyDefaultLetterSpacing(to label: UILabel) {
+        guard let text = label.text else { return }
+        label.attributedText = NSAttributedString(string: text, attributes: [.kern: defaultLetterSpacing])
+    }
+
+    
+    
+    func setText(_ text: String) -> LabelBuilder {
+        self.text = text
+        return self
+    }
+    
+    func setColor(_ color: UIColor) -> LabelBuilder {
+        self.color = color
+        return self
+    }
+    
+    func setFont(_ font: UIFont) -> LabelBuilder {
+        self.font = font
+        return self
+    }
+    
+    func setAlign(_ align: NSTextAlignment) -> LabelBuilder {
+        self.align = align
+        return self
+    }
+    
+    func build() -> UILabel {
+        let label = UILabel()
+        label.text = text
+        label.textColor = color
+        label.font = font
+        label.textAlignment = align
+        label.numberOfLines = 0
+        Self.applyDefaultLetterSpacing(to: label)
+        return label
+    }
+}
+
+class LabelFactory {
+    static func LargeTitle() -> LabelBuilder {
+        return LabelBuilder()
+            .setFont(.systemFont(ofSize: 24))
+            .setColor(.LargeTitleColor)
+            .setAlign(.left)
+    }
+}
