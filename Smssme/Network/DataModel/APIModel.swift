@@ -98,3 +98,6 @@ struct Observation: Codable {
     let date: String      // 관측 날짜
     let value: String     // S&P 500 값
 }
+
+
+

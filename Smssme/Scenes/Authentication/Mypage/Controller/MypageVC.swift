@@ -322,24 +322,6 @@ extension MypageVC: UITableViewDelegate {
         return 20.0
     }
     
-    // 섹션 푸터뷰 설정
-    //    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-    //        let footerView = UIView()
-    //        footerView.backgroundColor = .white
-    //
-    //        // 섹션 간 구분선 설정
-    //        let separatorLine = UIView()
-    //        separatorLine.backgroundColor = .systemGray4
-    //        footerView.addSubview(separatorLine)
-    //
-    //        separatorLine.snp.makeConstraints {
-    //            $0.leading.trailing.equalToSuperview().inset(30)
-    //            $0.top.equalToSuperview()
-    //            $0.height.equalTo(1)
-    //        }
-    //        return footerView
-    //    }
-    
 }
 
 //MARK: - 마이페이지 테이블뷰 데이터소스
