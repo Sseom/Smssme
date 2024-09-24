@@ -8,10 +8,45 @@
 import Foundation
 
 //MARK: - MainPageView에 사용될 주요 경제지수 통합모델
+struct StockIndexData {
+    let indexName: String  // 지수명
+    let indexValue: String // 지수 값 (종가, 환율 값 등)
+    let changeRate: String? // 전일 대비 등락률
+    let changePoint: String? // 전일 대비 등락 포인트
+    
+    // KOSPI 데이터를 StockIndexData로 변환
+    static func convertKOSPIToStockIndex(kospiItem: KOSPIItem) -> StockIndexData {
+        return StockIndexData(
+            indexName: kospiItem.idxNm,
+            indexValue: kospiItem.clpr,
+            changeRate: kospiItem.fltRt,
+            changePoint: kospiItem.vs
+        )
+    }
+
+    // 환율 데이터를 StockIndexData로 변환
+    static func convertExchangeRateToStockIndex(exchangeRate: ExchangeRate) -> StockIndexData {
+        return StockIndexData(
+            indexName: "환율",
+            indexValue: exchangeRate.bkpr ?? "N/A",
+            changeRate: "N/A",
+            changePoint: "N/A"
+        )
+    }
+
+    // S&P 500 데이터를 StockIndexData로 변환
+    static func convertSP500OToStockIndex(value: String, changeRate: String, changePoint: String) -> StockIndexData {
+        return StockIndexData(
+            indexName: "S&P 500",
+            indexValue: value,
+            changeRate: "N/A",
+            changePoint: "N/A"
+        )
+    }
+}
 
 //MARK: - 코스피 데이터 모델
 //공공데이터포털 - 금융위원회 API를 사용합니다.
-
 struct KOSPIResponse: Codable {
     let response: Response
 }
@@ -47,20 +82,9 @@ struct ExchangeRate: Codable {
     let curCode: String? //통화 코드 (예: USD)
     let bkpr: String? // 은행 매매 기준율
     
-    //    let dealBasR: String //매매 기준율
-    //    let dealSpd: String //매매 거래율
-    //    let ycdt: String //기준일
-    //    let curNm: String //통화명
-    
     enum CodingKeys: String, CodingKey {
         case curCode = "cur_unit"
         case bkpr = "bkpr"
-        
-        //        case dealBasR = "deal_bas_r"
-        //        case dealSpd = "deal_spd"
-        //        case dealBss = "deal_bss"
-        //        case ycdt = "ycdt"
-        //        case curNm = "cur_nm"
     }
 }
 

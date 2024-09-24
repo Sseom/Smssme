@@ -19,7 +19,7 @@ class MainPageVC: UIViewController, UITableViewDelegate {
     var dataEntries: [PieChartDataEntry] = []
     
     //경제 지표
-//    private var stockData: [StocklData] = []
+    private var stockIndexDataArray: [StockIndexData] = []
 
     
     //MARK: - Life cycle
@@ -205,14 +205,20 @@ class MainPageVC: UIViewController, UITableViewDelegate {
                 switch result {
                 case .success(let response):
                     print("코스피 데이터 가져오기 성공===============")
-            
+                    
                     let items = response.response.body.items.item
                     if let latestItem = items.max(by: {$0.basDt > $1.basDt}) {
                         print("가장 최신의 코스피 기준 날짜: \(latestItem.basDt)")
                         
+                        let kospiItem = StockIndexData.convertKOSPIToStockIndex(kospiItem: latestItem)
+                        self?.stockIndexDataArray.append(kospiItem)
+                        
+                        
                         print("가장 최신의 코스피 시가: \(latestItem.mkp)")
+                        print("구조체 통합 중 코스피 종가(indexValue): \(kospiItem.indexValue)")
                         print("가장 최신의 코스피 종가: \(latestItem.clpr)")
                         print("전일 대비 등락 포인트: \(latestItem.vs)")
+                        print("구조체 통합 중 등락포인트: \(kospiItem.changePoint)")
                         print("전일 대비 등락률: \(latestItem.fltRt)")
 
                     } else {
@@ -301,6 +307,9 @@ class MainPageVC: UIViewController, UITableViewDelegate {
             // 등락 포인트와 비율 계산
             let change = latestValue - previousValue
             let changePercentage = (change / previousValue) * 100
+            
+//            let sp500Item = StockIndexData.convertSP500OToStockIndex(value: <#T##String#>, changeRate: <#T##String#>, changePoint: <#T##String#>)
+//            self.stockIndexDataArray.append(sp500Item)
             
             print("가장 최신 S&P 500 지수: \(String(format: "%.2f", latestValue)) (날짜: \(latestObservation.date))")
             print("전일 S&P 500 지수: \(String(format: "%.2f",previousValue)) (날짜: \(previousObservation.date))")
