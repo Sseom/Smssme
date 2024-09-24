@@ -9,7 +9,9 @@ import SnapKit
 import UIKit
 
 final class FinancialPlanCurrentPlanView: UIView {
-    private let currentPlanTitle = LargeTitleLabel().createLabel(with: "진행중인 자산플랜", color: .black)
+    private let currentPlanTitle = LabelFactory.titleLabel()
+        .setText("진행중인 자산플랜")
+        .build()
     
     lazy var currentPlanCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCollectionViewLayout())

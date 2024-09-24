@@ -81,8 +81,8 @@ playground.xcworkspace
 
 # Swift Package Manager
 # Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
- Packages/
- Package.pins
+# Packages/
+# Package.pins
  Package.resolved
  *.xcodeproj
 # Xcode automatically generates this directory with a .xcworkspacedata file and xcuserdata
@@ -144,4 +144,8 @@ iOSInjectionProject/
 # Firebase 
 GoogleService-Info.plist
 
-# End of https://www.toptal.com/developers/gitignore/api/macos,swift,xcode,cocoapods
+# SecretsConfig
+*.xcconfig
+SecretsConfig.xcconfig
+
+# End of https://www.toptal.com/developers/gitignore/api/macos,swift,fig

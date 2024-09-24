@@ -29,24 +29,15 @@ class MainPageView: UIView {
     
     //경제지표 컬렉션뷰
     lazy var stockIndexcollectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCollectionViewLayout())
-        collectionView.register(StockIndexCell.self, forCellWithReuseIdentifier: StockIndexCell.reuseIdentifier)
-        collectionView.backgroundColor = .blue
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
         
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        collectionView.register(StockIndexCell.self, forCellWithReuseIdentifier: StockIndexCell.reuseIdentifier)
+        collectionView.backgroundColor = .green
+
         return collectionView
     }()
-    
-    private func createCollectionViewLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 16
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 20, right: 0)
-        
-        let itemWidth = UIScreen.main.bounds.width - 40
-        layout.itemSize = CGSize(width: itemWidth, height: 80)
-        
-        return layout
-    }
     
     let pieChartView: PieChartView = {
         let pieChartView = PieChartView()
@@ -66,7 +57,7 @@ class MainPageView: UIView {
         button.titleLabel?.textAlignment = .center
         return button
     }()
-        
+  
     let benefitVerticalTableView = UITableView()
     
     // MARK: - View Init
@@ -165,7 +156,7 @@ class MainPageView: UIView {
             $0.height.equalTo(80)
             $0.left.right.equalToSuperview().offset(20)
         }
-                
+
         benefitTitleLabel.snp.makeConstraints {
             $0.top.equalTo(stockIndexcollectionView.snp.bottom).offset(40)
             $0.left.equalTo(safeAreaLayoutGuide).offset(20)
