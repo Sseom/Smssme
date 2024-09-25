@@ -203,14 +203,6 @@ class MoneyDiaryBudgetEditVC: UIViewController {
         }
         
         budgetList[section].items.remove(at: row)
-        
-        budgetList.forEach {
-            $0.items.forEach {
-                print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-                print("카테고리: \($0.category)")
-                print("가격: \($0.amount)")
-            }
-        }
 
         moneyDiaryBudgetEditView.tableView.deleteRows(at: [IndexPath(row: row, section: section)], with: .automatic)
         
@@ -353,7 +345,6 @@ extension MoneyDiaryBudgetEditVC: UITextFieldDelegate {
         } else {
             // 금액 입력
             updateAmount(for: section, row: row, text: textField.text)
-//            moneyDiaryBudgetEditView.tableView.reloadSections(IndexSet(integer: section), with: .none)
         }
         
         // 총 합계 텍스트만 업데이트

@@ -60,8 +60,7 @@ class MainPageView: UIView {
         button.titleLabel?.textAlignment = .center
         return button
     }()
-    
-    
+  
     let benefitVerticalTableView = UITableView()
     
     // MARK: - View Init
@@ -74,9 +73,10 @@ class MainPageView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-
+    // MARK: - Methods
     
-    //MARK: - 청년 혜택 총정리
+    // MARK: - 청년 혜택 총정리
+    
     func entryData(values: [Double]) -> [ChartDataEntry] {
         var pieDataEntries: [ChartDataEntry] = []
         for i in 0 ..< values.count {
@@ -120,7 +120,7 @@ class MainPageView: UIView {
         contentView.snp.makeConstraints {
             $0.edges.equalToSuperview()
             $0.width.equalToSuperview()
-            $0.height.equalTo(contentView.snp.height)
+//            $0.height.equalTo(contentView.snp.height) 일단 보류 무서움
         }
         
         mainWelcomeTitleLabel.snp.makeConstraints {
@@ -161,7 +161,7 @@ class MainPageView: UIView {
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview()
         }
-        
+
         benefitTitleLabel.snp.makeConstraints {
             $0.top.equalTo(stockIndexcollectionView.snp.bottom).offset(40)
             $0.left.equalTo(safeAreaLayoutGuide).offset(20)
