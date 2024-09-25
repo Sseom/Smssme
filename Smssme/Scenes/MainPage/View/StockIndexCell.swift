@@ -14,30 +14,27 @@ class StockIndexCell: UICollectionViewCell {
     // 주요 지수 명
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "코스피"
-        label.backgroundColor = .red
+        label.font = .boldSystemFont(ofSize: 16)
+        label.textColor =  UIColor(hex: "#5D6285")
         return label
     }()
     
     // 지수
     let valueLabel: UILabel = {
         let label = UILabel()
-        label.backgroundColor = .blue
+        label.font = .boldSystemFont(ofSize: 18)
+        label.textColor =  UIColor(hex: "#060B11")
         return label
     }()
     
     // 전일 대비 등락(등락포인트와 등락률을 함께 표시)
     let changeRateLabel: UILabel = {
         let label = UILabel()
+        label.font = .systemFont(ofSize: 14)
+        label.textColor =  .systemRed
         return label
     }()
-    
-    let stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        return stackView
-    }()
-    
+
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -52,14 +49,26 @@ class StockIndexCell: UICollectionViewCell {
     
     //MARK: - UI 설정
     private func configureUI() {
-        [stackView].forEach { self.addSubview($0)}
-        
-        [titleLabel, valueLabel, changeRateLabel].forEach { stackView.addArrangedSubview($0)}
+        [titleLabel, valueLabel, changeRateLabel].forEach { contentView.addSubview($0) }
     }
     
     private func setupLayout() {
-        stackView.snp.makeConstraints {
-            $0.edges.equalTo(safeAreaLayoutGuide).inset(5)
+        titleLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalToSuperview().inset(4)
+            $0.leading.equalToSuperview()
+        }
+        
+        valueLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(titleLabel.snp.bottom).offset(4)
+            $0.leading.equalToSuperview()
+        }
+        
+        changeRateLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(4)
+            $0.leading.equalToSuperview()
         }
     }
     
@@ -67,6 +76,17 @@ class StockIndexCell: UICollectionViewCell {
     func configure(stockIndexData: StockIndexData) {
         titleLabel.text = stockIndexData.indexName
         valueLabel.text = stockIndexData.indexValue
-        changeRateLabel.text = "\(stockIndexData.changePoint) (\(stockIndexData.changeRate)%)"
+        
+        guard let change = Double(stockIndexData.changePoint ?? "0.00") else {return}
+        
+        if change > 0.0 {
+                changeRateLabel.textColor = .systemRed
+            changeRateLabel.text = "▲ \(stockIndexData.changePoint ?? "0.00") (\(stockIndexData.changeRate ?? "0.000")%)"
+        } else if change < 0.0 {
+            changeRateLabel.textColor = .systemBlue
+            changeRateLabel.text = "▼ \(stockIndexData.changePoint ?? "0.00") (\(stockIndexData.changeRate ?? "0.000")%)"
+        } else {
+            changeRateLabel.text = "0.000 (0.000)%"
+        }
     }
 }

@@ -39,8 +39,8 @@ struct StockIndexData {
         return StockIndexData(
             indexName: "S&P 500",
             indexValue: value,
-            changeRate: "N/A",
-            changePoint: "N/A"
+            changeRate: changeRate,
+            changePoint: changePoint
         )
     }
 }

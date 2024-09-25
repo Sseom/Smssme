@@ -131,9 +131,9 @@ class MypageVC: UIViewController {
         header.backgroundColor = .white
         
         // 닉네임
-        var nicknameLabel: UILabel = {
+        let nicknameLabel: UILabel = {
             let label = UILabel(frame: header.bounds)
-            label.text = nickname
+            label.text = "\(nickname) 님"
             label.font = .boldSystemFont(ofSize: 24)
             return label
         }()

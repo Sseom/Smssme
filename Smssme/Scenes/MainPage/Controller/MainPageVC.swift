@@ -19,7 +19,7 @@ class MainPageVC: UIViewController {
     var dataEntries: [PieChartDataEntry] = []
     
     //경제 지표
-    private var stockIndexDataArray: [StockIndexData] = []
+    lazy var stockIndexDataArray: [StockIndexData] = []
     
     
     //MARK: - Life cycle
@@ -35,9 +35,11 @@ class MainPageVC: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
+        setupStockData()
+        
         setupWelcomeTitle()
         setupTableView()
-        setupStockData()
+        
     }
     
     override func loadView() {
@@ -48,10 +50,11 @@ class MainPageVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupWelcomeTitle()
         
         self.navigationController?.isNavigationBarHidden = true
         
+        setupWelcomeTitle()
+        setupCollectionView()
         setChart()
     }
     
@@ -67,19 +70,13 @@ class MainPageVC: UIViewController {
         
         // UI setup
         mainPageView.benefitVerticalTableView.separatorStyle = .none
+        mainPageView.benefitVerticalTableView.layer.cornerRadius = 22
+        
         mainPageView.benefitVerticalTableView.layer.masksToBounds = false
-        
-        //        mainPageView.benefitVerticalTableView.layer.shadowPath = UIBezierPath(roundedRect: mainPageView.benefitVerticalTableView.bounds, cornerRadius: 22).cgPath
-        
         mainPageView.benefitVerticalTableView.layer.shadowColor = UIColor.black.cgColor
         mainPageView.benefitVerticalTableView.layer.shadowOpacity = 0.15
         mainPageView.benefitVerticalTableView.layer.shadowRadius = 10
         mainPageView.benefitVerticalTableView.layer.shadowOffset = CGSize(width: 0, height: 5)
-        
-        mainPageView.benefitVerticalTableView.layer.cornerRadius = 22
-        
-        
-        
     }
     
     private func setupWelcomeTitle() {
@@ -181,11 +178,12 @@ class MainPageVC: UIViewController {
         //날짜 포멧
         let dateFormatter = DateFormatter()
         
-        fetchKOSPIData()
+        fetchKOSPIData(idxNm: "코스피")
+        fetchKOSPIData(idxNm: "코스닥")
         fetchSP500Last7Days()
         
         //MARK: - 코스피 데이터 가져오는 메서드
-        func fetchKOSPIData(){
+        func fetchKOSPIData(idxNm: String){
             //날짜 변환 및 날짜 구하기
             dateFormatter.dateFormat = "yyyyMMdd"
             
@@ -210,35 +208,35 @@ class MainPageVC: UIViewController {
                 queryParameters: [
                     "serviceKey": serviceKey,
                     "resultType": "json",
-                    "idxNm": "코스피",
+                    "idxNm": idxNm,
                     "beginBasDt": sevenDaysAgoString,
                     "endBasDt": todayString
                 ]
             )
             
+
+            
             NetworkManager.shared.fetch(endpoint: endpoint) { [weak self] (result: Result< KOSPIResponse, Error>) in
+                
+                guard let self = self else { return } // self가 nil일 경우 클로저를 종료
+                
                 switch result {
                 case .success(let response):
-                    print("코스피 데이터 가져오기 성공===============")
-                    
+
                     let items = response.response.body.items.item
-                    if let latestItem = items.max(by: {$0.basDt > $1.basDt}) {
+                    if let latestItem = items.max(by: {$0.basDt < $1.basDt}) {
                         print("가장 최신의 코스피 기준 날짜: \(latestItem.basDt)")
                         
                         let kospiItem = StockIndexData.convertKOSPIToStockIndex(kospiItem: latestItem)
-                        
-                        // UI 업데이트는 메인 스레드에서 처리
-                        //                        DispatchQueue.main.async {
-                        //                            self?.stockIndexDataArray.append(kospiItem)
-                        //                            self?.mainPageView.stockIndexcollectionView.reloadData()
-                        //                        }
-                        print("가장 최신의 코스피 시가: \(latestItem.mkp)")
-                        print("구조체 통합 중 코스피 종가(indexValue): \(kospiItem.indexValue)")
-                        print("가장 최신의 코스피 종가: \(latestItem.clpr)")
-                        print("전일 대비 등락 포인트: \(latestItem.vs)")
-                        print("구조체 통합 중 등락포인트: \(kospiItem.changePoint)")
-                        print("전일 대비 등락률: \(latestItem.fltRt)")
-                        
+  
+                        self.stockIndexDataArray.append(kospiItem)
+
+                        print("🌟 stockIndexDataArray의 갯수: \(self.stockIndexDataArray.count) /  \(self.stockIndexDataArray)")
+      
+                            DispatchQueue.main.async{
+                                self.mainPageView.stockIndexcollectionView.reloadData()
+                            }
+
                     } else {
                         print("가져온 코스피 데이터가 없습니다.")
                     }
@@ -288,6 +286,7 @@ class MainPageVC: UIViewController {
                 case .success(let response):
                     print("거래 데이터를 가져오는데 성공했습니다.")
                     processSP500Data(response: response)
+                    
                 case .failure(let error):
                     print("거래 데이터를 가져오는데 실패했습니다:\n \(error.localizedDescription)")
                     
@@ -337,37 +336,32 @@ class MainPageVC: UIViewController {
             
             let sp500Item = StockIndexData.convertSP500OToStockIndex(value: sp500ValueString, changeRate: changeRateString, changePoint: changePointString)
             
-            //            self.stockIndexDataArray.append(sp500Item)
-            //            self.mainPageView.stockIndexcollectionView.reloadData()
+            self.stockIndexDataArray.append(sp500Item)
             
-            print("🌟 stockIndexDataArray의 갯수: \(self.stockIndexDataArray.count)")
             
-            print("가장 최신 S&P 500 지수 날짜: \(latestObservation.date))")
-            print("전일 S&P 500 지수: \(String(format: "%.2f",previousValue)) (날짜: \(previousObservation.date))")
-            print("전일 대비 등락 포인트: \(String(format: "%.2f", change)) 포인트")
-            print("전일 대비 등락 비율: \(String(format: "%.2f", changePercentage))%")
+            DispatchQueue.main.async{
+                self.mainPageView.stockIndexcollectionView.reloadData()
+            }
+
+            print("🌟 S&P500 - stockIndexDataArray의 갯수: \(self.stockIndexDataArray.count) /  \(self.stockIndexDataArray)")
         }
+        
+        //MARK: - 환율 데이터 가져오는 메서드
+        
     }
     
 }
 
 //MARK: - 주요 경제 지표 API 데이터
 extension MainPageVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
     func setupCollectionView() {
         mainPageView.stockIndexcollectionView.dataSource = self
-        mainPageView.stockIndexcollectionView.delegate = self
-        
-        mainPageView.stockIndexcollectionView.register(StockIndexCell.self, forCellWithReuseIdentifier: StockIndexCell.reuseIdentifier)
-        view.addSubview(mainPageView.stockIndexcollectionView)
-        
+        //        mainPageView.stockIndexcollectionView.delegate = self
     }
     
     //MARK: - UICollectionView DataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //        return stockIndexDataArray.count
-        return 1
-        
+        return stockIndexDataArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -382,27 +376,6 @@ extension MainPageVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLa
         return cell
     }
     
-    //MARK: - UICollectionViewDelegateFlowLayout
-    // 셀 크기
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let collectionViewWidth = collectionView.bounds.width //현재 컬렉션뷰의 너비
-        let cellItemForRow: CGFloat = 3
-        let minimumSpacing: CGFloat = 2
-        
-        let width = (collectionViewWidth - (cellItemForRow - 1) * minimumSpacing) / cellItemForRow
-        
-        return CGSize(width: width, height: 80)
-    }
-    
-    // MARK: minimumSpacing
-    // 셀들간의 좌우 간격
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 2
-    }
-    // 각 행간의 위아래 간격
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 2
-    }
 }
 
 
