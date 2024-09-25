@@ -10,7 +10,7 @@ import FirebaseAuth
 import SafariServices
 import UIKit
 
-class MainPageVC: UIViewController, UITableViewDelegate {
+class MainPageVC: UIViewController {
     private let mainPageView: MainPageView = MainPageView()
     private let chartDataManager = ChartDataManager()
     private let assetsCoreDataManager = AssetsCoreDataManager()
@@ -19,8 +19,8 @@ class MainPageVC: UIViewController, UITableViewDelegate {
     var dataEntries: [PieChartDataEntry] = []
     
     //경제 지표
-    private var stockIndexDataArray: [StockIndexData] = []
-
+    lazy var stockIndexDataArray: [StockIndexData] = []
+    
     
     //MARK: - Life cycle
     init() {
@@ -35,9 +35,10 @@ class MainPageVC: UIViewController, UITableViewDelegate {
         super.viewDidLoad()
         view.backgroundColor = .white
         
+        setupStockData()
+        
         setupWelcomeTitle()
         setupTableView()
-        setupStockData()
         
     }
     
@@ -49,10 +50,11 @@ class MainPageVC: UIViewController, UITableViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupWelcomeTitle()
         
         self.navigationController?.isNavigationBarHidden = true
         
+        setupWelcomeTitle()
+        setupCollectionView()
         setChart()
     }
     
@@ -65,6 +67,16 @@ class MainPageVC: UIViewController, UITableViewDelegate {
         mainPageView.benefitVerticalTableView.delegate = self
         mainPageView.benefitVerticalTableView.dataSource = self
         mainPageView.benefitVerticalTableView.register(BenefitVerticalCell.self, forCellReuseIdentifier: "BenefitVerticalCell")
+        
+        // UI setup
+        mainPageView.benefitVerticalTableView.separatorStyle = .none
+        mainPageView.benefitVerticalTableView.layer.cornerRadius = 22
+        
+        mainPageView.benefitVerticalTableView.layer.masksToBounds = false
+        mainPageView.benefitVerticalTableView.layer.shadowColor = UIColor.black.cgColor
+        mainPageView.benefitVerticalTableView.layer.shadowOpacity = 0.15
+        mainPageView.benefitVerticalTableView.layer.shadowRadius = 10
+        mainPageView.benefitVerticalTableView.layer.shadowOffset = CGSize(width: 0, height: 5)
     }
     
     private func setupWelcomeTitle() {
@@ -141,11 +153,11 @@ class MainPageVC: UIViewController, UITableViewDelegate {
             dataSet = PieChartDataSet(entries: entries, label: "")
             dataSet.valueFormatter = PercentageValueFormatter()
             dataSet.colors = [
-                    UIColor.lightGray,
-                    UIColor.darkGray,
-                    UIColor.gray,
-                    UIColor.black
-                ]
+                UIColor.lightGray,
+                UIColor.darkGray,
+                UIColor.gray,
+                UIColor.black
+            ]
             dataSet.valueColors = dataSet.colors.map { _ in
                 return .white
             }
@@ -166,11 +178,12 @@ class MainPageVC: UIViewController, UITableViewDelegate {
         //날짜 포멧
         let dateFormatter = DateFormatter()
         
-        fetchKOSPIData()
+        fetchKOSPIData(idxNm: "코스피")
+        fetchKOSPIData(idxNm: "코스닥")
         fetchSP500Last7Days()
         
         //MARK: - 코스피 데이터 가져오는 메서드
-        func fetchKOSPIData(){
+        func fetchKOSPIData(idxNm: String){
             //날짜 변환 및 날짜 구하기
             dateFormatter.dateFormat = "yyyyMMdd"
             
@@ -195,31 +208,34 @@ class MainPageVC: UIViewController, UITableViewDelegate {
                 queryParameters: [
                     "serviceKey": serviceKey,
                     "resultType": "json",
-                    "idxNm": "코스피",
+                    "idxNm": idxNm,
                     "beginBasDt": sevenDaysAgoString,
                     "endBasDt": todayString
                 ]
             )
             
+
+            
             NetworkManager.shared.fetch(endpoint: endpoint) { [weak self] (result: Result< KOSPIResponse, Error>) in
+                
+                guard let self = self else { return } // self가 nil일 경우 클로저를 종료
+                
                 switch result {
                 case .success(let response):
-                    print("코스피 데이터 가져오기 성공===============")
-                    
+
                     let items = response.response.body.items.item
-                    if let latestItem = items.max(by: {$0.basDt > $1.basDt}) {
+                    if let latestItem = items.max(by: {$0.basDt < $1.basDt}) {
                         print("가장 최신의 코스피 기준 날짜: \(latestItem.basDt)")
                         
                         let kospiItem = StockIndexData.convertKOSPIToStockIndex(kospiItem: latestItem)
-                        self?.stockIndexDataArray.append(kospiItem)
-                        
-                        
-                        print("가장 최신의 코스피 시가: \(latestItem.mkp)")
-                        print("구조체 통합 중 코스피 종가(indexValue): \(kospiItem.indexValue)")
-                        print("가장 최신의 코스피 종가: \(latestItem.clpr)")
-                        print("전일 대비 등락 포인트: \(latestItem.vs)")
-                        print("구조체 통합 중 등락포인트: \(kospiItem.changePoint)")
-                        print("전일 대비 등락률: \(latestItem.fltRt)")
+  
+                        self.stockIndexDataArray.append(kospiItem)
+
+                        print("🌟 stockIndexDataArray의 갯수: \(self.stockIndexDataArray.count) /  \(self.stockIndexDataArray)")
+      
+                            DispatchQueue.main.async{
+                                self.mainPageView.stockIndexcollectionView.reloadData()
+                            }
 
                     } else {
                         print("가져온 코스피 데이터가 없습니다.")
@@ -270,6 +286,7 @@ class MainPageVC: UIViewController, UITableViewDelegate {
                 case .success(let response):
                     print("거래 데이터를 가져오는데 성공했습니다.")
                     processSP500Data(response: response)
+                    
                 case .failure(let error):
                     print("거래 데이터를 가져오는데 실패했습니다:\n \(error.localizedDescription)")
                     
@@ -308,65 +325,59 @@ class MainPageVC: UIViewController, UITableViewDelegate {
             let change = latestValue - previousValue
             let changePercentage = (change / previousValue) * 100
             
-//            let sp500Item = StockIndexData.convertSP500OToStockIndex(value: <#T##String#>, changeRate: <#T##String#>, changePoint: <#T##String#>)
-//            self.stockIndexDataArray.append(sp500Item)
+            // 가장 최신 S&P 500 지수
+            let sp500ValueString = String(format: "%.2f", latestValue)
             
-            print("가장 최신 S&P 500 지수: \(String(format: "%.2f", latestValue)) (날짜: \(latestObservation.date))")
-            print("전일 S&P 500 지수: \(String(format: "%.2f",previousValue)) (날짜: \(previousObservation.date))")
+            // 전일 대비 등락 비율
+            let changeRateString = String(format: "%.2f", changePercentage)
             
-            print("전일 대비 등락 포인트: \(String(format: "%.2f", change)) 포인트")
-            print("전일 대비 등락 비율: \(String(format: "%.2f", changePercentage))%")
-        }
-    }
+            // 전일 대비 등락 포인트
+            let changePointString = String(format: "%.2f", change)
+            
+            let sp500Item = StockIndexData.convertSP500OToStockIndex(value: sp500ValueString, changeRate: changeRateString, changePoint: changePointString)
+            
+            self.stockIndexDataArray.append(sp500Item)
+            
+            
+            DispatchQueue.main.async{
+                self.mainPageView.stockIndexcollectionView.reloadData()
+            }
 
+            print("🌟 S&P500 - stockIndexDataArray의 갯수: \(self.stockIndexDataArray.count) /  \(self.stockIndexDataArray)")
+        }
+        
+        //MARK: - 환율 데이터 가져오는 메서드
+        
+    }
+    
 }
 
 //MARK: - 주요 경제 지표 API 데이터
 extension MainPageVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-
     func setupCollectionView() {
         mainPageView.stockIndexcollectionView.dataSource = self
-        mainPageView.stockIndexcollectionView.delegate = self
-        
-        mainPageView.stockIndexcollectionView.register(StockIndexCell.self, forCellWithReuseIdentifier: StockIndexCell.reuseIdentifier)
-        view.addSubview(mainPageView.stockIndexcollectionView)
-
+        //        mainPageView.stockIndexcollectionView.delegate = self
     }
-
-    //MARK: - DataSource
+    
+    //MARK: - UICollectionView DataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return stockIndexDataArray.count
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StockIndexCell.reuseIdentifier, for: indexPath) as! StockIndexCell
-//        let item = kospiData[indexPath.item]
-//        cell.configure(with: item)
+        
+        // 배열에서 해당 데이터 가져오기
+        let stockIndexData = stockIndexDataArray[indexPath.item]
+        
+        // 셀에 데이터 전달 및 라벨 표시
+        cell.configure(stockIndexData: stockIndexData)
+        
         return cell
     }
     
-    //MARK: - UICollectionViewDelegateFlowLayout
-    // 셀 크기
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let collectionViewWidth = collectionView.bounds.width //현재 컬렉션뷰의 너비
-               let cellItemForRow: CGFloat = 3
-               let minimumSpacing: CGFloat = 2
-               
-               let width = (collectionViewWidth - (cellItemForRow - 1) * minimumSpacing) / cellItemForRow
-               
-        return CGSize(width: width, height: 80)
-    }
-    
-    // MARK: minimumSpacing
-    // 셀들간의 좌우 간격
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 2
-    }
-    // 각 행간의 위아래 간격
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 2
-    }
 }
+
 
 extension MainPageVC: UITabBarDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -380,6 +391,13 @@ extension MainPageVC: UITabBarDelegate {
     }
 }
 
+//MARK: - 청년혜택 총정리
+extension MainPageVC: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 64
+    }
+}
+
 extension MainPageVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         Benefit.shared.benefitData.count
@@ -390,25 +408,14 @@ extension MainPageVC: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        let title = Array(Benefit.shared.benefitData.keys)[indexPath.row]
+        let title = Array(Benefit.shared.benefitData.keys.sorted(by: >))[indexPath.row]
         cell.titleLabel.text = title
         cell.selectionStyle = .none
+        cell.accessoryType = .disclosureIndicator
+        
+        let imageName = "benefit\(indexPath.row + 1)"
+        cell.cellIconView.image = UIImage(named: imageName)
         
         return cell
     }
 }
-
-//extension MainPageVC: ChartViewDelegate {
-//    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-//        if entry is PieChartDataEntry {
-//            mainPageView.pieChartView.highlightValues(nil)
-//            guard let index = dataEntries.firstIndex(of: entry as! PieChartDataEntry) else { return }
-//            let uuid = uuids[index]
-//            
-//            let assetsEditVC = AssetsListVC()
-//            assetsEditVC.uuid = uuid
-//            
-//            self.navigationController?.pushViewController(assetsEditVC, animated: true)
-//        }
-//    }
-//}
