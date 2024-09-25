@@ -8,8 +8,9 @@ class MainPageView: UIView {
     var mainWelcomeTitleLabel = LargeTitleLabel().createLabel(with: "씀씀이의 방문을 \n환영합니다.", color: .black)
     private let totalAssetsTitleLabel = SmallTitleLabel().createLabel(with: "총 자산", color: .black)
     let totalAssetsValueLabel = LargeTitleLabel().createLabel(with: "0 원", color: .black)
-    private let stockIndexTitleLabel = SmallTitleLabel().createLabel(with: "오늘의 주요 경제 지표", color: .black)
+    private let stockIndexTitleLabel = SmallTitleLabel().createLabel(with: "오늘의 주요 경제 지수", color: .black)
     private let benefitTitleLabel = SmallTitleLabel().createLabel(with: "2024 청년 혜택 총정리", color: .black)
+    
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -21,23 +22,25 @@ class MainPageView: UIView {
         return view
     }()
     
-    private let financialScrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.backgroundColor = .red
-        return scrollView
-    }()
-    
     //경제지표 컬렉션뷰
     lazy var stockIndexcollectionView: UICollectionView = {
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .horizontal
-        
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCollectionViewLayout())
         collectionView.register(StockIndexCell.self, forCellWithReuseIdentifier: StockIndexCell.reuseIdentifier)
-        collectionView.backgroundColor = .green
-
+        collectionView.showsHorizontalScrollIndicator = false
+        
         return collectionView
     }()
+    
+    private func createCollectionViewLayout() -> UICollectionViewLayout {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 18 //좌우 줄간격
+        layout.itemSize = CGSize(width: 120, height: 80)
+        // 동적으로 cell의 크기를 계산할 때 성능을 높여 준다고 합니다.
+        layout.estimatedItemSize = CGSize(width: 120, height: 80)
+        
+        return layout
+    }
     
     let pieChartView: PieChartView = {
         let pieChartView = PieChartView()
@@ -109,6 +112,7 @@ class MainPageView: UIView {
             contentView.addSubview($0)
         }
         
+        //오토레이아웃
         scrollView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
@@ -152,9 +156,10 @@ class MainPageView: UIView {
         }
         
         stockIndexcollectionView.snp.makeConstraints {
-            $0.top.equalTo(stockIndexTitleLabel.snp.bottom).offset(20)
+            $0.top.equalTo(stockIndexTitleLabel.snp.bottom).offset(10)
             $0.height.equalTo(80)
-            $0.left.right.equalToSuperview().offset(20)
+            $0.leading.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview()
         }
 
         benefitTitleLabel.snp.makeConstraints {
@@ -163,10 +168,10 @@ class MainPageView: UIView {
         }
         
         benefitVerticalTableView.snp.makeConstraints {
-            $0.top.equalTo(benefitTitleLabel.snp.bottom).offset(5)
-            $0.height.equalTo(300)
+            $0.top.equalTo(benefitTitleLabel.snp.bottom).offset(20)
+            $0.height.equalTo(400)
             $0.left.right.equalToSuperview().inset(20)
-            $0.bottom.equalToSuperview().offset(-20)
+            $0.bottom.equalToSuperview().offset(-40)
         }
     }
 }

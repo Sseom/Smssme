@@ -131,9 +131,9 @@ class MypageVC: UIViewController {
         header.backgroundColor = .white
         
         // 닉네임
-        var nicknameLabel: UILabel = {
+        let nicknameLabel: UILabel = {
             let label = UILabel(frame: header.bounds)
-            label.text = nickname
+            label.text = "\(nickname) 님"
             label.font = .boldSystemFont(ofSize: 24)
             return label
         }()
@@ -321,24 +321,6 @@ extension MypageVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 20.0
     }
-    
-    // 섹션 푸터뷰 설정
-    //    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-    //        let footerView = UIView()
-    //        footerView.backgroundColor = .white
-    //
-    //        // 섹션 간 구분선 설정
-    //        let separatorLine = UIView()
-    //        separatorLine.backgroundColor = .systemGray4
-    //        footerView.addSubview(separatorLine)
-    //
-    //        separatorLine.snp.makeConstraints {
-    //            $0.leading.trailing.equalToSuperview().inset(30)
-    //            $0.top.equalToSuperview()
-    //            $0.height.equalTo(1)
-    //        }
-    //        return footerView
-    //    }
     
 }
 

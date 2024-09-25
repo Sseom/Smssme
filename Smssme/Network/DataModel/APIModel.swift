@@ -39,8 +39,8 @@ struct StockIndexData {
         return StockIndexData(
             indexName: "S&P 500",
             indexValue: value,
-            changeRate: "N/A",
-            changePoint: "N/A"
+            changeRate: changeRate,
+            changePoint: changePoint
         )
     }
 }
@@ -98,3 +98,6 @@ struct Observation: Codable {
     let date: String      // 관측 날짜
     let value: String     // S&P 500 값
 }
+
+
+
