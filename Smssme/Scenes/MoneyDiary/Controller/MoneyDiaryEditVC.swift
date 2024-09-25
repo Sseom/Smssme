@@ -70,8 +70,8 @@ class MoneyDiaryEditVC: UIViewController {
         moneyDiaryEditView.titleTextField.text = transactionItem2.title
         moneyDiaryEditView.categoryTextField.text = transactionItem2.category
         moneyDiaryEditView.noteTextView.textColor = .black
-        moneyDiaryEditView.noteTextView.text = transactionItem2.note
-        
+        moneyDiaryEditView.noteTextView.text = transactionItem2.note        
+        moneyDiaryEditView.viewChange(index: transactionItem2.statement ? 1 : 0)
     }
     
     @objc func updateData() {

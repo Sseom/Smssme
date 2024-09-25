@@ -27,14 +27,14 @@ class AssetsListVC: UIViewController {
     //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title = "나의 자산 목록"
+        setAddButton()
+        setupTableView()
     }
     
     override func loadView() {
         super.loadView()
         self.view = assetsListView
-        self.navigationItem.title = "나의 자산 목록"
-        setAddButton()
-        setupTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {

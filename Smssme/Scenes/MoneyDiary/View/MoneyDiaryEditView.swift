@@ -29,7 +29,7 @@ class MoneyDiaryEditView: UIView {
     lazy var segmentControl: UISegmentedControl = {
         let segmentControl = UISegmentedControl(items: ["지출", "수입"])
         segmentControl.selectedSegmentIndex = 0
-        segmentControl.addTarget(self, action: #selector(viewChange(segment:)), for: .valueChanged)
+        segmentControl.addTarget(self, action: #selector(segmentChange(segment:)), for: .valueChanged)
         return segmentControl
     }()
     
@@ -72,7 +72,22 @@ class MoneyDiaryEditView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: function
+    func viewChange(index: Int) {
+        if index == 0 {
+            dateLabel.text = "지출일"
+            priceLabel.text = "지출금액"
+            titleLabel.text = "지출명"
+            titleTextField.placeholder = "지출명"
+        } else {
+            dateLabel.text = "수입일"
+            priceLabel.text = "수입금액"
+            titleLabel.text = "수입명"
+            titleTextField.placeholder = "수입명"
 
+        }
+        segmentControl.selectedSegmentIndex = index
+    }
     
     private func setupUI() {
         
@@ -190,20 +205,8 @@ class MoneyDiaryEditView: UIView {
     
     //MARK: - Objc
     //FIXME: View가 바뀌는 이벤트라 View에 넣는게 맞지 않을까
-    @objc func viewChange(segment: UISegmentedControl) {
-        if segment.selectedSegmentIndex == 0 {
-            dateLabel.text = "지출일"
-            priceLabel.text = "지출금액"
-            titleLabel.text = "지출명"
-            titleTextField.placeholder = "지출명"
-  
-        } else {
-            dateLabel.text = "수입일"
-            priceLabel.text = "수입금액"
-            titleLabel.text = "수입명"
-            titleTextField.placeholder = "수입명"
-
-        }
+    @objc func segmentChange(segment: UISegmentedControl) {
+        viewChange(index: segment.selectedSegmentIndex)
     }
     
     @objc func touch() {
