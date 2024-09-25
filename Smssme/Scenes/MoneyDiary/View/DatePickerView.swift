@@ -3,15 +3,18 @@
 //  Smssme
 //
 //  Created by KimRin on 9/2/24.
-//
+// 0923/rin
 
 import UIKit
 import SnapKit
 
-class DatePickerView: UIView {
+final class DatePickerView: UIView {
+    
     let pickerView = UIPickerView()
     let titleLabel = LargeTitleLabel().createLabel(with: "날짜선택", color: .black)
     var confirmButton = BaseButton().createButton(text: "날짜로 이동", color: .blue.withAlphaComponent(0.7), textColor: .white)
+    
+    //pickerView에 선택가능범위
     let years = Array(2000...Calendar.current.component(.year, from: Date()) + 10)
     let months = Array(1...12)
     
@@ -19,7 +22,7 @@ class DatePickerView: UIView {
         super.init(frame: frame)
         setupPickerView()
         setupAutoLayout()
-        self.backgroundColor = .white
+        
     }
     
     required init?(coder: NSCoder) {
@@ -28,11 +31,11 @@ class DatePickerView: UIView {
     
     private func setupPickerView() {
 
+        self.backgroundColor = .white
         [pickerView,
          titleLabel,
          confirmButton
         ].forEach { self.addSubview($0) }
-
         confirmButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
     }
     

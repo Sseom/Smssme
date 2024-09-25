@@ -8,11 +8,11 @@
 import UIKit
 
 // MARK: - 앱 전체에서 공통적으로 사용될 레이블들
-protocol LabelFactory {
-    func createLabel(with text: String, color: UIColor) -> UILabel
-}
+//protocol LabelFactory {
+//    func createLabel(with text: String, color: UIColor) -> UILabel
+//}
 
-class BaseLabelFactory: LabelFactory {
+class BaseLabelFactory {
     func createLabel(with text: String, color: UIColor) -> UILabel {
         let label = UILabel()
         label.textAlignment = .left

@@ -14,8 +14,11 @@ class FinancialPlanCreationView: UIView {
     lazy var titleTextField: UITextField = {
         let textField = UITextField()
         textField.font = UIFont.boldSystemFont(ofSize: 24)
-//        textField.layer.borderWidth = 1
-//        textField.layer.borderColor = UIColor.black.cgColor
+        let fontSize: CGFloat = 16
+        let kernValue = fontSize * -0.04
+        textField.attributedText = NSAttributedString(string: "", attributes: [
+            .kern: kernValue
+        ])
         return textField
     }()
     
