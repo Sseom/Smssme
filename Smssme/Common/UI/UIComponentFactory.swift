@@ -72,9 +72,9 @@ class ContentBoldLabel: BaseLabelFactory {
 
 // MARK: - 앱 전체에서 공통적으로 사용될 버튼
 
-protocol ButtonFactory {
-    func createButton(text: String, color: UIColor, textColor: UIColor) -> UIButton
-}
+//protocol ButtonFactory {
+//    func createButton(text: String, color: UIColor, textColor: UIColor) -> UIButton
+//}
 
 class BaseButton: ButtonFactory {
     func createButton(text: String, color: UIColor, textColor: UIColor) -> UIButton {

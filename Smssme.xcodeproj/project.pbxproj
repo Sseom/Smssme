@@ -103,9 +103,13 @@
 		9FF702DB2C966B3F00890E77 /* RegexManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF702DA2C966B3F00890E77 /* RegexManager.swift */; };
 		E517F2822C8782F200CB8680 /* FinancialPlanManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2812C8782F200CB8680 /* FinancialPlanManager.swift */; };
 		E517F3402C89A41900CB8680 /* MoneyDiaryCreationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F33F2C89A41900CB8680 /* MoneyDiaryCreationVC.swift */; };
+		E5B9267D2CA2DF280027984E /* UILabelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B9267C2CA2DF280027984E /* UILabelFactory.swift */; };
 		E5B926802CA2FF5E0027984E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E5B9267E2CA2FF5E0027984E /* GoogleService-Info.plist */; };
 		E5B926812CA2FF5E0027984E /* SecretsConfig.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E5B9267F2CA2FF5E0027984E /* SecretsConfig.xcconfig */; };
-		E5B9267D2CA2DF280027984E /* UILabelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B9267C2CA2DF280027984E /* UILabelFactory.swift */; };
+		E5B926832CA307E60027984E /* FinancialPlanCompleteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B926822CA307E60027984E /* FinancialPlanCompleteVC.swift */; };
+		E5B926852CA3080B0027984E /* FinancialPlanCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B926842CA3080B0027984E /* FinancialPlanCompleteView.swift */; };
+		E5B926872CA313FC0027984E /* UIButtonFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B926862CA313FC0027984E /* UIButtonFactory.swift */; };
+		E5B926892CA328AC0027984E /* FinancialPlanCompleteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B926882CA328AC0027984E /* FinancialPlanCompleteCell.swift */; };
 		E5BF5E452C8587310093FD2D /* FinancialPlanEditPlanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BF5E442C8587310093FD2D /* FinancialPlanEditPlanVC.swift */; };
 		E5BF5E472C8597820093FD2D /* FinancialPlanDateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BF5E462C8597820093FD2D /* FinancialPlanDateModel.swift */; };
 		E5F344D82C806A58006F9A91 /* FinancialPlanCurrentPlanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F344D72C806A58006F9A91 /* FinancialPlanCurrentPlanVC.swift */; };
@@ -213,9 +217,13 @@
 		9FF702DA2C966B3F00890E77 /* RegexManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexManager.swift; sourceTree = "<group>"; };
 		E517F2812C8782F200CB8680 /* FinancialPlanManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanManager.swift; sourceTree = "<group>"; };
 		E517F33F2C89A41900CB8680 /* MoneyDiaryCreationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDiaryCreationVC.swift; sourceTree = "<group>"; };
+		E5B9267C2CA2DF280027984E /* UILabelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelFactory.swift; sourceTree = "<group>"; };
 		E5B9267E2CA2FF5E0027984E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		E5B9267F2CA2FF5E0027984E /* SecretsConfig.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = SecretsConfig.xcconfig; sourceTree = SOURCE_ROOT; };
-		E5B9267C2CA2DF280027984E /* UILabelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelFactory.swift; sourceTree = "<group>"; };
+		E5B926822CA307E60027984E /* FinancialPlanCompleteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FinancialPlanCompleteVC.swift; path = Smssme/Scenes/FinancialPlan/Controller/FinancialPlanCompleteVC.swift; sourceTree = SOURCE_ROOT; };
+		E5B926842CA3080B0027984E /* FinancialPlanCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanCompleteView.swift; sourceTree = SOURCE_ROOT; };
+		E5B926862CA313FC0027984E /* UIButtonFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonFactory.swift; sourceTree = "<group>"; };
+		E5B926882CA328AC0027984E /* FinancialPlanCompleteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FinancialPlanCompleteCell.swift; path = Smssme/Scenes/FinancialPlan/View/FinancialPlanCompleteCell.swift; sourceTree = SOURCE_ROOT; };
 		E5BF5E442C8587310093FD2D /* FinancialPlanEditPlanVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanEditPlanVC.swift; sourceTree = "<group>"; };
 		E5BF5E462C8597820093FD2D /* FinancialPlanDateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanDateModel.swift; sourceTree = "<group>"; };
 		E5F344D72C806A58006F9A91 /* FinancialPlanCurrentPlanVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanCurrentPlanVC.swift; sourceTree = "<group>"; };
@@ -538,6 +546,8 @@
 				7457E7CE2CA13A0A00481C5F /* FinancialPlanCurrentPlanView.swift */,
 				E5F344DF2C8468DB006F9A91 /* FinancialPlanCurrentPlanCell.swift */,
 				E5FBA1472C7EC68700D26E5F /* PlanCustomTextField.swift */,
+				E5B926842CA3080B0027984E /* FinancialPlanCompleteView.swift */,
+				E5B926882CA328AC0027984E /* FinancialPlanCompleteCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -550,6 +560,7 @@
 				E5F344D72C806A58006F9A91 /* FinancialPlanCurrentPlanVC.swift */,
 				9F06D3192C801D1F00DFF5B0 /* FinancialPlanConfirmVC.swift */,
 				E5BF5E442C8587310093FD2D /* FinancialPlanEditPlanVC.swift */,
+				E5B926822CA307E60027984E /* FinancialPlanCompleteVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -578,6 +589,7 @@
 				E5FBA14F2C804FBA00D26E5F /* UIColorSet.swift */,
 				E5FBA12B2C7C823C00D26E5F /* UIComponentFactory.swift */,
 				E5B9267C2CA2DF280027984E /* UILabelFactory.swift */,
+				E5B926862CA313FC0027984E /* UIButtonFactory.swift */,
 				5FE400702C93CAD3001D0FD1 /* ToastMessage.swift */,
 				5FA88FEE2C80760E00549363 /* CommonAlert.swift */,
 			);
@@ -816,6 +828,7 @@
 				746F80832C8841F300BBAEAF /* MoneyDiaryCalendarCell.swift in Sources */,
 				744FB0982C93D88300208685 /* AssetsListVC.swift in Sources */,
 				E5F344E02C8468DB006F9A91 /* FinancialPlanCurrentPlanCell.swift in Sources */,
+				E5B926832CA307E60027984E /* FinancialPlanCompleteVC.swift in Sources */,
 				74707FA52C81B82600F7000C /* User+CoreDataProperties.swift in Sources */,
 				5FE400872C9B2F23001D0FD1 /* ReauthenticationView.swift in Sources */,
 				740350A82C7E229100122B2E /* TabBarController.swift in Sources */,
@@ -837,6 +850,7 @@
 				74707FBA2C84CD7A00F7000C /* AssetsEditVC.swift in Sources */,
 				746F80862C8841F300BBAEAF /* MoneyDiaryCalendarView.swift in Sources */,
 				E5BF5E472C8597820093FD2D /* FinancialPlanDateModel.swift in Sources */,
+				E5B926872CA313FC0027984E /* UIButtonFactory.swift in Sources */,
 				74707F7A2C80698C00F7000C /* MainPageView.swift in Sources */,
 				E5FBA1482C7EC68700D26E5F /* PlanCustomTextField.swift in Sources */,
 				5F18A2192C8DB36B00BC70B7 /* IncomeAndLocationView.swift in Sources */,
@@ -861,6 +875,7 @@
 				741746572C9871DA006D5456 /* BenefitVerticalCell.swift in Sources */,
 				5FA88FEF2C80760E00549363 /* CommonAlert.swift in Sources */,
 				740350592C773E9B00122B2E /* SceneDelegate.swift in Sources */,
+				E5B926852CA3080B0027984E /* FinancialPlanCompleteView.swift in Sources */,
 				7457E7CB2CA139CE00481C5F /* FinancialPlanCreationView.swift in Sources */,
 				5FE400842C99A450001D0FD1 /* ResetPasswordVC.swift in Sources */,
 				E5FBA12C2C7C823C00D26E5F /* UIComponentFactory.swift in Sources */,
@@ -873,6 +888,7 @@
 				746F80912C8842B200BBAEAF /* MoneyDiaryVC.swift in Sources */,
 				5F18A20B2C8DB26400BC70B7 /* NickNameVC.swift in Sources */,
 				746F80852C8841F300BBAEAF /* MoneyDiaryBudgetEditView.swift in Sources */,
+				E5B926892CA328AC0027984E /* FinancialPlanCompleteCell.swift in Sources */,
 				746F80952C8842C800BBAEAF /* DailyTransactionVC.swift in Sources */,
 				5F413EFF2C805CC200004703 /* MypageView.swift in Sources */,
 				5F3EAE192C7E182400FF15E5 /* LoginView.swift in Sources */,

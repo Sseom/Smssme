@@ -17,7 +17,7 @@ class FinancialPlanService {
     }
     
     // MARK: - Create
-    func createFinancialPlan(title: String, amount: Int64, deposit: Int64, startDate: Date, endDate: Date, planType: PlanType, isCompleted: Bool) throws -> FinancialPlanDTO {
+    func createFinancialPlan(title: String, amount: Int64, deposit: Int64, startDate: Date, endDate: Date, planType: PlanType, isCompleted: Bool, completionDate: Date) throws -> FinancialPlanDTO {
         // 유효성 검사
         try validateAmount(amount)
         try validateDeposit(deposit)
@@ -36,7 +36,8 @@ class FinancialPlanService {
             endDate: endDate,
             planType: Int16(planType.rawValue),
             customTitle: customTitle,
-            isCompleted: isCompleted
+            isCompleted: isCompleted,
+            completionDate: completionDate
         )
         
         plan.planDescription = planType.planDescription
@@ -87,7 +88,8 @@ class FinancialPlanService {
             startDate: dto.startDate,
             endDate: dto.endDate,
             planType: Int16(dto.planType.rawValue), 
-            isCompleted: dto.isCompleted
+            isCompleted: dto.isCompleted, 
+            completionDate: dto.completionDate
         )
         
         if dto.planType == .custom {
@@ -109,7 +111,8 @@ class FinancialPlanService {
                 startDate: plan.startDate ?? Date(),
                 endDate: plan.endDate ?? Date(),
                 planType: plan.planType,
-                isCompleted: plan.isCompleted
+                isCompleted: plan.isCompleted,
+                completionDate: plan.completionDate ?? Date()
             )
         } else {
             throw NSError(domain: "FinancialPlanService", code: 400, userInfo: [NSLocalizedDescriptionKey: "커스텀 플랜만 제목을 변경할 수 있습니다."])
@@ -123,6 +126,20 @@ class FinancialPlanService {
         }
         manager.deleteFinancialPlan(plan)
     }
+    //MARK: - 완료플랜 지우기
+//    func deleteAllCompletedPlans() throws {
+//        let completedPlans = fetchCompletedFinancialPlans()
+//        
+//        for plan in completedPlans {
+//            guard let corePlan = manager.fetchFinancialPlan(withId: plan.id) else {
+//                throw NSError(domain: "FinancialPlanService", code: 404, userInfo: [NSLocalizedDescriptionKey: "완료된 플랜을 찾을 수 없음: \(plan.id)"])
+//            }
+//            manager.deleteFinancialPlan(corePlan)
+//        }
+//        
+//        manager.saveContext()
+//        print("Successfully deleted \(completedPlans.count) completed plans.")
+//    }
     
     // MARK: - 비즈니스로직
     func calculateTotalAmount() -> Int64 {
@@ -192,8 +209,8 @@ class FinancialPlanService {
             startDate: plan.startDate ?? Date(),
             endDate: plan.endDate ?? Date(),
             planType: PlanType(rawValue: plan.planType) ?? .custom,
-            isCompleted: plan.isCompleted
-            
+            isCompleted: plan.isCompleted, 
+            completionDate: plan.completionDate ?? Date()
         )
     }
 }
@@ -210,6 +227,7 @@ struct FinancialPlanDTO {
     var planType: PlanType
     var customTitle: String?
     var isCompleted: Bool
+    var completionDate: Date
 }
 
 // MARK: - 유효성 검사 케이스

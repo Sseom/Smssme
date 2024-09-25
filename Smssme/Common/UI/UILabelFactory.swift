@@ -47,7 +47,6 @@ class LabelBuilder {
         return self
     }
     
-    
     func build() -> UILabel {
         let label = UILabel()
         label.text = text

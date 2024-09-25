@@ -84,7 +84,8 @@ extension FinancialPlanEditPlanVC {
                 startDate: startDate,
                 endDate: endDate,
                 planType: planDTO.planType,
-                isCompleted: false
+                isCompleted: false,
+                completionDate: planDTO.completionDate
             )
             
             try planService.updateFinancialPlan(updateDTO)

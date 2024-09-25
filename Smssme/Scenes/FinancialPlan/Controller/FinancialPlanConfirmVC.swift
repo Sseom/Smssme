@@ -131,6 +131,7 @@ extension FinancialPlanConfirmVC {
         
         var updatedPlanDTO = self.planDTO
         updatedPlanDTO.isCompleted = true
+        updatedPlanDTO.completionDate = Date()
         
         do {
             try planService.updateFinancialPlan(updatedPlanDTO)

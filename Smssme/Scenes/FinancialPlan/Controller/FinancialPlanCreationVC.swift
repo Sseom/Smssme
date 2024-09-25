@@ -150,7 +150,7 @@ extension FinancialPlanCreationVC {
                 startDate: startDate,
                 endDate: endDate,
                 planType: selectedPlanType ?? .custom,
-                isCompleted: false
+                isCompleted: false, completionDate: Date.distantFuture
             )
             
             print("새로운 계획이 저장되었습니다: \(newPlanDTO)")

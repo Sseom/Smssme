@@ -40,7 +40,7 @@ class FinancialPlanManager {
     }
     
     // Create
-    func createFinancialPlan(id: String, title: String, amount: Int64, deposit: Int64, startDate: Date, endDate: Date, planType: Int16, customTitle: String?, isCompleted: Bool) -> FinancialPlan {
+    func createFinancialPlan(id: String, title: String, amount: Int64, deposit: Int64, startDate: Date, endDate: Date, planType: Int16, customTitle: String?, isCompleted: Bool, completionDate: Date) -> FinancialPlan {
         let plan = FinancialPlan(context: context)
         plan.id = id
         plan.key = UUID()
@@ -52,6 +52,7 @@ class FinancialPlanManager {
         plan.planType = planType
         plan.customTitle = customTitle
         plan.isCompleted = isCompleted
+        plan.completionDate = completionDate
         
         saveContext()
         return plan
@@ -84,7 +85,7 @@ class FinancialPlanManager {
     }
     
     //update
-    func updateFinancialPlan(withId id: String, title: String, amount: Int64, deposit: Int64, startDate: Date, endDate: Date, planType: Int16, isCompleted: Bool) throws {
+    func updateFinancialPlan(withId id: String, title: String, amount: Int64, deposit: Int64, startDate: Date, endDate: Date, planType: Int16, isCompleted: Bool, completionDate: Date) throws {
         let fetchRequest: NSFetchRequest<FinancialPlan> = FinancialPlan.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "id == %@", id)
         
@@ -101,6 +102,7 @@ class FinancialPlanManager {
             plan.endDate = endDate
             plan.planType = planType
             plan.isCompleted = isCompleted
+            plan.completionDate = completionDate
             
             try context.save()
         } catch {
