@@ -13,6 +13,7 @@ struct StockIndexData {
     let indexValue: String // 지수 값 (종가, 환율 값 등)
     let changeRate: String? // 전일 대비 등락률
     let changePoint: String? // 전일 대비 등락 포인트
+    let date: String? //날짜
     
     // KOSPI 데이터를 StockIndexData로 변환
     static func convertKOSPIToStockIndex(kospiItem: KOSPIItem) -> StockIndexData {
@@ -20,7 +21,8 @@ struct StockIndexData {
             indexName: kospiItem.idxNm,
             indexValue: kospiItem.clpr,
             changeRate: kospiItem.fltRt,
-            changePoint: kospiItem.vs
+            changePoint: kospiItem.vs,
+            date: kospiItem.basDt
         )
     }
 
@@ -30,17 +32,19 @@ struct StockIndexData {
             indexName: "환율",
             indexValue: exchangeRate.bkpr ?? "N/A",
             changeRate: "N/A",
-            changePoint: "N/A"
+            changePoint: "N/A",
+            date: exchangeRate.ycdt
         )
     }
 
     // S&P 500 데이터를 StockIndexData로 변환
-    static func convertSP500OToStockIndex(value: String, changeRate: String, changePoint: String) -> StockIndexData {
+    static func convertSP500OToStockIndex(value: String, changeRate: String, changePoint: String, date: String) -> StockIndexData {
         return StockIndexData(
             indexName: "S&P 500",
             indexValue: value,
             changeRate: changeRate,
-            changePoint: changePoint
+            changePoint: changePoint,
+            date: date
         )
     }
 }
@@ -81,10 +85,12 @@ struct KOSPIItem: Codable {
 struct ExchangeRate: Codable {
     let curCode: String? //통화 코드 (예: USD)
     let bkpr: String? // 은행 매매 기준율
+    let ycdt: String //기준일
     
     enum CodingKeys: String, CodingKey {
         case curCode = "cur_unit"
         case bkpr = "bkpr"
+        case ycdt = "ycdt"
     }
 }
 

@@ -26,7 +26,9 @@ final class SignUpView: UIView {
     let contentView = UIView()
     
     //상단 제목 라벨
-    private var titleLabel = LargeTitleLabel().createLabel(with: "회원가입", color: UIColor.black)
+    private var titleLabel = LabelFactory.titleLabel()
+        .setText("회원가입")
+        .build()
     
     //아이디(이메일)
     let emailLabel = SmallTitleLabel().createLabel(with: "이메일", color: .black)

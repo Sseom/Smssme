@@ -25,11 +25,12 @@ class Toast {
              viewController.view.addSubview(label)
             
              // SnapKit으로 위치 및 크기 설정
-             label.snp.makeConstraints { make in
-                 make.centerX.equalTo(viewController.view)
-                 make.top.equalTo(viewController.view.safeAreaLayoutGuide.snp.top).offset(30)
-                 make.width.lessThanOrEqualTo(viewController.view).inset(20)
-                 make.height.equalTo(35)
+             label.snp.makeConstraints {
+                 $0.center.equalToSuperview()
+//                 $0.centerX.equalTo(viewController.view)
+//                 $0.top.equalTo(viewController.view.safeAreaLayoutGuide.snp.top).offset(30)
+//                 $0.width.lessThanOrEqualTo(viewController.view).inset(20)
+                 $0.height.equalTo(35)
              }
             return label
         }()

@@ -16,6 +16,7 @@ class LoginVC: UIViewController {
     private let loginVeiw = LoginView()
     private let planService = FinancialPlanService()
     
+    //MARK: - LifeCycle
     override func loadView() {
         view = loginVeiw
     }
@@ -29,14 +30,7 @@ class LoginVC: UIViewController {
         
         setupAddtarget()
     }
-    
-    //    override func viewDidAppear(_ animated: Bool) {
-    //        super.viewDidAppear(animated)
-    //
-    //        if let message = toastMessage {
-    //            Toast.show(message: message, in: self)
-    //        }
-    //    }
+
     
     ///인증상태 수신 대기 - 리스터 연결
     ///각각의 앱 뷰에서 앱에 로그인한 사용자에 대한 정보를 얻기 위해 FIRAuth 객체와 리스너를 연결합니다.
@@ -54,6 +48,7 @@ class LoginVC: UIViewController {
         Auth.auth().removeStateDidChangeListener(handle!)
     }
     
+    //MARK: - 메서드
     private func setupAddtarget() {
         // 로그인 버튼 클릭 시
         loginVeiw.loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
@@ -99,7 +94,6 @@ class LoginVC: UIViewController {
                     self.showAlert(message: error.localizedDescription, AlertTitle: "에러 발생", buttonClickTitle: "확인")
                 }
             } else {
-//                showSnycAlert(message: "안녕하세요,\n 로그인되었습니다.", AlertTitle: "로그인 성공", buttonClickTitle: "확인", method: switchToTabBarController)
                 self.checkUsersPlan()
             }
         }
@@ -118,7 +112,7 @@ class LoginVC: UIViewController {
     func switchToPlanSelectVC() {
         let tabBarController = TabBarController()
         tabBarController.selectedIndex = 2
-        print("로그인하고 페이지 전환")
+
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let window = windowScene.windows.first else {return}
         
@@ -128,7 +122,7 @@ class LoginVC: UIViewController {
     //MARK: - 로그인 하고 탭바컨트롤러로 전환
     func switchToTabBarController() {
         let tabBarController = TabBarController()
-        print("로그인하고 페이지 전환")
+
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let window = windowScene.windows.first else {return}
         

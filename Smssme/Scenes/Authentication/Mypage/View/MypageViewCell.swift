@@ -9,13 +9,14 @@ import UIKit
 
 class MypageViewCell: UITableViewCell {
 
-    let cellTitleLabel = UILabel()
+    let cellTitleLabel = LabelFactory.subTitleLabel().build()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
  
-        cellTitleLabel.font = UIFont.systemFont(ofSize: 16)
-        cellTitleLabel.textColor = .black
+//        cellTitleLabel.font = UIFont.systemFont(ofSize: 16)
+//        cellTitleLabel.textColor = .black
+        
         contentView.addSubview(cellTitleLabel)
     }
     
