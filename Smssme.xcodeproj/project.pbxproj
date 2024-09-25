@@ -27,6 +27,7 @@
 		5FA890102C87344000549363 /* MypageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA8900F2C87344000549363 /* MypageViewCell.swift */; };
 		5FE3DDC92CA2F7D20015B14E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5FE3DDC82CA2F7D20015B14E /* FirebaseAuth */; };
 		5FE3DDCB2CA2F7D20015B14E /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5FE3DDCA2CA2F7D20015B14E /* FirebaseFirestore */; };
+		5FE3DDD42CA3A6650015B14E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5FE3DDD32CA3A6650015B14E /* GoogleService-Info.plist */; };
 		5FE400692C8DE94F001D0FD1 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE400682C8DE94F001D0FD1 /* UITextField.swift */; };
 		5FE4006D2C917A92001D0FD1 /* UserProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE4006C2C917A92001D0FD1 /* UserProfileModel.swift */; };
 		5FE4006F2C917B4E001D0FD1 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE4006E2C917B4E001D0FD1 /* FirebaseManager.swift */; };
@@ -101,7 +102,6 @@
 		E517F2822C8782F200CB8680 /* FinancialPlanManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2812C8782F200CB8680 /* FinancialPlanManager.swift */; };
 		E517F3402C89A41900CB8680 /* MoneyDiaryCreationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F33F2C89A41900CB8680 /* MoneyDiaryCreationVC.swift */; };
 		E5B926792CA2970E0027984E /* SecretsConfig.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E5B926782CA2970E0027984E /* SecretsConfig.xcconfig */; };
-		E5B9267B2CA2985E0027984E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E5B9267A2CA2985E0027984E /* GoogleService-Info.plist */; };
 		E5B9267D2CA2DF280027984E /* UILabelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B9267C2CA2DF280027984E /* UILabelFactory.swift */; };
 		E5BF5E452C8587310093FD2D /* FinancialPlanEditPlanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BF5E442C8587310093FD2D /* FinancialPlanEditPlanVC.swift */; };
 		E5BF5E472C8597820093FD2D /* FinancialPlanDateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BF5E462C8597820093FD2D /* FinancialPlanDateModel.swift */; };
@@ -135,6 +135,7 @@
 		5FA88FFD2C8544DB00549363 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		5FA890082C85B30700549363 /* FirebaseFirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseFirestoreManager.swift; sourceTree = "<group>"; };
 		5FA8900F2C87344000549363 /* MypageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewCell.swift; sourceTree = "<group>"; };
+		5FE3DDD32CA3A6650015B14E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5FE400682C8DE94F001D0FD1 /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
 		5FE4006C2C917A92001D0FD1 /* UserProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileModel.swift; sourceTree = "<group>"; };
 		5FE4006E2C917B4E001D0FD1 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
@@ -211,7 +212,6 @@
 		E517F2812C8782F200CB8680 /* FinancialPlanManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanManager.swift; sourceTree = "<group>"; };
 		E517F33F2C89A41900CB8680 /* MoneyDiaryCreationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDiaryCreationVC.swift; sourceTree = "<group>"; };
 		E5B926782CA2970E0027984E /* SecretsConfig.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = SecretsConfig.xcconfig; sourceTree = SOURCE_ROOT; };
-		E5B9267A2CA2985E0027984E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		E5B9267C2CA2DF280027984E /* UILabelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelFactory.swift; sourceTree = "<group>"; };
 		E5BF5E442C8587310093FD2D /* FinancialPlanEditPlanVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanEditPlanVC.swift; sourceTree = "<group>"; };
 		E5BF5E462C8597820093FD2D /* FinancialPlanDateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanDateModel.swift; sourceTree = "<group>"; };
@@ -325,7 +325,7 @@
 			children = (
 				74707FC12C85D78D00F7000C /* Smssme.entitlements */,
 				E5B926782CA2970E0027984E /* SecretsConfig.xcconfig */,
-				E5B9267A2CA2985E0027984E /* GoogleService-Info.plist */,
+				5FE3DDD32CA3A6650015B14E /* GoogleService-Info.plist */,
 				740350742C7740BE00122B2E /* Scenes */,
 				740350702C77408900122B2E /* Model */,
 				5FE400722C949DE9001D0FD1 /* Network */,
@@ -782,7 +782,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5B926792CA2970E0027984E /* SecretsConfig.xcconfig in Resources */,
-				E5B9267B2CA2985E0027984E /* GoogleService-Info.plist in Resources */,
+				5FE3DDD42CA3A6650015B14E /* GoogleService-Info.plist in Resources */,
 				740350632C773E9C00122B2E /* Assets.xcassets in Resources */,
 				740350662C773E9C00122B2E /* Base in Resources */,
 			);
