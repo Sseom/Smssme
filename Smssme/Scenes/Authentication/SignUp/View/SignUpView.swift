@@ -9,13 +9,6 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 
-// 성별 선택 tag
-//enum GenderTags: Int {
-//    case male = 1
-//    case female = 2
-//    case none = 3 
-//}
-
 final class SignUpView: UIView {
     
     // 텍스트필드의 공통된 높이
@@ -27,7 +20,7 @@ final class SignUpView: UIView {
     
     //상단 제목 라벨
     private var titleLabel = LabelFactory.titleLabel()
-        .setText("회원가입")
+        .setText("내정보 수정")
         .build()
     
     //아이디(이메일)
@@ -49,7 +42,7 @@ final class SignUpView: UIView {
     
     var passwordTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "비밀번호를 입력해주세요,"
+        textField.placeholder = "비밀번호를 입력해주세요."
         textField.textColor = UIColor.lightGray
         textField.borderStyle = .roundedRect
         textField.layer.cornerRadius = 5
@@ -58,20 +51,7 @@ final class SignUpView: UIView {
         textField.isSecureTextEntry = true
         return textField
     }()
-    
-    //비밀번호 재확인
-    private var passwordCheckTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "비밀번호 재확인"
-        textField.textColor = UIColor.lightGray
-        textField.borderStyle = .roundedRect
-        textField.layer.cornerRadius = 5
-        textField.clearButtonMode = .always
-        textField.isSecureTextEntry = true
-        textField.textContentType = .oneTimeCode
-        return textField
-    }()
-    
+
     //닉네임
     var nicknameTextField: UITextField = {
         let textField = UITextField()
@@ -227,7 +207,7 @@ final class SignUpView: UIView {
     }()
     
     //회원가입 버튼
-    var signupButton = BaseButton().createButton(text: "회원가입", color: UIColor.systemBlue, textColor: UIColor.white)
+    var signupButton = BaseButton().createButton(text: "수정", color: UIColor.systemBlue, textColor: UIColor.white)
     
     
     let verticalStackView: UIStackView = {
@@ -243,7 +223,7 @@ final class SignUpView: UIView {
         
         configureUI()
         setupLayout()
-        switchEditMode()
+        editUserInfo()
     }
     
     required init?(coder: NSCoder) {
@@ -266,10 +246,8 @@ final class SignUpView: UIView {
         [ titleLabel,
           emaiTextField,
           passwordTextField,
-          passwordCheckTextField,
           nicknameTextField,
           birthdayTextField,
-//          datePickerView,
           genderStackView,
           incomeTextField,
           locationTextField,
@@ -331,21 +309,16 @@ final class SignUpView: UIView {
     
     
     //MARK: - func
-    // 로그인 상태에 따른 뷰 전환
-    private func switchEditMode() {
-        if let user = Auth.auth().currentUser {
-            // 정보 수정 모드
-            titleLabel.text = "내 정보 수정"
-            signupButton.setTitle("수정", for: .normal)
-            passwordCheckTextField.isHidden = true
-            
+    private func editUserInfo() {
+        guard let user = Auth.auth().currentUser else { return }
+
             let userInfo = Firestore.firestore().collection("users").document(user.uid)
             userInfo.getDocument { (document, error) in
                 if let document = document, document.exists {
                     let data = document.data()
                     self.emaiTextField.text = data?["email"] as? String
                     self.nicknameTextField.text = data?["nickname"] as? String
-                    self.birthdayTextField.text = data?["birthday"] as? String
+                    self.birthdayTextField.text = data?["birth"] as? String
                     self.incomeTextField.text = data?["income"] as? String
                     self.locationTextField.text = data?["location"] as? String
                     
@@ -354,11 +327,7 @@ final class SignUpView: UIView {
                 }
                 
             }
-        } else {
-            // 회원가입 모드
-            signupButton.setTitle("회원가입", for: .normal)
-            passwordTextField.isHidden = false
-        }
+        
     }
     
     private func loadGender(gender: String?) {
@@ -366,8 +335,10 @@ final class SignUpView: UIView {
             self.maleCheckBox.isSelected = true
         } else if gender == "female" {
             self.femaleCheckBox.isSelected = true
-        } else {
+        } else if gender == "none" {
             self.noneCheckBox.isSelected = true
+        } else {
+            return
         }
     }
     
@@ -375,8 +346,6 @@ final class SignUpView: UIView {
     @objc func touch() {
         self.endEditing(true)
     }
-    
-    
     
 }
 
