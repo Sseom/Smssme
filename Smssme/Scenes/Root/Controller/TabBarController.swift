@@ -40,13 +40,20 @@ class TabBarController: UITabBarController {
             rootViewController: planPageCondition()
         )
         
+        let futureGraph = tabBarNavigationController(
+            unselectedImage: UIImage(systemName: "chart.bar.xaxis") ?? UIImage(),
+            selectedImage: UIImage(systemName: "chart.bar.xaxis") ?? UIImage(),
+            isNavigationBarHidden: true,
+            rootViewController: FutureGraphVC()
+        )
+        
         let myPage = tabBarNavigationController(
             unselectedImage: UIImage(systemName: "person.and.background.striped.horizontal") ?? UIImage(),
             selectedImage: UIImage(systemName: "person.and.background.striped.horizontal") ?? UIImage(),
             isNavigationBarHidden: false,
             rootViewController: MypageVC()
         )
-        viewControllers = [mainPage, diary, financialPlan, myPage]
+        viewControllers = [mainPage, diary, financialPlan, futureGraph, myPage]
     }
     
     //MARK: 제네릭으로 navigationController 안쓰는 뷰면 나눠서 반환해주게끔 개선 하면 좋을거 같음
