@@ -9,7 +9,7 @@ import UIKit
 
 final class FinancialPlanCurrentPlanVC: UIViewController, FinancialPlanCreateDelegate, FinancialPlanEditDelegate, FinancialPlanDeleteDelegate, FinancialPlanUpdateDelegate {
 
-    private let financialPlanCurrentView = FinancialPlanCurrentPlanView()
+    private let currentView = FinancialPlanCurrentPlanView()
     private var planService: FinancialPlanService
     private var planDTO: FinancialPlanDTO?
     private var plans: [FinancialPlanDTO] = []
@@ -27,9 +27,9 @@ final class FinancialPlanCurrentPlanVC: UIViewController, FinancialPlanCreateDel
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        setupAddPlanButtonAction()
-        financialPlanCurrentView.currentPlanCollectionView.dataSource = self
-        financialPlanCurrentView.currentPlanCollectionView.delegate = self
+        setupButtonAction()
+        currentView.currentPlanCollectionView.dataSource = self
+        currentView.currentPlanCollectionView.delegate = self
         loadFinancialPlans()
     }
     
@@ -39,31 +39,43 @@ final class FinancialPlanCurrentPlanVC: UIViewController, FinancialPlanCreateDel
     }
     
     override func loadView() {
-        view = financialPlanCurrentView
+        view = currentView
     }
 
     func loadSpecificPlan(_ plan: FinancialPlanDTO) {
         self.plans = [plan]
         DispatchQueue.main.async {
-            self.financialPlanCurrentView.currentPlanCollectionView.reloadData()
+            self.currentView.currentPlanCollectionView.reloadData()
         }
     }
     
     private func loadFinancialPlans() {
         plans = planService.fetchIncompletedPlans()
-        financialPlanCurrentView.currentPlanCollectionView.reloadData()
+        currentView.currentPlanCollectionView.reloadData()
     }
     
-    private func setupAddPlanButtonAction() {
-        financialPlanCurrentView.onAddPlanButtonTapped = { [weak self] in
-            self?.actionAddPlanButton()
-        }
+    
+}
+
+// MARK: - 버튼 액션 관련
+extension FinancialPlanCurrentPlanVC {
+    private func setupButtonAction() {
+        currentView.addPlanButton.addAction(UIAction(handler: { [weak self] _ in
+            self?.addPlanButtonTapped()
+        }), for: .touchUpInside)
+        currentView.completePlanButton.addAction(UIAction(handler: { [weak self] _ in
+            self?.completeButtonTapped()}), for: .touchUpInside)
     }
     
-    private func actionAddPlanButton() {
+    private func addPlanButtonTapped() {
         let financialPlanSelectionVC = FinancialPlanSelectionVC()
         financialPlanSelectionVC.createDelegate = self
         navigationController?.pushViewController(financialPlanSelectionVC, animated: true)
+    }
+    
+    private func completeButtonTapped() {
+        let completeVC = FinancialPlanCompleteVC()
+        navigationController?.pushViewController(completeVC, animated: true)
     }
 }
 
@@ -99,7 +111,7 @@ extension FinancialPlanCurrentPlanVC {
     func didCreateFinancialPlan(_ plan: FinancialPlanDTO) {
         plans.insert(plan, at: 0)
         DispatchQueue.main.async {
-            self.financialPlanCurrentView.currentPlanCollectionView.reloadData()
+            self.currentView.currentPlanCollectionView.reloadData()
         }
     }
     
@@ -107,7 +119,7 @@ extension FinancialPlanCurrentPlanVC {
         if let index = plans.firstIndex(where: { $0.id == plan.id }) {
             plans[index] = plan
             DispatchQueue.main.async {
-                self.financialPlanCurrentView.currentPlanCollectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+                self.currentView.currentPlanCollectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
             }
         }
     }
@@ -116,7 +128,7 @@ extension FinancialPlanCurrentPlanVC {
         if let index = plans.firstIndex(where: { $0.id == plan.id }) {
             plans.remove(at: index)
             DispatchQueue.main.async {
-                self.financialPlanCurrentView.currentPlanCollectionView.deleteItems(at: [IndexPath(item: index, section: 0)])
+                self.currentView.currentPlanCollectionView.deleteItems(at: [IndexPath(item: index, section: 0)])
             }
         }
     }
