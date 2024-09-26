@@ -1,10 +1,3 @@
-//
-//  FinancialPlanCompleteView.swift
-//  Smssme
-//
-//  Created by 임혜정 on 9/24/24.
-//
-
 import SnapKit
 import UIKit
 
@@ -17,6 +10,8 @@ final class FinancialPlanCompleteView: UIView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCollectionViewLayout())
         collectionView.register(FinancialPlanCompleteCell.self, forCellWithReuseIdentifier: FinancialPlanCompleteCell.ID)
         collectionView.backgroundColor = UIColor(hex: "#e9f3fd")
+        collectionView.layer.cornerRadius = 30
+        collectionView.clipsToBounds = true
         return collectionView
     }()
     
@@ -30,23 +25,21 @@ final class FinancialPlanCompleteView: UIView {
     }
     
     private func setupUI() {
-        [title,
-         collectionView
-        ].forEach {
-            addSubview($0)
-        }
+        [
+            title,
+            collectionView
+        ].forEach { addSubview($0) }
         
         title.snp.makeConstraints {
-            $0.top.equalTo(safeAreaLayoutGuide.snp.top).offset(10)
+            $0.top.equalTo(safeAreaLayoutGuide).offset(10)
             $0.leading.equalToSuperview().offset(20)
         }
         
         collectionView.snp.makeConstraints {
-            $0.top.equalTo(title.snp.bottom).offset(40)
-            $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
+            $0.top.equalTo(title.snp.bottom).offset(20)
+            $0.leading.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().offset(-20)
         }
-        
     }
     
     private func createCollectionViewLayout() -> UICollectionViewLayout {
@@ -54,10 +47,10 @@ final class FinancialPlanCompleteView: UIView {
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 16
         layout.minimumInteritemSpacing = 16
-        layout.sectionInset = UIEdgeInsets(top: 16, left: 24, bottom: 0, right: 24)
+        layout.sectionInset = UIEdgeInsets(top: 16, left: 24, bottom: 16, right: 24)
         
         let totalSpacing = layout.minimumInteritemSpacing + layout.sectionInset.left + layout.sectionInset.right
-        let itemWidth = (UIScreen.main.bounds.width - totalSpacing) / 2
+        let itemWidth = (UIScreen.main.bounds.width - 40 - totalSpacing) / 2
         layout.itemSize = CGSize(width: itemWidth, height: itemWidth * 1.3)
         return layout
     }

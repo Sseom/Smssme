@@ -22,8 +22,9 @@ class FinancialPlanCompleteCell: UICollectionViewCell {
     private let plan = LabelFactory.bodyLabel()
         .setText("목표이름")
         .build()
-    private let date = LabelFactory.bodyLabel()
+    private let date = LabelFactory.captionLabel()
         .setText("2024.9.25")
+        .setColor(.bodyGray)
         .build()
     
     override init(frame: CGRect) {
@@ -49,7 +50,7 @@ class FinancialPlanCompleteCell: UICollectionViewCell {
         
         badgeImage.snp.makeConstraints {
             $0.top.equalToSuperview().offset(10)
-            $0.width.height.equalTo(80)
+            $0.width.height.equalTo(100)
             $0.centerX.equalToSuperview()
         }
         
@@ -66,7 +67,6 @@ class FinancialPlanCompleteCell: UICollectionViewCell {
     
     func configure(with plan: FinancialPlanDTO) {
         self.plan.text = plan.title
-        self.date.text = FinancialPlanDateModel.dateFormatter.string(from: plan.completionDate)
-//        "\(plan.completionDate)"
+        self.date.text = "\(PlanDateModel.dateFormatter.string(from: plan.completionDate)) 완료"
     }
 }

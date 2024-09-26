@@ -54,13 +54,12 @@ final class FinancialPlanSelectionView: UIView {
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 16
         layout.minimumInteritemSpacing = 16
-        layout.sectionInset = UIEdgeInsets(top: 16, left: 24, bottom: 0, right: 24)
+        layout.sectionInset = UIEdgeInsets(top: 16, left: 24, bottom: 24, right: 24)
         
         let totalSpacing = layout.minimumInteritemSpacing + layout.sectionInset.left + layout.sectionInset.right
         let itemWidth = (UIScreen.main.bounds.width - totalSpacing) / 2
         layout.itemSize = CGSize(width: itemWidth, height: itemWidth * 1.3)
         return layout
     }
-    
 }
 

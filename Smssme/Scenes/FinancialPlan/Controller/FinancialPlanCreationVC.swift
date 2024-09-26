@@ -99,8 +99,8 @@ extension FinancialPlanCreationVC {
 extension FinancialPlanCreationVC {
     private func setupInitialDate() {
         let today = Date()
-        creationView.textFieldArea.startDateField.text = FinancialPlanDateModel.dateFormatter.string(from: today)
-        creationView.textFieldArea.endDateField.text = FinancialPlanDateModel.dateFormatter.string(from: today)
+        creationView.textFieldArea.startDateField.text = PlanDateModel.dateFormatter.string(from: today)
+        creationView.textFieldArea.endDateField.text = PlanDateModel.dateFormatter.string(from: today)
         
         if let startDatePicker = creationView.textFieldArea.startDateField.inputView as? UIDatePicker {
             startDatePicker.date = today
@@ -121,9 +121,9 @@ extension FinancialPlanCreationVC {
     
     @objc func datePickerValueChanged(_ sender: UIDatePicker) {
         if sender == creationView.textFieldArea.startDateField.inputView as? UIDatePicker {
-            creationView.textFieldArea.startDateField.text = FinancialPlanDateModel.dateFormatter.string(from: sender.date)
+            creationView.textFieldArea.startDateField.text = PlanDateModel.dateFormatter.string(from: sender.date)
         } else if sender == creationView.textFieldArea.endDateField.inputView as? UIDatePicker {
-            creationView.textFieldArea.endDateField.text = FinancialPlanDateModel.dateFormatter.string(from: sender.date)
+            creationView.textFieldArea.endDateField.text = PlanDateModel.dateFormatter.string(from: sender.date)
         }
     }
 }
@@ -136,8 +136,8 @@ extension FinancialPlanCreationVC {
               let amount = KoreanCurrencyFormatter.shared.number(from: amountText),
               let depositText = creationView.textFieldArea.currentSavedField.text,
               let deposit = KoreanCurrencyFormatter.shared.number(from: depositText),
-              let startDate = FinancialPlanDateModel.dateFormatter.date(from: creationView.textFieldArea.startDateField.text ?? ""),
-              let endDate = FinancialPlanDateModel.dateFormatter.date(from: creationView.textFieldArea.endDateField.text ?? "") else {
+              let startDate = PlanDateModel.dateFormatter.date(from: creationView.textFieldArea.startDateField.text ?? ""),
+              let endDate = PlanDateModel.dateFormatter.date(from: creationView.textFieldArea.endDateField.text ?? "") else {
             showAlert(message: "모든 필드를 올바르게 입력해주세요.")
             return nil
         }
@@ -216,8 +216,8 @@ extension FinancialPlanCreationVC {
     private func validateEndDate() -> Bool {
         guard let endDateString = creationView.textFieldArea.endDateField.text,
               let startDateString = creationView.textFieldArea.startDateField.text,
-              let endDate = FinancialPlanDateModel.dateFormatter.date(from: endDateString),
-              let startDate = FinancialPlanDateModel.dateFormatter.date(from: startDateString) else {
+              let endDate = PlanDateModel.dateFormatter.date(from: endDateString),
+              let startDate = PlanDateModel.dateFormatter.date(from: startDateString) else {
             showAlert(message: "올바른 날짜 형식이 아닙니다.")
             return false
         }
