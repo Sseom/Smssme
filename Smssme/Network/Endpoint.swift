@@ -39,35 +39,15 @@ final class Endpoint {
         self.path = path
         self.queryParameters = queryParameters
     }
-    
-    func createURL() -> URL? {
-        var urlComponents = URLComponents(string: baseURL.appending(path))
-        
-        var queryItems = [URLQueryItem]()
-        
-        queryParameters.forEach {
-            queryItems.append(URLQueryItem(name: $0.key, value: "\($0.value)"))
-            print(queryItems)
+
+}
+
+extension URLComponents {
+    mutating func encodePlusSign() {
+        if let originalQuery = self.percentEncodedQuery {
+            let plusEncodedQuery = originalQuery.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: "+").inverted)
+            self.percentEncodedQuery = plusEncodedQuery
         }
-        urlComponents?.queryItems = queryItems
-        
-        return urlComponents?.url
-        
-    }
-    
-    func createEndpoint() throws -> URLRequest {
-        guard let url = createURL() else { throw NetworkError.invalidUrl }
-        print("createEndpoint() -> url:\(url)")
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = method.rawValue
-        
-        
-        print("encodedUrl \(url)")
-        
-        // 직접 헤더 추가
-        request.allHTTPHeaderFields = headerParameters
-        
-        return request
     }
 }
+
