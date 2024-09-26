@@ -44,22 +44,11 @@ class FinancialPlanConfirmVC: UIViewController, FinancialPlanEditDelegate {
         configure(with: planDTO)
         setupButtonActions()
         updateUIstate()
-//        debugP(with: planDTO)
     }
     
     override func loadView() {
         view = confirmView
     }
-    // 디버깅 용 : 당분간 필요할 거같습니다
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        print("프레임 \(confirmView.completeButtonView.frame)")
-//        print("숨겨졌냐 \(confirmView.completeButtonView.isHidden)")
-//    }
-//    
-//    func debugP(with plan: FinancialPlanDTO) {
-//        print("\(BudgetService().calculateSavings(plan: plan, startDate: plan.startDate, endDate: plan.endDate, amount: plan.amount))")
-//    }
     
     private func updateUIstate() {
         let achievable = planDTO.deposit >= planDTO.amount
@@ -82,7 +71,7 @@ class FinancialPlanConfirmVC: UIViewController, FinancialPlanEditDelegate {
         confirmView.monthlyGoalsLabel.text =
         "\(BudgetService().calculateSavings(plan: plan, startDate: plan.startDate, endDate: plan.endDate, amount: plan.amount).formattedAsCurrency)원"
         
-        confirmView.endDateLabel.text = FinancialPlanDateModel.dateFormatter.string(from: plan.endDate)
+        confirmView.endDateLabel.text = PlanDateModel.dateFormatter.string(from: plan.endDate)
         let calendar = Calendar.current
         let now = Date()
         let components = calendar.dateComponents([.day], from: now, to: plan.endDate)
@@ -131,6 +120,7 @@ extension FinancialPlanConfirmVC {
         
         var updatedPlanDTO = self.planDTO
         updatedPlanDTO.isCompleted = true
+        updatedPlanDTO.completionDate = Date()
         
         do {
             try planService.updateFinancialPlan(updatedPlanDTO)

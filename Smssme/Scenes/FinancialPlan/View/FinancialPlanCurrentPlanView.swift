@@ -32,10 +32,15 @@ final class FinancialPlanCurrentPlanView: UIView {
         return layout
     }
     
-    var onAddPlanButtonTapped: (() -> Void)?
-    private lazy var addPlanButton = ActionButtonBlack().createButton(text: "새로운 플랜", color: UIColor.black, textColor: UIColor.white, method: { [weak self] in
-        self?.onAddPlanButtonTapped?()
-    })
+    let completePlanButton = ButtonFactory.fillButton()
+        .setTitle("완료된 플랜")
+        .setTitleColor(.white)
+        .build()
+
+    let addPlanButton = ButtonFactory.clearButton()
+        .setTitle("새로운 플랜")
+        .build()
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -47,7 +52,10 @@ final class FinancialPlanCurrentPlanView: UIView {
     }
     
     private func setupUI() {
-        [currentPlanTitle, currentPlanCollectionView, addPlanButton].forEach {
+        [currentPlanTitle, 
+         currentPlanCollectionView,
+         completePlanButton,
+         addPlanButton].forEach {
             addSubview($0)
         }
         
@@ -64,11 +72,18 @@ final class FinancialPlanCurrentPlanView: UIView {
             $0.centerX.equalToSuperview()
         }
         
-        addPlanButton.snp.makeConstraints {
-            $0.top.equalTo(currentPlanCollectionView.snp.bottom)
-            $0.width.equalTo(80)
+        completePlanButton.snp.makeConstraints {
+            $0.top.equalTo(currentPlanCollectionView.snp.bottom).offset(24)
+            $0.width.equalTo(100)
             $0.height.equalTo(40)
-            $0.centerX.equalToSuperview()
+            $0.leading.equalToSuperview().offset(80)
+        }
+        
+        addPlanButton.snp.makeConstraints {
+            $0.top.equalTo(currentPlanCollectionView.snp.bottom).offset(24)
+            $0.width.equalTo(100)
+            $0.height.equalTo(40)
+            $0.trailing.equalToSuperview().offset(-80)
         }
     }
 }

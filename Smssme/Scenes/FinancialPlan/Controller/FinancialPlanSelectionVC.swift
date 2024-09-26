@@ -14,17 +14,17 @@ protocol FinancialPlanCreateDelegate: AnyObject {
 
 final class FinancialPlanSelectionVC: UIViewController {
     weak var createDelegate: FinancialPlanEditDelegate?
-    private let financialPlanSelectionView = FinancialPlanSelectionView()
+    private let selectionView = FinancialPlanSelectionView()
     private let planService: FinancialPlanService = FinancialPlanService()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        financialPlanSelectionView.collectionView.dataSource = self
-        financialPlanSelectionView.collectionView.delegate = self
+        selectionView.collectionView.dataSource = self
+        selectionView.collectionView.delegate = self
     }
     
     override func loadView() {
-        view = financialPlanSelectionView
+        view = selectionView
         view.backgroundColor = UIColor(hex: "#e9f3fd")
     }
 }
