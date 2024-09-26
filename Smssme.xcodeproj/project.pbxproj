@@ -58,6 +58,8 @@
 		7457E7D02CA13A4F00481C5F /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457E7B52CA134EF00481C5F /* LoginVC.swift */; };
 		7457E7D12CA13A7200481C5F /* ReauthenticationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457E7B42CA134EF00481C5F /* ReauthenticationVC.swift */; };
 		7457E7D32CA13B2000481C5F /* KoreanCurrencyFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457E7D22CA13B2000481C5F /* KoreanCurrencyFormatter.swift */; };
+		7457E7E62CA57ED500481C5F /* FutureGraphVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457E7E42CA57C7400481C5F /* FutureGraphVC.swift */; };
+		7457E7E72CA57ED900481C5F /* FutureGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457E7E52CA57C9D00481C5F /* FutureGraphView.swift */; };
 		746F807E2C8841F300BBAEAF /* MoneyDiaryEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746F80752C8841F300BBAEAF /* MoneyDiaryEditView.swift */; };
 		746F807F2C8841F300BBAEAF /* MoneyDiaryBudgetEditHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746F80762C8841F300BBAEAF /* MoneyDiaryBudgetEditHeaderView.swift */; };
 		746F80802C8841F300BBAEAF /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746F80772C8841F300BBAEAF /* DatePickerView.swift */; };
@@ -101,14 +103,14 @@
 		E50498702CA5CB8D0014B8EF /* FinancialPlanCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E504986F2CA5CB8D0014B8EF /* FinancialPlanCompleteView.swift */; };
 		E517F2822C8782F200CB8680 /* FinancialPlanManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2812C8782F200CB8680 /* FinancialPlanManager.swift */; };
 		E517F3402C89A41900CB8680 /* MoneyDiaryCreationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F33F2C89A41900CB8680 /* MoneyDiaryCreationVC.swift */; };
+		E591BAAF2CA5CE7C005E8E20 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E591BAAD2CA5CE7C005E8E20 /* GoogleService-Info.plist */; };
+		E591BAB02CA5CE7C005E8E20 /* SecretsConfig.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E591BAAE2CA5CE7C005E8E20 /* SecretsConfig.xcconfig */; };
 		E5B9267D2CA2DF280027984E /* UILabelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B9267C2CA2DF280027984E /* UILabelFactory.swift */; };
 		E5B926832CA307E60027984E /* FinancialPlanCompleteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B926822CA307E60027984E /* FinancialPlanCompleteVC.swift */; };
 		E5B926872CA313FC0027984E /* UIButtonFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B926862CA313FC0027984E /* UIButtonFactory.swift */; };
 		E5B926892CA328AC0027984E /* FinancialPlanCompleteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B926882CA328AC0027984E /* FinancialPlanCompleteCell.swift */; };
 		E5B9268C2CA54B080027984E /* CompleteModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B9268B2CA54B080027984E /* CompleteModalVC.swift */; };
 		E5B9268E2CA54B1F0027984E /* CompleteModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B9268D2CA54B1F0027984E /* CompleteModalView.swift */; };
-		E5B9269A2CA5B6260027984E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E5B926982CA5B6260027984E /* GoogleService-Info.plist */; };
-		E5B9269B2CA5B6260027984E /* SecretsConfig.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E5B926992CA5B6260027984E /* SecretsConfig.xcconfig */; };
 		E5BF5E452C8587310093FD2D /* FinancialPlanEditPlanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BF5E442C8587310093FD2D /* FinancialPlanEditPlanVC.swift */; };
 		E5BF5E472C8597820093FD2D /* PlanDateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BF5E462C8597820093FD2D /* PlanDateModel.swift */; };
 		E5F344D82C806A58006F9A91 /* FinancialPlanCurrentPlanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F344D72C806A58006F9A91 /* FinancialPlanCurrentPlanVC.swift */; };
@@ -174,6 +176,8 @@
 		7457E7CC2CA139ED00481C5F /* FinancialPlanCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanCell.swift; sourceTree = "<group>"; };
 		7457E7CE2CA13A0A00481C5F /* FinancialPlanCurrentPlanView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanCurrentPlanView.swift; sourceTree = "<group>"; };
 		7457E7D22CA13B2000481C5F /* KoreanCurrencyFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KoreanCurrencyFormatter.swift; sourceTree = "<group>"; };
+		7457E7E42CA57C7400481C5F /* FutureGraphVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureGraphVC.swift; sourceTree = "<group>"; };
+		7457E7E52CA57C9D00481C5F /* FutureGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureGraphView.swift; sourceTree = "<group>"; };
 		746F80752C8841F300BBAEAF /* MoneyDiaryEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyDiaryEditView.swift; sourceTree = "<group>"; };
 		746F80762C8841F300BBAEAF /* MoneyDiaryBudgetEditHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyDiaryBudgetEditHeaderView.swift; sourceTree = "<group>"; };
 		746F80772C8841F300BBAEAF /* DatePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
@@ -217,14 +221,14 @@
 		E504986F2CA5CB8D0014B8EF /* FinancialPlanCompleteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanCompleteView.swift; sourceTree = "<group>"; };
 		E517F2812C8782F200CB8680 /* FinancialPlanManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanManager.swift; sourceTree = "<group>"; };
 		E517F33F2C89A41900CB8680 /* MoneyDiaryCreationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDiaryCreationVC.swift; sourceTree = "<group>"; };
+		E591BAAD2CA5CE7C005E8E20 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		E591BAAE2CA5CE7C005E8E20 /* SecretsConfig.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = SecretsConfig.xcconfig; sourceTree = SOURCE_ROOT; };
 		E5B9267C2CA2DF280027984E /* UILabelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelFactory.swift; sourceTree = "<group>"; };
 		E5B926822CA307E60027984E /* FinancialPlanCompleteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FinancialPlanCompleteVC.swift; path = Smssme/Scenes/FinancialPlan/Controller/FinancialPlanCompleteVC.swift; sourceTree = SOURCE_ROOT; };
 		E5B926862CA313FC0027984E /* UIButtonFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonFactory.swift; sourceTree = "<group>"; };
 		E5B926882CA328AC0027984E /* FinancialPlanCompleteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FinancialPlanCompleteCell.swift; path = Smssme/Scenes/FinancialPlan/View/FinancialPlanCompleteCell.swift; sourceTree = SOURCE_ROOT; };
 		E5B9268B2CA54B080027984E /* CompleteModalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteModalVC.swift; sourceTree = "<group>"; };
 		E5B9268D2CA54B1F0027984E /* CompleteModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CompleteModalView.swift; path = Smssme/Scenes/FinancialPlan/View/CompleteModalView.swift; sourceTree = SOURCE_ROOT; };
-		E5B926982CA5B6260027984E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Desktop/Smssme/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		E5B926992CA5B6260027984E /* SecretsConfig.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = SecretsConfig.xcconfig; path = ../../../Desktop/Smssme/SecretsConfig.xcconfig; sourceTree = "<group>"; };
 		E5BF5E442C8587310093FD2D /* FinancialPlanEditPlanVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanEditPlanVC.swift; sourceTree = "<group>"; };
 		E5BF5E462C8597820093FD2D /* PlanDateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDateModel.swift; sourceTree = "<group>"; };
 		E5F344D72C806A58006F9A91 /* FinancialPlanCurrentPlanVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanCurrentPlanVC.swift; sourceTree = "<group>"; };
@@ -336,8 +340,8 @@
 			isa = PBXGroup;
 			children = (
 				74707FC12C85D78D00F7000C /* Smssme.entitlements */,
-				E5B926982CA5B6260027984E /* GoogleService-Info.plist */,
-				E5B926992CA5B6260027984E /* SecretsConfig.xcconfig */,
+				E591BAAD2CA5CE7C005E8E20 /* GoogleService-Info.plist */,
+				E591BAAE2CA5CE7C005E8E20 /* SecretsConfig.xcconfig */,
 				740350742C7740BE00122B2E /* Scenes */,
 				740350702C77408900122B2E /* Model */,
 				5FE400722C949DE9001D0FD1 /* Network */,
@@ -373,6 +377,7 @@
 				74707FB42C84C2BE00F7000C /* Assets */,
 				74707F782C80697100F7000C /* MainPage */,
 				E5FBA1462C7EC64500D26E5F /* FinancialPlan */,
+				7457E7E12CA57BE800481C5F /* FutureGraph */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -622,6 +627,31 @@
 			path = Date;
 			sourceTree = "<group>";
 		};
+		7457E7E12CA57BE800481C5F /* FutureGraph */ = {
+			isa = PBXGroup;
+			children = (
+				7457E7E32CA57C1600481C5F /* Controller */,
+				7457E7E22CA57C0B00481C5F /* View */,
+			);
+			path = FutureGraph;
+			sourceTree = "<group>";
+		};
+		7457E7E22CA57C0B00481C5F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7457E7E52CA57C9D00481C5F /* FutureGraphView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7457E7E32CA57C1600481C5F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				7457E7E42CA57C7400481C5F /* FutureGraphVC.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		746F80742C88415900BBAEAF /* MoneyDiary */ = {
 			isa = PBXGroup;
 			children = (
@@ -799,10 +829,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E5B9269B2CA5B6260027984E /* SecretsConfig.xcconfig in Resources */,
+				E591BAB02CA5CE7C005E8E20 /* SecretsConfig.xcconfig in Resources */,
 				740350632C773E9C00122B2E /* Assets.xcassets in Resources */,
 				740350662C773E9C00122B2E /* Base in Resources */,
-				E5B9269A2CA5B6260027984E /* GoogleService-Info.plist in Resources */,
+				E591BAAF2CA5CE7C005E8E20 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -813,6 +843,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7457E7E72CA57ED900481C5F /* FutureGraphView.swift in Sources */,
+				7457E7E62CA57ED500481C5F /* FutureGraphVC.swift in Sources */,
 				7457E7D12CA13A7200481C5F /* ReauthenticationVC.swift in Sources */,
 				E50498702CA5CB8D0014B8EF /* FinancialPlanCompleteView.swift in Sources */,
 				7457E7D02CA13A4F00481C5F /* LoginVC.swift in Sources */,
