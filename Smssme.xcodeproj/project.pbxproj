@@ -25,7 +25,6 @@
 		5FA88FFE2C8544DB00549363 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA88FFD2C8544DB00549363 /* SplashViewController.swift */; };
 		5FA890092C85B30800549363 /* FirebaseFirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA890082C85B30700549363 /* FirebaseFirestoreManager.swift */; };
 		5FA890102C87344000549363 /* MypageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA8900F2C87344000549363 /* MypageViewCell.swift */; };
-		5FE3DDD42CA3A6650015B14E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5FE3DDD32CA3A6650015B14E /* GoogleService-Info.plist */; };
 		5FE3DDD72CA3ACCB0015B14E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5FE3DDD62CA3ACCB0015B14E /* FirebaseAuth */; };
 		5FE3DDD92CA3ACCB0015B14E /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5FE3DDD82CA3ACCB0015B14E /* FirebaseFirestore */; };
 		5FE400692C8DE94F001D0FD1 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE400682C8DE94F001D0FD1 /* UITextField.swift */; };
@@ -59,6 +58,10 @@
 		7457E7D02CA13A4F00481C5F /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457E7B52CA134EF00481C5F /* LoginVC.swift */; };
 		7457E7D12CA13A7200481C5F /* ReauthenticationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457E7B42CA134EF00481C5F /* ReauthenticationVC.swift */; };
 		7457E7D32CA13B2000481C5F /* KoreanCurrencyFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457E7D22CA13B2000481C5F /* KoreanCurrencyFormatter.swift */; };
+		7457E7DF2CA574FE00481C5F /* SecretsConfig.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7457E7DD2CA574FE00481C5F /* SecretsConfig.xcconfig */; };
+		7457E7E02CA574FE00481C5F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7457E7DE2CA574FE00481C5F /* GoogleService-Info.plist */; };
+		7457E7E62CA57ED500481C5F /* FutureGraphVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457E7E42CA57C7400481C5F /* FutureGraphVC.swift */; };
+		7457E7E72CA57ED900481C5F /* FutureGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457E7E52CA57C9D00481C5F /* FutureGraphView.swift */; };
 		746F807E2C8841F300BBAEAF /* MoneyDiaryEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746F80752C8841F300BBAEAF /* MoneyDiaryEditView.swift */; };
 		746F807F2C8841F300BBAEAF /* MoneyDiaryBudgetEditHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746F80762C8841F300BBAEAF /* MoneyDiaryBudgetEditHeaderView.swift */; };
 		746F80802C8841F300BBAEAF /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746F80772C8841F300BBAEAF /* DatePickerView.swift */; };
@@ -101,7 +104,6 @@
 		9FF702DB2C966B3F00890E77 /* RegexManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF702DA2C966B3F00890E77 /* RegexManager.swift */; };
 		E517F2822C8782F200CB8680 /* FinancialPlanManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2812C8782F200CB8680 /* FinancialPlanManager.swift */; };
 		E517F3402C89A41900CB8680 /* MoneyDiaryCreationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F33F2C89A41900CB8680 /* MoneyDiaryCreationVC.swift */; };
-		E5B926792CA2970E0027984E /* SecretsConfig.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E5B926782CA2970E0027984E /* SecretsConfig.xcconfig */; };
 		E5B9267D2CA2DF280027984E /* UILabelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B9267C2CA2DF280027984E /* UILabelFactory.swift */; };
 		E5BF5E452C8587310093FD2D /* FinancialPlanEditPlanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BF5E442C8587310093FD2D /* FinancialPlanEditPlanVC.swift */; };
 		E5BF5E472C8597820093FD2D /* FinancialPlanDateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BF5E462C8597820093FD2D /* FinancialPlanDateModel.swift */; };
@@ -135,7 +137,6 @@
 		5FA88FFD2C8544DB00549363 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		5FA890082C85B30700549363 /* FirebaseFirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseFirestoreManager.swift; sourceTree = "<group>"; };
 		5FA8900F2C87344000549363 /* MypageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewCell.swift; sourceTree = "<group>"; };
-		5FE3DDD32CA3A6650015B14E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5FE400682C8DE94F001D0FD1 /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
 		5FE4006C2C917A92001D0FD1 /* UserProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileModel.swift; sourceTree = "<group>"; };
 		5FE4006E2C917B4E001D0FD1 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
@@ -169,6 +170,10 @@
 		7457E7CC2CA139ED00481C5F /* FinancialPlanCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanCell.swift; sourceTree = "<group>"; };
 		7457E7CE2CA13A0A00481C5F /* FinancialPlanCurrentPlanView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanCurrentPlanView.swift; sourceTree = "<group>"; };
 		7457E7D22CA13B2000481C5F /* KoreanCurrencyFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KoreanCurrencyFormatter.swift; sourceTree = "<group>"; };
+		7457E7DD2CA574FE00481C5F /* SecretsConfig.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = SecretsConfig.xcconfig; sourceTree = "<group>"; };
+		7457E7DE2CA574FE00481C5F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7457E7E42CA57C7400481C5F /* FutureGraphVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureGraphVC.swift; sourceTree = "<group>"; };
+		7457E7E52CA57C9D00481C5F /* FutureGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureGraphView.swift; sourceTree = "<group>"; };
 		746F80752C8841F300BBAEAF /* MoneyDiaryEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyDiaryEditView.swift; sourceTree = "<group>"; };
 		746F80762C8841F300BBAEAF /* MoneyDiaryBudgetEditHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyDiaryBudgetEditHeaderView.swift; sourceTree = "<group>"; };
 		746F80772C8841F300BBAEAF /* DatePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
@@ -211,7 +216,6 @@
 		9FF702DA2C966B3F00890E77 /* RegexManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexManager.swift; sourceTree = "<group>"; };
 		E517F2812C8782F200CB8680 /* FinancialPlanManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanManager.swift; sourceTree = "<group>"; };
 		E517F33F2C89A41900CB8680 /* MoneyDiaryCreationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDiaryCreationVC.swift; sourceTree = "<group>"; };
-		E5B926782CA2970E0027984E /* SecretsConfig.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = SecretsConfig.xcconfig; sourceTree = SOURCE_ROOT; };
 		E5B9267C2CA2DF280027984E /* UILabelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelFactory.swift; sourceTree = "<group>"; };
 		E5BF5E442C8587310093FD2D /* FinancialPlanEditPlanVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanEditPlanVC.swift; sourceTree = "<group>"; };
 		E5BF5E462C8597820093FD2D /* FinancialPlanDateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanDateModel.swift; sourceTree = "<group>"; };
@@ -323,9 +327,9 @@
 		740350552C773E9B00122B2E /* Smssme */ = {
 			isa = PBXGroup;
 			children = (
+				7457E7DD2CA574FE00481C5F /* SecretsConfig.xcconfig */,
+				7457E7DE2CA574FE00481C5F /* GoogleService-Info.plist */,
 				74707FC12C85D78D00F7000C /* Smssme.entitlements */,
-				E5B926782CA2970E0027984E /* SecretsConfig.xcconfig */,
-				5FE3DDD32CA3A6650015B14E /* GoogleService-Info.plist */,
 				740350742C7740BE00122B2E /* Scenes */,
 				740350702C77408900122B2E /* Model */,
 				5FE400722C949DE9001D0FD1 /* Network */,
@@ -361,6 +365,7 @@
 				74707FB42C84C2BE00F7000C /* Assets */,
 				74707F782C80697100F7000C /* MainPage */,
 				E5FBA1462C7EC64500D26E5F /* FinancialPlan */,
+				7457E7E12CA57BE800481C5F /* FutureGraph */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -604,6 +609,31 @@
 			path = Date;
 			sourceTree = "<group>";
 		};
+		7457E7E12CA57BE800481C5F /* FutureGraph */ = {
+			isa = PBXGroup;
+			children = (
+				7457E7E32CA57C1600481C5F /* Controller */,
+				7457E7E22CA57C0B00481C5F /* View */,
+			);
+			path = FutureGraph;
+			sourceTree = "<group>";
+		};
+		7457E7E22CA57C0B00481C5F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7457E7E52CA57C9D00481C5F /* FutureGraphView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7457E7E32CA57C1600481C5F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				7457E7E42CA57C7400481C5F /* FutureGraphVC.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		746F80742C88415900BBAEAF /* MoneyDiary */ = {
 			isa = PBXGroup;
 			children = (
@@ -781,10 +811,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E5B926792CA2970E0027984E /* SecretsConfig.xcconfig in Resources */,
-				5FE3DDD42CA3A6650015B14E /* GoogleService-Info.plist in Resources */,
 				740350632C773E9C00122B2E /* Assets.xcassets in Resources */,
+				7457E7E02CA574FE00481C5F /* GoogleService-Info.plist in Resources */,
 				740350662C773E9C00122B2E /* Base in Resources */,
+				7457E7DF2CA574FE00481C5F /* SecretsConfig.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -795,6 +825,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7457E7E72CA57ED900481C5F /* FutureGraphView.swift in Sources */,
+				7457E7E62CA57ED500481C5F /* FutureGraphVC.swift in Sources */,
 				7457E7D12CA13A7200481C5F /* ReauthenticationVC.swift in Sources */,
 				7457E7D02CA13A4F00481C5F /* LoginVC.swift in Sources */,
 				74707F942C81B5DF00F7000C /* Assets+CoreDataClass.swift in Sources */,
@@ -1034,6 +1066,7 @@
 		};
 		7403506B2C773E9C00122B2E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7457E7DD2CA574FE00481C5F /* SecretsConfig.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1071,6 +1104,7 @@
 		};
 		7403506C2C773E9C00122B2E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7457E7DD2CA574FE00481C5F /* SecretsConfig.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
