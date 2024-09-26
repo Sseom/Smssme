@@ -22,7 +22,7 @@ class LoginVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(hex: "#3756f4")
+        view.backgroundColor = .primaryBlue
         
         loginVeiw.emailTextField.delegate = self
         loginVeiw.passwordTextField.delegate = self

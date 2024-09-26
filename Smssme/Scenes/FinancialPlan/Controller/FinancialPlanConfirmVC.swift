@@ -144,7 +144,7 @@ extension FinancialPlanConfirmVC {
             try planService.deleteFinancialPlan(planDTO)
             deleteDelegate?.didDeleteFinancialPlan(planDTO)
             // 모든 플랜이 삭제되었는지 확인
-            if planService.fetchAllFinancialPlans().isEmpty {
+            if planService.fetchIncompletedPlans().isEmpty {
                 showAlert(message: "모든 플랜이 삭제되었습니다.") { [weak self] in
                     self?.navigateToSelectionVC()
                 }

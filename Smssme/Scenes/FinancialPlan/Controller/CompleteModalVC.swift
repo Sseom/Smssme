@@ -8,7 +8,6 @@
 import UIKit
 
 final class CompleteModalVC: UIViewController {
-    private var centerImage: String = ""
     private let modalView = CompleteModalView()
     
     private var planDTO: FinancialPlanDTO
@@ -16,8 +15,6 @@ final class CompleteModalVC: UIViewController {
     init(planDTO: FinancialPlanDTO) {
         self.planDTO = planDTO
         super.init(nibName: nil, bundle: nil)
-        
-        self.centerImage = planDTO.planType.iconName
     }
     
     required init?(coder: NSCoder) {
@@ -37,7 +34,7 @@ final class CompleteModalVC: UIViewController {
     
     private func configure(with plan: FinancialPlanDTO) {
         modalView.confirmLargeTitle.text = "\(plan.title)"
-        modalView.confirmImage.image = UIImage(named: centerImage)
+        modalView.confirmImage.image = UIImage(named: planDTO.planType.iconName)
         modalView.amountGoalLabel.text = "\(plan.amount.formattedAsCurrency)원"
         modalView.currentSavedLabel.text = "\(plan.deposit.formattedAsCurrency)원"
         modalView.startLabel.text = PlanDateModel.dateFormatter.string(from: plan.startDate)

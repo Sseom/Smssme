@@ -71,7 +71,9 @@ class FinancialPlanService {
     
     // 완료된 플랜만 불러오기
     func fetchCompletedFinancialPlans() -> [FinancialPlanDTO] {
-        return fetchAllFinancialPlans().filter { $0.isCompleted }
+        return fetchAllFinancialPlans()
+            .filter { $0.isCompleted }
+            .sorted { $0.completionDate > $1.completionDate }
     }
     
     // MARK: - Update
