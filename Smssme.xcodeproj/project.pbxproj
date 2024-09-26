@@ -107,8 +107,6 @@
 		E5B926892CA328AC0027984E /* FinancialPlanCompleteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B926882CA328AC0027984E /* FinancialPlanCompleteCell.swift */; };
 		E5B9268C2CA54B080027984E /* CompleteModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B9268B2CA54B080027984E /* CompleteModalVC.swift */; };
 		E5B9268E2CA54B1F0027984E /* CompleteModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B9268D2CA54B1F0027984E /* CompleteModalView.swift */; };
-		E5B9269A2CA5B6260027984E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E5B926982CA5B6260027984E /* GoogleService-Info.plist */; };
-		E5B9269B2CA5B6260027984E /* SecretsConfig.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E5B926992CA5B6260027984E /* SecretsConfig.xcconfig */; };
 		E5BF5E452C8587310093FD2D /* FinancialPlanEditPlanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BF5E442C8587310093FD2D /* FinancialPlanEditPlanVC.swift */; };
 		E5BF5E472C8597820093FD2D /* PlanDateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BF5E462C8597820093FD2D /* PlanDateModel.swift */; };
 		E5F344D82C806A58006F9A91 /* FinancialPlanCurrentPlanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F344D72C806A58006F9A91 /* FinancialPlanCurrentPlanVC.swift */; };
@@ -223,8 +221,6 @@
 		E5B926882CA328AC0027984E /* FinancialPlanCompleteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FinancialPlanCompleteCell.swift; path = Smssme/Scenes/FinancialPlan/View/FinancialPlanCompleteCell.swift; sourceTree = SOURCE_ROOT; };
 		E5B9268B2CA54B080027984E /* CompleteModalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteModalVC.swift; sourceTree = "<group>"; };
 		E5B9268D2CA54B1F0027984E /* CompleteModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CompleteModalView.swift; path = Smssme/Scenes/FinancialPlan/View/CompleteModalView.swift; sourceTree = SOURCE_ROOT; };
-		E5B926982CA5B6260027984E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Desktop/Smssme/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		E5B926992CA5B6260027984E /* SecretsConfig.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = SecretsConfig.xcconfig; path = ../../../Desktop/Smssme/SecretsConfig.xcconfig; sourceTree = "<group>"; };
 		E5BF5E442C8587310093FD2D /* FinancialPlanEditPlanVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanEditPlanVC.swift; sourceTree = "<group>"; };
 		E5BF5E462C8597820093FD2D /* PlanDateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDateModel.swift; sourceTree = "<group>"; };
 		E5F344D72C806A58006F9A91 /* FinancialPlanCurrentPlanVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanCurrentPlanVC.swift; sourceTree = "<group>"; };
@@ -336,8 +332,6 @@
 			isa = PBXGroup;
 			children = (
 				74707FC12C85D78D00F7000C /* Smssme.entitlements */,
-				E5B926982CA5B6260027984E /* GoogleService-Info.plist */,
-				E5B926992CA5B6260027984E /* SecretsConfig.xcconfig */,
 				740350742C7740BE00122B2E /* Scenes */,
 				740350702C77408900122B2E /* Model */,
 				5FE400722C949DE9001D0FD1 /* Network */,
@@ -799,10 +793,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E5B9269B2CA5B6260027984E /* SecretsConfig.xcconfig in Resources */,
 				740350632C773E9C00122B2E /* Assets.xcassets in Resources */,
 				740350662C773E9C00122B2E /* Base in Resources */,
-				E5B9269A2CA5B6260027984E /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
