@@ -23,17 +23,6 @@ class AssetsEditView: UIView {
     let saveButton = BaseButton().createButton(text: "저장", color: .systemBlue, textColor: .white)
     
     //MARK: - Component Properties
-    private let contentsView: UIView = {
-        let view = UIView()
-        return view
-    }()
-    
-    private let contentsVerticalStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.distribution = .fill
-        return stackView
-    }()
     
     let noteTextField: UITextView = {
         let textView = UITextView()
@@ -50,6 +39,14 @@ class AssetsEditView: UIView {
         let barButton = UIBarButtonItem()
         barButton.image = UIImage(systemName: "trash")
         return barButton
+    }()
+    
+    let buttonStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.spacing = 20
+        return stackView
     }()
         
     // MARK: - View Init
@@ -71,56 +68,75 @@ class AssetsEditView: UIView {
     // MARK: - Method
     
     // MARK: - Private Method
-    private func setHorizontalStackView(components: [UIView], distrbution: UIStackView.Distribution) {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = distrbution
-        components.forEach {
-            stackView.addArrangedSubview($0)
-        }
-        
-        contentsVerticalStackView.addArrangedSubview(stackView)
-    }
     
     private func setupUI() {
-        [contentsView].forEach {
+        [categoryLabel,
+         categoryTextField,
+         titleLabel,
+         titleTextField,
+         amountLabel,
+         amountTextField,
+         noteLabel,
+         noteTextField,
+         buttonStackView].forEach {
             self.addSubview($0)
         }
         
-        [contentsVerticalStackView].forEach {
-            contentsView.addSubview($0)
+        [cancelButton, saveButton].forEach {
+            buttonStackView.addArrangedSubview($0)
         }
         
-        // horizontalStackView 세팅
-        setHorizontalStackView(components: [categoryLabel, categoryTextField], distrbution: .fill)
-        setHorizontalStackView(components: [titleLabel, titleTextField], distrbution: .fill)
-        setHorizontalStackView(components: [amountLabel, amountTextField], distrbution: .fill)
-        setHorizontalStackView(components: [noteLabel, noteTextField], distrbution: .fill)
-        setHorizontalStackView(components: [cancelButton, saveButton], distrbution: .fillEqually)
-        
-        contentsView.snp.makeConstraints {
-            $0.edges.equalTo(self.safeAreaLayoutGuide)
+        categoryLabel.snp.makeConstraints {
+            $0.top.equalTo(self.safeAreaLayoutGuide).offset(20)
+            $0.left.equalTo(self.safeAreaLayoutGuide).offset(40)
+            $0.width.equalTo(60)
         }
         
-        contentsVerticalStackView.snp.makeConstraints {
-            $0.edges.equalToSuperview().inset(30)
+        categoryTextField.snp.makeConstraints {
+            $0.left.equalTo(categoryLabel.snp.right).offset(15)
+            $0.right.equalTo(self.safeAreaLayoutGuide).offset(-40)
+            $0.centerY.equalTo(categoryLabel.snp.centerY)
         }
         
-        // label 길이 정렬
-        [categoryLabel,
-         amountLabel,
-         titleLabel].forEach {
-            $0.snp.makeConstraints {
-                $0.width.equalTo(70)
-                $0.height.equalTo(34)
-            }
+        titleLabel.snp.makeConstraints {
+            $0.top.equalTo(categoryLabel.snp.bottom).offset(25)
+            $0.left.equalTo(self.safeAreaLayoutGuide).offset(40)
+            $0.width.equalTo(60)
+        }
+        
+        titleTextField.snp.makeConstraints {
+            $0.left.equalTo(titleLabel.snp.right).offset(15)
+            $0.right.equalTo(self.safeAreaLayoutGuide).offset(-40)
+            $0.centerY.equalTo(titleLabel.snp.centerY)
+        }
+        
+        amountLabel.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(25)
+            $0.left.equalTo(self.safeAreaLayoutGuide).offset(40)
+            $0.width.equalTo(60)
+        }
+        
+        amountTextField.snp.makeConstraints {
+            $0.left.equalTo(amountLabel.snp.right).offset(15)
+            $0.right.equalTo(self.safeAreaLayoutGuide).offset(-40)
+            $0.centerY.equalTo(amountLabel.snp.centerY)
         }
         
         noteLabel.snp.makeConstraints {
-            $0.width.equalTo(70)
+            $0.top.equalTo(amountLabel.snp.bottom).offset(25)
+            $0.left.equalTo(self.safeAreaLayoutGuide).offset(40)
+            $0.width.equalTo(60)
         }
         
-        cancelButton.snp.makeConstraints {
+        noteTextField.snp.makeConstraints {
+            $0.top.equalTo(noteLabel.snp.top)
+            $0.left.equalTo(noteLabel.snp.right).offset(15)
+            $0.right.equalTo(self.safeAreaLayoutGuide).offset(-40)
+        }
+        
+        buttonStackView.snp.makeConstraints {
+            $0.top.equalTo(noteTextField.snp.bottom).offset(30)
+            $0.left.right.bottom.equalTo(self.safeAreaLayoutGuide).inset(40)
             $0.height.equalTo(40)
         }
     }
