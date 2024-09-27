@@ -139,7 +139,7 @@ class MainPageVC: UIViewController {
             dataSet.valueColors = dataSet.colors.map { _ in
                 return .darkGray
             }
-            mainPageView.chartCenterButton.setTitle("자산편집", for: .normal)
+            mainPageView.chartCenterButton.setTitle("자산목록 보기", for: .normal)
             mainPageView.pieChartView.alpha = 1.0
         } else {
             // 데이터 없을시 더미데이터
