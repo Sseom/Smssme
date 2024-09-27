@@ -36,14 +36,14 @@ public class FinancialPlan: NSManagedObject {
             setPrimitiveValue(newValue, forKey: "isCompleted")
         }
     }
+    @NSManaged public var completionDate: Date?
     
     @NSManaged public var user: User?
     
     public enum Key: String {
-        case id, key, title, startDate, endDate, amount, deposit, user, planType, customTitle, planDescription, iconName, isCompleted
+        case id, key, title, startDate, endDate, amount, deposit, user, planType, customTitle, planDescription, iconName, isCompleted, completionDate
     }
 }
-
 
 // MARK: - 플랜 타입 정의, 프리셋타이틀을 제공하기 위함
 enum PlanType: Int16, CaseIterable {
