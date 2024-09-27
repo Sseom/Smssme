@@ -145,9 +145,7 @@ iOSInjectionProject/
 GoogleService-Info.plist
 
 # SecretsConfig
+*.xcconfig
 SecretsConfig.xcconfig
-
-
-*.pbxproj
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,swift,fig
