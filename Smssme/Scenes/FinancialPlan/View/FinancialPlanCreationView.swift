@@ -45,25 +45,20 @@ class FinancialPlanCreationView: UIView {
     
     private func setupUI() {
         [
-//            planCreateTitle,
             titleTextField,
             tooltipView,
-            textFieldArea, 
+            textFieldArea,
             confirmButton].forEach {
                 addSubview($0)
             }
         
-//        planCreateTitle.snp.makeConstraints {
-//            $0.top.equalTo(safeAreaLayoutGuide.snp.top).offset(10)
-//            $0.leading.equalTo(20)
-//        }
         titleTextField.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide.snp.top).offset(10)
             $0.leading.equalTo(20)
         }
         
         tooltipView.snp.makeConstraints {
-            $0.leading.equalTo(titleTextField.snp.trailing).offset(10)
+            $0.trailing.equalToSuperview().offset(-80)
             $0.centerY.equalTo(titleTextField)
         }
         
@@ -82,7 +77,7 @@ class FinancialPlanCreationView: UIView {
         }
     }
     //  툴팁 동작
-    @objc private func hideTooltip() {
+    @objc func hideTooltip() {
         UIView.animate(withDuration: 0.3) {
             self.tooltipView.alpha = 0
         } completion: { _ in
@@ -211,8 +206,9 @@ class TooltipView: UIView {
         addSubview(contentView)
         contentView.addSubview(label)
         
-        contentView.backgroundColor = UIColor.black.withAlphaComponent(0.7)
-        contentView.layer.cornerRadius = 12
+        backgroundColor = .clear
+        contentView.backgroundColor = .primaryBlue.withAlphaComponent(1)
+        contentView.layer.cornerRadius = 8
         contentView.clipsToBounds = true
         
         label.text = text
@@ -222,26 +218,26 @@ class TooltipView: UIView {
         
         contentView.snp.makeConstraints {
             $0.top.bottom.trailing.equalToSuperview()
-            $0.leading.equalToSuperview().offset(10)  // 세모세모
+            $0.leading.equalToSuperview().offset(16)
         }
         
         label.snp.makeConstraints {
-            $0.edges.equalToSuperview().inset(UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 12))
+            $0.edges.equalToSuperview().inset(UIEdgeInsets(top: 8, left: 2, bottom: 8, right: 8))
         }
     }
     
     override func draw(_ rect: CGRect) {
-        let path = UIBezierPath()
-        let point1 = CGPoint(x: 10, y: rect.height / 2 - 7)
-        let point2 = CGPoint(x: 10, y: rect.height / 2 + 7)
-        let point3 = CGPoint(x: 0, y: rect.height / 2)
+        let arrowWidth: CGFloat = 8
+        let arrowHeight: CGFloat = 10
         
-        path.move(to: point1)
-        path.addLine(to: point2)
-        path.addLine(to: point3)
-        path.close()
+        let path = UIBezierPath(roundedRect: CGRect(x: arrowWidth, y: 0, width: rect.width - arrowWidth, height: rect.height), cornerRadius: 8)
         
-        UIColor.systemBlue.withAlphaComponent(0.7).setFill()
+        let arrowYCenter = rect.height / 2
+        path.move(to: CGPoint(x: arrowWidth, y: arrowYCenter - arrowHeight/2))
+        path.addLine(to: CGPoint(x: 0, y: arrowYCenter))
+        path.addLine(to: CGPoint(x: arrowWidth, y: arrowYCenter + arrowHeight/2))
+        
+        UIColor.primaryBlue.withAlphaComponent(1).setFill()
         path.fill()
     }
 }

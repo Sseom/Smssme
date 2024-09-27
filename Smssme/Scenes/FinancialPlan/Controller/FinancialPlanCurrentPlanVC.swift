@@ -53,8 +53,6 @@ final class FinancialPlanCurrentPlanVC: UIViewController, FinancialPlanCreateDel
         plans = planService.fetchIncompletedPlans()
         currentView.currentPlanCollectionView.reloadData()
     }
-    
-    
 }
 
 // MARK: - 버튼 액션 관련

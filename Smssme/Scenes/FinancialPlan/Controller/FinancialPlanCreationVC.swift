@@ -256,8 +256,9 @@ extension FinancialPlanCreationVC {
     // 타이틀 입력시작할 시 프리셋제목 지워주기
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == creationView.titleTextField && textField.text == selectedPlanTitle {
-            textField.placeholder = "플랜의 제목을 지어주세요"
+            textField.placeholder = "내 플랜 제목"
             textField.text = ""
+            creationView.hideTooltip()
         }
     }
     // 수정사항 없을 시 프리셋제목으로 되돌림

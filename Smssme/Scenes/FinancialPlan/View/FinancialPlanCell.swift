@@ -18,12 +18,12 @@ class FinancialPlanCell: UICollectionViewCell {
 
     
     // 아이콘 사용 보류
-//    private let iconView: UIImageView = {
-//        let imageView = UIImageView()
-//        imageView.contentMode = .scaleAspectFit
-//        imageView.backgroundColor = .clear
-//        return imageView
-//    }()
+    private let iconView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.backgroundColor = .clear
+        return imageView
+    }()
     
     private let startLabel: UILabel = {
         let label = UILabel()
@@ -54,39 +54,39 @@ class FinancialPlanCell: UICollectionViewCell {
         contentView.layer.cornerRadius = 10
         contentView.layer.masksToBounds = true
         [
-//            iconView,
+            iconView,
          titleLabel, 
          descriptionLabel,
-         startLabel
+//         startLabel
         ].forEach {
             contentView.addSubview($0)
         }
         
-//        iconView.snp.makeConstraints {
-//            $0.top.equalToSuperview().offset(24)
-//            $0.leading.equalToSuperview().offset(16)
-//            $0.width.equalTo(60)
-//            $0.height.equalTo(60)
-//        }
+        iconView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(24)
+            $0.leading.equalToSuperview().offset(16)
+            $0.width.equalTo(60)
+            $0.height.equalTo(60)
+        }
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(32)
-            $0.leading.equalToSuperview().offset(16)
-            $0.trailing.equalToSuperview().offset(-16)
+            $0.top.equalTo(iconView.snp.bottom)
+            $0.leading.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().offset(-20)
         }
         
         descriptionLabel.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(10)
-            $0.leading.equalToSuperview().offset(16)
-            $0.trailing.equalToSuperview().offset(-16)
+            $0.leading.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().offset(-20)
         }
         
-        startLabel.snp.makeConstraints {
-            $0.bottom.equalToSuperview().offset(-20)
-            $0.width.equalTo(80)
-            $0.height.equalTo(32)
-            $0.centerX.equalToSuperview()
-        }
+//        startLabel.snp.makeConstraints {
+//            $0.bottom.equalToSuperview().offset(-20)
+//            $0.width.equalTo(80)
+//            $0.height.equalTo(32)
+//            $0.centerX.equalToSuperview()
+//        }
     }
     
     func cellBackgroundColor(_ color: UIColor) {
@@ -99,6 +99,7 @@ class FinancialPlanCell: UICollectionViewCell {
     }
     
     func configure(with planType: PlanType) {
+        iconView.image = UIImage(named: planType.iconName)
         titleLabel.text = planType.title
         descriptionLabel.text = planType.planDescription
     }

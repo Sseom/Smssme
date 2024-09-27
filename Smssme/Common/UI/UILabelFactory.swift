@@ -13,6 +13,8 @@ extension UIColor { // 텍스트 색상 정의
     static let labelBlack = UIColor(hex: "#060b11")
     static let bodyGray = UIColor(hex: "#5d6285")
     static let disableGray = UIColor(hex: "#80828f")
+    // 메인포인트컬러: 블루
+    static let primaryBlue = UIColor(hex: "#3756f4")
 }
 
 class LabelBuilder {
