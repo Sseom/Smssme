@@ -242,6 +242,7 @@ class ButtonIncomplete: UIView {
         ].forEach {
             addSubview($0)
         }
+        
         editButton.snp.makeConstraints {
             $0.bottom.equalToSuperview()
             $0.width.equalTo(80)
@@ -283,7 +284,6 @@ class ButtonComplete: UIView {
             $0.width.equalTo(80)
             $0.height.equalTo(40)
             $0.centerY.centerX.equalToSuperview()
-            
         }
     }
 }
