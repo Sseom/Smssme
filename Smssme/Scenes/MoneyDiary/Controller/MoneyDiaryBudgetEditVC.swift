@@ -135,7 +135,7 @@ class MoneyDiaryBudgetEditVC: UIViewController {
         let planList: [BudgetItem] = planService.fetchAllFinancialPlans().map {
             let currentMonth = String(currentMonth).count == 1 ? "0\(currentMonth)" : "\(currentMonth)"
             let amount = calculateSavings(startDate: $0.startDate, endDate: $0.endDate, amount: $0.amount)["\(currentYear)-\(currentMonth)"]
-            return BudgetItem(amount: amount ?? 0, statement: false, category: $0.title ?? "", date: currentDate!)
+            return BudgetItem(amount: amount ?? 0, statement: false, category: $0.title, date: currentDate!)
         }
         
         
@@ -209,6 +209,8 @@ class MoneyDiaryBudgetEditVC: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.moneyDiaryBudgetEditView.tableView.reloadData()
         }
+        
+        setTotalAmountView()
     }
     
     @objc private func saveButtonTapped() {

@@ -77,19 +77,20 @@ class FutureGraphVC: UIViewController {
         }
         
         for (index, value) in futureSavings.enumerated() {
-            let entry = BarChartDataEntry(x: Double(index), y: value)
+            let totalValue = value + futureAssets[index]
+            let entry = BarChartDataEntry(x: Double(index), y: totalValue)
             savingsEntries.append(entry)
         }
         
         let assetDataSet = BarChartDataSet(entries: assetEntries, label: "현재 자산의 미래가치")
-        assetDataSet.colors = [UIColor.systemBlue.withAlphaComponent(0.5)]
+        assetDataSet.colors = [UIColor.systemBlue.withAlphaComponent(1.0)]
         assetDataSet.drawValuesEnabled = false
         
         let savingsDataSet = BarChartDataSet(entries: savingsEntries, label: "저축액의 미래가치")
-        savingsDataSet.colors = [UIColor.systemGreen.withAlphaComponent(0.5)]
+        savingsDataSet.colors = [UIColor.systemGreen.withAlphaComponent(1.0)]
         savingsDataSet.drawValuesEnabled = false
         
-        let chartData = BarChartData(dataSets: [assetDataSet, savingsDataSet])
+        let chartData = BarChartData(dataSets: [savingsDataSet, assetDataSet])
         futureGraphView.barChartView.data = chartData
         
         let yAxis = futureGraphView.barChartView.leftAxis
@@ -102,6 +103,8 @@ class FutureGraphVC: UIViewController {
             let index = Int(value)
             return "\(yearsArray[index])"
         })
+        
+        futureGraphView.barChartView.animate(yAxisDuration: 1.5, easingOption: .easeInOutQuad)
         
         futureGraphView.barChartView.notifyDataSetChanged()
     }
@@ -119,7 +122,7 @@ class FutureGraphVC: UIViewController {
         guard let assetText = futureGraphView.assetTextField.text, let asset = formatter.number(from: assetText),
               let savingsText = futureGraphView.savingsTextField.text, let savings = formatter.number(from: savingsText),
               let interestRateText = futureGraphView.interestRateTextField.text, let interestRate = Double(interestRateText) else {
-            print("잘못된 입력입니다.")
+            showAlert(message: "잘못된 입력입니다.", AlertTitle: "알림", buttonClickTitle: "확인")
             return
         }
         

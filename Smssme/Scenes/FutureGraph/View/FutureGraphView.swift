@@ -81,6 +81,11 @@ class FutureGraphView: UIView {
         chartView.legend.horizontalAlignment = .center
         chartView.legend.verticalAlignment = .top
         chartView.noDataText = "아래 내용을 입력해 주세요."
+        chartView.isUserInteractionEnabled = false // 터치 이벤트 자체를 비활성화
+        chartView.highlightPerTapEnabled = false // 차트를 터치했을 때 하이라이트 효과 제거
+        chartView.dragEnabled = false // 드래그 비활성화
+        chartView.pinchZoomEnabled = false // 핀치 줌 비활성화
+        chartView.doubleTapToZoomEnabled = false // 더블 탭 줌 비활성화
         return chartView
     }()
     
