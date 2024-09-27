@@ -38,17 +38,19 @@ final class FirebaseFirestoreManager {
             }
         }
     }
-//    
-//    func updateUserData(uid: String, data: [String: Any], completion: @escaping (Result<Void, Error>) -> Void) {
-//        Firestore.firestore().collection("users").document(uid).updateData(data) { error in
-//            if let error = error {
-//                completion(.failure(error))
-//            } else {
-//                completion(.success(()))
-//            }
-//        }
-//    }
-//    
+    
+    //MARK: - 회원정보 수정
+    func updateUserData(uid: String, data: UserData, completion: @escaping (Result<Void, Error>) -> Void) {
+        Firestore.firestore().collection("users").document(uid).updateData(data.toDictionary()) { error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(()))
+            }
+        }
+    }
+    
+    
 //    func deleteUserData(uid: String, completion: @escaping (Result<Void, Error>) -> Void) {
 //        Firestore.firestore().collection("users").document(uid).delete { error in
 //            if let error = error {

@@ -50,7 +50,14 @@ final class CalendarCollectionViewCell: UICollectionViewCell, CellReusable {
 
         //여기에서. 섹션 검사를 해야할듯
         if item.date < Date() {
-            self.backgroundColor = item.backgroundColor
+            
+           
+             if isSameWeekAsToday(date: item.date) {
+                 self.backgroundColor = .white
+            }
+            else {
+                self.backgroundColor = item.backgroundColor
+            }
         }
         
 
@@ -77,6 +84,16 @@ final class CalendarCollectionViewCell: UICollectionViewCell, CellReusable {
         
         return dayString == "1" ? "\(month).\(dayString)" : dayString
         
+    }
+    
+    func isSameWeekAsToday(date: Date) -> Bool {
+        guard let todayWeekRange = Calendar.current.dateInterval(of: .weekOfYear, for: Date()),
+              let dateWeekRange = Calendar.current.dateInterval(of: .weekOfYear, for: date) else {
+            return false
+        }
+        
+        // 두 날짜가 같은 주에 속하는지 비교
+        return todayWeekRange == dateWeekRange
     }
     
     

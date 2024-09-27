@@ -77,9 +77,9 @@ class FirebaseManager {
         
         user.sendEmailVerification { error in
             if let error = error {
-                completion(.failure(error)) // 실패 시 에러를 반환
+                completion(.failure(error))
             } else {
-                completion(.success(())) // 성공 시 빈 값 반환
+                completion(.success(()))
             }
         }
     }
@@ -123,23 +123,23 @@ class FirebaseManager {
             completion(false, AuthError.userNotFound)
             return
         }
-//        reauthenticateUser(email: Auth.auth().currentUser?.email ?? "", password: password) { result in
-//            switch result {
-//            case .success:
-//                Auth.auth().currentUser?.updateEmail(to: newEmail) { error in
-//                    completion(error == nil, error)
-//                }
-                
-                reauthenticateUser(email: currentEmail, password: password) { result in
-                    switch result {
-                    case .success:
-                        Auth.auth().currentUser?.updateEmail(to: newEmail) { error in
-                            if let error = error {
-                                completion(false, error)
-                            } else {
-                                completion(true, nil)
-                            }
-                        }
+        //        reauthenticateUser(email: Auth.auth().currentUser?.email ?? "", password: password) { result in
+        //            switch result {
+        //            case .success:
+        //                Auth.auth().currentUser?.updateEmail(to: newEmail) { error in
+        //                    completion(error == nil, error)
+        //                }
+        
+        reauthenticateUser(email: currentEmail, password: password) { result in
+            switch result {
+            case .success:
+                Auth.auth().currentUser?.updateEmail(to: newEmail) { error in
+                    if let error = error {
+                        completion(false, error)
+                    } else {
+                        completion(true, nil)
+                    }
+                }
             case .failure(let error):
                 completion(false, error)
             }
@@ -148,7 +148,22 @@ class FirebaseManager {
     
     
     //MARK: - 로그인
-    
+    func login(withEmail email: String, password: String, completion: @escaping (Result<Void, AuthErrorCode>) -> Void) {
+           Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+               if let error = error as NSError? {
+                   // 에러 코드에 따라 결과 반환
+                   if let authErrorCode = AuthErrorCode(rawValue: error.code) {
+                       completion(.failure(authErrorCode))
+                   } else {
+                       completion(.failure(.operationNotAllowed)) // 기본 에러 처리
+                   }
+                   return
+               }
+
+               // 성공적으로 로그인된 경우
+               completion(.success(()))
+           }
+       }
     
     //MARK: - 로그아웃
     

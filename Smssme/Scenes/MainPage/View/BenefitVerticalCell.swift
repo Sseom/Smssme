@@ -17,11 +17,7 @@ class BenefitVerticalCell: UITableViewCell {
         return imageView
     }()
     
-    let titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "내역"
-        return label
-    }()
+    let titleLabel = LabelFactory.bodyLabel().build()
     
     // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

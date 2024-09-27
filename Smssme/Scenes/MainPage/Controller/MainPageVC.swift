@@ -139,7 +139,7 @@ class MainPageVC: UIViewController {
             dataSet.valueColors = dataSet.colors.map { _ in
                 return .darkGray
             }
-            mainPageView.chartCenterButton.setTitle("자산편집", for: .normal)
+            mainPageView.chartCenterButton.setTitle("자산목록 보기", for: .normal)
             mainPageView.pieChartView.alpha = 1.0
         } else {
             // 데이터 없을시 더미데이터
@@ -214,29 +214,27 @@ class MainPageVC: UIViewController {
                 ]
             )
             
-
-            
             NetworkManager.shared.fetch(endpoint: endpoint) { [weak self] (result: Result< KOSPIResponse, Error>) in
                 
                 guard let self = self else { return } // self가 nil일 경우 클로저를 종료
                 
                 switch result {
                 case .success(let response):
-
+                    
                     let items = response.response.body.items.item
                     if let latestItem = items.max(by: {$0.basDt < $1.basDt}) {
-                        print("가장 최신의 코스피 기준 날짜: \(latestItem.basDt)")
+                        
+                        let date = RegexManager.shared.formatDateString(from: latestItem.basDt)
+                        print(date)
                         
                         let kospiItem = StockIndexData.convertKOSPIToStockIndex(kospiItem: latestItem)
-  
                         self.stockIndexDataArray.append(kospiItem)
-
-                        print("🌟 stockIndexDataArray의 갯수: \(self.stockIndexDataArray.count) /  \(self.stockIndexDataArray)")
-      
-                            DispatchQueue.main.async{
-                                self.mainPageView.stockIndexcollectionView.reloadData()
-                            }
-
+                        
+                        DispatchQueue.main.async {
+                            self.mainPageView.stockIndexDateLabel.text = "\(date) 기준"
+                            self.mainPageView.stockIndexcollectionView.reloadData()
+                        }
+                        
                     } else {
                         print("가져온 코스피 데이터가 없습니다.")
                     }
@@ -289,7 +287,6 @@ class MainPageVC: UIViewController {
                     
                 case .failure(let error):
                     print("거래 데이터를 가져오는데 실패했습니다:\n \(error.localizedDescription)")
-                    
                 }
             }
         }
@@ -334,16 +331,13 @@ class MainPageVC: UIViewController {
             // 전일 대비 등락 포인트
             let changePointString = String(format: "%.2f", change)
             
-            let sp500Item = StockIndexData.convertSP500OToStockIndex(value: sp500ValueString, changeRate: changeRateString, changePoint: changePointString)
+            let sp500Item = StockIndexData.convertSP500OToStockIndex(value: sp500ValueString, changeRate: changeRateString, changePoint: changePointString, date: latestObservation.date)
             
             self.stockIndexDataArray.append(sp500Item)
-            
             
             DispatchQueue.main.async{
                 self.mainPageView.stockIndexcollectionView.reloadData()
             }
-
-            print("🌟 S&P500 - stockIndexDataArray의 갯수: \(self.stockIndexDataArray.count) /  \(self.stockIndexDataArray)")
         }
         
         //MARK: - 환율 데이터 가져오는 메서드
@@ -377,7 +371,6 @@ extension MainPageVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLa
     }
     
 }
-
 
 extension MainPageVC: UITabBarDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

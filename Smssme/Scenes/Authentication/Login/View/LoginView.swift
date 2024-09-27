@@ -62,7 +62,9 @@ final class LoginView: UIView {
     
     let signupButton = BaseButton().createButton(text: "회원가입", color: #colorLiteral(red: 0.9121415615, green: 0.9536862969, blue: 1, alpha: 1), textColor: UIColor.systemBlue)
     
-    let unLoginButton = BaseButton().createButton(text: "로그인 없이 둘러보기", color: .clear, textColor: UIColor(hex: "#333333"))
+    let resetPasswordButton = BaseButton().createButton(text: "비밀번호 재설정", color: .clear, textColor: .systemGray3)
+    
+    let unLoginButton = BaseButton().createButton(text: "로그인 없이 둘러보기", color: .clear, textColor: .systemGray5)
     
     
     
@@ -94,7 +96,8 @@ final class LoginView: UIView {
          loginButton,
 //         kakaoLoginButton,
          signupButton,
-         unLoginButton].forEach {self.addSubview($0)}
+         unLoginButton,
+         resetPasswordButton].forEach {self.addSubview($0)}
         
     }
     
@@ -134,10 +137,17 @@ final class LoginView: UIView {
             $0.height.equalTo(textFieldHeight)
         }
         
-        unLoginButton.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
+        resetPasswordButton.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(70)
             $0.top.equalTo(signupButton.snp.bottom).offset(24)
         }
+        
+        unLoginButton.snp.makeConstraints {
+            $0.trailing.equalToSuperview().inset(70)
+            $0.top.equalTo(signupButton.snp.bottom).offset(24)
+        }
+        
+
     }
     
     

@@ -55,22 +55,60 @@ class RegexManager {
     func extractDate(from text: String) -> String {
         return extractMatches(from: text, using: .date).first ?? "01/01"
     }
-
+    
     func extractTime(from text: String) -> String {
         return extractMatches(from: text, using: .time).first ?? "00:00"
     }
-
+    
     func extractAmount(from text: String) -> String {
         return extractMatches(from: text, using: .amount).first ?? "0원"
     }
-
+    
     func extractContent(from text: String) -> String {
         return extractMatches(from: text, using: .content).first?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "내용 없음"
     }
     
+    //년월일 형식으로 변환
+    func formatDateString(from text: String) -> String {
+        let pattern1 = "(\\d{4})(\\d{2})(\\d{2})"     // 20240102
+        let pattern2 = "(\\d{4})-(\\d{2})-(\\d{2})"   // 2024-01-02
+        
+        var regex1: NSRegularExpression?
+        var regex2: NSRegularExpression?
+        
+        do {
+            // 첫 번째 패턴 정규식 생성 시도
+            regex1 = try NSRegularExpression(pattern: pattern1)
+            // 두 번째 패턴 정규식 생성 시도
+            regex2 = try NSRegularExpression(pattern: pattern2)
+        } catch {
+            // 정규식 생성 오류 처리
+            print("정규식 생성 오류: \(error.localizedDescription)")
+            return "날짜 형식이 잘못되었습니다"
+        }
+        
+        var year: String?
+        var month: String?
+        var day: String?
+        
+        if let match = regex1?.firstMatch(in: text, options: [], range: NSRange(location: 0, length: text.utf16.count)) {
+            year = (text as NSString).substring(with: match.range(at: 1))
+            month = (text as NSString).substring(with: match.range(at: 2))
+            day = (text as NSString).substring(with: match.range(at: 3))
+        }
+        else if let match = regex2?.firstMatch(in: text, options: [], range: NSRange(location: 0, length: text.utf16.count)) {
+            year = (text as NSString).substring(with: match.range(at: 1))
+            month = (text as NSString).substring(with: match.range(at: 2))
+            day = (text as NSString).substring(with: match.range(at: 3))
+        }
+        
+        if let year = year, let month = month, let day = day {
+            return "\(year)년 \(month)월 \(day)일"
+        }
+        return "Invalid date format"
+    }
     
     
-
     
 }
 
