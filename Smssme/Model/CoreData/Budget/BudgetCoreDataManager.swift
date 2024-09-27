@@ -89,7 +89,7 @@ class BudgetCoreDataManager {
 }
 
 class BudgetService {
-    func calculateSavingsForCurrentMonth(plan: FinancialPlanDTO, startDate: Date?, endDate: Date?, amount: Int64) -> Int64 {
+    func calculateSavings(plan: FinancialPlanDTO, startDate: Date?, endDate: Date?, amount: Int64) -> Int64 {
         guard let start = startDate,
               let end = endDate else {
             return 0
