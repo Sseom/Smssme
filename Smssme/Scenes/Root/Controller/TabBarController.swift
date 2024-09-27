@@ -48,8 +48,8 @@ class TabBarController: UITabBarController {
         )
         
         let myPage = tabBarNavigationController(
-            unselectedImage: UIImage(systemName: "person.and.background.striped.horizontal") ?? UIImage(),
-            selectedImage: UIImage(systemName: "person.and.background.striped.horizontal") ?? UIImage(),
+            unselectedImage: UIImage(systemName: "person.fill") ?? UIImage(),
+            selectedImage: UIImage(systemName: "person.fill") ?? UIImage(),
             isNavigationBarHidden: false,
             rootViewController: MypageVC()
         )

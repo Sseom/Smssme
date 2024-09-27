@@ -17,7 +17,7 @@
 		5F18A2192C8DB36B00BC70B7 /* IncomeAndLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F18A2182C8DB36B00BC70B7 /* IncomeAndLocationView.swift */; };
 		5F3EAE192C7E182400FF15E5 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3EAE182C7E182400FF15E5 /* LoginView.swift */; };
 		5F3EAE562C7EFAFA00FF15E5 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3EAE552C7EFAFA00FF15E5 /* SignUpView.swift */; };
-		5F3EAE5B2C7F36E500FF15E5 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3EAE5A2C7F36E500FF15E5 /* SignUpVC.swift */; };
+		5F3EAE5B2C7F36E500FF15E5 /* EditUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3EAE5A2C7F36E500FF15E5 /* EditUserInfo.swift */; };
 		5F413EFF2C805CC200004703 /* MypageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F413EFE2C805CC200004703 /* MypageView.swift */; };
 		5F413F012C805CED00004703 /* MypageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F413F002C805CED00004703 /* MypageVC.swift */; };
 		5FA88FEF2C80760E00549363 /* CommonAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA88FEE2C80760E00549363 /* CommonAlert.swift */; };
@@ -25,6 +25,8 @@
 		5FA88FFE2C8544DB00549363 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA88FFD2C8544DB00549363 /* SplashViewController.swift */; };
 		5FA890092C85B30800549363 /* FirebaseFirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA890082C85B30700549363 /* FirebaseFirestoreManager.swift */; };
 		5FA890102C87344000549363 /* MypageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA8900F2C87344000549363 /* MypageViewCell.swift */; };
+		5FD709FF2CA66956009E38C0 /* SecretsConfig.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5FD709FE2CA66956009E38C0 /* SecretsConfig.xcconfig */; };
+		5FD70A012CA66AEA009E38C0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5FD70A002CA66AEA009E38C0 /* GoogleService-Info.plist */; };
 		5FE3DDD72CA3ACCB0015B14E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5FE3DDD62CA3ACCB0015B14E /* FirebaseAuth */; };
 		5FE3DDD92CA3ACCB0015B14E /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5FE3DDD82CA3ACCB0015B14E /* FirebaseFirestore */; };
 		5FE400692C8DE94F001D0FD1 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE400682C8DE94F001D0FD1 /* UITextField.swift */; };
@@ -104,8 +106,6 @@
 		E50498702CA5CB8D0014B8EF /* FinancialPlanCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E504986F2CA5CB8D0014B8EF /* FinancialPlanCompleteView.swift */; };
 		E517F2822C8782F200CB8680 /* FinancialPlanManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2812C8782F200CB8680 /* FinancialPlanManager.swift */; };
 		E517F3402C89A41900CB8680 /* MoneyDiaryCreationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F33F2C89A41900CB8680 /* MoneyDiaryCreationVC.swift */; };
-		E591BAAF2CA5CE7C005E8E20 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E591BAAD2CA5CE7C005E8E20 /* GoogleService-Info.plist */; };
-		E591BAB02CA5CE7C005E8E20 /* SecretsConfig.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E591BAAE2CA5CE7C005E8E20 /* SecretsConfig.xcconfig */; };
 		E5B9267D2CA2DF280027984E /* UILabelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B9267C2CA2DF280027984E /* UILabelFactory.swift */; };
 		E5B926832CA307E60027984E /* FinancialPlanCompleteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B926822CA307E60027984E /* FinancialPlanCompleteVC.swift */; };
 		E5B926872CA313FC0027984E /* UIButtonFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B926862CA313FC0027984E /* UIButtonFactory.swift */; };
@@ -136,7 +136,7 @@
 		5F18A2182C8DB36B00BC70B7 /* IncomeAndLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeAndLocationView.swift; sourceTree = "<group>"; };
 		5F3EAE182C7E182400FF15E5 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		5F3EAE552C7EFAFA00FF15E5 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
-		5F3EAE5A2C7F36E500FF15E5 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
+		5F3EAE5A2C7F36E500FF15E5 /* EditUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserInfo.swift; sourceTree = "<group>"; };
 		5F413EFE2C805CC200004703 /* MypageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageView.swift; sourceTree = "<group>"; };
 		5F413F002C805CED00004703 /* MypageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageVC.swift; sourceTree = "<group>"; };
 		5FA88FEE2C80760E00549363 /* CommonAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonAlert.swift; sourceTree = "<group>"; };
@@ -144,6 +144,8 @@
 		5FA88FFD2C8544DB00549363 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		5FA890082C85B30700549363 /* FirebaseFirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseFirestoreManager.swift; sourceTree = "<group>"; };
 		5FA8900F2C87344000549363 /* MypageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewCell.swift; sourceTree = "<group>"; };
+		5FD709FE2CA66956009E38C0 /* SecretsConfig.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = SecretsConfig.xcconfig; sourceTree = "<group>"; };
+		5FD70A002CA66AEA009E38C0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5FE400682C8DE94F001D0FD1 /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
 		5FE4006C2C917A92001D0FD1 /* UserProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileModel.swift; sourceTree = "<group>"; };
 		5FE4006E2C917B4E001D0FD1 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
@@ -223,8 +225,6 @@
 		E504986F2CA5CB8D0014B8EF /* FinancialPlanCompleteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanCompleteView.swift; sourceTree = "<group>"; };
 		E517F2812C8782F200CB8680 /* FinancialPlanManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanManager.swift; sourceTree = "<group>"; };
 		E517F33F2C89A41900CB8680 /* MoneyDiaryCreationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDiaryCreationVC.swift; sourceTree = "<group>"; };
-		E591BAAD2CA5CE7C005E8E20 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
-		E591BAAE2CA5CE7C005E8E20 /* SecretsConfig.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = SecretsConfig.xcconfig; sourceTree = SOURCE_ROOT; };
 		E5B9267C2CA2DF280027984E /* UILabelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelFactory.swift; sourceTree = "<group>"; };
 		E5B926822CA307E60027984E /* FinancialPlanCompleteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FinancialPlanCompleteVC.swift; path = Smssme/Scenes/FinancialPlan/Controller/FinancialPlanCompleteVC.swift; sourceTree = SOURCE_ROOT; };
 		E5B926862CA313FC0027984E /* UIButtonFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonFactory.swift; sourceTree = "<group>"; };
@@ -342,8 +342,8 @@
 			isa = PBXGroup;
 			children = (
 				74707FC12C85D78D00F7000C /* Smssme.entitlements */,
-				E591BAAD2CA5CE7C005E8E20 /* GoogleService-Info.plist */,
-				E591BAAE2CA5CE7C005E8E20 /* SecretsConfig.xcconfig */,
+				5FD70A002CA66AEA009E38C0 /* GoogleService-Info.plist */,
+				5FD709FE2CA66956009E38C0 /* SecretsConfig.xcconfig */,
 				740350742C7740BE00122B2E /* Scenes */,
 				740350702C77408900122B2E /* Model */,
 				5FE400722C949DE9001D0FD1 /* Network */,
@@ -417,7 +417,7 @@
 		7457E7B62CA1351200481C5F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				5F3EAE5A2C7F36E500FF15E5 /* SignUpVC.swift */,
+				5F3EAE5A2C7F36E500FF15E5 /* EditUserInfo.swift */,
 				5F18A2052C8DAE8100BC70B7 /* EmailVC.swift */,
 				5F18A2122C8DB33500BC70B7 /* PasswordVC.swift */,
 				5F18A20A2C8DB26400BC70B7 /* NickNameVC.swift */,
@@ -832,10 +832,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E591BAB02CA5CE7C005E8E20 /* SecretsConfig.xcconfig in Resources */,
 				740350632C773E9C00122B2E /* Assets.xcassets in Resources */,
+				5FD70A012CA66AEA009E38C0 /* GoogleService-Info.plist in Resources */,
+				5FD709FF2CA66956009E38C0 /* SecretsConfig.xcconfig in Resources */,
 				740350662C773E9C00122B2E /* Base in Resources */,
-				E591BAAF2CA5CE7C005E8E20 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -927,7 +927,7 @@
 				746F80952C8842C800BBAEAF /* DailyTransactionVC.swift in Sources */,
 				5F413EFF2C805CC200004703 /* MypageView.swift in Sources */,
 				5F3EAE192C7E182400FF15E5 /* LoginView.swift in Sources */,
-				5F3EAE5B2C7F36E500FF15E5 /* SignUpVC.swift in Sources */,
+				5F3EAE5B2C7F36E500FF15E5 /* EditUserInfo.swift in Sources */,
 				741746592C9B041A006D5456 /* ChartDataManager.swift in Sources */,
 				5FE400782C949EB8001D0FD1 /* Endpoint.swift in Sources */,
 				5FE400692C8DE94F001D0FD1 /* UITextField.swift in Sources */,
@@ -975,6 +975,7 @@
 /* Begin XCBuildConfiguration section */
 		740350682C773E9C00122B2E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5FD709FE2CA66956009E38C0 /* SecretsConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1038,6 +1039,7 @@
 		};
 		740350692C773E9C00122B2E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5FD709FE2CA66956009E38C0 /* SecretsConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1094,7 +1096,6 @@
 		};
 		7403506B2C773E9C00122B2E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E591BAAE2CA5CE7C005E8E20 /* SecretsConfig.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1132,7 +1133,6 @@
 		};
 		7403506C2C773E9C00122B2E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E591BAAE2CA5CE7C005E8E20 /* SecretsConfig.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

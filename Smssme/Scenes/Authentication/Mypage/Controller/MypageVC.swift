@@ -241,8 +241,8 @@ extension MypageVC: UITableViewDelegate {
             switch (indexPath.section, indexPath.row) {
             case (0, 0):
                 print("회원정보 수정 페이지로 이동")
-                let signUpVC = SignUpVC()
-                navigationController?.pushViewController(signUpVC, animated: true)
+                let editUserInfo = EditUserInfo()
+                navigationController?.pushViewController(editUserInfo, animated: true)
             case (0, 1):
                 print("비밀번호 재설정 클릭")
                 let resetPasswordVC = ResetPasswordVC()

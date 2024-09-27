@@ -5,13 +5,13 @@ import UIKit
 
 class MainPageView: UIView {
     // MARK: Properties
-    var mainWelcomeTitleLabel = LargeTitleLabel().createLabel(with: "씀씀이의 방문을 \n환영합니다.", color: .black)
-    private let totalAssetsTitleLabel = SmallTitleLabel().createLabel(with: "총 자산", color: .black)
-    let totalAssetsValueLabel = LargeTitleLabel().createLabel(with: "0 원", color: .black)
-    private let stockIndexTitleLabel = SmallTitleLabel().createLabel(with: "오늘의 주요 경제 지수", color: .black)
-    private let benefitTitleLabel = SmallTitleLabel().createLabel(with: "2024 청년 혜택 총정리", color: .black)
-    
-    
+    var mainWelcomeTitleLabel = LabelFactory.titleLabel().setText("씀씀이의 방문을 \n환영합니다.").build()
+    private let totalAssetsTitleLabel = LabelFactory.subTitleLabel().setText("총 자산").build()
+    let totalAssetsValueLabel = LabelFactory.titleLabel().setText("0 원").build()
+    private let stockIndexTitleLabel = LabelFactory.titleLabel().setFont(.boldSystemFont(ofSize: 18)).setText("주요 경제 지수").build()
+    var stockIndexDateLabel = LabelFactory.subTitleLabel().setFont(.systemFont(ofSize: 14)).setColor(.disableGray).build()
+    private let benefitTitleLabel = LabelFactory.titleLabel().setFont(.boldSystemFont(ofSize: 18)).setText("2024 청년 혜택 총정리").build()
+
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         return scrollView
@@ -36,7 +36,6 @@ class MainPageView: UIView {
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 18 //좌우 줄간격
         layout.itemSize = CGSize(width: 120, height: 80)
-        // 동적으로 cell의 크기를 계산할 때 성능을 높여 준다고 합니다.
         layout.estimatedItemSize = CGSize(width: 120, height: 80)
         
         return layout
@@ -74,9 +73,7 @@ class MainPageView: UIView {
     }
     
     // MARK: - Methods
-    
     // MARK: - 청년 혜택 총정리
-    
     func entryData(values: [Double]) -> [ChartDataEntry] {
         var pieDataEntries: [ChartDataEntry] = []
         for i in 0 ..< values.count {
@@ -105,6 +102,7 @@ class MainPageView: UIView {
             pieChartView,
             chartCenterButton,
             stockIndexTitleLabel,
+            stockIndexDateLabel,
             stockIndexcollectionView,
             benefitTitleLabel,
             benefitVerticalTableView
@@ -120,7 +118,6 @@ class MainPageView: UIView {
         contentView.snp.makeConstraints {
             $0.edges.equalToSuperview()
             $0.width.equalToSuperview()
-//            $0.height.equalTo(contentView.snp.height) 일단 보류 무서움
         }
         
         mainWelcomeTitleLabel.snp.makeConstraints {
@@ -152,7 +149,14 @@ class MainPageView: UIView {
         
         stockIndexTitleLabel.snp.makeConstraints {
             $0.top.equalTo(pieChartView.snp.bottom).offset(20)
-            $0.left.equalTo(safeAreaLayoutGuide).offset(20)
+            $0.leading.equalTo(safeAreaLayoutGuide).offset(20)
+            $0.width.equalTo(100)
+        }
+        
+        stockIndexDateLabel.snp.makeConstraints {
+            $0.top.equalTo(stockIndexTitleLabel.snp.top)
+            $0.trailing.equalTo(safeAreaLayoutGuide).inset(20)
+            $0.width.equalTo(150)
         }
         
         stockIndexcollectionView.snp.makeConstraints {

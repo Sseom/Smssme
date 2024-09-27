@@ -87,6 +87,14 @@ class LabelFactory {
             .setLetterSpacing(LabelBuilder.titleSpacing)
     }
     
+    static func subTitleLabel() -> LabelBuilder {
+        return LabelBuilder()
+          .setFont(.boldSystemFont(ofSize: LabelBuilder.bodySize))
+          .setColor(.labelBlack)
+          .setAlign(.left)
+          .setLetterSpacing(LabelBuilder.bodySpacing)
+      }
+    
     static func bodyLabel() -> LabelBuilder {
         return LabelBuilder()
             .setFont(.systemFont(ofSize: LabelBuilder.bodySize))

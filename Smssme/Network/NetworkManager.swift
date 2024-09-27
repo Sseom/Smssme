@@ -19,14 +19,7 @@ class NetworkManager {
         // 쿼리파라미터 설정
         urlComponents.queryItems = endpoint.queryParameters.map { URLQueryItem(name: $0.key, value: $0.value) }
         
-        // queryItems에서 쿼리 스트링을 추출하여 '+'만 인코딩 -> url 만드는 과정에서 +만 인코딩이 안 됐기 때문
-        if let originalQuery = urlComponents.percentEncodedQuery {
-            let plusEncodedQuery = originalQuery.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: "+").inverted)
-            
-            // percentEncodedQuery에 +만 인코딩된 쿼리 설정
-            urlComponents.percentEncodedQuery = plusEncodedQuery
-        }
-        
+        urlComponents.encodePlusSign()
         
         guard let url = urlComponents.url else {
             completion(.failure(NetworkError.invalidUrl))

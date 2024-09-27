@@ -18,11 +18,13 @@ class EmailView: UIView {
     }()
     
     //MARK: - 상단 제목 라벨
-    private var titleLabel = LargeTitleLabel().createLabel(with: "실제 사용 중인 \n이메일 주소를 입력해 주세요.", color: UIColor.black)
-    private let subTitleLabel = SmallTitleLabel().createLabel(with: "비밀번호 재설정 시 인증 메일이 전송됩니다.", color: .lightGray)
-    
+    private var titleLabel = LabelFactory.titleLabel()
+        .setText("실제 사용 중인 \n이메일 주소를 입력해 주세요.")
+        .build()
+    private let subTitleLabel = LabelFactory.bodyLabel().setText("비밀번호 재설정 시 인증 메일이 전송됩니다.").setColor(.bodyGray).build()
+
     //MARK: - 아이디(이메일)
-    let emailLabel = SmallTitleLabel().createLabel(with: "이메일 주소", color: .black)
+    let emailLabel = LabelFactory.titleLabel().setText("이메일 주소").setFont(.boldSystemFont(ofSize: 16)).build()
     
     lazy var emailTextField: UITextField = {
         let textField = UITextField()

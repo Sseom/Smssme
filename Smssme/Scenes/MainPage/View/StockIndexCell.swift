@@ -77,6 +77,7 @@ class StockIndexCell: UICollectionViewCell {
         titleLabel.text = stockIndexData.indexName
         valueLabel.text = stockIndexData.indexValue
         
+        // 지수 UI 업데이트
         guard let change = Double(stockIndexData.changePoint ?? "0.00") else {return}
         
         if change > 0.0 {

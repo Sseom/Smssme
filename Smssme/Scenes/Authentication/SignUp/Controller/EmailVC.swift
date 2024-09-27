@@ -30,8 +30,9 @@ class EmailVC: UIViewController {
             emailView.progressBar.isHidden = true
             emailView.passwordTextField.isHidden = false
             
+            emailView.checkEmailButton.setTitle("변경", for: .normal)
             emailView.nextButton.setTitle("이메일 재설정", for: .normal)
-            // '이메일 변경' 버튼을 눌렀을 때의 로직
+            // '이메일 재설정' 버튼을 눌렀을 때의 로직
             emailView.nextButton.removeTarget(self, action: nil, for: .allEvents) //기존의 모든 액션 제거
             emailView.nextButton.addTarget(self, action: #selector(onEmailChangeButtonTapped), for: .touchUpInside)
         } else {
@@ -48,7 +49,6 @@ class EmailVC: UIViewController {
         emailView.checkEmailButton.addTarget(self, action: #selector(checkEmailButtonTapped), for: .touchUpInside)
         //        emailView.nextButton.addTarget(self, action: #selector(onNextButtonTapped), for: .touchUpInside)
     }
-    
     
     //MARK: - '다음' 버튼 이벤트
     @objc private func onNextButtonTapped() {
