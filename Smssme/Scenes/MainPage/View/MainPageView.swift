@@ -51,7 +51,7 @@ class MainPageView: UIView {
     
     let chartCenterButton: UIButton = {
         let button = UIButton()
-        button.setTitle("자산 추가", for: .normal)
+        button.setTitle("자산목록 보기", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .clear
         button.titleLabel?.font = .systemFont(ofSize: 12)
