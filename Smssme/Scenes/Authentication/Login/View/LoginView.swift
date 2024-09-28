@@ -103,9 +103,9 @@ final class LoginView: UIView {
     
     private func setupLayout() {
         logoImageView.snp.makeConstraints {
-            $0.top.equalTo(safeAreaLayoutGuide.snp.top).offset(16)
-            $0.leading.equalToSuperview().offset(40)
-            $0.trailing.equalToSuperview().offset(-40)
+            $0.top.equalTo(safeAreaLayoutGuide.snp.top).offset(24)
+            $0.leading.equalToSuperview().offset(60)
+            $0.trailing.equalToSuperview().offset(-60)
             $0.height.equalTo(logoImageView.snp.width)
         }
         
