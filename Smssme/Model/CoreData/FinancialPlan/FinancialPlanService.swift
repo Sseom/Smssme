@@ -200,7 +200,32 @@ class FinancialPlanService {
         return fetchIncompletedPlans().first { $0.title == title }
     }
     
-    
+    // MARK: - 컨펌창/ 이번 달 모아야될 금액
+    func calculateSavings(plan: FinancialPlanDTO, startDate: Date?, endDate: Date?, amount: Int64) -> Int64 {
+        guard let start = startDate,
+              let end = endDate else {
+            return 0
+        }
+        
+        let calendar = Calendar.current
+        let now = Date()
+        
+        guard now >= start && now <= end else {
+            return 0
+        }
+        
+        let months = calendar.dateComponents([.month], from: start, to: end).month! + 1
+        
+        let monthlyAmount = Double(amount) / Double(months)
+        
+        let monthsPassed = calendar.dateComponents([.month], from: start, to: now).month!
+        let shouldHaveSaved = monthlyAmount * Double(monthsPassed)
+        
+        let remainingForThisMonth = monthlyAmount - (Double(plan.deposit) - shouldHaveSaved)
+        
+        return max(0, Int64(round(remainingForThisMonth)))
+    }
+
     // MARK: - 헬퍼 / dto변환
     private func convertToDTO(_ plan: FinancialPlan) -> FinancialPlanDTO {
         return FinancialPlanDTO(
