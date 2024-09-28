@@ -87,6 +87,21 @@ enum PlanType: Int16, CaseIterable {
             return "myPlanConfirm"
         }
     }
+    
+    var infoLink: String {
+        switch self {
+        case .travel: return "https://valley-porch-b6d.notion.site/1-1001c7ac6761489cbf12b3802a8924a7"
+        case .car: return "https://valley-porch-b6d.notion.site/2-717bb3ae189b4847806ae044d3ddb8b1"
+        case .house: return
+            "https://valley-porch-b6d.notion.site/1-1001c7ac6761489cbf12b3802a8924a7"
+        case .wedding: return
+            "https://valley-porch-b6d.notion.site/1-1001c7ac6761489cbf12b3802a8924a7"
+        case .retirement: return
+            "https://valley-porch-b6d.notion.site/1-1001c7ac6761489cbf12b3802a8924a7"
+        case .custom: return
+            "https://valley-porch-b6d.notion.site/1-1001c7ac6761489cbf12b3802a8924a7"
+        }
+    }
 }
 
 // 차트 공용메서드를 위한 프로토콜
