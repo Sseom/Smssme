@@ -115,6 +115,13 @@ extension FinancialPlanEditPlanVC {
         creationView.textFieldArea.currentSavedField.text = "\(plan.deposit.formattedAsCurrency)"
         creationView.textFieldArea.startDateField.text = "\(PlanDateModel.dateFormatter.string(from: plan.startDate))"
         creationView.textFieldArea.endDateField.text = "\(PlanDateModel.dateFormatter.string(from: plan.endDate))"
+        //데이트피커 올라왔을 때 각 시작종료날짜에서 돌아가게
+        if let startDatePicker = creationView.textFieldArea.startDateField.inputView as? UIDatePicker {
+            startDatePicker.date = plan.startDate
+        }
+        if let endDatePicker = creationView.textFieldArea.endDateField.inputView as? UIDatePicker {
+            endDatePicker.date = plan.endDate
+        }
     }
     
     private func setupDatePickerTarget() {
