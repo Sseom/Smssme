@@ -146,8 +146,8 @@ extension MoneyDiaryVC {
     func temp(calendarItems: [CalendarItem]) -> [Int]{
         
         var sections: [Int] = [0, 0, 0, 0, 0, 0]
-        var sectionCounter = 0
-        for (index,item) in calendarItems.enumerated() { //index.range = 0...28~30
+        
+        for item in calendarItems { //index.range = 0...28~30
             if item.isThisMonth {
                 
                 switch item.weekSection {
@@ -407,9 +407,22 @@ extension MoneyDiaryVC {
     }
     
     @objc func didTapAutoSaving() {
-        let viewController = AutomaticTransactionVC()
+        
+            let modalVc = AutomaticTransactionVC()
+            
+            modalVc.modalPresentationStyle = .pageSheet
+            
+            if let sheet = modalVc.sheetPresentationController {
+                sheet.detents = [.medium()]
+                sheet.prefersGrabberVisible = true
+            }
+            
+            self.present(modalVc, animated: true, completion: nil)
+        
+        
+        
         isActive.toggle()
-        self.navigationController?.pushViewController(viewController, animated: false)
+        
         
     }
     

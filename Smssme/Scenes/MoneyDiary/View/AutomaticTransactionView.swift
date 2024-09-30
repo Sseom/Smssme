@@ -14,7 +14,7 @@ class AutomaticTransactionView: UIView {
     
     let submitButton: UIButton = ActionButtonBorder().createButton(text: "변환하여 저장하기", color: UIColor.systemBlue, textColor: .white)
 
-    let howToUseButton: UIButton = BaseButton().createButton(text: "사용 방법", color: .systemBlue, textColor: .white)
+    let howToUselabel = BaseLabelFactory().createLabel(with: "문자를 복사 한후 하단에 붙혀넣기 해주세요", color: .black)
     
      let inputTextView: UITextView = {
         let textView = UITextView()
@@ -37,7 +37,9 @@ class AutomaticTransactionView: UIView {
     
     private func setupUI() {
         titleLabel.textAlignment = .center
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 24)
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 32)
+        howToUselabel.textAlignment = .left
+        howToUselabel.font = UIFont.systemFont(ofSize: 14)
         submitButton.backgroundColor = .systemBlue
         submitButton.titleLabel?.font = .boldSystemFont(ofSize: 18)
         self.backgroundColor = .white
@@ -46,7 +48,7 @@ class AutomaticTransactionView: UIView {
             titleLabel,
             inputTextView,
             submitButton,
-            howToUseButton
+            howToUselabel
         ].forEach { addSubview($0) }
         
         titleLabel.snp.makeConstraints {
@@ -55,23 +57,23 @@ class AutomaticTransactionView: UIView {
         }
         
         inputTextView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(20)
+            $0.top.equalTo(howToUselabel.snp.bottom).offset(10)
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().offset(-20)
             $0.height.equalTo(150)
         }
         
         submitButton.snp.makeConstraints {
-            $0.top.equalTo(inputTextView.snp.bottom).offset(20)
+            $0.top.equalTo(inputTextView.snp.bottom).offset(40)
             $0.centerX.equalToSuperview()
             $0.horizontalEdges.equalTo(inputTextView)
             $0.height.equalTo(50)
         }
         
-        howToUseButton.snp.makeConstraints {
-            $0.centerY.equalTo(titleLabel.snp.centerY)
-            $0.width.equalTo(80)
-            $0.trailing.equalToSuperview().offset(-20)
+        howToUselabel.snp.makeConstraints {
+            $0.leading.equalTo(titleLabel.snp.leading)
+            
+            $0.top.equalTo(titleLabel.snp.bottom).offset(10)
         }
     }
 
