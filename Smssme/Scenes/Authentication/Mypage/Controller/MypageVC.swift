@@ -214,7 +214,7 @@ class MypageVC: UIViewController {
     //MARK: - @objc 회원탈퇴
     @objc func deleteUserButtonTapped(email:String, password: String) {
         
-        FirebaseManager.shared.deleteUser(email: email, password: password) { success, error in
+        FirebaseAuthManager.shared.deleteUser(email: email, password: password) { success, error in
             if success {
                 print("회원탈퇴 완료")
                 self.showSnycAlert(message: "회원탈퇴되었습니다.", AlertTitle: "회원탈퇴 성공", buttonClickTitle: "확인", method: self.switchToLoginVC)
@@ -241,7 +241,7 @@ extension MypageVC: UITableViewDelegate {
             switch (indexPath.section, indexPath.row) {
             case (0, 0):
                 print("회원정보 수정 페이지로 이동")
-                let editUserInfo = EditUserInfo()
+                let editUserInfo = EditUserInfoVC()
                 navigationController?.pushViewController(editUserInfo, animated: true)
             case (0, 1):
                 print("비밀번호 재설정 클릭")
@@ -342,7 +342,7 @@ extension MypageVC: UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "MypageViewCell", for: indexPath)
         cell.textLabel?.text = data[indexPath.section][indexPath.row]
-        cell.textLabel?.font = .boldSystemFont(ofSize: 18)
+        cell.textLabel?.font = .systemFont(ofSize: 18)
         
         // 꺽쇠 표시 추가
         cell.accessoryType = .disclosureIndicator

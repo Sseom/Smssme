@@ -7,6 +7,7 @@
 
 import FirebaseAuth
 import UIKit
+import AuthenticationServices
 
 
 class LoginVC: UIViewController {
@@ -14,6 +15,7 @@ class LoginVC: UIViewController {
     
     private let loginVeiw = LoginView()
     private let planService = FinancialPlanService()
+    private var currentNonce: String?
     
     //MARK: - Life Cycle
     override func loadView() {
@@ -43,6 +45,9 @@ class LoginVC: UIViewController {
         // 카카오 로그인 버튼
         //        loginVeiw.kakaoLoginButton.addTarget(self, action: #selector(kakaoLoginButtonTapped), for: .touchUpInside)
         
+        // 애플 로그인 버튼
+        loginVeiw.appleLoginButton.addTarget(self, action: #selector(appleLoginButtonTapped), for: .touchUpInside)
+        
         // 회원가입 버튼 클릭 시 회원가입 뷰로 이동
         loginVeiw.signupButton.addTarget(self, action: #selector(signupButtonTapped), for: .touchUpInside)
         
@@ -54,7 +59,7 @@ class LoginVC: UIViewController {
     }
     
     //MARK: - @objc 로그인
-    //기존 사용자 로그인
+    //기존 사용자 이메일 로그인
     @objc func loginButtonTapped() {
         
         guard let email = loginVeiw.emailTextField.text, !email.isEmpty,
@@ -63,7 +68,7 @@ class LoginVC: UIViewController {
             return
         }
         
-        FirebaseManager.shared.login(withEmail: email, password: password) { result in
+        FirebaseAuthManager.shared.login(withEmail: email, password: password) { result in
             switch result {
             case .success():
                 self.checkUsersPlan()
@@ -92,6 +97,22 @@ class LoginVC: UIViewController {
             }
             
         }
+    }
+    
+    // apple 로그인
+    @objc func appleLoginButtonTapped() {
+        let nonce = FirebaseAuthManager.shared.randomNonceString()
+        currentNonce = nonce
+        let hashedNonce = FirebaseAuthManager.shared.sha256(nonce)  // 해시된 nonce 생성
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+        request.nonce = hashedNonce
+        
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+        authorizationController.presentationContextProvider = self
+        authorizationController.performRequests()
     }
     
     //MARK: -로그인 후 플랜이 없는 경우 hj
@@ -170,5 +191,47 @@ extension LoginVC: UITextFieldDelegate {
             loginVeiw.passwordTextField.resignFirstResponder()
         }
         return true
+    }
+}
+
+
+extension LoginVC: ASAuthorizationControllerDelegate {
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            guard let nonce = currentNonce else {
+                fatalError("Invalid state: A login callback was received, but no login request was sent.")
+            }
+            guard let appleIDToken = appleIDCredential.identityToken else {
+                print("Unable to fetch identity token")
+                return
+            }
+            guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
+                print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
+                return
+            }
+            // Initialize a Firebase credential, including the user's full name.
+            let credential = OAuthProvider.appleCredential(withIDToken: idTokenString, rawNonce: nonce, fullName: appleIDCredential.fullName)
+            
+            // Sign in with Firebase.
+            Auth.auth().signIn(with: credential) { authResult, error in
+                if let error = error {
+                    print("Error Apple sign in: \(error.localizedDescription)")
+                    return
+                }
+                // 로그인에 성공했을 시 실행할 메서드 추가
+                self.checkUsersPlan()
+            }
+        }
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        print("Apple SignIn Failed: \(error.localizedDescription)")
+    }
+}
+
+extension LoginVC: ASAuthorizationControllerPresentationContextProviding {
+    
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window! // 현재 ViewController의 창을 반환
     }
 }

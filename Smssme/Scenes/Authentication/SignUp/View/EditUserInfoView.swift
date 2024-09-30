@@ -9,7 +9,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 
-final class SignUpView: UIView {
+final class EditUserInfoView: UIView {
     
     // 텍스트필드의 공통된 높이
     private let textFieldHeight = 48
@@ -26,14 +26,14 @@ final class SignUpView: UIView {
     //아이디(이메일)
     let emailLabel = SmallTitleLabel().createLabel(with: "이메일", color: .black)
     
-    let emaiTextField: UITextField = {
+    let emailTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "아이디(이메일 주소)를 입력해주세요."
         textField.textColor = UIColor.lightGray
         textField.borderStyle = .roundedRect
         textField.layer.cornerRadius = 5
-        textField.keyboardType = UIKeyboardType.emailAddress
-        textField.clearButtonMode = .always
+//        textField.keyboardType = UIKeyboardType.emailAddress
+//        textField.clearButtonMode = .always
+        textField.isEnabled = false
         return textField
     }()
     
@@ -244,7 +244,7 @@ final class SignUpView: UIView {
         scrollView.addGestureRecognizer(recognizer)
         
         [ titleLabel,
-          emaiTextField,
+          emailTextField,
           passwordTextField,
           nicknameTextField,
           birthdayTextField,
@@ -316,7 +316,7 @@ final class SignUpView: UIView {
             userInfo.getDocument { (document, error) in
                 if let document = document, document.exists {
                     let data = document.data()
-                    self.emaiTextField.text = data?["email"] as? String
+                    self.emailTextField.text = data?["email"] as? String
                     self.nicknameTextField.text = data?["nickname"] as? String
                     self.birthdayTextField.text = data?["birth"] as? String
                     self.incomeTextField.text = data?["income"] as? String
