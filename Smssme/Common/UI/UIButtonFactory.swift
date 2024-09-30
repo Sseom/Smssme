@@ -95,13 +95,23 @@ extension ButtonBuilder { // 텍스트 사이즈, 자간 설정
 class ButtonFactory {
     static func clearButton() -> ButtonBuilder {
         return ButtonBuilder()
-            .setFillColor(.white)
-            .setBorderColor(.black)
+            .setFillColor(.clear)
+            .setBorderColor(.labelBlack)
+            .setTitleColor(.labelBlack)
             .setBorderWidth(1)
     }
     
     static func fillButton() -> ButtonBuilder {
         return ButtonBuilder()
+            .setFillColor(.labelBlack)
+            .setBorderColor(.clear)
+            .setTitleColor(.white)
+    }
+    
+    static func infoButton() -> ButtonBuilder {
+        return ButtonBuilder()
+            .setFont(.boldSystemFont(ofSize: 12))
+            .setLetterSpacing(ButtonBuilder.captionSize)
     }
 }
 

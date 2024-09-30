@@ -43,7 +43,11 @@ final class LoginView: UIView {
         return textField
     }()
 
-    let loginButton = BaseButton().createButton(text: "로그인", color: UIColor.systemBlue, textColor: UIColor.white)
+//    let loginButton = BaseButton().createButton(text: "로그인", color: UIColor.systemBlue, textColor: UIColor.white)
+    
+    let loginButton = ButtonFactory.clearButton()
+        .setTitle("로그인")
+        .build()
     
     // 아이디, 비밀번호, 로그인 stackView
     private var loginStackView: UIStackView = {
@@ -60,7 +64,11 @@ final class LoginView: UIView {
         return button
     }()
     
-    let signupButton = BaseButton().createButton(text: "회원가입", color: #colorLiteral(red: 0.9121415615, green: 0.9536862969, blue: 1, alpha: 1), textColor: UIColor.systemBlue)
+//    let signupButton = BaseButton().createButton(text: "회원가입", color: #colorLiteral(red: 0.9121415615, green: 0.9536862969, blue: 1, alpha: 1), textColor: UIColor.systemBlue)
+    
+//    let signupButton = ButtonFactory.fillButton()
+//        .set
+    
     
     let resetPasswordButton = BaseButton().createButton(text: "비밀번호 재설정", color: .clear, textColor: .systemGray3)
     
