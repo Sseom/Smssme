@@ -57,7 +57,7 @@ extension UIViewController {
     ///   - AlertTitle: 얼럿창의 타이틀 입니다.
     ///   - buttonClickTitle: 얼럿창의 버튼에 해당하는 타이틀입니다. 버튼은 하나입니다.
     ///   - method: 버튼이 클릭 되고 실행되어야 하는 로직이 클로저로 들어갑니다.
-    func showSnycAlert(
+    func showSyncAlert(
         message: String,
         AlertTitle: String,
         buttonClickTitle: String,
@@ -70,7 +70,7 @@ extension UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    func showSnycAlert2(
+    func showSyncAlert2(
         message: String,
         AlertTitle: String,
         leftButtonTitle: String,

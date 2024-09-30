@@ -16,7 +16,8 @@ class MypageVC: UIViewController {
     
     private let mypageView = MypageView()
     private let mypageViewCell = MypageViewCell()
-    
+    private var userData = UserData()
+    private var user = Auth.auth().currentUser
     var isLoggedIn: Bool = false
     
     // section headers
@@ -52,8 +53,9 @@ class MypageVC: UIViewController {
         
     }
     
-    
-    //MARK: - 로그인 상태 체크
+    //MARK: - Methods
+    //MARK: - func 로그인 관련 메서드
+    // 로그인 상태 체크
     private func checkLoginStatus() {
         if let user  = Auth.auth().currentUser {
             // 로그인 상태라면
@@ -72,8 +74,6 @@ class MypageVC: UIViewController {
         }
     }
     
-    
-    //MARK: - func 로그인 관련 메서드
     // 비회원 접속 시 화면
     private func showLoginButton() {
         let label = UILabel()
@@ -185,7 +185,7 @@ class MypageVC: UIViewController {
             }
         }
     }
-    //MARK: - func
+    
     // 개인정보 처리방침 노션 url 연결
     private func privacyPolicyUrl () {
         guard let url = URL(string: "https://valley-porch-b6d.notion.site/ce887a60fc15484f82f92194a3a44d2d") else {return}
@@ -197,11 +197,11 @@ class MypageVC: UIViewController {
     //MARK: - @objc 로그아웃
     @objc func logOutCellTapped() {
         do {
-            if Auth.auth().currentUser?.uid != nil {
+            if user != nil {
                 try FirebaseAuth.Auth.auth().signOut()
                 print("로그아웃하고 페이지 전환")
                 
-                showSnycAlert(message: "로그아웃되었습니다.", AlertTitle: "로그아웃", buttonClickTitle: "확인", method: switchToLoginVC)
+                showSyncAlert(message: "로그아웃되었습니다.", AlertTitle: "로그아웃", buttonClickTitle: "확인", method: switchToLoginVC)
             } else {
                 switchToLoginVC()
             }
@@ -217,12 +217,44 @@ class MypageVC: UIViewController {
         FirebaseAuthManager.shared.deleteUser(email: email, password: password) { success, error in
             if success {
                 print("회원탈퇴 완료")
-                self.showSnycAlert(message: "회원탈퇴되었습니다.", AlertTitle: "회원탈퇴 성공", buttonClickTitle: "확인", method: self.switchToLoginVC)
+                self.showSyncAlert(message: "회원탈퇴되었습니다.", AlertTitle: "회원탈퇴 성공", buttonClickTitle: "확인", method: self.switchToLoginVC)
             } else if let error = error {
                 print("회원탈퇴 실패: \(error.localizedDescription)")
                 self.showAlert(message: "\(error)", AlertTitle: "오류 발생", buttonClickTitle: "확인 ")
             }
         }
+    }
+    
+    // 알림 토글 스위치 설정
+    @objc func toggleSwitchChanged(_ sender: UISwitch) {
+        let isEnabled = sender.isOn
+        
+        if isEnabled {
+            // 알림 활성화
+//            NotificationManager.shared.test()
+            NotificationManager.shared.firstDayOfMonthNotification()
+            NotificationManager.shared.lastDayOfMonthNotification()
+            print("알림이 활성화되었습니다.\(isEnabled)")
+        } else {
+            // 알림 비활성화
+            NotificationManager.shared.cancelAllNotifications()
+            print("알림이 비활성화되었습니다.\(isEnabled)")
+        }
+        
+        if user != nil {
+            userData.notificationsEnabled = isEnabled
+            guard let uid = user?.uid else {return}
+            
+            FirebaseFirestoreManager.shared.updateUserField(uid: uid, field: "notificationsEnabled", value: isEnabled) { updateResult in
+                switch updateResult {
+                case .success:
+                    print("사용자 정보 저장 성공")
+                case .failure(let error):
+                    print("사용자 정보 저장 실패: \(error.localizedDescription)")
+                }
+            }
+        }
+        
     }
 }
 
@@ -232,9 +264,8 @@ class MypageVC: UIViewController {
 extension MypageVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("섹션 \(indexPath.section), 행 \(indexPath.row) 선택됨===========")
         
-        if Auth.auth().currentUser == nil {
+        if user == nil {
             tableView.deselectRow(at: indexPath, animated: true)
             return
         } else {
@@ -353,14 +384,28 @@ extension MypageVC: UITableViewDataSource {
         // "알림 설정" 셀에만 UISwitch 추가
         if indexPath.section == 1 && indexPath.row == 0 {
             let toggleSwitch = UISwitch()
-            toggleSwitch.isOn = true
+            toggleSwitch.addTarget(self, action: #selector(toggleSwitchChanged(_:)), for: .valueChanged)
+            
+            FirebaseFirestoreManager.shared.fetchUserField(uid: user?.uid ?? "", field: "notificationsEnabled") { result in
+                switch result {
+                case .success(let value):
+                    if let notificationsEnabled = value as? Bool {
+                        DispatchQueue.main.async {
+                            toggleSwitch.isOn = notificationsEnabled
+                        }
+                    }
+                case .failure(let error):
+                    print("에러 발생: \(error.localizedDescription)")
+                }
+            }
+            
             cell.accessoryView = toggleSwitch
         }
         
         // "앱 버전" 셀에만 텍스트 추가
         if indexPath.section == 3 && indexPath.row == 0 {
             let label = UILabel()
-            label.text = "1.3.2"
+            label.text = "1.3.3"
             label.textColor = .lightGray
             label.sizeToFit()
             cell.accessoryView = label

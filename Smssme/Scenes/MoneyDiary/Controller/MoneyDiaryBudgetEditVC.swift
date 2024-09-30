@@ -226,7 +226,7 @@ class MoneyDiaryBudgetEditVC: UIViewController {
 
         budgetCoreDataManager.saveBudget(budgetList: budgetItems)
         
-        showSnycAlert(message: "저장이 완료 되었습니다.", AlertTitle: "저장 성공", buttonClickTitle: "확인") { [weak self] in
+        showSyncAlert(message: "저장이 완료 되었습니다.", AlertTitle: "저장 성공", buttonClickTitle: "확인") { [weak self] in
             guard let self = self else { return }
             self.navigationController?.popViewController(animated: true)
         }

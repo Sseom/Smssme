@@ -49,7 +49,7 @@ class ResetPasswordVC: UIViewController {
             
             FirebaseAuthManager.shared.checkEmail(email: email) { exists in
                 if exists {
-                    self.showSnycAlert(message: "가입된 이메일 계정입니다.", AlertTitle: "사용자 계정 인증 완료", buttonClickTitle: "확인") {
+                    self.showSyncAlert(message: "가입된 이메일 계정입니다.", AlertTitle: "사용자 계정 인증 완료", buttonClickTitle: "확인") {
                         self.resetPasswordView.sendResetPasswordButton.isEnabled = true
                         self.resetPasswordView.sendResetPasswordButton.backgroundColor = .systemBlue
                     }
@@ -82,7 +82,7 @@ class ResetPasswordVC: UIViewController {
             if let error = error {
                 self.showAlert(message: "비밀번호 재설정 메일 발송에 실패했습니다.", AlertTitle: "오류", buttonClickTitle: "확인")
             } else {
-                self.showSnycAlert(message: "비밀번호 재설정 메일이 발송되었습니다.\n메일을 확인해주세요.", AlertTitle: "메일 발송 완료", buttonClickTitle: "확인") {
+                self.showSyncAlert(message: "비밀번호 재설정 메일이 발송되었습니다.\n메일을 확인해주세요.", AlertTitle: "메일 발송 완료", buttonClickTitle: "확인") {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
                         self.navigationController?.popViewController(animated: true)
                     }
@@ -102,7 +102,7 @@ extension ResetPasswordVC: UITextViewDelegate {
 //                        let emailVC = EmailVC()
 //                        emailVC.navigationItem.title = "이메일 재설정"
 //                        navigationController?.pushViewController(emailVC, animated: true)
-            showSnycAlert(message: "준비 중인 페이지입니다.\n새로 회원가입해주세요.", AlertTitle: "알림", buttonClickTitle: "확인") {
+            showSyncAlert(message: "준비 중인 페이지입니다.\n새로 회원가입해주세요.", AlertTitle: "알림", buttonClickTitle: "확인") {
                 self.navigationController?.popViewController(animated: true)
             }
             return false

@@ -27,6 +27,7 @@ final class LoginView: UIView {
         textField.layer.cornerRadius = 5
         textField.keyboardType = UIKeyboardType.emailAddress
         textField.clearButtonMode = .always
+        textField.autocapitalizationType = .none
         return textField
     }()
     

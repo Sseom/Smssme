@@ -31,7 +31,7 @@ class ReauthenticationVC: UIViewController {
         FirebaseAuthManager.shared.deleteUser(email: email,password: password) { success, error in
             if success {
                 print("회원탈퇴 완료")
-                self.showSnycAlert(message: "회원탈퇴에 성공했습니다.", AlertTitle: "성공", buttonClickTitle: "확인") {
+                self.showSyncAlert(message: "회원탈퇴에 성공했습니다.", AlertTitle: "성공", buttonClickTitle: "확인") {
                     let loginVC = LoginVC()
                     self.navigationController?.pushViewController(loginVC, animated: true)
                 }
