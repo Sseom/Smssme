@@ -8,7 +8,6 @@
 import UIKit
 import FirebaseAuth
 
-
 class SplashViewController: UIViewController {
     var authHandle: AuthStateDidChangeListenerHandle?
     

@@ -19,8 +19,6 @@ final class FinancialPlanConfirmView: UIView {
         image.contentMode = .scaleAspectFit
         image.backgroundColor = .clear
         image.image = UIImage(named: "myPlanConfirm")
-//        image.layer.borderColor = UIColor.black.cgColor
-//        image.layer.borderWidth = 1
         return image
     }()
     
@@ -30,8 +28,6 @@ final class FinancialPlanConfirmView: UIView {
         stackView.distribution = .fillEqually
         stackView.alignment = .center
         stackView.backgroundColor = .white
-//        stackView.layer.borderColor = UIColor.black.cgColor
-//        stackView.layer.borderWidth = 1
         stackView.layer.cornerRadius = 20
         return stackView
     }()
@@ -41,21 +37,43 @@ final class FinancialPlanConfirmView: UIView {
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.alignment = .center
-//        stackView.layer.borderColor = UIColor.black.cgColor
-//        stackView.layer.borderWidth = 1
         return stackView
     }()
     
-    let amountGoalTitleLabel = ContentLabel().createLabel(with: "목표금액", color: UIColor(hex: "#060b11"))
-    let amountGoalLabel = ContentBoldLabel().createLabel(with: "", color: UIColor(hex: "#333333"))
-    let currentSavedTitleLabel = ContentLabel().createLabel(with: "지금까지 모은 금액", color: UIColor(hex: "#060b11"))
-    let currentSavedLabel = ContentBoldLabel().createLabel(with: "", color: UIColor(hex: "#333333"))
-    let endDateTitleLabel = ContentLabel().createLabel(with: "목표날짜", color: UIColor(hex: "#060b11"))
-    let endDateLabel = ContentBoldLabel().createLabel(with: "", color: UIColor(hex: "#333333"))
-    let daysLeftTitleLabel = ContentLabel().createLabel(with: "남은날짜", color: UIColor(hex: "#060b11"))
-    let daysLeftLabel = ContentBoldLabel().createLabel(with: "", color: UIColor(hex: "#333333"))
-    let monthlyGoalsTitleLabel = ContentLabel().createLabel(with: "이번달 저축할 금액", color: UIColor(hex: "#060b11"))
-    let monthlyGoalsLabel = ContentBoldLabel().createLabel(with: "", color: UIColor(hex: "#333333"))
+    let amountGoalTitleLabel = LabelFactory.bodyLabel()
+        .setText("목표금액")
+        .build()
+    
+    let amountGoalLabel = LabelFactory.bodyLabel()
+        .build()
+    
+    let currentSavedTitleLabel = LabelFactory.bodyLabel()
+        .setText("지금까지 모은 금액")
+        .build()
+    
+    let currentSavedLabel = LabelFactory.bodyLabel()
+        .build()
+    
+    let endDateTitleLabel = LabelFactory.bodyLabel()
+        .setText("목표날짜")
+        .build()
+    
+    let endDateLabel = LabelFactory.bodyLabel()
+        .build()
+    
+    let daysLeftTitleLabel = LabelFactory.bodyLabel()
+        .setText("남은날짜")
+        .build()
+    
+    let daysLeftLabel = LabelFactory.bodyLabel()
+        .build()
+    
+    let monthlyGoalsTitleLabel = LabelFactory.bodyLabel()
+        .setText("이번달 저축할 금액")
+        .build()
+    
+    let monthlyGoalsLabel = LabelFactory.bodyLabel()
+        .build()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -72,9 +90,7 @@ final class FinancialPlanConfirmView: UIView {
             confirmImage,
             contentStackView,
             buttonArea,
-        ].forEach {
-            addSubview($0)
-        }
+        ].forEach { addSubview($0) }
         
         confirmLargeTitle.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide.snp.top).offset(10)
@@ -106,8 +122,9 @@ final class FinancialPlanConfirmView: UIView {
         setupDataLabel()
         
         // 플랜의 완료 가능상태에 따라서 버튼 뷰를 달리함
-        [incompleteButtonView, completeButtonView].forEach {
-            buttonArea.addArrangedSubview($0)
+        [incompleteButtonView, 
+         completeButtonView
+        ].forEach { buttonArea.addArrangedSubview($0)
             // 버튼 뷰 높이 buttonArea에 맞추게
             $0.snp.makeConstraints {
                 $0.height.equalTo(40)

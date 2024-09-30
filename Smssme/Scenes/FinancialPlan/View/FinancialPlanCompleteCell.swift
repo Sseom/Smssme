@@ -30,7 +30,6 @@ class FinancialPlanCompleteCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
-        FinancialPlanCell().cellBackgroundColor(UIColor.white)
     }
     
     required init?(coder: NSCoder) {

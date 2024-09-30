@@ -129,19 +129,23 @@ class FinancialPlanService {
         manager.deleteFinancialPlan(plan)
     }
     //MARK: - 완료플랜 지우기
-//    func deleteAllCompletedPlans() throws {
-//        let completedPlans = fetchCompletedFinancialPlans()
-//        
-//        for plan in completedPlans {
-//            guard let corePlan = manager.fetchFinancialPlan(withId: plan.id) else {
-//                throw NSError(domain: "FinancialPlanService", code: 404, userInfo: [NSLocalizedDescriptionKey: "완료된 플랜을 찾을 수 없음: \(plan.id)"])
-//            }
-//            manager.deleteFinancialPlan(corePlan)
-//        }
-//        
-//        manager.saveContext()
-//        print("Successfully deleted \(completedPlans.count) completed plans.")
-//    }
+    func deleteIncompleteItems() {
+        do {
+            // 1. Fetch Request 생성
+            let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "FinancialPlan")
+            fetchRequest.predicate = NSPredicate(format: "isCompleted == %@", NSNumber(value: true))
+            
+            // 2. 일괄 삭제 요청 생성
+            let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+            
+            // 3. 일괄 삭제 실행
+            try manager.executeDeleteRequest(batchDeleteRequest)
+            
+            print("Incomplete items deleted successfully")
+        } catch {
+            print("Failed to delete incomplete items: \(error)")
+        }
+    }
     
     // MARK: - 비즈니스로직
     func calculateTotalAmount() -> Int64 {
