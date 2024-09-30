@@ -25,16 +25,14 @@ class AutomaticTransactionVC: UIViewController {
         ].forEach { view.addSubview($0) }
         //사용방법 버튼 구성?
         self.automaticView.snp.makeConstraints {
-            $0.edges.equalTo(view.safeAreaLayoutGuide)
+            $0.edges.equalToSuperview()
         }
         
         automaticView.submitButton.addTarget(self, action: #selector(saveData), for: .touchUpInside)
-        automaticView.howToUseButton.addTarget(self, action: #selector(showHowToUseView), for: .touchUpInside)
+       
     }
     
-    @objc func showHowToUseView() {
-        
-    }
+
 
     @objc func saveData() {
         if let text = automaticView.inputTextView.text {
@@ -42,7 +40,9 @@ class AutomaticTransactionVC: UIViewController {
                 self.transactionItem = extractPaymentDetails(from: text)
             
             let alertController = UIAlertController(title: "", message: "", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "확인", style: .default)
+            let okAction = UIAlertAction(title: "확인", style: .default) { _ in
+                self.dismiss(animated: true)
+            }
             alertController.addAction(okAction)
             if transactionItem.Amount == 0 {
                 alertController.title = "저장 실패"
@@ -60,8 +60,11 @@ class AutomaticTransactionVC: UIViewController {
             
             present(alertController, animated: true, completion: nil)
             
+            
+            
+            
         }
-        self.navigationController?.popViewController(animated: false)
+        
         
     }
     
