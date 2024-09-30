@@ -28,7 +28,7 @@ class ReauthenticationVC: UIViewController {
         guard let email = reauthenticationView.emailTextField.text, !email.isEmpty,
               let password = reauthenticationView.passwordTextField.text, !password.isEmpty else { return }
         
-        FirebaseManager.shared.deleteUser(email: email,password: password) { success, error in
+        FirebaseAuthManager.shared.deleteUser(email: email,password: password) { success, error in
             if success {
                 print("회원탈퇴 완료")
                 self.showSnycAlert(message: "회원탈퇴에 성공했습니다.", AlertTitle: "성공", buttonClickTitle: "확인") {

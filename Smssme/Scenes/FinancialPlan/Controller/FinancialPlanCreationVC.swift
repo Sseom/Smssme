@@ -7,6 +7,7 @@
 
 import CoreData
 import UIKit
+import SafariServices
 
 protocol FinancialPlanCreationDelegate: AnyObject {
     func didCreateFinancialPlan(_ plan: FinancialPlanDTO)
@@ -15,7 +16,7 @@ protocol FinancialPlanCreationDelegate: AnyObject {
 class FinancialPlanCreationVC: UIViewController, UITextFieldDelegate {
     weak var creationDelegate: FinancialPlanCreationDelegate?
     private var creationView = FinancialPlanCreationView(textFieldArea: CreatePlanTextFieldView())
-
+    
     private var planService: FinancialPlanService
     
     private var selectedPlanTitle: String?
@@ -70,6 +71,9 @@ class FinancialPlanCreationVC: UIViewController, UITextFieldDelegate {
 extension FinancialPlanCreationVC {
     private func setupActions() {
         creationView.confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
+        creationView.textFieldArea.infoButton.addAction(UIAction(handler: { [weak self] _ in
+            self?.infoButtonTapped()
+        }), for: .touchUpInside)
     }
     
     @objc func confirmButtonTapped() {
@@ -94,7 +98,35 @@ extension FinancialPlanCreationVC {
         func validateInputs() -> Bool {
             return validateAmount() && validateEndDate()
         }
-    }}
+    }
+    
+    private func infoButtonTapped() {
+        let alert = UIAlertController(title: "정보 보기", message: "자세한 정보를 확인하시겠습니까?", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "확인", style: .default) { [weak self] _ in
+            self?.infoPage()
+        })
+        
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func infoPage() {
+        guard let selectedPlanType = selectedPlanType else {
+            showAlert(message: "선택된 플랜 타입이 없습니다.")
+            return
+        }
+        
+        guard let url = URL(string: selectedPlanType.infoLink) else {
+            showAlert(message: "유효하지 않은 URL입니다.")
+            return
+        }
+        
+        let safariVC = SFSafariViewController(url: url)
+        present(safariVC, animated: true, completion: nil)
+    }
+}
 
 extension FinancialPlanCreationVC {
     private func setupInitialDate() {
@@ -132,7 +164,7 @@ extension FinancialPlanCreationVC {
     func buttonTapSaveData() -> FinancialPlanDTO? {
         guard let planTitle = creationView.titleTextField.text,
               
-            let amountText = creationView.textFieldArea.targetAmountField.text,
+                let amountText = creationView.textFieldArea.targetAmountField.text,
               let amount = KoreanCurrencyFormatter.shared.number(from: amountText),
               let depositText = creationView.textFieldArea.currentSavedField.text,
               let deposit = KoreanCurrencyFormatter.shared.number(from: depositText),

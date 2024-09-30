@@ -69,7 +69,7 @@ class FinancialPlanConfirmVC: UIViewController, FinancialPlanEditDelegate {
         confirmView.currentSavedLabel.text = "\(plan.deposit.formattedAsCurrency)원"
         
         confirmView.monthlyGoalsLabel.text =
-        "\(BudgetService().calculateSavings(plan: plan, startDate: plan.startDate, endDate: plan.endDate, amount: plan.amount).formattedAsCurrency)원"
+        "\(planService.calculateSavings(plan: plan, startDate: plan.startDate, endDate: plan.endDate, amount: plan.amount).formattedAsCurrency)원"
         
         confirmView.endDateLabel.text = PlanDateModel.dateFormatter.string(from: plan.endDate)
         let calendar = Calendar.current

@@ -36,6 +36,12 @@ class NetworkManager {
                 return
             }
             
+            if let httpResponse = response as? HTTPURLResponse, !(200...299).contains(httpResponse.statusCode) {
+                print("서버 오류 상태 코드: \(httpResponse.statusCode)")
+                completion(.failure(NetworkError.serverError(httpResponse.statusCode)))
+                return
+            }
+            
             guard let data = data else {
                 print("data fetch 실패")
                 completion(.failure(NetworkError.dataFetchFail))

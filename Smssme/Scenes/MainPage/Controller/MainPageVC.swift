@@ -17,6 +17,7 @@ class MainPageVC: UIViewController {
     private let financialPlanManager = FinancialPlanManager.shared
     private let diaryCoreDataManager = DiaryCoreDataManager.shared
     var dataEntries: [PieChartDataEntry] = []
+    var userData = UserData()
     
     //경제 지표
     lazy var stockIndexDataArray: [StockIndexData] = []
@@ -36,10 +37,8 @@ class MainPageVC: UIViewController {
         view.backgroundColor = .white
         
         setupStockData()
-        
         setupWelcomeTitle()
         setupTableView()
-        
     }
     
     override func loadView() {
@@ -56,9 +55,10 @@ class MainPageVC: UIViewController {
         setupWelcomeTitle()
         setupCollectionView()
         setChart()
+        requestNotification()
     }
     
-    //MARK: - func
+    //MARK: - Methods
     private func setupCenterButtonEvent() {
         mainPageView.chartCenterButton.addTarget(self, action: #selector(editViewPush), for: .touchUpInside)
     }
@@ -86,7 +86,9 @@ class MainPageVC: UIViewController {
                 switch result {
                 case .success(let data):
                     if let nickname = data["nickname"] as? String {
-                        self.mainPageView.mainWelcomeTitleLabel.text = "환영합니다 \n\(nickname) 님"
+                        DispatchQueue.main.async {
+                            self.mainPageView.mainWelcomeTitleLabel.text = "환영합니다 \n\(nickname) 님"
+                        }
                     } else {
                         print("닉네임을 찾을 수 없습니다.")
                     }
@@ -96,6 +98,27 @@ class MainPageVC: UIViewController {
             }
         } else {
             print("로그인 정보가 없습니다.")
+        }
+    }
+    
+    // 알림 권한 요청
+    private func requestNotification() {
+        NotificationManager.shared.requestAuthorization { [weak self] granted in
+            DispatchQueue.main.async {
+                  if granted {
+                      // 알림 권한이 허용된 경우
+                      print("알림 권한이 허용되었습니다.")
+                      self?.userData.notification = true
+//                      NotificationManager.shared.test() //알림 작동 테스트 알림
+                      
+                      NotificationManager.shared.firstDayOfMonthNotification() //월초 알림
+                      NotificationManager.shared.lastDayOfMonthNotification() //월말 알림
+                  } else {
+                      // 알림 권한이 거부된 경우
+                      print("알림 권한이 거부되었습니다.")
+                      self?.userData.notification = false
+                  }
+              }
         }
     }
     
