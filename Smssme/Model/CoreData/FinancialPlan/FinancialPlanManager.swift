@@ -116,5 +116,9 @@ class FinancialPlanManager {
         saveContext()
     }
     
+    func executeDeleteRequest(_ request: NSBatchDeleteRequest) throws {
+        try context.execute(request)
+        saveContext()
+    }
 }
 

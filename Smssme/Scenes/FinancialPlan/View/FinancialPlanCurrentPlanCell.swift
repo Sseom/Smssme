@@ -13,8 +13,12 @@ class FinancialPlanCurrentPlanCell: UICollectionViewCell {
     static let ID = "FinancialPlanCurrentPlanCell"
     private let graphBarArea = ProgressBarView()
     
-    private let currentPlanTitleLabel = ContentLabel().createLabel(with: "플랜제목", color: UIColor(hex: "#060b11"))
-    private let completionRateLabel = ContentLabel().createLabel(with: "", color: UIColor.gray)
+    private let currentPlanTitleLabel = LabelFactory.bodyLabel()
+        .build()
+    
+    private let completionRateLabel = LabelFactory.bodyLabel()
+        .setColor(.disableGray)
+        .build()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,24 +30,26 @@ class FinancialPlanCurrentPlanCell: UICollectionViewCell {
     }
     
     private func setupUI() {
-        [currentPlanTitleLabel, completionRateLabel, graphBarArea].forEach {
-            contentView.addSubview($0)
-        }
+        [
+            currentPlanTitleLabel,
+            completionRateLabel,
+            graphBarArea
+        ].forEach { contentView.addSubview($0) }
         
         currentPlanTitleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.leading.equalToSuperview()
+            $0.top.equalToSuperview().offset(8)
+            $0.leading.equalToSuperview().offset(8)
         }
         
         completionRateLabel.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.trailing.equalToSuperview().offset(-10)
+            $0.top.equalToSuperview().offset(8)
+            $0.trailing.equalToSuperview().offset(-8)
         }
         
         graphBarArea.snp.makeConstraints {
             $0.top.equalTo(currentPlanTitleLabel.snp.bottom).offset(10)
-            $0.leading.equalToSuperview().offset(0)
-            $0.trailing.equalToSuperview().offset(-10)
+            $0.leading.equalToSuperview().offset(8)
+            $0.trailing.equalToSuperview().offset(-8)
             $0.height.equalTo(20)
         }
     }
@@ -69,7 +75,7 @@ class ProgressBarView: UIView {
     
     private let backgroundView: UIView = {
         let view = UIView()
-        view.backgroundColor = .lightGray
+        view.backgroundColor = UIColor(hex: "#D3D4DC")
         view.layer.cornerRadius = 10
         view.clipsToBounds = true
         return view
@@ -77,9 +83,18 @@ class ProgressBarView: UIView {
     
     private let progressView: UIView = {
         let view = UIView()
-        view.backgroundColor = .blue
+//        view.backgroundColor = .primaryBlue
         view.layer.cornerRadius = 10
         return view
+    }()
+    
+    private let gradientLayer: CAGradientLayer = {
+        let layer = CAGradientLayer()
+        layer.colors = [UIColor(hex: "#296bff").cgColor, UIColor(hex: "#ac39f5").cgColor]
+        layer.startPoint = CGPoint(x: 0, y: 0.5)
+        layer.endPoint = CGPoint(x: 1, y: 0.5)
+        layer.cornerRadius = 10
+        return layer
     }()
     
     override init(frame: CGRect) {
@@ -93,12 +108,13 @@ class ProgressBarView: UIView {
     }
     
     private func commonInit() {
-        [backgroundView, progressView].forEach {
-            addSubview($0)
+            [backgroundView, progressView].forEach {
+                addSubview($0)
+            }
+            progressView.layer.addSublayer(gradientLayer)
+            
+            setupConstraints()
         }
-        
-        setupConstraints()
-    }
     
     private func setupConstraints() {
         backgroundView.snp.makeConstraints {
@@ -110,6 +126,11 @@ class ProgressBarView: UIView {
             self.progressWidthConstraint = $0.width.equalTo(0).constraint
         }
     }
+    
+    override func layoutSubviews() {
+            super.layoutSubviews()
+            gradientLayer.frame = progressView.bounds
+        }
     
     func setProgress(_ progress: CGFloat) {
         DispatchQueue.main.async {

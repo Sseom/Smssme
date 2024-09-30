@@ -61,7 +61,7 @@ final class DailyTransactionCell: UICollectionViewCell, CellReusable {
             categoryImage.tintColor = .primaryBlue
         } else {
             amountLabel.textColor = .red
-            categoryImage.image = UIImage(systemName: "plus.circle")
+            categoryImage.image = UIImage(systemName: "minus.circle")
             categoryImage.tintColor = .systemRed
         }
         

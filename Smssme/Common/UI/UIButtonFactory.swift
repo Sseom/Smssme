@@ -17,8 +17,8 @@ import UIKit
 
 class ButtonBuilder {
     private var title: String = ""
-    private var titleColor: UIColor = .black
-    private var fillColor: UIColor = .black
+    private var titleColor: UIColor = .labelBlack
+    private var fillColor: UIColor = .labelBlack
     private var font: UIFont = .systemFont(ofSize: 16)
     private var align: NSTextAlignment = .center
     private var letterSpacing: CGFloat?

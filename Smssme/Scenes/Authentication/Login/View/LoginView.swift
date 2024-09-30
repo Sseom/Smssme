@@ -42,8 +42,6 @@ final class LoginView: UIView {
         textField.textContentType = .oneTimeCode
         return textField
     }()
-
-//    let loginButton = BaseButton().createButton(text: "로그인", color: UIColor.systemBlue, textColor: UIColor.white)
     
     let loginButton = ButtonFactory.clearButton()
         .setTitle("로그인")
@@ -71,6 +69,15 @@ final class LoginView: UIView {
         .setFillColor(.white)
         .setTitleColor(.primaryBlue)
         .build()
+    
+    private let textButtonArea: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .equalSpacing
+        stackView.spacing = 10
+        return stackView
+    }()
+    
     
     let resetPasswordButton = ButtonFactory.captionButton()
         .setTitle("비밀번호 재설정")
@@ -115,10 +122,14 @@ final class LoginView: UIView {
          loginButton,
 //         appleLoginButton,
          signupButton,
-         resetPasswordButton,
-         borderLine,
-         unLoginButton,
+         textButtonArea,
          ].forEach {self.addSubview($0)}
+        
+        [resetPasswordButton,
+         borderLine,
+         unLoginButton,].forEach {
+            textButtonArea.addArrangedSubview($0)
+        }
         
     }
     
@@ -158,19 +169,23 @@ final class LoginView: UIView {
             $0.height.equalTo(textFieldHeight)
         }
         
-        resetPasswordButton.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(64)
+        textButtonArea.snp.makeConstraints {
             $0.top.equalTo(signupButton.snp.bottom).offset(24)
+            $0.horizontalEdges.equalToSuperview().inset(64)
+            $0.centerX.equalToSuperview()
+        }
+        
+        resetPasswordButton.snp.makeConstraints {
+            $0.leading.equalToSuperview()
+            $0.centerY.equalToSuperview()
         }
         
         borderLine.snp.makeConstraints {
             $0.centerY.equalTo(resetPasswordButton.snp.centerY)
-            $0.leading.equalTo(resetPasswordButton.snp.trailing).offset(10)
         }
         
         unLoginButton.snp.makeConstraints {
-            $0.trailing.equalToSuperview().inset(66)
-            $0.top.equalTo(signupButton.snp.bottom).offset(24)
+            $0.centerY.equalToSuperview()
         }
     }
     

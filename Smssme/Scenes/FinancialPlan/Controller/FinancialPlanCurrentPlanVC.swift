@@ -87,6 +87,10 @@ extension FinancialPlanCurrentPlanVC: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FinancialPlanCurrentPlanCell.ID, for: indexPath) as? FinancialPlanCurrentPlanCell else {
             return UICollectionViewCell()
         }
+        cell.layer.borderColor = UIColor(.gray).cgColor
+        cell.layer.borderWidth = 0
+        cell.layer.cornerRadius = 10
+        
         
         let item = plans[indexPath.item]
         cell.configure(item: item, planService: planService)

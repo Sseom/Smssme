@@ -21,11 +21,12 @@ final class FinancialPlanSelectionVC: UIViewController {
         super.viewDidLoad()
         selectionView.collectionView.dataSource = self
         selectionView.collectionView.delegate = self
+        view.backgroundColor = UIColor(hex: "#e9f3fd")
+        tabBarController?.tabBar.backgroundColor = .white 
     }
     
     override func loadView() {
         view = selectionView
-        view.backgroundColor = UIColor(hex: "#e9f3fd")
     }
 }
 

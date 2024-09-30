@@ -98,7 +98,9 @@ class FinancialPlanCreationView: UIView {
 class CreatePlanTextFieldView: UIView {
     var onDatePickerValueChanged: (() -> Void)?
     
-    private let amountGoalLabel = ContentLabel().createLabel(with: "목표금액", color: UIColor(hex: "#333333"))
+    private let amountGoalLabel = LabelFactory.bodyLabel()
+        .setText("목표금액")
+        .build()
     
     lazy var infoButton = ButtonFactory.clearButton()
         .setTitle(" 평균 금액 가이드나 관련 정보를 드릴까요? ")
@@ -107,9 +109,17 @@ class CreatePlanTextFieldView: UIView {
         .setBorderColor(.clear)
         .build()
     
-    private let currentSavedLabel = ContentLabel().createLabel(with: "현재저축금액", color: UIColor(hex: "#333333"))
-    private let startDateLabel = ContentLabel().createLabel(with: "시작날짜", color: UIColor(hex: "#333333"))
-    private let endDateLabel = ContentLabel().createLabel(with: "종료날짜", color: UIColor(hex: "#333333"))
+    private let currentSavedLabel = LabelFactory.bodyLabel()
+        .setText("지금까지 모은 금액")
+        .build()
+    
+    private let startDateLabel = LabelFactory.bodyLabel()
+        .setText("시작날짜")
+        .build()
+    
+    private let endDateLabel = LabelFactory.bodyLabel()
+        .setText("종료날짜")
+        .build()
     
     lazy var targetAmountField = AmountTextField.createTextField(keyboard: .numberPad, currencyText: "원")
     lazy var currentSavedField = AmountTextField.createTextField(keyboard: .numberPad, currencyText: "원")
