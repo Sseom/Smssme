@@ -19,41 +19,44 @@ class MoneyDiaryView: UIView {
         return chartView
     }()
     
-    var dateButton = BaseButton().createButton(text: "날짜", color: .white, textColor: .black)
-    let previousButton = {
-        let button = UIButton()
-        button.tintColor = .white
-        button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
-        button.backgroundColor = .blue
-        button.layer.cornerRadius = 15
-        return button
-    }()
+    var dateButton = ButtonFactory.clearButton()
+        .setFont(.boldSystemFont(ofSize: 22))
+        .setBorderColor(.clear)
+        .build()
+//
+    let previousButton = ButtonFactory.circleButton(30)
+        .setSymbol("chevron.left", color: .labelBlack)
+        .build()
     
-    let nextButton = {
-        let button = UIButton()
-        button.tintColor = .white
-        button.setImage(UIImage(systemName: "chevron.right"), for: .normal)
-        button.backgroundColor = .blue
-        button.layer.cornerRadius = 15
-        return button
-    }()
+    let nextButton = ButtonFactory.circleButton(30)
+        .setSymbol("chevron.right", color: .labelBlack)
+        .build()
     
     let segmentController = {
         let segmentController = UISegmentedControl(items: ["캘린더", "소비내역 차트"])
         let attributes: [NSAttributedString.Key: Any] = [
             .foregroundColor: UIColor.white,
-            .font: UIFont.boldSystemFont(ofSize: 18)
+            .font: UIFont.systemFont(ofSize: 16)
         ]
         segmentController.setTitleTextAttributes(attributes, for: .normal)
         segmentController.selectedSegmentIndex = 0
-        segmentController.backgroundColor = .blue.withAlphaComponent(0.6)
-        segmentController.selectedSegmentTintColor = .blue
+        segmentController.backgroundColor = .primaryBlue.withAlphaComponent(0.6)
+        segmentController.selectedSegmentTintColor = .primaryBlue
+        segmentController.layer.borderColor = UIColor(.clear).cgColor
+        segmentController.layer.cornerRadius = 0
         return segmentController
     }()
     
-    var moveBudgetButton = BaseButton().createButton(text: "예산안", color: .blue.withAlphaComponent(0.9), textColor: .white)
+    var moveBudgetButton = ButtonFactory.fillButton()
+        .setTitle("예산안")
+        .setFillColor(.primaryBlue)
+
+        .build()
     
-    var todayButton = BaseButton().createButton(text: "오늘", color: .blue.withAlphaComponent(0.9), textColor: .white)
+    var todayButton = ButtonFactory.fillButton()
+        .setTitle("오늘")
+        .setFillColor(.primaryBlue)
+        .build()
     
     lazy var floatingButton: UIButton = {
         let button = UIButton()
@@ -90,10 +93,7 @@ class MoneyDiaryView: UIView {
         super.init(frame: frame)
         configureUI()
         configureWeekLabel()
-        dateButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 22)
         self.backgroundColor = .white
-        moveBudgetButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
-        todayButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
     }
     
     required init?(coder: NSCoder) {
@@ -164,22 +164,20 @@ class MoneyDiaryView: UIView {
         self.todayButton.snp.makeConstraints {
             $0.leading.equalTo(self.safeAreaLayoutGuide).offset(20)
             $0.centerY.equalTo(self.dateButton)
-            $0.height.equalTo(nextButton.snp.height).offset(5)
+            $0.height.equalTo(40)
             $0.width.equalTo(50)
         }
         
         self.moveBudgetButton.snp.makeConstraints {
-            
             $0.trailing.equalTo(self.safeAreaLayoutGuide).inset(20)
             $0.centerY.equalTo(self.dateButton)
-            $0.height.equalTo(nextButton.snp.height).offset(5)
-            $0.width.equalTo(65)
+            $0.height.equalTo(40)
+            $0.width.equalTo(60)
         }
         self.segmentController.snp.makeConstraints {
-            $0.centerX.equalTo(self)
             $0.top.equalTo(dateButton.snp.bottom).offset(25)
             $0.height.equalTo(30)
-            $0.leading.trailing.equalTo(self.safeAreaLayoutGuide).inset(10)
+            $0.leading.trailing.equalToSuperview()
         }
         
         self.calendarView.snp.makeConstraints {

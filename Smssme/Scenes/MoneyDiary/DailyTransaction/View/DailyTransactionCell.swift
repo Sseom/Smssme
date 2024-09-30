@@ -56,12 +56,12 @@ final class DailyTransactionCell: UICollectionViewCell, CellReusable {
         
         print(transaction.statement)
         if transaction.statement {
-            amountLabel.textColor = .blue
+            amountLabel.textColor = .primaryBlue
             categoryImage.image = UIImage(systemName: "plus.circle")
-            categoryImage.tintColor = .systemBlue
+            categoryImage.tintColor = .primaryBlue
         } else {
             amountLabel.textColor = .red
-            categoryImage.image = UIImage(systemName: "minus.circle")
+            categoryImage.image = UIImage(systemName: "plus.circle")
             categoryImage.tintColor = .systemRed
         }
         

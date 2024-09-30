@@ -44,7 +44,13 @@ final class LoginView: UIView {
         return textField
     }()
 
-    let loginButton = BaseButton().createButton(text: "로그인", color: UIColor.systemBlue, textColor: UIColor.white)
+//    let loginButton = BaseButton().createButton(text: "로그인", color: UIColor.systemBlue, textColor: UIColor.white)
+    
+    let loginButton = ButtonFactory.clearButton()
+        .setTitle("로그인")
+        .setBorderColor(.white)
+        .setTitleColor(.white)
+        .build()
     
     // 아이디, 비밀번호, 로그인 stackView
     private var loginStackView: UIStackView = {
@@ -61,11 +67,24 @@ final class LoginView: UIView {
         return button
     }()
     
-    let signupButton = BaseButton().createButton(text: "회원가입", color: #colorLiteral(red: 0.9121415615, green: 0.9536862969, blue: 1, alpha: 1), textColor: UIColor.systemBlue)
+    let signupButton = ButtonFactory.fillButton()
+        .setTitle("회원가입")
+        .setFillColor(.white)
+        .setTitleColor(.primaryBlue)
+        .build()
     
-    let resetPasswordButton = BaseButton().createButton(text: "비밀번호 재설정", color: .clear, textColor: .systemGray3)
+    let resetPasswordButton = ButtonFactory.captionButton()
+        .setTitle("비밀번호 재설정")
+        .build()
     
-    let unLoginButton = BaseButton().createButton(text: "로그인 없이 둘러보기", color: .clear, textColor: .systemGray5)
+    private let borderLine = LabelFactory.captionLabel()
+        .setText("│")
+        .setColor(.systemGray)
+        .build()
+    
+    let unLoginButton = ButtonFactory.captionButton()
+        .setTitle("로그인 없이 둘러보기")
+        .build()
     
     
     
@@ -97,16 +116,18 @@ final class LoginView: UIView {
          loginButton,
 //         appleLoginButton,
          signupButton,
+         resetPasswordButton,
+         borderLine,
          unLoginButton,
-         resetPasswordButton].forEach {self.addSubview($0)}
+         ].forEach {self.addSubview($0)}
         
     }
     
     private func setupLayout() {
         logoImageView.snp.makeConstraints {
-            $0.top.equalTo(safeAreaLayoutGuide.snp.top).offset(16)
-            $0.leading.equalToSuperview().offset(40)
-            $0.trailing.equalToSuperview().offset(-40)
+            $0.top.equalTo(safeAreaLayoutGuide.snp.top).offset(24)
+            $0.leading.equalToSuperview().offset(60)
+            $0.trailing.equalToSuperview().offset(-60)
             $0.height.equalTo(logoImageView.snp.width)
         }
         
@@ -139,16 +160,19 @@ final class LoginView: UIView {
         }
         
         resetPasswordButton.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(70)
+            $0.leading.equalToSuperview().inset(64)
             $0.top.equalTo(signupButton.snp.bottom).offset(24)
+        }
+        
+        borderLine.snp.makeConstraints {
+            $0.centerY.equalTo(resetPasswordButton.snp.centerY)
+            $0.leading.equalTo(resetPasswordButton.snp.trailing).offset(10)
         }
         
         unLoginButton.snp.makeConstraints {
-            $0.trailing.equalToSuperview().inset(70)
+            $0.trailing.equalToSuperview().inset(66)
             $0.top.equalTo(signupButton.snp.bottom).offset(24)
         }
-        
-
     }
     
     

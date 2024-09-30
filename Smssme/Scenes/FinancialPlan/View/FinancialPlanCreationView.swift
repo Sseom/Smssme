@@ -58,7 +58,7 @@ class FinancialPlanCreationView: UIView {
         }
         
         tooltipView.snp.makeConstraints {
-            $0.trailing.equalToSuperview().offset(-80)
+            $0.leading.equalTo(titleTextField.snp.trailing).offset(10)
             $0.centerY.equalTo(titleTextField)
         }
         
@@ -78,7 +78,7 @@ class FinancialPlanCreationView: UIView {
     }
     //  툴팁 동작
     @objc func hideTooltip() {
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: 0.1) {
             self.tooltipView.alpha = 0
         } completion: { _ in
             self.tooltipView.isHidden = true
@@ -99,6 +99,14 @@ class CreatePlanTextFieldView: UIView {
     var onDatePickerValueChanged: (() -> Void)?
     
     private let amountGoalLabel = ContentLabel().createLabel(with: "목표금액", color: UIColor(hex: "#333333"))
+    
+    lazy var infoButton = ButtonFactory.clearButton()
+        .setTitle(" 평균 금액 가이드나 관련 정보를 드릴까요? ")
+        .setFont(.boldSystemFont(ofSize: 12))
+        .setTitleColor(.primaryBlue)
+        .setBorderColor(.clear)
+        .build()
+    
     private let currentSavedLabel = ContentLabel().createLabel(with: "현재저축금액", color: UIColor(hex: "#333333"))
     private let startDateLabel = ContentLabel().createLabel(with: "시작날짜", color: UIColor(hex: "#333333"))
     private let endDateLabel = ContentLabel().createLabel(with: "종료날짜", color: UIColor(hex: "#333333"))
@@ -120,13 +128,20 @@ class CreatePlanTextFieldView: UIView {
     }
     
     private func setupUI() {
-        [amountGoalLabel, targetAmountField, currentSavedLabel, currentSavedField, startDateLabel, startDateField, endDateLabel, endDateField].forEach {
+        [amountGoalLabel, 
+         infoButton,
+         targetAmountField, currentSavedLabel, currentSavedField, startDateLabel, startDateField, endDateLabel, endDateField].forEach {
             addSubview($0)
         }
         
         amountGoalLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(40)
             $0.leading.equalToSuperview().offset(20)
+        }
+        
+        infoButton.snp.makeConstraints {
+            $0.centerY.equalTo(amountGoalLabel)
+            $0.leading.equalTo(amountGoalLabel.snp.trailing).offset(10)
         }
         
         targetAmountField.snp.makeConstraints {

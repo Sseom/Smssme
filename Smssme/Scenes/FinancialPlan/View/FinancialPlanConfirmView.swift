@@ -247,7 +247,7 @@ class ButtonIncomplete: UIView {
             $0.bottom.equalToSuperview()
             $0.width.equalTo(80)
             $0.height.equalTo(40)
-            $0.leading.equalToSuperview().offset(40)
+            $0.leading.equalToSuperview().offset(80)
             $0.centerY.equalToSuperview()
         }
         
@@ -255,7 +255,7 @@ class ButtonIncomplete: UIView {
             $0.bottom.equalToSuperview()
             $0.width.equalTo(80)
             $0.height.equalTo(40)
-            $0.trailing.equalToSuperview().offset(-40)
+            $0.trailing.equalToSuperview().offset(-80)
             $0.centerY.equalToSuperview()
         }
     }
