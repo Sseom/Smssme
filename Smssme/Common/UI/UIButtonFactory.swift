@@ -24,6 +24,7 @@ class ButtonBuilder {
     private var letterSpacing: CGFloat?
     private var borderColor: UIColor = .clear
     private var borderWidth: CGFloat = 0
+    private var radius: CGFloat = 20
 
     func setBorderColor(_ borderColor: UIColor) -> ButtonBuilder {
         self.borderColor = borderColor
@@ -65,6 +66,11 @@ class ButtonBuilder {
         return self
     }
     
+    func setRadius(_ radius: CGFloat) -> ButtonBuilder {
+        self.radius = radius
+        return self
+    }
+    
     func build() -> UIButton {
         let button = UIButton()
         button.setTitle(title, for: .normal)
@@ -73,7 +79,7 @@ class ButtonBuilder {
         button.titleLabel?.font = font
         button.layer.borderColor = borderColor.cgColor
         button.layer.borderWidth = borderWidth
-        button.layer.cornerRadius = 20
+        button.layer.cornerRadius = radius
         button.clipsToBounds = true
         
         return button
@@ -108,10 +114,12 @@ class ButtonFactory {
             .setTitleColor(.white)
     }
     
-    static func infoButton() -> ButtonBuilder {
+    static func captionButton() -> ButtonBuilder {
         return ButtonBuilder()
-            .setFont(.boldSystemFont(ofSize: 12))
             .setLetterSpacing(ButtonBuilder.captionSize)
+            .setTitleColor(.white)
+            .setFillColor(.clear)
+            .setRadius(0)
     }
 }
 
