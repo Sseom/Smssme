@@ -172,8 +172,6 @@ final class LoginView: UIView {
             $0.trailing.equalToSuperview().inset(66)
             $0.top.equalTo(signupButton.snp.bottom).offset(24)
         }
-        
-
     }
     
     

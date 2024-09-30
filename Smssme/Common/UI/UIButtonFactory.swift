@@ -25,6 +25,21 @@ class ButtonBuilder {
     private var borderColor: UIColor = .clear
     private var borderWidth: CGFloat = 0
     private var radius: CGFloat = 20
+    private var size: CGFloat?
+    private var symbolName: String?
+    private var symbolColor: UIColor?
+    
+
+    func setSize(_ size: CGFloat) -> ButtonBuilder {
+        self.size = size
+        return self
+    }
+    
+    func setSymbol(_ name: String, color: UIColor? = nil) -> ButtonBuilder {
+        self.symbolName = name
+        self.symbolColor = color
+        return self
+    }
 
     func setBorderColor(_ borderColor: UIColor) -> ButtonBuilder {
         self.borderColor = borderColor
@@ -82,6 +97,23 @@ class ButtonBuilder {
         button.layer.cornerRadius = radius
         button.clipsToBounds = true
         
+        if let size = size {
+            button.widthAnchor.constraint(equalToConstant: size).isActive = true
+            button.heightAnchor.constraint(equalToConstant: size).isActive = true
+            button.layer.cornerRadius = size / 2
+        }
+        
+        if let symbolName = symbolName {
+            let symbolConfiguration = UIImage.SymbolConfiguration(scale: .large)
+            var symbolImage = UIImage(systemName: symbolName, withConfiguration: symbolConfiguration)
+            
+            if let symbolColor = symbolColor {
+                symbolImage = symbolImage?.withTintColor(symbolColor, renderingMode: .alwaysOriginal)
+            }
+            
+            button.setImage(symbolImage, for: .normal)
+        }
+        
         return button
     }
 }
@@ -104,6 +136,8 @@ class ButtonFactory {
             .setFillColor(.clear)
             .setBorderColor(.labelBlack)
             .setTitleColor(.labelBlack)
+            .setFont(.systemFont(ofSize: ButtonBuilder.bodySize))
+            .setLetterSpacing(ButtonBuilder.bodySpacing)
             .setBorderWidth(1)
     }
     
@@ -120,6 +154,14 @@ class ButtonFactory {
             .setTitleColor(.white)
             .setFillColor(.clear)
             .setRadius(0)
+    }
+    
+    static func circleButton(_ size: CGFloat) -> ButtonBuilder {
+        return ButtonBuilder()
+            .setSize(size)
+            .setRadius(size / 2)
+            .setTitleColor(.white)
+            .setFillColor(.clear)
     }
 }
 

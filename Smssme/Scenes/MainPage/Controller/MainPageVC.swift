@@ -109,7 +109,7 @@ class MainPageVC: UIViewController {
                       // 알림 권한이 허용된 경우
                       print("알림 권한이 허용되었습니다.")
                       self?.userData.notification = true
-                      NotificationManager.shared.test() //알림 작동 테스트 알림
+//                      NotificationManager.shared.test() //알림 작동 테스트 알림
                       
                       NotificationManager.shared.firstDayOfMonthNotification() //월초 알림
                       NotificationManager.shared.lastDayOfMonthNotification() //월말 알림
