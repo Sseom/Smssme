@@ -54,9 +54,9 @@ final class LoginView: UIView {
         return stackView
     }()
     
-    let kakaoLoginButton: UIButton = {
+    let appleLoginButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "kakao_login.png"), for: .normal)
+        button.setImage(UIImage(named: "apple_login.png"), for: .normal)
         return button
     }()
     
@@ -94,7 +94,7 @@ final class LoginView: UIView {
         [logoImageView,
          loginStackView,
          loginButton,
-//         kakaoLoginButton,
+//         appleLoginButton,
          signupButton,
          unLoginButton,
          resetPasswordButton].forEach {self.addSubview($0)}
@@ -123,10 +123,10 @@ final class LoginView: UIView {
             $0.height.equalTo(textFieldHeight)
         }
         
-//        kakaoLoginButton.snp.makeConstraints {
+//        appleLoginButton.snp.makeConstraints {
 //            $0.centerX.equalToSuperview()
 //            $0.top.equalTo(loginButton.snp.bottom).offset(8)
-//            $0.horizontalEdges.equalToSuperview()
+//            $0.horizontalEdges.equalToSuperview().inset(30)
 //            $0.height.equalTo(textFieldHeight)
 //        }
         

@@ -16,8 +16,8 @@
 		5F18A2172C8DB35400BC70B7 /* NickNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F18A2162C8DB35400BC70B7 /* NickNameView.swift */; };
 		5F18A2192C8DB36B00BC70B7 /* IncomeAndLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F18A2182C8DB36B00BC70B7 /* IncomeAndLocationView.swift */; };
 		5F3EAE192C7E182400FF15E5 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3EAE182C7E182400FF15E5 /* LoginView.swift */; };
-		5F3EAE562C7EFAFA00FF15E5 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3EAE552C7EFAFA00FF15E5 /* SignUpView.swift */; };
-		5F3EAE5B2C7F36E500FF15E5 /* EditUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3EAE5A2C7F36E500FF15E5 /* EditUserInfo.swift */; };
+		5F3EAE562C7EFAFA00FF15E5 /* EditUserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3EAE552C7EFAFA00FF15E5 /* EditUserInfoView.swift */; };
+		5F3EAE5B2C7F36E500FF15E5 /* EditUserInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3EAE5A2C7F36E500FF15E5 /* EditUserInfoVC.swift */; };
 		5F413EFF2C805CC200004703 /* MypageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F413EFE2C805CC200004703 /* MypageView.swift */; };
 		5F413F012C805CED00004703 /* MypageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F413F002C805CED00004703 /* MypageVC.swift */; };
 		5FA88FEF2C80760E00549363 /* CommonAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA88FEE2C80760E00549363 /* CommonAlert.swift */; };
@@ -25,11 +25,12 @@
 		5FA88FFE2C8544DB00549363 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA88FFD2C8544DB00549363 /* SplashViewController.swift */; };
 		5FA890092C85B30800549363 /* FirebaseFirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA890082C85B30700549363 /* FirebaseFirestoreManager.swift */; };
 		5FA890102C87344000549363 /* MypageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA8900F2C87344000549363 /* MypageViewCell.swift */; };
+		5FD70A102CA99369009E38C0 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD70A0F2CA99369009E38C0 /* NotificationManager.swift */; };
 		5FE3DDD72CA3ACCB0015B14E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5FE3DDD62CA3ACCB0015B14E /* FirebaseAuth */; };
 		5FE3DDD92CA3ACCB0015B14E /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5FE3DDD82CA3ACCB0015B14E /* FirebaseFirestore */; };
 		5FE400692C8DE94F001D0FD1 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE400682C8DE94F001D0FD1 /* UITextField.swift */; };
 		5FE4006D2C917A92001D0FD1 /* UserProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE4006C2C917A92001D0FD1 /* UserProfileModel.swift */; };
-		5FE4006F2C917B4E001D0FD1 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE4006E2C917B4E001D0FD1 /* FirebaseManager.swift */; };
+		5FE4006F2C917B4E001D0FD1 /* FirebaseAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE4006E2C917B4E001D0FD1 /* FirebaseAuthManager.swift */; };
 		5FE400712C93CAD3001D0FD1 /* ToastMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE400702C93CAD3001D0FD1 /* ToastMessage.swift */; };
 		5FE400742C949E15001D0FD1 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE400732C949E15001D0FD1 /* NetworkManager.swift */; };
 		5FE400762C949E89001D0FD1 /* APIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE400752C949E89001D0FD1 /* APIModel.swift */; };
@@ -135,8 +136,8 @@
 		5F18A2162C8DB35400BC70B7 /* NickNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameView.swift; sourceTree = "<group>"; };
 		5F18A2182C8DB36B00BC70B7 /* IncomeAndLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeAndLocationView.swift; sourceTree = "<group>"; };
 		5F3EAE182C7E182400FF15E5 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		5F3EAE552C7EFAFA00FF15E5 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
-		5F3EAE5A2C7F36E500FF15E5 /* EditUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserInfo.swift; sourceTree = "<group>"; };
+		5F3EAE552C7EFAFA00FF15E5 /* EditUserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserInfoView.swift; sourceTree = "<group>"; };
+		5F3EAE5A2C7F36E500FF15E5 /* EditUserInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserInfoVC.swift; sourceTree = "<group>"; };
 		5F413EFE2C805CC200004703 /* MypageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageView.swift; sourceTree = "<group>"; };
 		5F413F002C805CED00004703 /* MypageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageVC.swift; sourceTree = "<group>"; };
 		5FA88FEE2C80760E00549363 /* CommonAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonAlert.swift; sourceTree = "<group>"; };
@@ -144,9 +145,10 @@
 		5FA88FFD2C8544DB00549363 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		5FA890082C85B30700549363 /* FirebaseFirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseFirestoreManager.swift; sourceTree = "<group>"; };
 		5FA8900F2C87344000549363 /* MypageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewCell.swift; sourceTree = "<group>"; };
+		5FD70A0F2CA99369009E38C0 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		5FE400682C8DE94F001D0FD1 /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
 		5FE4006C2C917A92001D0FD1 /* UserProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileModel.swift; sourceTree = "<group>"; };
-		5FE4006E2C917B4E001D0FD1 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		5FE4006E2C917B4E001D0FD1 /* FirebaseAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthManager.swift; sourceTree = "<group>"; };
 		5FE400702C93CAD3001D0FD1 /* ToastMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessage.swift; sourceTree = "<group>"; };
 		5FE400732C949E15001D0FD1 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		5FE400752C949E89001D0FD1 /* APIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIModel.swift; sourceTree = "<group>"; };
@@ -289,9 +291,17 @@
 			isa = PBXGroup;
 			children = (
 				5FA890082C85B30700549363 /* FirebaseFirestoreManager.swift */,
-				5FE4006E2C917B4E001D0FD1 /* FirebaseManager.swift */,
+				5FE4006E2C917B4E001D0FD1 /* FirebaseAuthManager.swift */,
 			);
 			path = Firebase;
+			sourceTree = "<group>";
+		};
+		5FD70A0E2CA99336009E38C0 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				5FD70A0F2CA99369009E38C0 /* NotificationManager.swift */,
+			);
+			path = Notification;
 			sourceTree = "<group>";
 		};
 		5FE400722C949DE9001D0FD1 /* Network */ = {
@@ -346,6 +356,7 @@
 				9FDD4F6C2CA6F01200CC9247 /* SecretsConfig.xcconfig */,
 				740350742C7740BE00122B2E /* Scenes */,
 				740350702C77408900122B2E /* Model */,
+				5FD70A0E2CA99336009E38C0 /* Notification */,
 				5FE400722C949DE9001D0FD1 /* Network */,
 				5FA890032C85B1F400549363 /* Firebase */,
 				740350B32C805FB900122B2E /* Common */,
@@ -417,7 +428,7 @@
 		7457E7B62CA1351200481C5F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				5F3EAE5A2C7F36E500FF15E5 /* EditUserInfo.swift */,
+				5F3EAE5A2C7F36E500FF15E5 /* EditUserInfoVC.swift */,
 				5F18A2052C8DAE8100BC70B7 /* EmailVC.swift */,
 				5F18A2122C8DB33500BC70B7 /* PasswordVC.swift */,
 				5F18A20A2C8DB26400BC70B7 /* NickNameVC.swift */,
@@ -429,7 +440,7 @@
 		7457E7B72CA1352100481C5F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				5F3EAE552C7EFAFA00FF15E5 /* SignUpView.swift */,
+				5F3EAE552C7EFAFA00FF15E5 /* EditUserInfoView.swift */,
 				5F18A2102C8DB31E00BC70B7 /* EmailView.swift */,
 				5F18A2142C8DB34800BC70B7 /* PasswordView.swift */,
 				5F18A2162C8DB35400BC70B7 /* NickNameView.swift */,
@@ -891,6 +902,7 @@
 				74707FB62C84C6C300F7000C /* AssetsEditView.swift in Sources */,
 				740350572C773E9B00122B2E /* AppDelegate.swift in Sources */,
 				5F18A2152C8DB34800BC70B7 /* PasswordView.swift in Sources */,
+				5FD70A102CA99369009E38C0 /* NotificationManager.swift in Sources */,
 				9F20E3712C9C0143003FF56E /* BenefitView.swift in Sources */,
 				744FB0962C93D81800208685 /* AssetsListView.swift in Sources */,
 				74707FAB2C81B85B00F7000C /* DiaryCoreDataManager.swift in Sources */,
@@ -927,7 +939,7 @@
 				746F80952C8842C800BBAEAF /* DailyTransactionVC.swift in Sources */,
 				5F413EFF2C805CC200004703 /* MypageView.swift in Sources */,
 				5F3EAE192C7E182400FF15E5 /* LoginView.swift in Sources */,
-				5F3EAE5B2C7F36E500FF15E5 /* EditUserInfo.swift in Sources */,
+				5F3EAE5B2C7F36E500FF15E5 /* EditUserInfoVC.swift in Sources */,
 				741746592C9B041A006D5456 /* ChartDataManager.swift in Sources */,
 				5FE400782C949EB8001D0FD1 /* Endpoint.swift in Sources */,
 				5FE400692C8DE94F001D0FD1 /* UITextField.swift in Sources */,
@@ -936,12 +948,12 @@
 				5F18A2112C8DB31E00BC70B7 /* EmailView.swift in Sources */,
 				7457E7CF2CA13A0A00481C5F /* FinancialPlanCurrentPlanView.swift in Sources */,
 				746F80922C8842B200BBAEAF /* MoneyDiaryBudgetEditVC.swift in Sources */,
-				5FE4006F2C917B4E001D0FD1 /* FirebaseManager.swift in Sources */,
+				5FE4006F2C917B4E001D0FD1 /* FirebaseAuthManager.swift in Sources */,
 				9FF702DB2C966B3F00890E77 /* RegexManager.swift in Sources */,
 				5FA88FFE2C8544DB00549363 /* SplashViewController.swift in Sources */,
 				5FE4006D2C917A92001D0FD1 /* UserProfileModel.swift in Sources */,
 				746F80842C8841F300BBAEAF /* MoneyDiaryView.swift in Sources */,
-				5F3EAE562C7EFAFA00FF15E5 /* SignUpView.swift in Sources */,
+				5F3EAE562C7EFAFA00FF15E5 /* EditUserInfoView.swift in Sources */,
 				5FE4009A2CA087A9001D0FD1 /* StockIndexCell.swift in Sources */,
 				7457E7C72CA139A000481C5F /* FinancialPlanSelectionVC.swift in Sources */,
 				5F413F012C805CED00004703 /* MypageVC.swift in Sources */,

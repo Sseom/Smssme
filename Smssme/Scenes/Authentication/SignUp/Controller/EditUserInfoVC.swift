@@ -10,10 +10,10 @@ import FirebaseAuth
 import FirebaseFirestore
 
 
-class EditUserInfo: UIViewController, KeyboardEvader {
+class EditUserInfoVC: UIViewController, KeyboardEvader {
     var userData = UserData()
     
-    private let signupView = SignUpView()
+    private let signupView = EditUserInfoView()
     private var selectedCheckBox: UIButton?  // 선택된 체크박스
     
     private let isLocationPickerView = true
@@ -72,38 +72,43 @@ class EditUserInfo: UIViewController, KeyboardEvader {
     
     //MARK: - @objc 회원 정보 수정 버튼 클릭
     @objc private func editButtonTapped() {
-        guard let email = signupView.emaiTextField.text, !email.isEmpty,
-              let password = signupView.passwordTextField.text, !password.isEmpty,
+        guard let email = signupView.emailTextField.text, !email.isEmpty,
+            let password = signupView.passwordTextField.text, !password.isEmpty,
               let nickname = signupView.nicknameTextField.text, !nickname.isEmpty,
               let birthday = signupView.birthdayTextField.text, !birthday.isEmpty,
               let gender = signupView.maleCheckBox.isSelected ? "male" : signupView.femaleCheckBox.isSelected ? "female" : signupView.noneCheckBox.isSelected ? "none" : nil , !gender.isEmpty,
               let income = signupView.incomeTextField.text, !income.isEmpty,
               let location = signupView.locationTextField.text, !location.isEmpty
-                
         else {
             showAlert(message: "모든 항목을 입력해주세요.", AlertTitle: "입력 오류", buttonClickTitle: "확인")
             return
         }
         
-        guard let user = Auth.auth().currentUser else { return }
-        userData.email = email
-        userData.password = password
-        userData.nickname = nickname
-        userData.birth = birthday
-        userData.income = income
-        userData.location = location
-        userData.gender = gender
-
-        FirebaseFirestoreManager.shared.updateUserData(uid: user.uid, data: userData) { updateResult in
-            switch updateResult {
-            case .success:
-                print("사용자 정보 저장 성공")
-            case .failure(let error):
-                print("사용자 정보 저장 실패: \(error.localizedDescription)")
+        if password != userData.password {
+            showAlert(message: "비밀번호가 일치하지 않습니다.", AlertTitle: "비밀번호 오류", buttonClickTitle: "확인")
+        } else {
+            guard let user = Auth.auth().currentUser else { return }
+            userData.email = email
+            userData.password = password
+            userData.nickname = nickname
+            userData.birth = birthday
+            userData.income = income
+            userData.location = location
+            userData.gender = gender
+            
+            FirebaseFirestoreManager.shared.updateUserData(uid: user.uid, data: userData) { updateResult in
+                switch updateResult {
+                case .success:
+                    print("사용자 정보 저장 성공")
+                case .failure(let error):
+                    print("사용자 정보 저장 실패: \(error.localizedDescription)")
+                }
             }
         }
-
-        navigationController?.popViewController(animated: true)
+        showSnycAlert(message: "내 정보 수정 완료!", AlertTitle: "성공", buttonClickTitle: "확인") {
+            self.navigationController?.popViewController(animated: true)
+        }
+       
     }
     
     //MARK: - 성별 체크박스
@@ -199,7 +204,7 @@ class EditUserInfo: UIViewController, KeyboardEvader {
 
 
 //MARK: - extension - PickerView
-extension EditUserInfo: UIPickerViewDelegate, UIPickerViewDataSource {
+extension EditUserInfoVC: UIPickerViewDelegate, UIPickerViewDataSource {
     private func configPickerView() {
         
         // 생년월일

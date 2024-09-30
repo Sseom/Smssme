@@ -93,7 +93,7 @@ class IncomeAndLocationVC: UIViewController {
         userData.location = incomeAndLocationView.locationTextField.text
         
         // 모든 정보가 입력되었으므로 Firebase에 저장
-        FirebaseManager.shared.registerUser(email: userData.email ?? "", password: userData.password ?? "") { result in
+        FirebaseAuthManager.shared.registerUser(email: userData.email ?? "", password: userData.password ?? "") { result in
             switch result {
             case .success(let uid):
                 FirebaseFirestoreManager.shared.saveUserData(uid: uid, userData: self.userData) { saveResult in
@@ -109,7 +109,7 @@ class IncomeAndLocationVC: UIViewController {
             }
         }
         
-        showSnycAlert(message: "회원가입이 완료되었습니다. \n감사합니다.", AlertTitle: "회원가입 성공", buttonClickTitle: "확인") {
+        showSnycAlert(message: "회원가입이 완료되었습니다. \n로그인해주세요.", AlertTitle: "회원가입 성공", buttonClickTitle: "확인") {
             SplashViewController().showLoginVC()
         }
         
