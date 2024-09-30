@@ -78,7 +78,7 @@ class SplashViewController: UIViewController {
     
     // 로그인 화면으로 전환
     func showLoginVC() {
-        let loginVC = MoneyDiaryVC(moneyDiaryView: MoneyDiaryView()) //⭐️⭐️⭐️⭐️⭐️푸시전 바꾸기 LoginVC()
+        let loginVC = LoginVC()
         let navController = UINavigationController(rootViewController: loginVC)
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let window = windowScene.windows.first else { return }
