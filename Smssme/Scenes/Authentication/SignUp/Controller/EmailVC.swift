@@ -65,7 +65,7 @@ class EmailVC: UIViewController {
         guard let newEmail = emailView.emailTextField.text,
         let password = emailView.passwordTextField.text else { return }
         
-        FirebaseManager.shared.updateEmail(newEmail: newEmail, password: password) { success, error in
+        FirebaseAuthManager.shared.updateEmail(newEmail: newEmail, password: password) { success, error in
             if success {
                 self.showSnycAlert(message: "이메일 변경에 성공했습니다.", AlertTitle: "성공", buttonClickTitle: "확인") {
                     self.navigationController?.popViewController(animated: true)
@@ -86,7 +86,7 @@ class EmailVC: UIViewController {
         
         // 이메일 형식이 유효할 때만 중복 검사
         if isValidEmail(email: email) {
-            FirebaseManager.shared.checkEmail(email: email) { exists in
+            FirebaseAuthManager.shared.checkEmail(email: email) { exists in
                 if exists {
                     self.updateOnNextButton(isValidFormat: true, isEmailDuplicate: true, message: "중복된 이메일입니다.", textColor: .systemRed)
                 } else {

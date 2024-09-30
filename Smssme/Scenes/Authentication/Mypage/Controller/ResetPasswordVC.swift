@@ -47,7 +47,7 @@ class ResetPasswordVC: UIViewController {
         
         if isValidEmail(email: email) {
             
-            FirebaseManager.shared.checkEmail(email: email) { exists in
+            FirebaseAuthManager.shared.checkEmail(email: email) { exists in
                 if exists {
                     self.showSnycAlert(message: "가입된 이메일 계정입니다.", AlertTitle: "사용자 계정 인증 완료", buttonClickTitle: "확인") {
                         self.resetPasswordView.sendResetPasswordButton.isEnabled = true
@@ -78,7 +78,7 @@ class ResetPasswordVC: UIViewController {
             return
         }
         
-        FirebaseManager.shared.sendPasswordResetEmail(email: email) { error in
+        FirebaseAuthManager.shared.sendPasswordResetEmail(email: email) { error in
             if let error = error {
                 self.showAlert(message: "비밀번호 재설정 메일 발송에 실패했습니다.", AlertTitle: "오류", buttonClickTitle: "확인")
             } else {

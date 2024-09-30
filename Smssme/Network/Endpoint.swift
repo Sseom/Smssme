@@ -11,6 +11,7 @@ enum NetworkError: Error {
     case invalidUrl
     case dataFetchFail
     case decodingFail
+    case serverError(Int) // 서버 에러, 상태 코드를 포함
 }
 
 enum HTTPMethodType: String {

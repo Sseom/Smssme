@@ -15,6 +15,7 @@ struct UserData {
     var gender: String?
     var income: String?
     var location: String?
+    var notification: Bool? //알림설정
     
     // Firebase에 저장할 데이터로 변환
     func toDictionary() -> [String: Any] {
@@ -25,7 +26,8 @@ struct UserData {
             "birth": birth ?? "",
             "gender": gender ?? "",
             "income": income ?? "",
-            "location": location ?? ""
+            "location": location ?? "",
+            "notification": notification ?? false
         ]
     }
 }
