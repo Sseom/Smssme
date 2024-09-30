@@ -53,7 +53,7 @@ class NotificationManager {
             case .success(let data):
                 if let isEnabled = data["notificationsEnabled"] as? Bool , isEnabled {
                     // 알림 설정이 활성화된 경우
-                    self?.test()
+//                    self?.test()
                     self?.firstDayOfMonthNotification()
                     self?.lastDayOfMonthNotification()
                 }
