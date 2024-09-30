@@ -32,7 +32,7 @@ final class MoneyDiaryVC: UIViewController {
         }
     }
     
-    
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     init(moneyDiaryView: MoneyDiaryView) {
         self.moneyDiaryView = moneyDiaryView
         super.init(nibName: nil, bundle: nil)
@@ -50,7 +50,6 @@ final class MoneyDiaryVC: UIViewController {
         self.setupUI()
         self.setupLayout()
         self.setupActions()
-        
         pencilButtonAction()
     }
     

@@ -8,11 +8,11 @@
 
 import UIKit
 import SnapKit
-
+//
 class AutomaticTransactionVC: UIViewController {
     private let automaticView = AutomaticTransactionView()
     
-    var transactionItem = TransactionItem()
+    var transactionItem = TransactionItem() // out
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,12 +57,9 @@ class AutomaticTransactionVC: UIViewController {
                 
                 alertController.message = "\(savedTimeString) 날짜에 저장되었습니다!"
             }
-            
+
             present(alertController, animated: true, completion: nil)
-            
-            
-            
-            
+
         }
         
         
@@ -157,6 +154,26 @@ extension String {
         
         // 기존 문자열을 배열로 변환하여 문자 교체
         self.replaceSubrange(stringIndex...stringIndex, with: String(newChar))
+    }
+    
+    
+    struct 입력 //Input
+    {//버튼누르기
+        //transaction viewmodel에서 처리
+        
+    }
+    struct 출력 // OUTPUT 
+    {
+        //alert을 보여준다 성/실 -> 공통된UI의 text다른차이뿐 -> 전달해서 alert으로 output을 보낸다.
+        //성공시 ->데이터저장 후. 얼럿 -> ㄴㅅㅁㅅㄷrk 퍄냐ㅠㅣㄷ ㅐㄱ ㅜㅐㅅ
+        /* 뷰 입력 -> 출력 입력에 의해서 뷰의 상태의 변경?  화면 보여줄게 알럿뿐
+         버튼누르기가 들어왓다 인풋들어옴 로직처리 -> 아웃이 나간다
+         텍스트필드에 택스트를 가져와야함 -> 그런후 로직처리
+         검증 처리
+         실패시 -> 알럿 // 실패스트링 // 얼럿을 아웃풋으로 vc에 던지고 vc에서 얼럿을띄워줌
+         성공시 -> 저장//코어데이터로 // 얼럿을 아웃풋으로 성공스트링과 던진다.
+         ......................
+         */
     }
 }
 
