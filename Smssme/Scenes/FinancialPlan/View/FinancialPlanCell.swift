@@ -11,8 +11,9 @@ import SnapKit
 class FinancialPlanCell: UICollectionViewCell {
     static let ID = "FinancialPlanCell"
     
-    private let titleLabel = LabelFactory.titleLabel()
+    private let titleLabel = LabelFactory.subTitleLabel()
         .build()
+    
     private let descriptionLabel = LabelFactory.bodyLabel()
         .setColor(.bodyGray)
         .build()
