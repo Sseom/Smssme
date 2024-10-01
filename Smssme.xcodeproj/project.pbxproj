@@ -102,8 +102,8 @@
 		9F86E6CF2C92AB7100619F7D /* AutomaticTransactionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F86E6CE2C92AB7100619F7D /* AutomaticTransactionVC.swift */; };
 		9FE549BF2C801E4D00E6075E /* FinancialPlanConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE549BE2C801E4D00E6075E /* FinancialPlanConfirmView.swift */; };
 		9FF702DB2C966B3F00890E77 /* RegexManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF702DA2C966B3F00890E77 /* RegexManager.swift */; };
-		CAFC17DE2CAC205F00A95356 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CAFC17DD2CAC205F00A95356 /* GoogleService-Info.plist */; };
-		CAFC17E02CAC206500A95356 /* SecretsConfig.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CAFC17DF2CAC206500A95356 /* SecretsConfig.xcconfig */; };
+		CA9C1B902CAC2F50001E17C8 /* SecretsConfig.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CA9C1B8E2CAC2F50001E17C8 /* SecretsConfig.xcconfig */; };
+		CA9C1B912CAC2F50001E17C8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CA9C1B8F2CAC2F50001E17C8 /* GoogleService-Info.plist */; };
 		E50498702CA5CB8D0014B8EF /* FinancialPlanCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E504986F2CA5CB8D0014B8EF /* FinancialPlanCompleteView.swift */; };
 		E517F2822C8782F200CB8680 /* FinancialPlanManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2812C8782F200CB8680 /* FinancialPlanManager.swift */; };
 		E517F3402C89A41900CB8680 /* MoneyDiaryCreationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F33F2C89A41900CB8680 /* MoneyDiaryCreationVC.swift */; };
@@ -222,8 +222,8 @@
 		9F86E6CE2C92AB7100619F7D /* AutomaticTransactionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomaticTransactionVC.swift; sourceTree = "<group>"; };
 		9FE549BE2C801E4D00E6075E /* FinancialPlanConfirmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanConfirmView.swift; sourceTree = "<group>"; };
 		9FF702DA2C966B3F00890E77 /* RegexManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexManager.swift; sourceTree = "<group>"; };
-		CAFC17DD2CAC205F00A95356 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../최종 프로젝트 - 금융비서 슴슴이/넣어야 하는 파일 두개 smsse 폴더 밑 scenes 폴더 위/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		CAFC17DF2CAC206500A95356 /* SecretsConfig.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = SecretsConfig.xcconfig; path = "../../최종 프로젝트 - 금융비서 슴슴이/넣어야 하는 파일 두개 smsse 폴더 밑 scenes 폴더 위/SecretsConfig.xcconfig"; sourceTree = "<group>"; };
+		CA9C1B8E2CAC2F50001E17C8 /* SecretsConfig.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = SecretsConfig.xcconfig; sourceTree = "<group>"; };
+		CA9C1B8F2CAC2F50001E17C8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E504986F2CA5CB8D0014B8EF /* FinancialPlanCompleteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanCompleteView.swift; sourceTree = "<group>"; };
 		E517F2812C8782F200CB8680 /* FinancialPlanManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanManager.swift; sourceTree = "<group>"; };
 		E517F33F2C89A41900CB8680 /* MoneyDiaryCreationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDiaryCreationVC.swift; sourceTree = "<group>"; };
@@ -351,9 +351,9 @@
 		740350552C773E9B00122B2E /* Smssme */ = {
 			isa = PBXGroup;
 			children = (
+				CA9C1B8F2CAC2F50001E17C8 /* GoogleService-Info.plist */,
+				CA9C1B8E2CAC2F50001E17C8 /* SecretsConfig.xcconfig */,
 				74707FC12C85D78D00F7000C /* Smssme.entitlements */,
-				CAFC17DD2CAC205F00A95356 /* GoogleService-Info.plist */,
-				CAFC17DF2CAC206500A95356 /* SecretsConfig.xcconfig */,
 				740350742C7740BE00122B2E /* Scenes */,
 				740350702C77408900122B2E /* Model */,
 				5FD70A0E2CA99336009E38C0 /* Notification */,
@@ -844,9 +844,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				740350632C773E9C00122B2E /* Assets.xcassets in Resources */,
-				CAFC17E02CAC206500A95356 /* SecretsConfig.xcconfig in Resources */,
-				CAFC17DE2CAC205F00A95356 /* GoogleService-Info.plist in Resources */,
+				CA9C1B912CAC2F50001E17C8 /* GoogleService-Info.plist in Resources */,
 				740350662C773E9C00122B2E /* Base in Resources */,
+				CA9C1B902CAC2F50001E17C8 /* SecretsConfig.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -987,7 +987,7 @@
 /* Begin XCBuildConfiguration section */
 		740350682C773E9C00122B2E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CAFC17DF2CAC206500A95356 /* SecretsConfig.xcconfig */;
+			baseConfigurationReference = CA9C1B8E2CAC2F50001E17C8 /* SecretsConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1051,7 +1051,7 @@
 		};
 		740350692C773E9C00122B2E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CAFC17DF2CAC206500A95356 /* SecretsConfig.xcconfig */;
+			baseConfigurationReference = CA9C1B8E2CAC2F50001E17C8 /* SecretsConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1114,7 +1114,7 @@
 				CODE_SIGN_ENTITLEMENTS = Smssme/Smssme.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5KCP3GK583;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Smssme/Info.plist;
@@ -1151,7 +1151,7 @@
 				CODE_SIGN_ENTITLEMENTS = Smssme/Smssme.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5KCP3GK583;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Smssme/Info.plist;
