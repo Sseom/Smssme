@@ -12,28 +12,18 @@ class StockIndexCell: UICollectionViewCell {
     static let reuseIdentifier = "StockIndexCell"
     
     // 주요 지수 명
-    let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = .boldSystemFont(ofSize: 16)
-        label.textColor =  UIColor(hex: "#5D6285")
-        return label
-    }()
+    let titleLabel = LabelFactory.subTitleLabel()
+        .setColor(.bodyGray)
+        .build()
     
     // 지수
-    let valueLabel: UILabel = {
-        let label = UILabel()
-        label.font = .boldSystemFont(ofSize: 18)
-        label.textColor =  UIColor(hex: "#060B11")
-        return label
-    }()
+    let valueLabel = LabelFactory.subTitleLabel()
+        .setFont(.boldSystemFont(ofSize: 18))
+        .build()
     
     // 전일 대비 등락(등락포인트와 등락률을 함께 표시)
-    let changeRateLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 14)
-        label.textColor =  .systemRed
-        return label
-    }()
+    let changeRateLabel = LabelFactory.captionLabel()
+        .build()
 
     // MARK: - Initialization
     override init(frame: CGRect) {
@@ -49,26 +39,27 @@ class StockIndexCell: UICollectionViewCell {
     
     //MARK: - UI 설정
     private func configureUI() {
+        contentView.layer.cornerRadius = 10
+        contentView.clipsToBounds = true
+        contentView.backgroundColor = UIColor(hex: "#e9f3fd").withAlphaComponent(0.4)
+        
         [titleLabel, valueLabel, changeRateLabel].forEach { contentView.addSubview($0) }
     }
     
     private func setupLayout() {
         titleLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().inset(4)
-            $0.leading.equalToSuperview()
+            $0.top.equalToSuperview().offset(8)
+            $0.leading.equalToSuperview().offset(8)
         }
         
         valueLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
             $0.top.equalTo(titleLabel.snp.bottom).offset(4)
-            $0.leading.equalToSuperview()
+            $0.leading.equalToSuperview().offset(8)
         }
         
         changeRateLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(4)
-            $0.leading.equalToSuperview()
+            $0.bottom.equalToSuperview().offset(-8)
+            $0.leading.equalToSuperview().offset(8)
         }
     }
     
