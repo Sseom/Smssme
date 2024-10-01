@@ -65,7 +65,7 @@ extension FinancialPlanSelectionVC: UICollectionViewDelegate {
     }
     
     private func showExistingPlanAlert() {
-        showSnycAlert2(
+        showSyncAlert2(
             message: "동시에 진행 가능한 플랜은 10개입니다. 플랜을 삭제하거나 완료해주세요",
             AlertTitle: "알림",
             leftButtonTitle: "현재 플랜 보기",
