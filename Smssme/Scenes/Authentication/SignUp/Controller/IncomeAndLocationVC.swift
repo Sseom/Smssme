@@ -109,7 +109,7 @@ class IncomeAndLocationVC: UIViewController {
             }
         }
         
-        showSnycAlert(message: "회원가입이 완료되었습니다. \n로그인해주세요.", AlertTitle: "회원가입 성공", buttonClickTitle: "확인") {
+        showSyncAlert(message: "회원가입이 완료되었습니다. \n로그인해주세요.", AlertTitle: "회원가입 성공", buttonClickTitle: "확인") {
             SplashViewController().showLoginVC()
         }
         

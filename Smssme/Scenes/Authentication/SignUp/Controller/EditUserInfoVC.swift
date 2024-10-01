@@ -105,7 +105,7 @@ class EditUserInfoVC: UIViewController, KeyboardEvader {
                 }
             }
         }
-        showSnycAlert(message: "내 정보 수정 완료!", AlertTitle: "성공", buttonClickTitle: "확인") {
+        showSyncAlert(message: "내 정보 수정 완료!", AlertTitle: "성공", buttonClickTitle: "확인") {
             self.navigationController?.popViewController(animated: true)
         }
        

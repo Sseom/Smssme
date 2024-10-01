@@ -67,7 +67,7 @@ class EmailVC: UIViewController {
         
         FirebaseAuthManager.shared.updateEmail(newEmail: newEmail, password: password) { success, error in
             if success {
-                self.showSnycAlert(message: "이메일 변경에 성공했습니다.", AlertTitle: "성공", buttonClickTitle: "확인") {
+                self.showSyncAlert(message: "이메일 변경에 성공했습니다.", AlertTitle: "성공", buttonClickTitle: "확인") {
                     self.navigationController?.popViewController(animated: true)
                 }
             } else if let error = error {

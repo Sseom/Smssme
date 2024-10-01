@@ -19,19 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
         // 앱 실행 시 사용자에게 알림 허용 권한을 받음
         UNUserNotificationCenter.current().delegate = self
-        
-//        NotificationManager.shared.requestAuthorization { granted in
-//            if granted {
-//                print("앱델리게이트에서 알림 권한이 허용되었습니다.")
-//            } else {
-//                print("앱델리게이트에서 알림 권한이 거부되었습니다.")
-//            }
-//        }
-        
-//        // 반복 알림 설정
-//        NotificationManager.shared.scheduleDailyNotification(hour: 1, minute: 0) // 매일 오전 1시 알림
-//        NotificationManager.shared.test()
-        
+
         return true
     }
     
