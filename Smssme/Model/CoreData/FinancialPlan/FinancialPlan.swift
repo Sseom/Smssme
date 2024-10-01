@@ -90,16 +90,16 @@ enum PlanType: Int16, CaseIterable {
     
     var infoLink: String {
         switch self {
-        case .travel: return "https://valley-porch-b6d.notion.site/1-1001c7ac6761489cbf12b3802a8924a7"
-        case .car: return "https://valley-porch-b6d.notion.site/2-717bb3ae189b4847806ae044d3ddb8b1"
+        case .travel: return "https://valley-porch-b6d.notion.site/112deed5c1c680ac83e6cae9878894f8?pvs=4"
+        case .car: return "https://valley-porch-b6d.notion.site/112deed5c1c6801f8a4aff31c9e06a83?pvs=4"
         case .house: return
-            "https://valley-porch-b6d.notion.site/1-1001c7ac6761489cbf12b3802a8924a7"
+            "https://valley-porch-b6d.notion.site/112deed5c1c680db96ebc1f7f6b5ee6c?pvs=4"
         case .wedding: return
-            "https://valley-porch-b6d.notion.site/1-1001c7ac6761489cbf12b3802a8924a7"
+            "https://valley-porch-b6d.notion.site/112deed5c1c68064bf35c010b4b0cf8b?pvs=4"
         case .retirement: return
-            "https://valley-porch-b6d.notion.site/1-1001c7ac6761489cbf12b3802a8924a7"
+            "https://valley-porch-b6d.notion.site/112deed5c1c680d59b67c092eb14ca21?pvs=4"
         case .custom: return
-            "https://valley-porch-b6d.notion.site/1-1001c7ac6761489cbf12b3802a8924a7"
+            "https://valley-porch-b6d.notion.site/112deed5c1c680298650eea562466b7f?pvs=4"
         }
     }
 }
