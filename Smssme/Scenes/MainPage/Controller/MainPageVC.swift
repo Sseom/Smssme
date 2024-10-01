@@ -55,7 +55,7 @@ class MainPageVC: UIViewController {
         setupWelcomeTitle()
         setupCollectionView()
         setChart()
-        requestNotification()
+//        requestNotification()
     }
     
     //MARK: - Methods
@@ -66,17 +66,8 @@ class MainPageVC: UIViewController {
     private func setupTableView() {
         mainPageView.benefitVerticalTableView.delegate = self
         mainPageView.benefitVerticalTableView.dataSource = self
+        
         mainPageView.benefitVerticalTableView.register(BenefitVerticalCell.self, forCellReuseIdentifier: "BenefitVerticalCell")
-        
-        // UI setup
-        mainPageView.benefitVerticalTableView.separatorStyle = .none
-        mainPageView.benefitVerticalTableView.layer.cornerRadius = 22
-        
-        mainPageView.benefitVerticalTableView.layer.masksToBounds = false
-        mainPageView.benefitVerticalTableView.layer.shadowColor = UIColor.black.cgColor
-        mainPageView.benefitVerticalTableView.layer.shadowOpacity = 0.15
-        mainPageView.benefitVerticalTableView.layer.shadowRadius = 10
-        mainPageView.benefitVerticalTableView.layer.shadowOffset = CGSize(width: 0, height: 5)
     }
     
     private func setupWelcomeTitle() {
@@ -102,22 +93,22 @@ class MainPageVC: UIViewController {
     }
     
     // 알림 권한 요청
-    private func requestNotification() {
-        NotificationManager.shared.requestAuthorization { [weak self] granted in
-            DispatchQueue.main.async {
-                  if granted {
-                      // 알림 권한이 허용된 경우
-                      print("알림 권한이 허용되었습니다.")
-                      NotificationManager.shared.setNotificationEnabled(userID: Auth.auth().currentUser?.uid)
-                  } else {
-                      // 알림 권한이 거부된 경우
-                      print("알림 권한이 거부되었습니다.")
-                      // 알림 비활성화 시 알림 취소
-                      NotificationManager.shared.cancelAllNotifications()
-                  }
-              }
-        }
-    }
+//    private func requestNotification() {
+//        NotificationManager.shared.requestAuthorization { [weak self] granted in
+//            DispatchQueue.main.async {
+//                  if granted {
+//                      // 알림 권한이 허용된 경우
+//                      print("알림 권한이 허용되었습니다.")
+//                      NotificationManager.shared.setNotificationEnabled(userID: Auth.auth().currentUser?.uid)
+//                  } else {
+//                      // 알림 권한이 거부된 경우
+//                      print("알림 권한이 거부되었습니다.")
+//                      // 알림 비활성화 시 알림 취소
+//                      NotificationManager.shared.cancelAllNotifications()
+//                  }
+//              }
+//        }
+//    }
     
     func setChart() {
         // 차트에서 표현할 데이터 리스트
