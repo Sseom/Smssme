@@ -98,6 +98,12 @@
 		9F20E3712C9C0143003FF56E /* BenefitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F20E3702C9C0143003FF56E /* BenefitView.swift */; };
 		9F20E39A2CA1A822003FF56E /* DateFormatter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F20E3992CA1A822003FF56E /* DateFormatter+.swift */; };
 		9F2FA5852C868EB100A9731D /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2FA5842C868EB100A9731D /* DateManager.swift */; };
+		9F3590522CAB87AF00E40EA3 /* AutomaticViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3590512CAB87AF00E40EA3 /* AutomaticViewModel.swift */; };
+		9F3590552CABB89900E40EA3 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 9F3590542CABB89900E40EA3 /* RxCocoa */; };
+		9F3590572CABB89900E40EA3 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 9F3590562CABB89900E40EA3 /* RxRelay */; };
+		9F3590592CABB89900E40EA3 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9F3590582CABB89900E40EA3 /* RxSwift */; };
+		9F35905B2CABBB8800E40EA3 /* AutomaticAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F35905A2CABBB8800E40EA3 /* AutomaticAction.swift */; };
+		9F35905D2CABBC5600E40EA3 /* AutomaticEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F35905C2CABBC5600E40EA3 /* AutomaticEvent.swift */; };
 		9F86E6CD2C92AB5F00619F7D /* AutomaticTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F86E6CC2C92AB5F00619F7D /* AutomaticTransactionView.swift */; };
 		9F86E6CF2C92AB7100619F7D /* AutomaticTransactionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F86E6CE2C92AB7100619F7D /* AutomaticTransactionVC.swift */; };
 		9FE549BF2C801E4D00E6075E /* FinancialPlanConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE549BE2C801E4D00E6075E /* FinancialPlanConfirmView.swift */; };
@@ -218,6 +224,9 @@
 		9F20E3702C9C0143003FF56E /* BenefitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenefitView.swift; sourceTree = "<group>"; };
 		9F20E3992CA1A822003FF56E /* DateFormatter+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+.swift"; sourceTree = "<group>"; };
 		9F2FA5842C868EB100A9731D /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
+		9F3590512CAB87AF00E40EA3 /* AutomaticViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomaticViewModel.swift; sourceTree = "<group>"; };
+		9F35905A2CABBB8800E40EA3 /* AutomaticAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomaticAction.swift; sourceTree = "<group>"; };
+		9F35905C2CABBC5600E40EA3 /* AutomaticEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomaticEvent.swift; sourceTree = "<group>"; };
 		9F86E6CC2C92AB5F00619F7D /* AutomaticTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomaticTransactionView.swift; sourceTree = "<group>"; };
 		9F86E6CE2C92AB7100619F7D /* AutomaticTransactionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomaticTransactionVC.swift; sourceTree = "<group>"; };
 		9FE549BE2C801E4D00E6075E /* FinancialPlanConfirmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanConfirmView.swift; sourceTree = "<group>"; };
@@ -250,10 +259,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F3590572CABB89900E40EA3 /* RxRelay in Frameworks */,
 				E5FBA1332C7CCCBE00D26E5F /* SnapKit in Frameworks */,
 				5FE3DDD92CA3ACCB0015B14E /* FirebaseFirestore in Frameworks */,
+				9F3590552CABB89900E40EA3 /* RxCocoa in Frameworks */,
 				5FE3DDD72CA3ACCB0015B14E /* FirebaseAuth in Frameworks */,
 				74707F802C806A5900F7000C /* DGCharts in Frameworks */,
+				9F3590592CABB89900E40EA3 /* RxSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -672,6 +684,9 @@
 				7457E7BB2CA135AE00481C5F /* Controller */,
 				7457E7BA2CA135A700481C5F /* View */,
 				746F80872C88421500BBAEAF /* DailyTransaction */,
+				9F3590512CAB87AF00E40EA3 /* AutomaticViewModel.swift */,
+				9F35905A2CABBB8800E40EA3 /* AutomaticAction.swift */,
+				9F35905C2CABBC5600E40EA3 /* AutomaticEvent.swift */,
 			);
 			path = MoneyDiary;
 			sourceTree = "<group>";
@@ -795,6 +810,9 @@
 				74707F7F2C806A5900F7000C /* DGCharts */,
 				5FE3DDD62CA3ACCB0015B14E /* FirebaseAuth */,
 				5FE3DDD82CA3ACCB0015B14E /* FirebaseFirestore */,
+				9F3590542CABB89900E40EA3 /* RxCocoa */,
+				9F3590562CABB89900E40EA3 /* RxRelay */,
+				9F3590582CABB89900E40EA3 /* RxSwift */,
 			);
 			productName = Smssme;
 			productReference = 740350532C773E9B00122B2E /* Smssme.app */;
@@ -828,6 +846,7 @@
 				E5FBA1312C7CCCBE00D26E5F /* XCRemoteSwiftPackageReference "SnapKit" */,
 				74707F7E2C806A5900F7000C /* XCRemoteSwiftPackageReference "Charts" */,
 				5FE3DDD52CA3ACCB0015B14E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				9F3590532CABB89900E40EA3 /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = 740350542C773E9B00122B2E /* Products */;
 			projectDirPath = "";
@@ -863,6 +882,7 @@
 				E50498702CA5CB8D0014B8EF /* FinancialPlanCompleteView.swift in Sources */,
 				7457E7D02CA13A4F00481C5F /* LoginVC.swift in Sources */,
 				74707F942C81B5DF00F7000C /* Assets+CoreDataClass.swift in Sources */,
+				9F3590522CAB87AF00E40EA3 /* AutomaticViewModel.swift in Sources */,
 				9F2FA5852C868EB100A9731D /* DateManager.swift in Sources */,
 				74707F952C81B5DF00F7000C /* Assets+CoreDataProperties.swift in Sources */,
 				74707FA42C81B82600F7000C /* User+CoreDataClass.swift in Sources */,
@@ -937,6 +957,7 @@
 				746F80852C8841F300BBAEAF /* MoneyDiaryBudgetEditView.swift in Sources */,
 				E5B926892CA328AC0027984E /* FinancialPlanCompleteCell.swift in Sources */,
 				746F80952C8842C800BBAEAF /* DailyTransactionVC.swift in Sources */,
+				9F35905D2CABBC5600E40EA3 /* AutomaticEvent.swift in Sources */,
 				5F413EFF2C805CC200004703 /* MypageView.swift in Sources */,
 				5F3EAE192C7E182400FF15E5 /* LoginView.swift in Sources */,
 				5F3EAE5B2C7F36E500FF15E5 /* EditUserInfoVC.swift in Sources */,
@@ -948,6 +969,7 @@
 				5F18A2112C8DB31E00BC70B7 /* EmailView.swift in Sources */,
 				7457E7CF2CA13A0A00481C5F /* FinancialPlanCurrentPlanView.swift in Sources */,
 				746F80922C8842B200BBAEAF /* MoneyDiaryBudgetEditVC.swift in Sources */,
+				9F35905B2CABBB8800E40EA3 /* AutomaticAction.swift in Sources */,
 				5FE4006F2C917B4E001D0FD1 /* FirebaseAuthManager.swift in Sources */,
 				9FF702DB2C966B3F00890E77 /* RegexManager.swift in Sources */,
 				5FA88FFE2C8544DB00549363 /* SplashViewController.swift in Sources */,
@@ -1220,6 +1242,14 @@
 				minimumVersion = 5.1.0;
 			};
 		};
+		9F3590532CABB89900E40EA3 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.7.1;
+			};
+		};
 		E5FBA1312C7CCCBE00D26E5F /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -1245,6 +1275,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 74707F7E2C806A5900F7000C /* XCRemoteSwiftPackageReference "Charts" */;
 			productName = DGCharts;
+		};
+		9F3590542CABB89900E40EA3 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9F3590532CABB89900E40EA3 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		9F3590562CABB89900E40EA3 /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9F3590532CABB89900E40EA3 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		9F3590582CABB89900E40EA3 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9F3590532CABB89900E40EA3 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
 		};
 		E5FBA1322C7CCCBE00D26E5F /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;

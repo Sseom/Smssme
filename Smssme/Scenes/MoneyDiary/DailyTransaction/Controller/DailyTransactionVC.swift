@@ -52,13 +52,14 @@ final class DailyTransactionVC: UIViewController {
             $0.edges.equalTo(self.view.safeAreaLayoutGuide)
         }
     }
-
-    func setDate(day: Date){
+// crud 하 diarytomonthData -> 가공해서 불러오는것과 모델만들고 거기안에
+    func setDate(day: Date) {
         today = day
         let dateString = DateFormatter.yearMonthDay.string(from: day)
         self.navigationItem.title = dateString
     }
-    
+    //매니저는 crud
+    //
     private func reloadTotalAmount() {
         
         if let todayLists = DiaryCoreDataManager.shared.fetchDiaries(on: today) {
