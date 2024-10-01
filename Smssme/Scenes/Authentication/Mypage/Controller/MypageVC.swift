@@ -231,7 +231,7 @@ class MypageVC: UIViewController {
         
         if isEnabled {
             // 알림 활성화
-            NotificationManager.shared.test()
+//            NotificationManager.shared.test()
             NotificationManager.shared.firstDayOfMonthNotification()
             NotificationManager.shared.lastDayOfMonthNotification()
             print("알림이 활성화되었습니다.\(isEnabled)")
@@ -241,19 +241,19 @@ class MypageVC: UIViewController {
             print("알림이 비활성화되었습니다.\(isEnabled)")
         }
         
-        if user != nil {
-            userData.notificationsEnabled = isEnabled
-            guard let uid = user?.uid else {return}
-            
-            FirebaseFirestoreManager.shared.updateUserField(uid: uid, field: "notificationsEnabled", value: isEnabled) { updateResult in
-                switch updateResult {
-                case .success:
-                    print("사용자 정보 저장 성공")
-                case .failure(let error):
-                    print("사용자 정보 저장 실패: \(error.localizedDescription)")
-                }
-            }
-        }
+//        if user != nil {
+//            userData.notificationsEnabled = isEnabled
+//            guard let uid = user?.uid else {return}
+//            
+//            FirebaseFirestoreManager.shared.updateUserField(uid: uid, field: "notificationsEnabled", value: isEnabled) { updateResult in
+//                switch updateResult {
+//                case .success:
+//                    print("사용자 정보 저장 성공")
+//                case .failure(let error):
+//                    print("사용자 정보 저장 실패: \(error.localizedDescription)")
+//                }
+//            }
+//        }
         
     }
 }
@@ -386,18 +386,18 @@ extension MypageVC: UITableViewDataSource {
             let toggleSwitch = UISwitch()
             toggleSwitch.addTarget(self, action: #selector(toggleSwitchChanged(_:)), for: .valueChanged)
             
-            FirebaseFirestoreManager.shared.fetchUserField(uid: user?.uid ?? "", field: "notificationsEnabled") { result in
-                switch result {
-                case .success(let value):
-                    if let notificationsEnabled = value as? Bool {
-                        DispatchQueue.main.async {
-                            toggleSwitch.isOn = notificationsEnabled
-                        }
-                    }
-                case .failure(let error):
-                    print("에러 발생: \(error.localizedDescription)")
-                }
-            }
+//            FirebaseFirestoreManager.shared.fetchUserField(uid: user?.uid ?? "", field: "notificationsEnabled") { result in
+//                switch result {
+//                case .success(let value):
+//                    if let notificationsEnabled = value as? Bool {
+//                        DispatchQueue.main.async {
+//                            toggleSwitch.isOn = notificationsEnabled
+//                        }
+//                    }
+//                case .failure(let error):
+//                    print("에러 발생: \(error.localizedDescription)")
+//                }
+//            }
             
             cell.accessoryView = toggleSwitch
         }

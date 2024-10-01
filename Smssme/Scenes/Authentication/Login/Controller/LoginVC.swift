@@ -209,7 +209,7 @@ extension LoginVC: ASAuthorizationControllerDelegate {
                 print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
                 return
             }
-            // Initialize a Firebase credential, including the user's full name.
+
             let credential = OAuthProvider.appleCredential(withIDToken: idTokenString, rawNonce: nonce, fullName: appleIDCredential.fullName)
             
             // Sign in with Firebase.

@@ -91,7 +91,18 @@ class MainPageView: UIView {
         return button
     }()
   
-    let benefitVerticalTableView = UITableView()
+    let benefitVerticalTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.separatorStyle = .none
+        tableView.layer.cornerRadius = 22
+        
+        tableView.layer.masksToBounds = false
+        tableView.layer.shadowColor = UIColor.black.cgColor
+        tableView.layer.shadowOpacity = 0.15
+        tableView.layer.shadowRadius = 10
+        tableView.layer.shadowOffset = CGSize(width: 0, height: 5)
+        return tableView
+    }()
     
     // MARK: - View Init
     override init(frame: CGRect) {
