@@ -29,8 +29,8 @@ class NotificationManager {
     // 테스트
     func test() {
         let content = UNMutableNotificationContent()
-        content.title = "가계부 작성 알림 테스트"
-        content.body = "배가고파요!!!!"
+        content.title = "이번 달에도 잘해냈어요!👍"
+        content.body = "돈 관리, 나의 새로운 취미! 🎨 하지만 돈이 없으면 취미도 없다구요...빨리 들어오세요!"
         content.sound = .default
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
@@ -53,7 +53,7 @@ class NotificationManager {
             case .success(let data):
                 if let isEnabled = data["notificationsEnabled"] as? Bool , isEnabled {
                     // 알림 설정이 활성화된 경우
-//                    self?.test()
+                    self?.test()
                     self?.firstDayOfMonthNotification()
                     self?.lastDayOfMonthNotification()
                 }
@@ -93,13 +93,13 @@ class NotificationManager {
         
         // repeats를 true로 설정하여 매월 1일에 반복되도록 설정
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
-        createNotification(identifier: "firstDayOfMonth", title: "작심삼일은 멋진 시작이에요! 😎.", body: "작심삼일 10번 할 수 있잖아 완전 럭키비키잖앙🍀 이번 달 예산안 작성을 3분 안에 끝내보세요!", trigger: trigger, repeats: true)
+        createNotification(identifier: "firstDayOfMonth", title: "작심삼일 10번이면 한달이에요! 😎", body: "이번 달 예산안 작성을 3분 안에 끝내보세요!", trigger: trigger, repeats: true)
     }
     
     // 매월 말일 알림 설정
     func lastDayOfMonthNotification() {
         let trigger = UNCalendarNotificationTrigger(dateMatching: getLastDayOfMonth(), repeats: true)
-        createNotification(identifier: "lastDayOfMonth", title: "이번 달에도 잘해냈어요!👍", body: "돈 관리, 나의 새로운 취미! 🎨 하지만 돈이 없으면 취미도 없다구요...빨리 들어오세요", trigger: trigger, repeats: true)
+        createNotification(identifier: "lastDayOfMonth", title: "이번 달에도 잘해냈어요!👍", body: "마지막으로 지출 내역 정리하고 뿌듯한 이번 달을 마무리해보세요!", trigger: trigger, repeats: true)
     }
     
     // 매월 마지막 날 계산 함수
