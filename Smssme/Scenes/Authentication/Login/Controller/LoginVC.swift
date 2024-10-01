@@ -119,9 +119,9 @@ class LoginVC: UIViewController {
     private func checkUsersPlan() {
         let plans = planService.fetchIncompletedPlans()
         if plans.isEmpty {
-            showSnycAlert(message: "안녕하세요, 자산 플랜을 생성해 주세요", AlertTitle: "로그인되었습니다", buttonClickTitle: "확인", method: switchToPlanSelectVC)
+            showSyncAlert(message: "안녕하세요, 자산 플랜을 생성해 주세요", AlertTitle: "로그인되었습니다", buttonClickTitle: "확인", method: switchToPlanSelectVC)
         } else {
-            showSnycAlert(message: "안녕하세요, 로그인되었습니다", AlertTitle: "로그인되었습니다", buttonClickTitle: "확인", method: switchToTabBarController)
+            showSyncAlert(message: "안녕하세요, 로그인되었습니다", AlertTitle: "로그인되었습니다", buttonClickTitle: "확인", method: switchToTabBarController)
         }
     }
     

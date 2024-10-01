@@ -108,15 +108,12 @@ class MainPageVC: UIViewController {
                   if granted {
                       // 알림 권한이 허용된 경우
                       print("알림 권한이 허용되었습니다.")
-                      self?.userData.notification = true
-//                      NotificationManager.shared.test() //알림 작동 테스트 알림
-                      
-                      NotificationManager.shared.firstDayOfMonthNotification() //월초 알림
-                      NotificationManager.shared.lastDayOfMonthNotification() //월말 알림
+                      NotificationManager.shared.setNotificationEnabled(userID: Auth.auth().currentUser?.uid)
                   } else {
                       // 알림 권한이 거부된 경우
                       print("알림 권한이 거부되었습니다.")
-                      self?.userData.notification = false
+                      // 알림 비활성화 시 알림 취소
+                      NotificationManager.shared.cancelAllNotifications()
                   }
               }
         }
