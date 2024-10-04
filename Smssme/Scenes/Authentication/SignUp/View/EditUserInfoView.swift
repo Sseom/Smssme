@@ -283,7 +283,7 @@ final class EditUserInfoView: UIView {
             $0.centerX.equalToSuperview()
             $0.horizontalEdges.equalToSuperview().inset(30)
             $0.height.equalTo(612) //162 432 90
-            $0.bottom.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(60)
         }
         
         // 성별 체크박스
