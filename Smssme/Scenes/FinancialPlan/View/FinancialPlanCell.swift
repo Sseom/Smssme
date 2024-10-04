@@ -11,33 +11,18 @@ import SnapKit
 class FinancialPlanCell: UICollectionViewCell {
     static let ID = "FinancialPlanCell"
     
-    private let titleLabel = ContentBoldLabel().createLabel(with: "", color: UIColor.black)
+    private let titleLabel = LabelFactory.subTitleLabel()
+        .build()
+    
     private let descriptionLabel = LabelFactory.bodyLabel()
         .setColor(.bodyGray)
         .build()
 
-    
-    // 아이콘 사용 보류
     private let iconView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.backgroundColor = .clear
         return imageView
-    }()
-    
-    private let startLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .center
-        label.textColor = UIColor(hex: "#333333")
-        label.backgroundColor = UIColor(hex: "#e3e3e3")
-        label.layer.cornerRadius = 5
-        label.clipsToBounds = true
-        let fontSize: CGFloat = 16
-        let kernValue = fontSize * -0.04
-        label.attributedText = NSAttributedString(string: "시작하기", attributes: [
-            .kern: kernValue
-        ])
-        return label
     }()
     
     override init(frame: CGRect) {
@@ -53,14 +38,12 @@ class FinancialPlanCell: UICollectionViewCell {
     private func setupUI() {
         contentView.layer.cornerRadius = 10
         contentView.layer.masksToBounds = true
+        
         [
             iconView,
-         titleLabel, 
-         descriptionLabel,
-//         startLabel
-        ].forEach {
-            contentView.addSubview($0)
-        }
+            titleLabel,
+            descriptionLabel,
+        ].forEach { contentView.addSubview($0) }
         
         iconView.snp.makeConstraints {
             $0.top.equalToSuperview().offset(24)
@@ -81,12 +64,6 @@ class FinancialPlanCell: UICollectionViewCell {
             $0.trailing.equalToSuperview().offset(-20)
         }
         
-//        startLabel.snp.makeConstraints {
-//            $0.bottom.equalToSuperview().offset(-20)
-//            $0.width.equalTo(80)
-//            $0.height.equalTo(32)
-//            $0.centerX.equalToSuperview()
-//        }
     }
     
     func cellBackgroundColor(_ color: UIColor) {

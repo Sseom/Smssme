@@ -8,14 +8,40 @@
 import FirebaseAuth
 import UIKit
 
+// MARK: - 기본 제공 탭바 아이콘 위치가 너무 상단이라 커스텀
+class CustomTabBar: UITabBar {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        let tabBarItemHeight: CGFloat = 32.0 // 아이콘의 높이
+        let bottomInset: CGFloat = 48.0 // 아이콘을 아래로 내릴 거리
+        
+        self.items?.forEach { item in
+            item.imageInsets = UIEdgeInsets(top: (self.bounds.height - tabBarItemHeight - bottomInset), left: 0, bottom: bottomInset, right: 0)
+        }
+    }
+}
+
 class TabBarController: UITabBarController {
+    private let customTabBar = CustomTabBar()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         tabBar.backgroundColor = .white
         tabBar.itemPositioning = .centered
-        view.backgroundColor = .white
         configureController()
         showFirstView()
+        self.setValue(customTabBar, forKey: "tabBar")
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        var tabFrame = self.tabBar.frame
+        tabFrame.size.height = 90
+        tabFrame.origin.y = self.view.frame.size.height - tabFrame.size.height
+        self.tabBar.frame = tabFrame
     }
     
     func configureController() {

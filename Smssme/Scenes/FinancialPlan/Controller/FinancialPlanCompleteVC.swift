@@ -2,6 +2,7 @@ import UIKit
 
 class FinancialPlanCompleteVC: UIViewController {
     private let completeView = FinancialPlanCompleteView()
+    private let incompleteView = IncompleteView()
     private let planService: FinancialPlanService = FinancialPlanService()
     
     override func viewDidLoad() {
@@ -9,10 +10,11 @@ class FinancialPlanCompleteVC: UIViewController {
         view.backgroundColor = .white
         completeView.collectionView.dataSource = self
         completeView.collectionView.delegate = self
+        tabBarController?.tabBar.backgroundColor = .white
     }
     
     override func loadView() {
-        view = completeView
+        view = planService.fetchCompletedFinancialPlans().isEmpty ? incompleteView : completeView
     }
 }
 

@@ -56,3 +56,55 @@ final class FinancialPlanCompleteView: UIView {
         return layout
     }
 }
+
+// MARK: - 아직 완료한 저축목표가 없을 경우
+final class IncompleteView: UIView {
+    private let title = LabelFactory.titleLabel()
+        .setText("목표를 달성해보세요")
+        .build()
+    
+    private let imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "notFound")
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    
+    private let incompleteLabel = LabelFactory.bodyLabel()
+        .setText("앗, 아직 완료된 재무목표플랜이 없어요")
+        .setColor(.disableGray)
+        .build()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupUI() {
+        [
+            title,
+            imageView,
+            incompleteLabel
+        ].forEach { addSubview($0) }
+        
+        title.snp.makeConstraints {
+            $0.top.equalTo(safeAreaLayoutGuide).offset(10)
+            $0.leading.equalToSuperview().offset(20)
+        }
+        
+        imageView.snp.makeConstraints {
+            $0.top.equalTo(title.snp.bottom).offset(80)
+            $0.width.height.equalTo(80)
+            $0.centerX.equalToSuperview()
+        }
+        
+        incompleteLabel.snp.makeConstraints {
+            $0.top.equalTo(imageView.snp.bottom).offset(24)
+            $0.centerX.equalToSuperview()
+        }
+    }
+}

@@ -45,7 +45,7 @@ final class FinancialPlanSelectionView: UIView {
         collectionView.snp.makeConstraints {
             $0.top.equalTo(title.snp.bottom).offset(10)
             $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
+            $0.bottom.equalTo(snp.bottom)
         }
     }
     

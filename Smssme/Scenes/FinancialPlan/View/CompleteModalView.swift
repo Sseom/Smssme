@@ -17,8 +17,6 @@ final class CompleteModalView: UIView {
         image.contentMode = .scaleAspectFit
         image.backgroundColor = .clear
         image.image = UIImage(named: "myPlanConfirm")
-//        image.layer.borderColor = UIColor.black.cgColor
-//        image.layer.borderWidth = 1
         return image
     }()
     
@@ -37,6 +35,7 @@ final class CompleteModalView: UIView {
     let amountGoalTitleLabel = LabelFactory.bodyLabel()
         .setText("목표 금액")
         .build()
+    
     let amountGoalLabel = LabelFactory.bodyLabel()
         .setFont(.boldSystemFont(ofSize: 16))
         .build()
@@ -51,6 +50,7 @@ final class CompleteModalView: UIView {
     let startTitleLabel = LabelFactory.bodyLabel()
         .setText("시작 날짜")
         .build()
+    
     let startLabel = LabelFactory.bodyLabel()
         .setFont(.boldSystemFont(ofSize: 16))
         .build()
@@ -58,6 +58,7 @@ final class CompleteModalView: UIView {
     let completeTitleLabel = LabelFactory.bodyLabel()
         .setText("완료 날짜")
         .build()
+    
     let completeLabel = LabelFactory.bodyLabel()
         .setFont(.boldSystemFont(ofSize: 16))
         .build()
@@ -83,9 +84,7 @@ final class CompleteModalView: UIView {
             confirmImage,
             contentStackView,
             confirmButton
-        ].forEach {
-            addSubview($0)
-        }
+        ].forEach { addSubview($0) }
         
         confirmLargeTitle.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide.snp.top).offset(60)
@@ -154,9 +153,7 @@ final class CompleteModalView: UIView {
             currentSavedTitleLabel,
             startTitleLabel,
             completeTitleLabel
-        ].forEach {
-            contentStackView.addSubview($0)
-        }
+        ].forEach { contentStackView.addSubview($0) }
         
         amountGoalTitleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(20)

@@ -11,7 +11,10 @@ import UIKit
 
 class FutureGraphView: UIView {
     // MARK: Properties
-    private let titleLabel = LabelFactory.titleLabel().setText("내가 만들어보는\n자산 그래프").setAlign(.center).build()
+    private let titleLabel = LabelFactory.titleLabel()
+        .setText("내가 만들어보는 자산 그래프")
+        .setAlign(.center)
+        .build()
     
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -155,7 +158,7 @@ class FutureGraphView: UIView {
         }
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(10)
+            $0.top.equalTo(safeAreaLayoutGuide.snp.top).offset(50)
             $0.centerX.equalToSuperview()
         }
         

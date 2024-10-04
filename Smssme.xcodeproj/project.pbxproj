@@ -102,11 +102,11 @@
 		9F86E6CF2C92AB7100619F7D /* AutomaticTransactionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F86E6CE2C92AB7100619F7D /* AutomaticTransactionVC.swift */; };
 		9FE549BF2C801E4D00E6075E /* FinancialPlanConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE549BE2C801E4D00E6075E /* FinancialPlanConfirmView.swift */; };
 		9FF702DB2C966B3F00890E77 /* RegexManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF702DA2C966B3F00890E77 /* RegexManager.swift */; };
+		CA9C1B902CAC2F50001E17C8 /* SecretsConfig.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CA9C1B8E2CAC2F50001E17C8 /* SecretsConfig.xcconfig */; };
+		CA9C1B912CAC2F50001E17C8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CA9C1B8F2CAC2F50001E17C8 /* GoogleService-Info.plist */; };
 		E50498702CA5CB8D0014B8EF /* FinancialPlanCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E504986F2CA5CB8D0014B8EF /* FinancialPlanCompleteView.swift */; };
 		E517F2822C8782F200CB8680 /* FinancialPlanManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2812C8782F200CB8680 /* FinancialPlanManager.swift */; };
 		E517F3402C89A41900CB8680 /* MoneyDiaryCreationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F33F2C89A41900CB8680 /* MoneyDiaryCreationVC.swift */; };
-		E591BABF2CAA75EC005E8E20 /* SecretsConfig.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E591BABD2CAA75EC005E8E20 /* SecretsConfig.xcconfig */; };
-		E591BAC02CAA75EC005E8E20 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E591BABE2CAA75EC005E8E20 /* GoogleService-Info.plist */; };
 		E5B9267D2CA2DF280027984E /* UILabelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B9267C2CA2DF280027984E /* UILabelFactory.swift */; };
 		E5B926832CA307E60027984E /* FinancialPlanCompleteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B926822CA307E60027984E /* FinancialPlanCompleteVC.swift */; };
 		E5B926872CA313FC0027984E /* UIButtonFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B926862CA313FC0027984E /* UIButtonFactory.swift */; };
@@ -222,11 +222,11 @@
 		9F86E6CE2C92AB7100619F7D /* AutomaticTransactionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomaticTransactionVC.swift; sourceTree = "<group>"; };
 		9FE549BE2C801E4D00E6075E /* FinancialPlanConfirmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanConfirmView.swift; sourceTree = "<group>"; };
 		9FF702DA2C966B3F00890E77 /* RegexManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexManager.swift; sourceTree = "<group>"; };
+		CA9C1B8E2CAC2F50001E17C8 /* SecretsConfig.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = SecretsConfig.xcconfig; sourceTree = "<group>"; };
+		CA9C1B8F2CAC2F50001E17C8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E504986F2CA5CB8D0014B8EF /* FinancialPlanCompleteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanCompleteView.swift; sourceTree = "<group>"; };
 		E517F2812C8782F200CB8680 /* FinancialPlanManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanManager.swift; sourceTree = "<group>"; };
 		E517F33F2C89A41900CB8680 /* MoneyDiaryCreationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDiaryCreationVC.swift; sourceTree = "<group>"; };
-		E591BABD2CAA75EC005E8E20 /* SecretsConfig.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = SecretsConfig.xcconfig; sourceTree = "<group>"; };
-		E591BABE2CAA75EC005E8E20 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E5B9267C2CA2DF280027984E /* UILabelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelFactory.swift; sourceTree = "<group>"; };
 		E5B926822CA307E60027984E /* FinancialPlanCompleteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FinancialPlanCompleteVC.swift; path = Smssme/Scenes/FinancialPlan/Controller/FinancialPlanCompleteVC.swift; sourceTree = SOURCE_ROOT; };
 		E5B926862CA313FC0027984E /* UIButtonFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonFactory.swift; sourceTree = "<group>"; };
@@ -351,9 +351,9 @@
 		740350552C773E9B00122B2E /* Smssme */ = {
 			isa = PBXGroup;
 			children = (
+				CA9C1B8F2CAC2F50001E17C8 /* GoogleService-Info.plist */,
+				CA9C1B8E2CAC2F50001E17C8 /* SecretsConfig.xcconfig */,
 				74707FC12C85D78D00F7000C /* Smssme.entitlements */,
-				E591BABE2CAA75EC005E8E20 /* GoogleService-Info.plist */,
-				E591BABD2CAA75EC005E8E20 /* SecretsConfig.xcconfig */,
 				740350742C7740BE00122B2E /* Scenes */,
 				740350702C77408900122B2E /* Model */,
 				5FD70A0E2CA99336009E38C0 /* Notification */,
@@ -468,50 +468,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		7457E7BA2CA135A700481C5F /* View */ = {
-			isa = PBXGroup;
-			children = (
-				746F80772C8841F300BBAEAF /* DatePickerView.swift */,
-				746F80782C8841F300BBAEAF /* MoneyDiaryBudgetEditCell.swift */,
-				746F80762C8841F300BBAEAF /* MoneyDiaryBudgetEditHeaderView.swift */,
-				746F807C2C8841F300BBAEAF /* MoneyDiaryBudgetEditView.swift */,
-				746F807A2C8841F300BBAEAF /* MoneyDiaryCalendarCell.swift */,
-				746F807D2C8841F300BBAEAF /* MoneyDiaryCalendarView.swift */,
-				746F80752C8841F300BBAEAF /* MoneyDiaryEditView.swift */,
-				746F807B2C8841F300BBAEAF /* MoneyDiaryView.swift */,
-				9F86E6CC2C92AB5F00619F7D /* AutomaticTransactionView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		7457E7BB2CA135AE00481C5F /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				746F808F2C8842B200BBAEAF /* MoneyDiaryBudgetEditVC.swift */,
-				746F808D2C8842B200BBAEAF /* MoneyDiaryEditVC.swift */,
-				746F808E2C8842B200BBAEAF /* MoneyDiaryVC.swift */,
-				E517F33F2C89A41900CB8680 /* MoneyDiaryCreationVC.swift */,
-				9F86E6CE2C92AB7100619F7D /* AutomaticTransactionVC.swift */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
 		7457E7BC2CA135E600481C5F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				746F80942C8842C800BBAEAF /* DailyTransactionVC.swift */,
 				746F80892C88424000BBAEAF /* DailyTransactionCell.swift */,
 				746F80882C88424000BBAEAF /* DailyTransactionView.swift */,
 				9F20E3702C9C0143003FF56E /* BenefitView.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		7457E7BD2CA135ED00481C5F /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				746F80942C8842C800BBAEAF /* DailyTransactionVC.swift */,
-			);
-			path = Controller;
 			sourceTree = "<group>";
 		};
 		7457E7BE2CA1363500481C5F /* View */ = {
@@ -670,20 +635,13 @@
 		746F80742C88415900BBAEAF /* MoneyDiary */ = {
 			isa = PBXGroup;
 			children = (
-				7457E7BB2CA135AE00481C5F /* Controller */,
-				7457E7BA2CA135A700481C5F /* View */,
-				746F80872C88421500BBAEAF /* DailyTransaction */,
+				9FE27ADA2CAF802A00E5C63B /* AutomaticTransactionView */,
+				9FE27AD92CAF7FDC00E5C63B /* BudgetView */,
+				9FE27AD82CAF7FC800E5C63B /* Creat_EditTransactionView */,
+				9FE27AD72CAF7FBC00E5C63B /* DailyTransactionView */,
+				9FE27AD62CAF7FB600E5C63B /* MainView */,
 			);
 			path = MoneyDiary;
-			sourceTree = "<group>";
-		};
-		746F80872C88421500BBAEAF /* DailyTransaction */ = {
-			isa = PBXGroup;
-			children = (
-				7457E7BD2CA135ED00481C5F /* Controller */,
-				7457E7BC2CA135E600481C5F /* View */,
-			);
-			path = DailyTransaction;
 			sourceTree = "<group>";
 		};
 		74707F782C80697100F7000C /* MainPage */ = {
@@ -765,6 +723,128 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
+		9FE27AD62CAF7FB600E5C63B /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				9FE27AE02CAF80A400E5C63B /* View */,
+				9FE27AE12CAF80A900E5C63B /* ViewModel */,
+			);
+			path = MainView;
+			sourceTree = "<group>";
+		};
+		9FE27AD72CAF7FBC00E5C63B /* DailyTransactionView */ = {
+			isa = PBXGroup;
+			children = (
+				9FE27ADF2CAF80A000E5C63B /* ViewModel */,
+				7457E7BC2CA135E600481C5F /* View */,
+			);
+			path = DailyTransactionView;
+			sourceTree = "<group>";
+		};
+		9FE27AD82CAF7FC800E5C63B /* Creat_EditTransactionView */ = {
+			isa = PBXGroup;
+			children = (
+				9FE27ADE2CAF809800E5C63B /* ViewModel */,
+				9FE27ADD2CAF805800E5C63B /* View */,
+			);
+			path = Creat_EditTransactionView;
+			sourceTree = "<group>";
+		};
+		9FE27AD92CAF7FDC00E5C63B /* BudgetView */ = {
+			isa = PBXGroup;
+			children = (
+				9FE27ADB2CAF803D00E5C63B /* ViewModel */,
+				9FE27ADC2CAF804500E5C63B /* View */,
+			);
+			path = BudgetView;
+			sourceTree = "<group>";
+		};
+		9FE27ADA2CAF802A00E5C63B /* AutomaticTransactionView */ = {
+			isa = PBXGroup;
+			children = (
+				9FE27AE32CAF80D200E5C63B /* ViewModel */,
+				9FE27AE22CAF80CB00E5C63B /* View */,
+			);
+			path = AutomaticTransactionView;
+			sourceTree = "<group>";
+		};
+		9FE27ADB2CAF803D00E5C63B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9FE27ADC2CAF804500E5C63B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				746F80762C8841F300BBAEAF /* MoneyDiaryBudgetEditHeaderView.swift */,
+				746F80782C8841F300BBAEAF /* MoneyDiaryBudgetEditCell.swift */,
+				746F807C2C8841F300BBAEAF /* MoneyDiaryBudgetEditView.swift */,
+				746F808F2C8842B200BBAEAF /* MoneyDiaryBudgetEditVC.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9FE27ADD2CAF805800E5C63B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				746F80752C8841F300BBAEAF /* MoneyDiaryEditView.swift */,
+				746F808D2C8842B200BBAEAF /* MoneyDiaryEditVC.swift */,
+				E517F33F2C89A41900CB8680 /* MoneyDiaryCreationVC.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9FE27ADE2CAF809800E5C63B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9FE27ADF2CAF80A000E5C63B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9FE27AE02CAF80A400E5C63B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				746F808E2C8842B200BBAEAF /* MoneyDiaryVC.swift */,
+				746F80772C8841F300BBAEAF /* DatePickerView.swift */,
+				746F807A2C8841F300BBAEAF /* MoneyDiaryCalendarCell.swift */,
+				746F807D2C8841F300BBAEAF /* MoneyDiaryCalendarView.swift */,
+				746F807B2C8841F300BBAEAF /* MoneyDiaryView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9FE27AE12CAF80A900E5C63B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9FE27AE22CAF80CB00E5C63B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9F86E6CE2C92AB7100619F7D /* AutomaticTransactionVC.swift */,
+				9F86E6CC2C92AB5F00619F7D /* AutomaticTransactionView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9FE27AE32CAF80D200E5C63B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		E5FBA1462C7EC64500D26E5F /* FinancialPlan */ = {
 			isa = PBXGroup;
 			children = (
@@ -844,9 +924,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				740350632C773E9C00122B2E /* Assets.xcassets in Resources */,
-				E591BAC02CAA75EC005E8E20 /* GoogleService-Info.plist in Resources */,
+				CA9C1B912CAC2F50001E17C8 /* GoogleService-Info.plist in Resources */,
 				740350662C773E9C00122B2E /* Base in Resources */,
-				E591BABF2CAA75EC005E8E20 /* SecretsConfig.xcconfig in Resources */,
+				CA9C1B902CAC2F50001E17C8 /* SecretsConfig.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -987,7 +1067,7 @@
 /* Begin XCBuildConfiguration section */
 		740350682C773E9C00122B2E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E591BABD2CAA75EC005E8E20 /* SecretsConfig.xcconfig */;
+			baseConfigurationReference = CA9C1B8E2CAC2F50001E17C8 /* SecretsConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1051,7 +1131,7 @@
 		};
 		740350692C773E9C00122B2E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E591BABD2CAA75EC005E8E20 /* SecretsConfig.xcconfig */;
+			baseConfigurationReference = CA9C1B8E2CAC2F50001E17C8 /* SecretsConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1114,7 +1194,7 @@
 				CODE_SIGN_ENTITLEMENTS = Smssme/Smssme.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5KCP3GK583;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Smssme/Info.plist;
@@ -1129,7 +1209,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.2;
+				MARKETING_VERSION = 1.3.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.smssme.Smssme;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1151,7 +1231,7 @@
 				CODE_SIGN_ENTITLEMENTS = Smssme/Smssme.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5KCP3GK583;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Smssme/Info.plist;
@@ -1166,7 +1246,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.2;
+				MARKETING_VERSION = 1.3.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.smssme.Smssme;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

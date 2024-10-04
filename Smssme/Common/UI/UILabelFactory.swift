@@ -84,32 +84,24 @@ class LabelFactory {
     static func titleLabel() -> LabelBuilder {
         return LabelBuilder()
             .setFont(.boldSystemFont(ofSize: LabelBuilder.titleSize))
-            .setColor(.labelBlack)
-            .setAlign(.left)
             .setLetterSpacing(LabelBuilder.titleSpacing)
     }
     
     static func subTitleLabel() -> LabelBuilder {
         return LabelBuilder()
           .setFont(.boldSystemFont(ofSize: LabelBuilder.bodySize))
-          .setColor(.labelBlack)
-          .setAlign(.left)
           .setLetterSpacing(LabelBuilder.bodySpacing)
       }
     
     static func bodyLabel() -> LabelBuilder {
         return LabelBuilder()
             .setFont(.systemFont(ofSize: LabelBuilder.bodySize))
-            .setColor(.labelBlack)
-            .setAlign(.left)
             .setLetterSpacing(LabelBuilder.bodySpacing)
     }
     
     static func captionLabel() -> LabelBuilder {
         return LabelBuilder()
             .setFont(.systemFont(ofSize: LabelBuilder.captionSize))
-            .setColor(.labelBlack)
-            .setAlign(.left)
             .setLetterSpacing(LabelBuilder.captionSpacing)
     }
 }

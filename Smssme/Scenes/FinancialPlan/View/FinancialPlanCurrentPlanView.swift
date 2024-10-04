@@ -24,7 +24,7 @@ final class FinancialPlanCurrentPlanView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 16
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 20, right: 0)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 8, right: 20)
         
         let itemWidth = UIScreen.main.bounds.width - 40
         layout.itemSize = CGSize(width: itemWidth, height: 80)
@@ -52,12 +52,12 @@ final class FinancialPlanCurrentPlanView: UIView {
     }
     
     private func setupUI() {
-        [currentPlanTitle, 
-         currentPlanCollectionView,
-         completePlanButton,
-         addPlanButton].forEach {
-            addSubview($0)
-        }
+        [
+            currentPlanTitle,
+            currentPlanCollectionView,
+            completePlanButton,
+            addPlanButton
+        ].forEach { addSubview($0) }
         
         currentPlanTitle.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide.snp.top).offset(10)

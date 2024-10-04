@@ -5,12 +5,34 @@ import UIKit
 
 class MainPageView: UIView {
     // MARK: Properties
-    var mainWelcomeTitleLabel = LabelFactory.titleLabel().setText("씀씀이의 방문을 \n환영합니다.").build()
-    private let totalAssetsTitleLabel = LabelFactory.subTitleLabel().setText("총 자산").build()
-    let totalAssetsValueLabel = LabelFactory.titleLabel().setText("0 원").build()
-    private let stockIndexTitleLabel = LabelFactory.titleLabel().setFont(.boldSystemFont(ofSize: 18)).setText("주요 경제 지수").build()
-    var stockIndexDateLabel = LabelFactory.subTitleLabel().setFont(.systemFont(ofSize: 14)).setColor(.disableGray).build()
-    private let benefitTitleLabel = LabelFactory.titleLabel().setFont(.boldSystemFont(ofSize: 18)).setText("2024 청년 혜택 총정리").build()
+    var mainWelcomeTitleLabel = LabelFactory.titleLabel()
+        .setText("씀씀이의 방문을 \n환영합니다.")
+        .build()
+    
+    private let totalAssetsTitleLabel = LabelFactory.subTitleLabel()
+        .setFont(.boldSystemFont(ofSize: 18))
+        .setColor(.bodyGray)
+        .setText("총 자산")
+        .build()
+    
+    let totalAssetsValueLabel = LabelFactory.titleLabel()
+        .setText("0 원")
+        .build()
+    
+    private let stockIndexTitleLabel = LabelFactory.titleLabel()
+        .setFont(.boldSystemFont(ofSize: 18))
+        .setText("주요 경제 지수")
+        .build()
+    
+    var stockIndexDateLabel = LabelFactory.captionLabel()
+        .setColor(.disableGray)
+        .setAlign(.right)
+        .build()
+    
+    private let benefitTitleLabel = LabelFactory.titleLabel()
+        .setFont(.boldSystemFont(ofSize: 18))
+        .setText("2024 청년 혜택 총정리")
+        .build()
 
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -34,9 +56,18 @@ class MainPageView: UIView {
     private func createCollectionViewLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 18 //좌우 줄간격
-        layout.itemSize = CGSize(width: 120, height: 80)
-        layout.estimatedItemSize = CGSize(width: 120, height: 80)
+        layout.minimumLineSpacing = 8
+        
+        // 화면 너비에 따라 셀 너비 동적으로 대응하게
+        let screenWidth = UIScreen.main.bounds.width
+        let contentInset: CGFloat = 32
+        let spaceBetweenItems: CGFloat = 16
+        let availableWidth = screenWidth - contentInset - spaceBetweenItems
+        // 제공 항목이 3개 = 3등분하여 소수점 아래 버림
+        let itemWidth = (availableWidth / 3).rounded(.down)
+        
+        layout.itemSize = CGSize(width: itemWidth, height: 80)
+        layout.estimatedItemSize = CGSize(width: itemWidth, height: 80)
         
         return layout
     }
@@ -137,12 +168,12 @@ class MainPageView: UIView {
         }
         
         totalAssetsTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(mainWelcomeTitleLabel.snp.bottom).offset(20)
+            $0.top.equalTo(mainWelcomeTitleLabel.snp.bottom).offset(24)
             $0.left.equalTo(safeAreaLayoutGuide).offset(20)
         }
         
         totalAssetsValueLabel.snp.makeConstraints {
-            $0.top.equalTo(totalAssetsTitleLabel.snp.bottom).offset(20)
+            $0.top.equalTo(totalAssetsTitleLabel.snp.bottom).offset(8)
             $0.left.equalTo(safeAreaLayoutGuide).offset(20)
         }
         
@@ -159,22 +190,21 @@ class MainPageView: UIView {
         }
         
         stockIndexTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(pieChartView.snp.bottom).offset(20)
+            $0.top.equalTo(pieChartView.snp.bottom).offset(28)
             $0.leading.equalTo(safeAreaLayoutGuide).offset(20)
             $0.width.equalTo(100)
         }
         
         stockIndexDateLabel.snp.makeConstraints {
-            $0.top.equalTo(stockIndexTitleLabel.snp.top)
-            $0.trailing.equalTo(safeAreaLayoutGuide).inset(20)
+            $0.centerY.equalTo(stockIndexTitleLabel.snp.centerY)
+            $0.trailing.equalTo(safeAreaLayoutGuide).offset(-20)
             $0.width.equalTo(150)
         }
         
         stockIndexcollectionView.snp.makeConstraints {
-            $0.top.equalTo(stockIndexTitleLabel.snp.bottom).offset(10)
+            $0.top.equalTo(stockIndexTitleLabel.snp.bottom).offset(16)
             $0.height.equalTo(80)
-            $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview().inset(16)
         }
 
         benefitTitleLabel.snp.makeConstraints {
