@@ -483,39 +483,24 @@
 		7457E7BA2CA135A700481C5F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				7457E7BB2CA135AE00481C5F /* Controller */,
 				746F80772C8841F300BBAEAF /* DatePickerView.swift */,
 				746F807A2C8841F300BBAEAF /* MoneyDiaryCalendarCell.swift */,
 				746F807D2C8841F300BBAEAF /* MoneyDiaryCalendarView.swift */,
 				746F807B2C8841F300BBAEAF /* MoneyDiaryView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		7457E7BB2CA135AE00481C5F /* Controller */ = {
-			isa = PBXGroup;
-			children = (
 				746F808E2C8842B200BBAEAF /* MoneyDiaryVC.swift */,
 			);
-			path = Controller;
+			path = View;
 			sourceTree = "<group>";
 		};
 		7457E7BC2CA135E600481C5F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				746F80942C8842C800BBAEAF /* DailyTransactionVC.swift */,
 				746F80892C88424000BBAEAF /* DailyTransactionCell.swift */,
 				746F80882C88424000BBAEAF /* DailyTransactionView.swift */,
 				9F20E3702C9C0143003FF56E /* BenefitView.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		7457E7BD2CA135ED00481C5F /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				746F80942C8842C800BBAEAF /* DailyTransactionVC.swift */,
-			);
-			path = Controller;
 			sourceTree = "<group>";
 		};
 		7457E7BE2CA1363500481C5F /* View */ = {
@@ -685,7 +670,6 @@
 		746F80872C88421500BBAEAF /* DailyTransactionView */ = {
 			isa = PBXGroup;
 			children = (
-				7457E7BD2CA135ED00481C5F /* Controller */,
 				7457E7BC2CA135E600481C5F /* View */,
 			);
 			path = DailyTransactionView;
@@ -824,10 +808,7 @@
 		9F6935122CAF6F9C003344D0 /* BudgetView */ = {
 			isa = PBXGroup;
 			children = (
-				746F808F2C8842B200BBAEAF /* MoneyDiaryBudgetEditVC.swift */,
-				746F80782C8841F300BBAEAF /* MoneyDiaryBudgetEditCell.swift */,
-				746F80762C8841F300BBAEAF /* MoneyDiaryBudgetEditHeaderView.swift */,
-				746F807C2C8841F300BBAEAF /* MoneyDiaryBudgetEditView.swift */,
+				9F6935162CAF7A18003344D0 /* View */,
 			);
 			path = BudgetView;
 			sourceTree = "<group>";
@@ -845,11 +826,30 @@
 		9F6935142CAF705F003344D0 /* Create_EditView */ = {
 			isa = PBXGroup;
 			children = (
+				9F6935152CAF7A13003344D0 /* View */,
+			);
+			path = Create_EditView;
+			sourceTree = "<group>";
+		};
+		9F6935152CAF7A13003344D0 /* View */ = {
+			isa = PBXGroup;
+			children = (
 				E517F33F2C89A41900CB8680 /* MoneyDiaryCreationVC.swift */,
 				746F808D2C8842B200BBAEAF /* MoneyDiaryEditVC.swift */,
 				746F80752C8841F300BBAEAF /* MoneyDiaryEditView.swift */,
 			);
-			path = Create_EditView;
+			path = View;
+			sourceTree = "<group>";
+		};
+		9F6935162CAF7A18003344D0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				746F808F2C8842B200BBAEAF /* MoneyDiaryBudgetEditVC.swift */,
+				746F80782C8841F300BBAEAF /* MoneyDiaryBudgetEditCell.swift */,
+				746F80762C8841F300BBAEAF /* MoneyDiaryBudgetEditHeaderView.swift */,
+				746F807C2C8841F300BBAEAF /* MoneyDiaryBudgetEditView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		E5FBA1462C7EC64500D26E5F /* FinancialPlan */ = {
