@@ -12,7 +12,7 @@ import FirebaseFirestore
 final class EditUserInfoView: UIView {
     
     // 텍스트필드의 공통된 높이
-    private let textFieldHeight = 48
+    private let textFieldHeight = 40
     
     // 전체 스크롤뷰
     let scrollView = UIScrollView()
@@ -282,7 +282,7 @@ final class EditUserInfoView: UIView {
             $0.top.equalToSuperview().inset(18)
             $0.centerX.equalToSuperview()
             $0.horizontalEdges.equalToSuperview().inset(30)
-            $0.height.equalTo(684) //162 432 90
+            $0.height.equalTo(612) //162 432 90
             $0.bottom.equalToSuperview()
         }
         
