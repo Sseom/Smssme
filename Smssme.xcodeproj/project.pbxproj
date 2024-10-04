@@ -483,15 +483,11 @@
 		7457E7BA2CA135A700481C5F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7457E7BB2CA135AE00481C5F /* Controller */,
 				746F80772C8841F300BBAEAF /* DatePickerView.swift */,
-				746F80782C8841F300BBAEAF /* MoneyDiaryBudgetEditCell.swift */,
-				746F80762C8841F300BBAEAF /* MoneyDiaryBudgetEditHeaderView.swift */,
-				746F807C2C8841F300BBAEAF /* MoneyDiaryBudgetEditView.swift */,
 				746F807A2C8841F300BBAEAF /* MoneyDiaryCalendarCell.swift */,
 				746F807D2C8841F300BBAEAF /* MoneyDiaryCalendarView.swift */,
-				746F80752C8841F300BBAEAF /* MoneyDiaryEditView.swift */,
 				746F807B2C8841F300BBAEAF /* MoneyDiaryView.swift */,
-				9F86E6CC2C92AB5F00619F7D /* AutomaticTransactionView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -499,11 +495,7 @@
 		7457E7BB2CA135AE00481C5F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				746F808F2C8842B200BBAEAF /* MoneyDiaryBudgetEditVC.swift */,
-				746F808D2C8842B200BBAEAF /* MoneyDiaryEditVC.swift */,
 				746F808E2C8842B200BBAEAF /* MoneyDiaryVC.swift */,
-				E517F33F2C89A41900CB8680 /* MoneyDiaryCreationVC.swift */,
-				9F86E6CE2C92AB7100619F7D /* AutomaticTransactionVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -681,23 +673,22 @@
 		746F80742C88415900BBAEAF /* MoneyDiary */ = {
 			isa = PBXGroup;
 			children = (
-				7457E7BB2CA135AE00481C5F /* Controller */,
-				7457E7BA2CA135A700481C5F /* View */,
-				746F80872C88421500BBAEAF /* DailyTransaction */,
-				9F3590512CAB87AF00E40EA3 /* AutomaticViewModel.swift */,
-				9F35905A2CABBB8800E40EA3 /* AutomaticAction.swift */,
-				9F35905C2CABBC5600E40EA3 /* AutomaticEvent.swift */,
+				9F6935132CAF7051003344D0 /* MainView */,
+				9F69350C2CAF6EF4003344D0 /* AutomaticTransactionView */,
+				746F80872C88421500BBAEAF /* DailyTransactionView */,
+				9F6935142CAF705F003344D0 /* Create_EditView */,
+				9F6935122CAF6F9C003344D0 /* BudgetView */,
 			);
 			path = MoneyDiary;
 			sourceTree = "<group>";
 		};
-		746F80872C88421500BBAEAF /* DailyTransaction */ = {
+		746F80872C88421500BBAEAF /* DailyTransactionView */ = {
 			isa = PBXGroup;
 			children = (
 				7457E7BD2CA135ED00481C5F /* Controller */,
 				7457E7BC2CA135E600481C5F /* View */,
 			);
-			path = DailyTransaction;
+			path = DailyTransactionView;
 			sourceTree = "<group>";
 		};
 		74707F782C80697100F7000C /* MainPage */ = {
@@ -778,6 +769,87 @@
 				7457E7BE2CA1363500481C5F /* View */,
 			);
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		9F69350C2CAF6EF4003344D0 /* AutomaticTransactionView */ = {
+			isa = PBXGroup;
+			children = (
+				9F69350F2CAF6F33003344D0 /* ViewModel */,
+				9F69350E2CAF6F30003344D0 /* Model */,
+				9F69350D2CAF6F25003344D0 /* View */,
+			);
+			path = AutomaticTransactionView;
+			sourceTree = "<group>";
+		};
+		9F69350D2CAF6F25003344D0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9F86E6CE2C92AB7100619F7D /* AutomaticTransactionVC.swift */,
+				9F86E6CC2C92AB5F00619F7D /* AutomaticTransactionView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9F69350E2CAF6F30003344D0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9F35905A2CABBB8800E40EA3 /* AutomaticAction.swift */,
+				9F35905C2CABBC5600E40EA3 /* AutomaticEvent.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9F69350F2CAF6F33003344D0 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9F3590512CAB87AF00E40EA3 /* AutomaticViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9F6935102CAF6F70003344D0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9F6935112CAF6F76003344D0 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9F6935122CAF6F9C003344D0 /* BudgetView */ = {
+			isa = PBXGroup;
+			children = (
+				746F808F2C8842B200BBAEAF /* MoneyDiaryBudgetEditVC.swift */,
+				746F80782C8841F300BBAEAF /* MoneyDiaryBudgetEditCell.swift */,
+				746F80762C8841F300BBAEAF /* MoneyDiaryBudgetEditHeaderView.swift */,
+				746F807C2C8841F300BBAEAF /* MoneyDiaryBudgetEditView.swift */,
+			);
+			path = BudgetView;
+			sourceTree = "<group>";
+		};
+		9F6935132CAF7051003344D0 /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				9F6935112CAF6F76003344D0 /* ViewModel */,
+				9F6935102CAF6F70003344D0 /* Model */,
+				7457E7BA2CA135A700481C5F /* View */,
+			);
+			path = MainView;
+			sourceTree = "<group>";
+		};
+		9F6935142CAF705F003344D0 /* Create_EditView */ = {
+			isa = PBXGroup;
+			children = (
+				E517F33F2C89A41900CB8680 /* MoneyDiaryCreationVC.swift */,
+				746F808D2C8842B200BBAEAF /* MoneyDiaryEditVC.swift */,
+				746F80752C8841F300BBAEAF /* MoneyDiaryEditView.swift */,
+			);
+			path = Create_EditView;
 			sourceTree = "<group>";
 		};
 		E5FBA1462C7EC64500D26E5F /* FinancialPlan */ = {
