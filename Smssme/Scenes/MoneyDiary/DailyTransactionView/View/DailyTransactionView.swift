@@ -1,17 +1,11 @@
-//
-//  DailyTransactionView.swift
-//  Smssme
-//
-//  Created by KimRin on 8/29/24.
-//0924rin
-
+// DailyTransactionView.swift
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
 
 final class DailyTransactionView: UIView {
-
     let dailyIncome: UILabel = SmallTitleLabel().createLabel(with: "income", color: .blue)
-
     let dailyExpense: UILabel = SmallTitleLabel().createLabel(with: "expense", color: .red)
 
     lazy var listCollectionView: UICollectionView = {
@@ -39,12 +33,9 @@ final class DailyTransactionView: UIView {
          self.dailyExpense,
          self.listCollectionView
         ].forEach { self.addSubview($0) }
-        
     }
     
-    
     private func setupLayout() {
-        
         self.dailyIncome.snp.makeConstraints {
             $0.top.equalTo(self.snp.top).offset(20)
             $0.trailing.equalTo(dailyExpense.snp.leading).offset(-20)
@@ -62,9 +53,4 @@ final class DailyTransactionView: UIView {
             $0.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
         }
     }
-
-
 }
-
-
-
