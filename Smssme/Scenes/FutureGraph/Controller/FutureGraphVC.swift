@@ -304,8 +304,6 @@ class FutureGraphVC: UIViewController {
         secondFuturePlanAssets = futurePlanAssetValues
         
         updateSecondChartData(yearsArray: yearsArray)
-        
-        futureGraphView.secondView.scrollView.isScrollEnabled = true
     }
 }
 
