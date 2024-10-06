@@ -59,9 +59,11 @@
 		7457E7D02CA13A4F00481C5F /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457E7B52CA134EF00481C5F /* LoginVC.swift */; };
 		7457E7D12CA13A7200481C5F /* ReauthenticationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457E7B42CA134EF00481C5F /* ReauthenticationVC.swift */; };
 		7457E7D32CA13B2000481C5F /* KoreanCurrencyFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457E7D22CA13B2000481C5F /* KoreanCurrencyFormatter.swift */; };
-		7457E7E62CA57ED500481C5F /* FutureGraphVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457E7E42CA57C7400481C5F /* FutureGraphVC.swift */; };
-		7457E7E72CA57ED900481C5F /* FutureGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457E7E52CA57C9D00481C5F /* FutureGraphView.swift */; };
-		7457E7E92CA5D82000481C5F /* FutureGraphCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457E7E82CA5D82000481C5F /* FutureGraphCell.swift */; };
+		7457E80A2CB2F75E00481C5F /* FutureGraphVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457E8092CB2F75E00481C5F /* FutureGraphVC.swift */; };
+		7457E80F2CB2F76E00481C5F /* FutureGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457E80B2CB2F76E00481C5F /* FutureGraphView.swift */; };
+		7457E8102CB2F76E00481C5F /* FutureGraphSecondView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457E80C2CB2F76E00481C5F /* FutureGraphSecondView.swift */; };
+		7457E8112CB2F76E00481C5F /* FutureGraphCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457E80D2CB2F76E00481C5F /* FutureGraphCell.swift */; };
+		7457E8122CB2F76E00481C5F /* FutureGraphFirstView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457E80E2CB2F76E00481C5F /* FutureGraphFirstView.swift */; };
 		746F807E2C8841F300BBAEAF /* MoneyDiaryEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746F80752C8841F300BBAEAF /* MoneyDiaryEditView.swift */; };
 		746F807F2C8841F300BBAEAF /* MoneyDiaryBudgetEditHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746F80762C8841F300BBAEAF /* MoneyDiaryBudgetEditHeaderView.swift */; };
 		746F80802C8841F300BBAEAF /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746F80772C8841F300BBAEAF /* DatePickerView.swift */; };
@@ -179,9 +181,11 @@
 		7457E7CC2CA139ED00481C5F /* FinancialPlanCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanCell.swift; sourceTree = "<group>"; };
 		7457E7CE2CA13A0A00481C5F /* FinancialPlanCurrentPlanView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanCurrentPlanView.swift; sourceTree = "<group>"; };
 		7457E7D22CA13B2000481C5F /* KoreanCurrencyFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KoreanCurrencyFormatter.swift; sourceTree = "<group>"; };
-		7457E7E42CA57C7400481C5F /* FutureGraphVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureGraphVC.swift; sourceTree = "<group>"; };
-		7457E7E52CA57C9D00481C5F /* FutureGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureGraphView.swift; sourceTree = "<group>"; };
-		7457E7E82CA5D82000481C5F /* FutureGraphCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureGraphCell.swift; sourceTree = "<group>"; };
+		7457E8092CB2F75E00481C5F /* FutureGraphVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FutureGraphVC.swift; sourceTree = "<group>"; };
+		7457E80B2CB2F76E00481C5F /* FutureGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FutureGraphView.swift; sourceTree = "<group>"; };
+		7457E80C2CB2F76E00481C5F /* FutureGraphSecondView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FutureGraphSecondView.swift; sourceTree = "<group>"; };
+		7457E80D2CB2F76E00481C5F /* FutureGraphCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FutureGraphCell.swift; sourceTree = "<group>"; };
+		7457E80E2CB2F76E00481C5F /* FutureGraphFirstView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FutureGraphFirstView.swift; sourceTree = "<group>"; };
 		746F80752C8841F300BBAEAF /* MoneyDiaryEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyDiaryEditView.swift; sourceTree = "<group>"; };
 		746F80762C8841F300BBAEAF /* MoneyDiaryBudgetEditHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyDiaryBudgetEditHeaderView.swift; sourceTree = "<group>"; };
 		746F80772C8841F300BBAEAF /* DatePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
@@ -355,6 +359,7 @@
 				CA9C1B8E2CAC2F50001E17C8 /* SecretsConfig.xcconfig */,
 				74707FC12C85D78D00F7000C /* Smssme.entitlements */,
 				740350742C7740BE00122B2E /* Scenes */,
+				7457E8062CB2F6FF00481C5F /* FutureGraph */,
 				740350702C77408900122B2E /* Model */,
 				5FD70A0E2CA99336009E38C0 /* Notification */,
 				5FE400722C949DE9001D0FD1 /* Network */,
@@ -390,7 +395,6 @@
 				74707FB42C84C2BE00F7000C /* Assets */,
 				74707F782C80697100F7000C /* MainPage */,
 				E5FBA1462C7EC64500D26E5F /* FinancialPlan */,
-				7457E7E12CA57BE800481C5F /* FutureGraph */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -641,28 +645,30 @@
 			path = Date;
 			sourceTree = "<group>";
 		};
-		7457E7E12CA57BE800481C5F /* FutureGraph */ = {
+		7457E8062CB2F6FF00481C5F /* FutureGraph */ = {
 			isa = PBXGroup;
 			children = (
-				7457E7E32CA57C1600481C5F /* Controller */,
-				7457E7E22CA57C0B00481C5F /* View */,
+				7457E8082CB2F74D00481C5F /* Controller */,
+				7457E8072CB2F74700481C5F /* View */,
 			);
 			path = FutureGraph;
 			sourceTree = "<group>";
 		};
-		7457E7E22CA57C0B00481C5F /* View */ = {
+		7457E8072CB2F74700481C5F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				7457E7E52CA57C9D00481C5F /* FutureGraphView.swift */,
-				7457E7E82CA5D82000481C5F /* FutureGraphCell.swift */,
+				7457E80D2CB2F76E00481C5F /* FutureGraphCell.swift */,
+				7457E80E2CB2F76E00481C5F /* FutureGraphFirstView.swift */,
+				7457E80C2CB2F76E00481C5F /* FutureGraphSecondView.swift */,
+				7457E80B2CB2F76E00481C5F /* FutureGraphView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
 		};
-		7457E7E32CA57C1600481C5F /* Controller */ = {
+		7457E8082CB2F74D00481C5F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				7457E7E42CA57C7400481C5F /* FutureGraphVC.swift */,
+				7457E8092CB2F75E00481C5F /* FutureGraphVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -857,8 +863,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7457E7E72CA57ED900481C5F /* FutureGraphView.swift in Sources */,
-				7457E7E62CA57ED500481C5F /* FutureGraphVC.swift in Sources */,
 				7457E7D12CA13A7200481C5F /* ReauthenticationVC.swift in Sources */,
 				E50498702CA5CB8D0014B8EF /* FinancialPlanCompleteView.swift in Sources */,
 				7457E7D02CA13A4F00481C5F /* LoginVC.swift in Sources */,
@@ -881,8 +885,8 @@
 				5FE400762C949E89001D0FD1 /* APIModel.swift in Sources */,
 				5FA890092C85B30800549363 /* FirebaseFirestoreManager.swift in Sources */,
 				74707F982C81B79500F7000C /* Budget+CoreDataClass.swift in Sources */,
+				7457E8122CB2F76E00481C5F /* FutureGraphFirstView.swift in Sources */,
 				74707F992C81B79500F7000C /* Budget+CoreDataProperties.swift in Sources */,
-				7457E7E92CA5D82000481C5F /* FutureGraphCell.swift in Sources */,
 				74707F9C2C81B7E800F7000C /* Diary+CoreDataClass.swift in Sources */,
 				5F18A2172C8DB35400BC70B7 /* NickNameView.swift in Sources */,
 				74707F9D2C81B7E800F7000C /* Diary+CoreDataProperties.swift in Sources */,
@@ -921,6 +925,7 @@
 				74707FAF2C81B86100F7000C /* UserCoreDataManager.swift in Sources */,
 				741746572C9871DA006D5456 /* BenefitVerticalCell.swift in Sources */,
 				5FA88FEF2C80760E00549363 /* CommonAlert.swift in Sources */,
+				7457E8112CB2F76E00481C5F /* FutureGraphCell.swift in Sources */,
 				740350592C773E9B00122B2E /* SceneDelegate.swift in Sources */,
 				7457E7CB2CA139CE00481C5F /* FinancialPlanCreationView.swift in Sources */,
 				5FE400842C99A450001D0FD1 /* ResetPasswordVC.swift in Sources */,
@@ -943,10 +948,13 @@
 				741746592C9B041A006D5456 /* ChartDataManager.swift in Sources */,
 				5FE400782C949EB8001D0FD1 /* Endpoint.swift in Sources */,
 				5FE400692C8DE94F001D0FD1 /* UITextField.swift in Sources */,
+				7457E80A2CB2F75E00481C5F /* FutureGraphVC.swift in Sources */,
+				7457E80F2CB2F76E00481C5F /* FutureGraphView.swift in Sources */,
 				744FB09A2C93D94000208685 /* AssetsListCell.swift in Sources */,
 				5FE400712C93CAD3001D0FD1 /* ToastMessage.swift in Sources */,
 				5F18A2112C8DB31E00BC70B7 /* EmailView.swift in Sources */,
 				7457E7CF2CA13A0A00481C5F /* FinancialPlanCurrentPlanView.swift in Sources */,
+				7457E8102CB2F76E00481C5F /* FutureGraphSecondView.swift in Sources */,
 				746F80922C8842B200BBAEAF /* MoneyDiaryBudgetEditVC.swift in Sources */,
 				5FE4006F2C917B4E001D0FD1 /* FirebaseAuthManager.swift in Sources */,
 				9FF702DB2C966B3F00890E77 /* RegexManager.swift in Sources */,

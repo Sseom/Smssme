@@ -9,12 +9,9 @@ import DGCharts
 import SnapKit
 import UIKit
 
-class FutureGraphView: UIView {
+class FutureGraphFirstView: UIView {
     // MARK: Properties
-    private let titleLabel = LabelFactory.titleLabel()
-        .setText("내가 만들어보는 자산 그래프")
-        .setAlign(.center)
-        .build()
+    private let titleLabel = LabelFactory.titleLabel().setText("내가 만들어보는 자산 그래프").setAlign(.center).build()
     
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -34,6 +31,7 @@ class FutureGraphView: UIView {
         textField.borderStyle = .roundedRect
         textField.placeholder = "총 자산 입력"
         textField.keyboardType = .decimalPad
+        
         return textField
     }()
     
@@ -117,6 +115,26 @@ class FutureGraphView: UIView {
         [assetTextField, savingsTextField].forEach {
             $0.delegate = self
         }
+        
+        [assetTextField, savingsTextField, interestRateTextField].forEach {
+            // 완료 버튼을 포함한 툴바 생성
+            let toolbar = UIToolbar()
+            toolbar.sizeToFit()
+            
+            // "완료" 버튼 생성
+            let doneButton = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(dismissKeyboard))
+            
+            // 툴바의 버튼들 설정 (유연 공간을 추가해 "완료" 버튼을 오른쪽으로 배치)
+            let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+            toolbar.setItems([flexibleSpace, doneButton], animated: false)
+            
+            // 텍스트 필드에 툴바를 추가
+            $0.inputAccessoryView = toolbar
+        }
+    }
+    
+    private func viewChange(index: Int) {
+        print("뷰 바뀜")
     }
     
     private func setupUI() {
@@ -158,7 +176,7 @@ class FutureGraphView: UIView {
         }
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(safeAreaLayoutGuide.snp.top).offset(50)
+            $0.top.equalToSuperview().offset(20)
             $0.centerX.equalToSuperview()
         }
         
@@ -181,9 +199,18 @@ class FutureGraphView: UIView {
             $0.bottom.equalToSuperview().inset(20)
         }
     }
+    
+    @objc func segmentChange(segment: UISegmentedControl) {
+        viewChange(index: segment.selectedSegmentIndex)
+//        print("뷰 바뀜")
+    }
+    
+    @objc func dismissKeyboard() {
+        self.endEditing(true)
+    }
 }
 
-extension FutureGraphView: UITextFieldDelegate {
+extension FutureGraphFirstView: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if !CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: string)) && string != "" {
             return false

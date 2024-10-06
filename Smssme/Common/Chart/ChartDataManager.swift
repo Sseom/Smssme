@@ -9,6 +9,10 @@ import DGCharts
 import Foundation
 
 class ChartDataManager {
+    private let assetsCoreDataManager = AssetsCoreDataManager()
+    private let financialPlanManager = FinancialPlanManager.shared
+    private let diaryCoreDataManager = DiaryCoreDataManager.shared
+    
     func pieChartPercentageData(array: [ChartData]) -> ([PieChartDataEntry], Double) {
         let totalAmount = Double(array.reduce(0) { $0 + Double($1.amount) })
         
@@ -57,6 +61,20 @@ class ChartDataManager {
         let netIncome = totalIncome - totalExpense
         
         return ChartData(amount: netIncome, title: "현금 자산")
+    }
+    
+    func getBarChartTotalAssetsValue() -> Double {
+        let assets = assetsCoreDataManager.selectAllAssets().reduce(0) {
+            $0 + Double($1.amount)
+        }
+        let financialPlan = financialPlanManager.fetchAllFinancialPlans().reduce(0) {
+            $0 + Double($1.deposit)
+        }
+        let diaryList = diaryCoreDataManager.fetchAllDiaries()
+        
+        let diary = diaryList.filter { $0.statement }.reduce(0) { $0 + Double($1.amount) } - diaryList.filter { !$0.statement }.reduce(0) { $0 + Double($1.amount) }
+        
+        return assets + financialPlan + diary
     }
     
     func mainAssetsData<T: ChartDataConvertible>(array: [[T]]) -> ([PieChartDataEntry], Double) {
