@@ -359,7 +359,6 @@
 				CA9C1B8E2CAC2F50001E17C8 /* SecretsConfig.xcconfig */,
 				74707FC12C85D78D00F7000C /* Smssme.entitlements */,
 				740350742C7740BE00122B2E /* Scenes */,
-				7457E8062CB2F6FF00481C5F /* FutureGraph */,
 				740350702C77408900122B2E /* Model */,
 				5FD70A0E2CA99336009E38C0 /* Notification */,
 				5FE400722C949DE9001D0FD1 /* Network */,
@@ -395,6 +394,7 @@
 				74707FB42C84C2BE00F7000C /* Assets */,
 				74707F782C80697100F7000C /* MainPage */,
 				E5FBA1462C7EC64500D26E5F /* FinancialPlan */,
+				7457E8062CB2F6FF00481C5F /* FutureGraph */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
