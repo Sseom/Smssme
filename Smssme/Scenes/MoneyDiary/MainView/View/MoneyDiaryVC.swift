@@ -283,10 +283,9 @@ extension MoneyDiaryVC: UICollectionViewDataSource, UICollectionViewDelegate, UI
         
     }
     
-    
+    //fix
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let viewController = DailyTransactionVC(transactionView: DailyTransactionView(), viewModel: DailyTransactionViewModel())
-        viewController.setDate(day: self.calendarItems[indexPath.row].date)
+        let viewController = DailyTransactionVC(today: self.calendarItems[indexPath.row].date)
         self.navigationController?.pushViewController(viewController, animated: true)
     }
     

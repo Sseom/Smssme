@@ -11,8 +11,13 @@ final class DailyTransactionView: UIView {
     lazy var listCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = 10 // 셀 간 세로 간격
+        layout.minimumInteritemSpacing = 10 // 셀 간 가로 간격
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10) // 섹션 인셋 설정
+        
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .white
+        collectionView.register(DailyTransactionCell.self, forCellWithReuseIdentifier: DailyTransactionCell.reuseIdentifier) // 셀 등록
         return collectionView
     }()
 
