@@ -32,7 +32,7 @@ class AssetsEditVC: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Life Cycle
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "나의 자산편집"
@@ -123,6 +123,7 @@ class AssetsEditVC: UIViewController {
     private func deleteAssets() {
         if let assets = assets, let uuid = assets.key {
             viewModel.deleteAssets(uuid: uuid)
+                .observe(on: MainScheduler.instance)
                 .subscribe(
                     onCompleted: { [weak self] in
                         self?.showSyncAlert(message: "삭제 되었습니다.", AlertTitle: "삭제 완료", buttonClickTitle: "확인") {
