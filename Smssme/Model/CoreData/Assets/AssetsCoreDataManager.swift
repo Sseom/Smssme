@@ -12,13 +12,13 @@ class AssetsCoreDataManager {
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     // 신규 자산 저장
-    func createAssets(assets: AssetsItem) {
+    func createAssets(assetsItem: AssetsItem) {
         let newAssets = Assets(context: context)
         newAssets.id = nil
-        newAssets.amount = assets.amount
-        newAssets.category = assets.category
-        newAssets.note = assets.note
-        newAssets.title = assets.title
+        newAssets.amount = assetsItem.amount
+        newAssets.category = assetsItem.category
+        newAssets.note = assetsItem.note
+        newAssets.title = assetsItem.title
         newAssets.key = UUID()
         do {
             try context.save()
@@ -49,7 +49,6 @@ class AssetsCoreDataManager {
             print("에러: \(error.localizedDescription)")
         }
     }
-
     
     // 자산 전체 가져오기
     func selectAllAssets() -> [Assets] {
@@ -76,7 +75,6 @@ class AssetsCoreDataManager {
             return []
         }
     }
-    
     
     func deleteAssets(uuid: UUID){
         let fetchRequest: NSFetchRequest<Assets> = Assets.fetchRequest()

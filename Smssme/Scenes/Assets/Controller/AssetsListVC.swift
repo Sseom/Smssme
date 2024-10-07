@@ -99,7 +99,7 @@ class AssetsListVC: UIViewController {
     @objc func addButtonTapped() {
 //        saveAssets()
 //        popupViewController()
-        self.navigationController?.pushViewController(AssetsEditVC(), animated: true)
+        self.navigationController?.pushViewController(AssetsEditVC(uuid: nil), animated: true)
     }
     @objc func cancelButtonTapped() {
         navigationController?.popViewController(animated: true)
@@ -173,8 +173,7 @@ extension AssetsListVC: UITableViewDelegate {
             return
         }
         
-        let assetsEditVC = AssetsEditVC()
-        assetsEditVC.uuid = selectedItem.uuid
+        let assetsEditVC = AssetsEditVC(uuid: selectedItem.uuid)
         self.navigationController?.pushViewController(assetsEditVC, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
     }
