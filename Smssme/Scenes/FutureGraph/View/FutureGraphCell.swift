@@ -68,15 +68,16 @@ class FutureGraphCell: UITableViewCell {
             $0.width.equalTo(40)
         }
         
-        assetLabel.snp.makeConstraints {
-            $0.width.equalTo(175)
-        }
+//        assetLabel.snp.makeConstraints {
+//            $0.width.equalTo(175)
+//        }
 //        
 //        savingsLabel.snp.makeConstraints {
 //            $0.width.equalTo(130)
 //        }
     }
     
+    // common으로 빼기
     func formattedCurrencyString(from number: Double) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
@@ -91,7 +92,6 @@ class FutureGraphCell: UITableViewCell {
 
     func configure(year: String, asset: Double, savings: Double) {
         yearLabel.text = "\(year)년" // 연도 표시
-        assetLabel.text = "자산: \(formattedCurrencyString(from: asset)) 원"
-        savingsLabel.text = "저축: \(formattedCurrencyString(from: savings)) 원"
+        assetLabel.text = "총 자산: \(formattedCurrencyString(from: asset + savings)) 원"
     }
 }
