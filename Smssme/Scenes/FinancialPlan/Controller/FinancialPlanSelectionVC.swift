@@ -7,61 +7,69 @@
 
 import CoreData
 import UIKit
+import RxSwift
 
 protocol FinancialPlanCreateDelegate: AnyObject {
     func didCreateFinancialPlan(_ plan: FinancialPlanDTO)
 }
-
 final class FinancialPlanSelectionVC: UIViewController {
     weak var createDelegate: FinancialPlanEditDelegate?
     private let selectionView = FinancialPlanSelectionView()
-    private let planService: FinancialPlanService = FinancialPlanService()
+    private let viewModel: FinancialPlanSelectionVM = FinancialPlanSelectionVM()
+    private let disposeBag = DisposeBag()
+    
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        selectionView.collectionView.dataSource = self
-        selectionView.collectionView.delegate = self
-        view.backgroundColor = UIColor(hex: "#e9f3fd")
-        tabBarController?.tabBar.backgroundColor = .white 
+        tabBarController?.tabBar.backgroundColor = .white
+        bindViewModel()
     }
     
     override func loadView() {
         view = selectionView
     }
-}
-
-// MARK: - Collection View Data Source
-extension FinancialPlanSelectionVC: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return PlanType.allCases.count
-    }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FinancialPlanCell.ID, for: indexPath) as? FinancialPlanCell else {
-            return UICollectionViewCell()
-        }
+    private func bindViewModel() {
+        // 인풋
+        selectionView.collectionView.rx.itemSelected
+            .withLatestFrom(viewModel.planTypes) { indexPath, planTypes in
+                planTypes[indexPath.item]
+            }
+            .bind(to: viewModel.selectPlan)
+            .disposed(by: disposeBag)
         
-        let planType = PlanType.allCases[indexPath.item]
-        cell.configure(with: planType)
-        cell.cellBackgroundColor(UIColor(hex: "#ffffff"))
+        // 아웃풋
+        viewModel.planTypes
+            .bind(to: selectionView.collectionView.rx.items(cellIdentifier: FinancialPlanCell.ID, cellType: FinancialPlanCell.self)) { _, planType, cell in
+                cell.configure(with: planType)
+                cell.cellBackgroundColor(UIColor(hex: "#ffffff"))
+            }
+            .disposed(by: disposeBag)
         
-        return cell
-    }
-}
-
-// MARK: - Collection View Delegate
-extension FinancialPlanSelectionVC: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedPlanType = PlanType.allCases[indexPath.item]
-        let planTitle = selectedPlanType.title
+        viewModel.showExistingPlanAlert
+            .subscribe(onNext: { [weak self] in
+                self?.showExistingPlanAlert()
+            })
+            .disposed(by: disposeBag)
         
-        if planService.fetchIncompletedPlans().count >= 10 {
-            showExistingPlanAlert()
-        } else {
-            let createPlanVC = FinancialPlanCreationVC(planService: planService)
-            createPlanVC.configure(with: planTitle, planType: selectedPlanType)
-            navigationController?.pushViewController(createPlanVC, animated: true)
-        }
+        viewModel.navigateToCreatePlan
+            .subscribe(onNext: { [weak self] planType in
+                self?.navigateToCreatePlan(with: planType)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.navigateToCurrentPlanScreen
+            .subscribe(onNext: { [weak self] in
+                self?.navigateToCurrentPlanVC()
+            })
+            .disposed(by: disposeBag)
     }
     
     private func showExistingPlanAlert() {
@@ -70,15 +78,21 @@ extension FinancialPlanSelectionVC: UICollectionViewDelegate {
             AlertTitle: "알림",
             leftButtonTitle: "현재 플랜 보기",
             leftButtonmethod: { [weak self] in
-                self?.navigateToCurrentPlanVC()
+                self?.viewModel.navigateToCurrentPlan.onNext(())
             },
             rightButtonTitle: "취소",
             rightButtonmethod: { }
         )
     }
     
+    private func navigateToCreatePlan(with planType: PlanType) {
+        let createPlanVC = FinancialPlanCreationVC(viewModel: FinancialPlanCreationViewModel(planService: FinancialPlanService(), selectedPlanType: planType))
+//        createPlanVC.configure(with: planType.title, planType: planType)
+        navigationController?.pushViewController(createPlanVC, animated: true)
+    }
+    
     private func navigateToCurrentPlanVC() {
-        let currentPlanVC = FinancialPlanCurrentPlanVC(planService: planService)
+        let currentPlanVC = FinancialPlanCurrentPlanVC(planService: viewModel.planService)
         navigationController?.pushViewController(currentPlanVC, animated: true)
     }
 }

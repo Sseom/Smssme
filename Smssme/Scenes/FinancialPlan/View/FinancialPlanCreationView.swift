@@ -37,6 +37,7 @@ class FinancialPlanCreationView: UIView {
         self.textFieldArea = textFieldArea
         super.init(frame: .zero)
         setupUI()
+        setupGestureRecognizer()
     }
     
     required init?(coder: NSCoder) {
@@ -44,6 +45,8 @@ class FinancialPlanCreationView: UIView {
     }
     
     private func setupUI() {
+        backgroundColor = .white
+        
         [
             titleTextField,
             tooltipView,
@@ -130,7 +133,6 @@ class CreatePlanTextFieldView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
-        setupGestureRecognizer()
     }
     
     required init?(coder: NSCoder) {
@@ -199,15 +201,15 @@ class CreatePlanTextFieldView: UIView {
     }
 }
 
-extension CreatePlanTextFieldView {
-    private func setupGestureRecognizer() {
+extension UIView {
+    func setupGestureRecognizer() {
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         recognizer.cancelsTouchesInView = false
         self.addGestureRecognizer(recognizer)
     }
     
     // MARK: - Objc
-    @objc private func handleTap() {
+    @objc func handleTap() {
         self.endEditing(true)
     }
 }

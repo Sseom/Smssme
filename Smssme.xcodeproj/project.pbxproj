@@ -107,6 +107,10 @@
 		E50498702CA5CB8D0014B8EF /* FinancialPlanCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E504986F2CA5CB8D0014B8EF /* FinancialPlanCompleteView.swift */; };
 		E517F2822C8782F200CB8680 /* FinancialPlanManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F2812C8782F200CB8680 /* FinancialPlanManager.swift */; };
 		E517F3402C89A41900CB8680 /* MoneyDiaryCreationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E517F33F2C89A41900CB8680 /* MoneyDiaryCreationVC.swift */; };
+		E56811DF2CAF988D00E8E1A2 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = E56811DE2CAF988D00E8E1A2 /* RxCocoa */; };
+		E56811E12CAF988D00E8E1A2 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E56811E02CAF988D00E8E1A2 /* RxSwift */; };
+		E56811E42CAFBCB800E8E1A2 /* SelectionVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56811E32CAFBCB800E8E1A2 /* SelectionVM.swift */; };
+		E57639382CB314A70026C63D /* PlanCreationVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57639372CB314A70026C63D /* PlanCreationVM.swift */; };
 		E5B9267D2CA2DF280027984E /* UILabelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B9267C2CA2DF280027984E /* UILabelFactory.swift */; };
 		E5B926832CA307E60027984E /* FinancialPlanCompleteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B926822CA307E60027984E /* FinancialPlanCompleteVC.swift */; };
 		E5B926872CA313FC0027984E /* UIButtonFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B926862CA313FC0027984E /* UIButtonFactory.swift */; };
@@ -227,6 +231,8 @@
 		E504986F2CA5CB8D0014B8EF /* FinancialPlanCompleteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanCompleteView.swift; sourceTree = "<group>"; };
 		E517F2812C8782F200CB8680 /* FinancialPlanManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialPlanManager.swift; sourceTree = "<group>"; };
 		E517F33F2C89A41900CB8680 /* MoneyDiaryCreationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDiaryCreationVC.swift; sourceTree = "<group>"; };
+		E56811E32CAFBCB800E8E1A2 /* SelectionVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionVM.swift; sourceTree = "<group>"; };
+		E57639372CB314A70026C63D /* PlanCreationVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlanCreationVM.swift; path = Smssme/Scenes/FinancialPlan/ViewModel/PlanCreationVM.swift; sourceTree = SOURCE_ROOT; };
 		E5B9267C2CA2DF280027984E /* UILabelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelFactory.swift; sourceTree = "<group>"; };
 		E5B926822CA307E60027984E /* FinancialPlanCompleteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FinancialPlanCompleteVC.swift; path = Smssme/Scenes/FinancialPlan/Controller/FinancialPlanCompleteVC.swift; sourceTree = SOURCE_ROOT; };
 		E5B926862CA313FC0027984E /* UIButtonFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonFactory.swift; sourceTree = "<group>"; };
@@ -250,8 +256,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E56811E12CAF988D00E8E1A2 /* RxSwift in Frameworks */,
 				E5FBA1332C7CCCBE00D26E5F /* SnapKit in Frameworks */,
 				5FE3DDD92CA3ACCB0015B14E /* FirebaseFirestore in Frameworks */,
+				E56811DF2CAF988D00E8E1A2 /* RxCocoa in Frameworks */,
 				5FE3DDD72CA3ACCB0015B14E /* FirebaseAuth in Frameworks */,
 				74707F802C806A5900F7000C /* DGCharts in Frameworks */,
 			);
@@ -765,9 +773,19 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
+		E56811E22CAFA85700E8E1A2 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E56811E32CAFBCB800E8E1A2 /* SelectionVM.swift */,
+				E57639372CB314A70026C63D /* PlanCreationVM.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		E5FBA1462C7EC64500D26E5F /* FinancialPlan */ = {
 			isa = PBXGroup;
 			children = (
+				E56811E22CAFA85700E8E1A2 /* ViewModel */,
 				7457E7C32CA1369B00481C5F /* Controller */,
 				7457E7C22CA1369500481C5F /* View */,
 			);
@@ -795,6 +813,8 @@
 				74707F7F2C806A5900F7000C /* DGCharts */,
 				5FE3DDD62CA3ACCB0015B14E /* FirebaseAuth */,
 				5FE3DDD82CA3ACCB0015B14E /* FirebaseFirestore */,
+				E56811DE2CAF988D00E8E1A2 /* RxCocoa */,
+				E56811E02CAF988D00E8E1A2 /* RxSwift */,
 			);
 			productName = Smssme;
 			productReference = 740350532C773E9B00122B2E /* Smssme.app */;
@@ -828,6 +848,7 @@
 				E5FBA1312C7CCCBE00D26E5F /* XCRemoteSwiftPackageReference "SnapKit" */,
 				74707F7E2C806A5900F7000C /* XCRemoteSwiftPackageReference "Charts" */,
 				5FE3DDD52CA3ACCB0015B14E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				E56811DD2CAF988D00E8E1A2 /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = 740350542C773E9B00122B2E /* Products */;
 			projectDirPath = "";
@@ -894,12 +915,14 @@
 				5F18A2062C8DAE8100BC70B7 /* EmailVC.swift in Sources */,
 				74707FBA2C84CD7A00F7000C /* AssetsEditVC.swift in Sources */,
 				746F80862C8841F300BBAEAF /* MoneyDiaryCalendarView.swift in Sources */,
+				E56811E42CAFBCB800E8E1A2 /* SelectionVM.swift in Sources */,
 				E5BF5E472C8597820093FD2D /* PlanDateModel.swift in Sources */,
 				E5B926872CA313FC0027984E /* UIButtonFactory.swift in Sources */,
 				74707F7A2C80698C00F7000C /* MainPageView.swift in Sources */,
 				E5FBA1482C7EC68700D26E5F /* PlanCustomTextField.swift in Sources */,
 				5F18A2192C8DB36B00BC70B7 /* IncomeAndLocationView.swift in Sources */,
 				74707FB62C84C6C300F7000C /* AssetsEditView.swift in Sources */,
+				E57639382CB314A70026C63D /* PlanCreationVM.swift in Sources */,
 				740350572C773E9B00122B2E /* AppDelegate.swift in Sources */,
 				5F18A2152C8DB34800BC70B7 /* PasswordView.swift in Sources */,
 				5FD70A102CA99369009E38C0 /* NotificationManager.swift in Sources */,
@@ -1220,6 +1243,14 @@
 				minimumVersion = 5.1.0;
 			};
 		};
+		E56811DD2CAF988D00E8E1A2 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.7.1;
+			};
+		};
 		E5FBA1312C7CCCBE00D26E5F /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -1245,6 +1276,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 74707F7E2C806A5900F7000C /* XCRemoteSwiftPackageReference "Charts" */;
 			productName = DGCharts;
+		};
+		E56811DE2CAF988D00E8E1A2 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E56811DD2CAF988D00E8E1A2 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		E56811E02CAF988D00E8E1A2 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E56811DD2CAF988D00E8E1A2 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
 		};
 		E5FBA1322C7CCCBE00D26E5F /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;

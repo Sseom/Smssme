@@ -30,6 +30,9 @@ final class FinancialPlanSelectionView: UIView {
     }
     
     private func setupUI() {
+        backgroundColor = UIColor(hex: "#e9f3fd")
+            TabBarController().tabBarController?.tabBar.backgroundColor = .white
+        
         [
             title,
             collectionView

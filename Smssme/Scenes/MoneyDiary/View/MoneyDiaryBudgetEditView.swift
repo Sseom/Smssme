@@ -26,7 +26,6 @@ class MoneyDiaryBudgetEditView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
-        
         setupGestureRecognizer()
     }
     
@@ -53,16 +52,5 @@ class MoneyDiaryBudgetEditView: UIView {
             $0.left.right.equalTo(self.safeAreaLayoutGuide)
             $0.bottom.equalTo(self.safeAreaLayoutGuide)
         }
-    }
-    
-    private func setupGestureRecognizer() {
-        let recognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-        recognizer.cancelsTouchesInView = false
-        self.addGestureRecognizer(recognizer)
-    }
-    
-    // MARK: - Objc
-    @objc private func handleTap() {
-        self.endEditing(true)
     }
 }
