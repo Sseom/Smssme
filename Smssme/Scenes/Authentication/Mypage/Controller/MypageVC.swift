@@ -231,7 +231,7 @@ class MypageVC: UIViewController {
         
         if isEnabled {
             // 알림 활성화
-            NotificationManager.shared.test()
+            NotificationManager.shared.everyDayNotificaion()
             NotificationManager.shared.firstDayOfMonthNotification()
             NotificationManager.shared.lastDayOfMonthNotification()
             print("알림이 활성화되었습니다.\(isEnabled)")
