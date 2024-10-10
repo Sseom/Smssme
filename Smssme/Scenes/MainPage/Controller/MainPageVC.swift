@@ -39,6 +39,7 @@ class MainPageVC: UIViewController {
         setupStockData()
         setupWelcomeTitle()
         setupTableView()
+        requestNotification()
     }
     
     override func loadView() {
@@ -55,7 +56,7 @@ class MainPageVC: UIViewController {
         setupWelcomeTitle()
         setupCollectionView()
         setChart()
-//        requestNotification()
+
     }
     
     //MARK: - Methods
@@ -93,22 +94,22 @@ class MainPageVC: UIViewController {
     }
     
     // 알림 권한 요청
-//    private func requestNotification() {
-//        NotificationManager.shared.requestAuthorization { [weak self] granted in
-//            DispatchQueue.main.async {
-//                  if granted {
-//                      // 알림 권한이 허용된 경우
-//                      print("알림 권한이 허용되었습니다.")
-//                      NotificationManager.shared.setNotificationEnabled(userID: Auth.auth().currentUser?.uid)
-//                  } else {
-//                      // 알림 권한이 거부된 경우
-//                      print("알림 권한이 거부되었습니다.")
-//                      // 알림 비활성화 시 알림 취소
-//                      NotificationManager.shared.cancelAllNotifications()
-//                  }
-//              }
-//        }
-//    }
+    private func requestNotification() {
+        NotificationManager.shared.requestAuthorization { [weak self] granted in
+            DispatchQueue.main.async {
+                  if granted {
+                      // 알림 권한이 허용된 경우
+                      print("알림 권한이 허용되었습니다.")
+                      NotificationManager.shared.setNotificationEnabled(userID: Auth.auth().currentUser?.uid)
+                  } else {
+                      // 알림 권한이 거부된 경우
+                      print("알림 권한이 거부되었습니다.")
+                      // 알림 비활성화 시 알림 취소
+                      NotificationManager.shared.cancelAllNotifications()
+                  }
+              }
+        }
+    }
     
     func setChart() {
         // 차트에서 표현할 데이터 리스트
