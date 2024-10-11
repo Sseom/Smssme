@@ -1,7 +1,7 @@
 import UIKit
-
-import SnapKit
 import RxSwift
+import RxCocoa
+import SnapKit
 
 final class DailyTransactionVC: UIViewController {
 
@@ -64,16 +64,22 @@ final class DailyTransactionVC: UIViewController {
             .bind(to: transactionView.dailyExpense.rx.text)
             .disposed(by: disposeBag)
         
+        transactionView.listCollectionView.rx.itemSelected
+            .withLatestFrom(output.transactionList) { IndexPath, transaction in
+                return transaction[IndexPath.row]
+            }
+            .subscribe(onNext: { [weak self] transaction in
+                let vc = MoneyDiaryEditVC(transactionItem2: transaction)
+                self?.navigationController?.pushViewController(vc, animated: true)
+                
+                
+            }).disposed(by: disposeBag)
+        
         
     }
 
 }
-extension DailyTransactionVC: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.bounds.width - 20 // 좌우 여백을 고려한 너비
-        return CGSize(width: width, height: 70) // 원하는 셀 높이
-    }
-}
+
 
 
 

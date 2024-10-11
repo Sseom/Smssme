@@ -18,6 +18,7 @@ final class DailyTransactionView: UIView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .white
         collectionView.register(DailyTransactionCell.self, forCellWithReuseIdentifier: DailyTransactionCell.reuseIdentifier) // 셀 등록
+        collectionView.delegate = self
         return collectionView
     }()
 
@@ -57,5 +58,12 @@ final class DailyTransactionView: UIView {
             $0.leading.trailing.equalTo(self).inset(20)
             $0.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
         }
+    }
+}
+
+extension DailyTransactionView: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = collectionView.bounds.width - 20 // 좌우 여백을 고려한 너비
+        return CGSize(width: width, height: 70) // 원하는 셀 높이
     }
 }
