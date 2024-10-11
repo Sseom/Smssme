@@ -20,12 +20,11 @@ class AutomaticTransactionVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        observeState()
+        bind()
         
     }
     
     func setupUI() {
-        
         [
             automaticView
         ].forEach { view.addSubview($0) }
@@ -34,26 +33,25 @@ class AutomaticTransactionVC: UIViewController {
             $0.edges.equalToSuperview()
         }
         
-        automaticView.submitButton.addTarget(self, action: #selector(saveData), for: .touchUpInside)
-        
     }
     
-    private func observeState() {
-        viewModel.event
+    func bind() {
+        let input = AutomaticTransactionVM.Input(
+            tap: automaticView.submitButton.rx.tap
+                .map { [weak self] _ in self?.automaticView.inputTextView.text}
+            )
+        
+        let output = viewModel.transform(input)
+        
+        output.event
             .observe(on: MainScheduler.instance)
-            .subscribe(
-                onNext: { state in
-                    
-                    switch state {
-                        
-                    case .onSaveComplete(let completeTitle, let completeMessage):
-                        self.showAlert(title: completeTitle, message: completeMessage, isComplete: true)
-                    case .onSaveFail(let errorTitle, let errorMessage):
-                        self.showAlert(title: errorTitle, message: errorMessage)
-                    }
-                }
-            ).disposed(by: disposeBag)
+            .subscribe(onNext: { [weak self] event in
+                let (title, message, isComplete) = event
+                self?.showAlert(title: title, message: message, isComplete: isComplete)
+                
+            }).disposed(by: disposeBag)
     }
+    
     
     //alert은 동일하게 띄우지만 text 값이 다름, 재사용성
     func showAlert(title: String, message: String, isComplete: Bool = false) {
@@ -76,11 +74,7 @@ class AutomaticTransactionVC: UIViewController {
         
     }
     
-    
-    @objc func saveData() {
-        let text = automaticView.inputTextView.text
-        viewModel.onAction(action: AutomaticTransactionAction.onsave(text))
-    }
+
     
 }
 

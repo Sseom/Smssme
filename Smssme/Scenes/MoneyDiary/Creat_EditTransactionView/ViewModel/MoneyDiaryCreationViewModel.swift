@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MoneyDiaryCreationViewModel {
+class MoneyDiaryCreationVM {
     struct Input {}
     struct Output {}
     

@@ -9,15 +9,15 @@ import UIKit
 
 class MoneyDiaryEditVC: UIViewController {
     
-    var transactionItem2: Diary
-    //MARK: - Properties
+    var transactionItem: Diary
+    
     private let moneyDiaryEditView: MoneyDiaryEditView = MoneyDiaryEditView()
     var uuid: UUID?
     
     // MARK: - ViewController Init
-    init(transactionItem2: Diary) {
+    init(transactionItem: Diary) {
         
-        self.transactionItem2 = transactionItem2
+        self.transactionItem = transactionItem
         super.init(nibName: nil, bundle: nil)
         
     }
@@ -49,7 +49,7 @@ class MoneyDiaryEditVC: UIViewController {
     }
     
     private func deleteDiary() {
-        if let uuid = transactionItem2.key {
+        if let uuid = transactionItem.key {
             DiaryCoreDataManager.shared.deleteDiary(with: uuid)
         } else {
             print("유효한 내역이 아닙니다.")
@@ -65,13 +65,13 @@ class MoneyDiaryEditVC: UIViewController {
     
     private func configureUI() {
         
-        moneyDiaryEditView.priceTextField.text = "\(KoreanCurrencyFormatter.shared.string(from: transactionItem2.amount))"
-        moneyDiaryEditView.datePicker.date = transactionItem2.date ?? Date()
-        moneyDiaryEditView.titleTextField.text = transactionItem2.title
-        moneyDiaryEditView.categoryTextField.text = transactionItem2.category
+        moneyDiaryEditView.priceTextField.text = "\(KoreanCurrencyFormatter.shared.string(from: transactionItem.amount))"
+        moneyDiaryEditView.datePicker.date = transactionItem.date ?? Date()
+        moneyDiaryEditView.titleTextField.text = transactionItem.title
+        moneyDiaryEditView.categoryTextField.text = transactionItem.category
         moneyDiaryEditView.noteTextView.textColor = .black
-        moneyDiaryEditView.noteTextView.text = transactionItem2.note        
-        moneyDiaryEditView.viewChange(index: transactionItem2.statement ? 1 : 0)
+        moneyDiaryEditView.noteTextView.text = transactionItem.note        
+        moneyDiaryEditView.viewChange(index: transactionItem.statement ? 1 : 0)
     }
     
     @objc func updateData() {
@@ -84,7 +84,7 @@ class MoneyDiaryEditVC: UIViewController {
         let titleTextField = moneyDiaryEditView.titleTextField.text ?? ""
         let categoryTextField = moneyDiaryEditView.categoryTextField.text ?? ""
         let memo = moneyDiaryEditView.noteTextView.text ?? ""
-        let uuid = transactionItem2.key!
+        let uuid = transactionItem.key!
         
         DiaryCoreDataManager.shared.updateDiary(with: uuid,
                                                 newTitle: titleTextField,

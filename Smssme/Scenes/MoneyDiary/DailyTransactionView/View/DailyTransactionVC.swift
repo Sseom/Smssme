@@ -33,13 +33,10 @@ final class DailyTransactionVC: UIViewController {
 
     
     private func setup() {
-
         view.addSubview(transactionView)
         transactionView.snp.makeConstraints{
             $0.edges.equalTo(view.safeAreaLayoutGuide)
         }
-
-
     }
     
     private func bind() {
@@ -54,12 +51,13 @@ final class DailyTransactionVC: UIViewController {
                 cell.layer.cornerRadius = 20
                 cell.layer.borderWidth = 1
                 cell.layer.borderColor = UIColor.black.cgColor
-                
             }
             .disposed(by: disposeBag)
+        
         output.incomeString
             .bind(to: transactionView.dailyIncome.rx.text)
             .disposed(by: disposeBag)
+        
         output.expenseString
             .bind(to: transactionView.dailyExpense.rx.text)
             .disposed(by: disposeBag)
@@ -69,7 +67,7 @@ final class DailyTransactionVC: UIViewController {
                 return transaction[IndexPath.row]
             }
             .subscribe(onNext: { [weak self] transaction in
-                let vc = MoneyDiaryEditVC(transactionItem2: transaction)
+                let vc = MoneyDiaryEditVC(transactionItem: transaction)
                 self?.navigationController?.pushViewController(vc, animated: true)
                 
                 

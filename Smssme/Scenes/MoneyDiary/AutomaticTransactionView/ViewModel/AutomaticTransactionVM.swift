@@ -9,43 +9,60 @@ import Foundation
 import RxSwift
 import UIKit
 
+enum AutomaticTransactionAction {
+    case onsave(String?)
+
+}
+
+enum AutomaticTransactionEvent {
+    case onSaveComplete(String, String)
+    case onSaveFail(String, String)
+}
+
+
 class AutomaticTransactionVM {
+    
+    struct Input {
+        let tap: Observable<String?>
+    }
+    struct Output {
+        let event: Observable<(title: String, message: String, isComplete: Bool)>
+    }
+    let disposedBag = DisposeBag()
+    
+
     init() {}
     
-    //일단 첫째로 어떤 액션이 있고 어떠한 뷰의 이벤트가 있냐가 포인트 !
-    let event = PublishSubject<AutomaticTransactionEvent>()
-    
-    func onAction(action: AutomaticTransactionAction) {
-       
-        switch action{
-
-        case .onsave(let text):
-            guard let text,
-                  !text.isEmpty
+    func transform(_ input: Input) -> Output {
+        let eventSubject = PublishSubject<(title: String, message: String, isComplete: Bool)>()
+        
+        input.tap.subscribe(onNext: { [weak self] text in
+            self?.handleSave(text: text, eventSubject: eventSubject)
             
-            else {
-                event.onNext(AutomaticTransactionEvent.onSaveFail("저장실패", "내용이 비어있습니다."))
-                return
-            }
-            
-            let transactionItem = extractPaymentDetails(from: text)
-            
-            if transactionItem.Amount == 0 {
-                event.onNext(AutomaticTransactionEvent.onSaveFail("저장실패", "금액을 찾을수없습니다."))
-                
-            } else {
-                
-                let time = DateManager.shared.transformDateWithoutTime(date: transactionItem.transactionDate)
-                
-                let savedTimeString = DateFormatter.yearMonthDay.string(from: time)
-                saveCurrentData(item: transactionItem)
-                
-                event.onNext(AutomaticTransactionEvent.onSaveComplete("저장성공", "\(savedTimeString) 날짜에 저장되었습니다"))
-            }
-            
-            
-        }
+        })
+        .disposed(by: disposedBag)
+        
+        return .init(event: eventSubject.asObservable())
     }
+                            
+    private func handleSave(text: String?, eventSubject: PublishSubject<(title: String, message: String, isComplete: Bool)>) {
+           guard let text, !text.isEmpty else {
+               eventSubject.onNext(("저장 실패", "내용이 비어있습니다.", false))
+               return
+           }
+           
+           let transactionItem = extractPaymentDetails(from: text)
+           
+           if transactionItem.Amount == 0 {
+               eventSubject.onNext(("저장 실패", "금액을 찾을 수 없습니다.", false))
+           } else {
+               let time = DateManager.shared.transformDateWithoutTime(date: transactionItem.transactionDate)
+               let savedTimeString = DateFormatter.yearMonthDay.string(from: time)
+               saveCurrentData(item: transactionItem)
+               eventSubject.onNext(("저장 성공", "\(savedTimeString) 날짜에 저장되었습니다", true))
+           }
+       }
+                            
     
     private func extractPaymentDetails(from text: String) -> TransactionItem{
         let dateString = RegexManager.shared.extractDate(from: text)
