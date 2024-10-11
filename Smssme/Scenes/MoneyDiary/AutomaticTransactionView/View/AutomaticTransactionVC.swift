@@ -12,8 +12,8 @@ import SnapKit
 import RxSwift
 
 class AutomaticTransactionVC: UIViewController {
-    private let automaticView = AutomaticTransactionView()
     
+    private let automaticView = AutomaticTransactionView()
     private let viewModel = AutomaticTransactionVM()
     private let disposeBag = DisposeBag()
     
@@ -21,7 +21,6 @@ class AutomaticTransactionVC: UIViewController {
         super.viewDidLoad()
         setupUI()
         bind()
-        
     }
     
     func setupUI() {
