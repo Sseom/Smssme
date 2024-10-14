@@ -93,7 +93,7 @@ class MoneyDiaryEditVC: UIViewController {
                                                 newStatement: statement,
                                                 newCategory: categoryTextField,
                                                 newNote: memo,
-                                                newUserId: "userKim")
+                                                newUserId: nil)
         
         self.navigationController?.popViewController(animated: false)
         

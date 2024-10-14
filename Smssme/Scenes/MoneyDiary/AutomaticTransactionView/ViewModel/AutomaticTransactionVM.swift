@@ -9,26 +9,22 @@ import Foundation
 import RxSwift
 import UIKit
 
-enum AutomaticTransactionAction {
-    case onsave(String?)
-
-}
-
-enum AutomaticTransactionEvent {
-    case onSaveComplete(String, String)
-    case onSaveFail(String, String)
-}
 
 
-class AutomaticTransactionVM {
+
+class AutomaticTransactionVM: ViewModel {
+    var disposeBag = DisposeBag()
+    
     
     struct Input {
         let tap: Observable<String?>
     }
+    
     struct Output {
         let event: Observable<(title: String, message: String, isComplete: Bool)>
     }
     let disposedBag = DisposeBag()
+    
     
 
     init() {}
@@ -117,7 +113,7 @@ class AutomaticTransactionVM {
         let categoryTextField = ""
         let memo = item.memo
         
-        DiaryCoreDataManager.shared.createDiary(title: titleTextField, date: date, amount: amount, statement: statement, category: categoryTextField, note: memo, userId: "userKim")
+        DiaryCoreDataManager.shared.createDiary(title: titleTextField, date: date, amount: amount, statement: statement, category: categoryTextField, note: memo, userId: nil)
         
     }
     

@@ -25,14 +25,14 @@ final class DailyTransactionVC: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        self.setup()
+        self.setupUI()
         bind()
         view.backgroundColor = .white
     }
     
 
     
-    private func setup() {
+    private func setupUI() {
         view.addSubview(transactionView)
         transactionView.snp.makeConstraints{
             $0.edges.equalTo(view.safeAreaLayoutGuide)
@@ -40,7 +40,7 @@ final class DailyTransactionVC: UIViewController {
     }
     
     private func bind() {
-        let input = DailyTransactionViewModel.Input(load: self.rx.viewWillAppear)
+        let input = DailyTransactionViewModel.Input(viewWillAppear: self.rx.viewWillAppear)
         
         let output = viewModel.transform(input)
         

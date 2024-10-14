@@ -3,8 +3,10 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-final class DailyTransactionViewModel {
-    private let disposeBag = DisposeBag()
+final class DailyTransactionViewModel: ViewModel {
+    
+    
+    var disposeBag = DisposeBag()
 
     var transactionList = BehaviorRelay<[Diary]>(value: [])
     private var incomeTotalAmount = BehaviorRelay(value: "")
@@ -17,7 +19,7 @@ final class DailyTransactionViewModel {
     }
     
     func transform(_ input: Input) -> Output {
-        input.load
+        input.viewWillAppear
             .withUnretained(self)
             .subscribe(onNext: {owner, _ in
                 owner.fetchTransactionList()
@@ -61,7 +63,7 @@ final class DailyTransactionViewModel {
     
     
     struct Input {
-        let load: Observable<Void>
+        let viewWillAppear: Observable<Void>
     }
     
     struct Output {

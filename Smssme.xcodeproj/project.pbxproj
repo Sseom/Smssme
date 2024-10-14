@@ -98,6 +98,8 @@
 		9F20E3712C9C0143003FF56E /* BenefitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F20E3702C9C0143003FF56E /* BenefitView.swift */; };
 		9F20E39A2CA1A822003FF56E /* DateFormatter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F20E3992CA1A822003FF56E /* DateFormatter+.swift */; };
 		9F2A371B2CB9AA2E003E9CBB /* MoneyDiaryCreationVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2A371A2CB9AA2E003E9CBB /* MoneyDiaryCreationVM.swift */; };
+		9F2A371D2CBB9E51003E9CBB /* MoneyDiaryEditVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2A371C2CBB9E51003E9CBB /* MoneyDiaryEditVM.swift */; };
+		9F2A37282CBD73AE003E9CBB /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2A37272CBD73AE003E9CBB /* ViewModel.swift */; };
 		9F2FA5852C868EB100A9731D /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2FA5842C868EB100A9731D /* DateManager.swift */; };
 		9F86E6CD2C92AB5F00619F7D /* AutomaticTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F86E6CC2C92AB5F00619F7D /* AutomaticTransactionView.swift */; };
 		9F86E6CF2C92AB7100619F7D /* AutomaticTransactionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F86E6CE2C92AB7100619F7D /* AutomaticTransactionVC.swift */; };
@@ -228,6 +230,8 @@
 		9F20E3702C9C0143003FF56E /* BenefitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenefitView.swift; sourceTree = "<group>"; };
 		9F20E3992CA1A822003FF56E /* DateFormatter+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+.swift"; sourceTree = "<group>"; };
 		9F2A371A2CB9AA2E003E9CBB /* MoneyDiaryCreationVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDiaryCreationVM.swift; sourceTree = "<group>"; };
+		9F2A371C2CBB9E51003E9CBB /* MoneyDiaryEditVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDiaryEditVM.swift; sourceTree = "<group>"; };
+		9F2A37272CBD73AE003E9CBB /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		9F2FA5842C868EB100A9731D /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		9F86E6CC2C92AB5F00619F7D /* AutomaticTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomaticTransactionView.swift; sourceTree = "<group>"; };
 		9F86E6CE2C92AB7100619F7D /* AutomaticTransactionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomaticTransactionVC.swift; sourceTree = "<group>"; };
@@ -821,6 +825,7 @@
 			isa = PBXGroup;
 			children = (
 				9F2A371A2CB9AA2E003E9CBB /* MoneyDiaryCreationVM.swift */,
+				9F2A371C2CBB9E51003E9CBB /* MoneyDiaryEditVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -876,6 +881,7 @@
 			children = (
 				9FE27AF02CAFA79000E5C63B /* String+.swift */,
 				9FE27B0F2CB37F1800E5C63B /* UIViewController+Reactive.swift */,
+				9F2A37272CBD73AE003E9CBB /* ViewModel.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1046,6 +1052,7 @@
 				7457E7CB2CA139CE00481C5F /* FinancialPlanCreationView.swift in Sources */,
 				5FE400842C99A450001D0FD1 /* ResetPasswordVC.swift in Sources */,
 				E5FBA12C2C7C823C00D26E5F /* UIComponentFactory.swift in Sources */,
+				9F2A37282CBD73AE003E9CBB /* ViewModel.swift in Sources */,
 				5FA88FF12C842D0A00549363 /* KeyboardEvader.swift in Sources */,
 				5F413EFF2C805CC200004703 /* MypageView.swift in Sources */,
 				746F80802C8841F300BBAEAF /* DatePickerView.swift in Sources */,
@@ -1063,6 +1070,7 @@
 				5F3EAE192C7E182400FF15E5 /* LoginView.swift in Sources */,
 				5F3EAE5B2C7F36E500FF15E5 /* EditUserInfoVC.swift in Sources */,
 				741746592C9B041A006D5456 /* ChartDataManager.swift in Sources */,
+				9F2A371D2CBB9E51003E9CBB /* MoneyDiaryEditVM.swift in Sources */,
 				5FE400782C949EB8001D0FD1 /* Endpoint.swift in Sources */,
 				5FE400692C8DE94F001D0FD1 /* UITextField.swift in Sources */,
 				744FB09A2C93D94000208685 /* AssetsListCell.swift in Sources */,

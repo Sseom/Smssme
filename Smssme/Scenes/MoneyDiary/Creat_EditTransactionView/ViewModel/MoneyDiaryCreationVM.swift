@@ -8,7 +8,9 @@
 import Foundation
 import RxSwift
 
-class MoneyDiaryCreationVM {
+class MoneyDiaryCreationVM: ViewModel {
+    var disposeBag = DisposeBag()
+    
     struct Input {
         let tap: Observable<TransactionItem>
     }
