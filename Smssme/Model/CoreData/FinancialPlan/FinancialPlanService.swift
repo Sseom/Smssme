@@ -129,11 +129,28 @@ class FinancialPlanService {
         manager.deleteFinancialPlan(plan)
     }
     //MARK: - 완료플랜 지우기
-    func deleteIncompleteItems() {
+    func deleteCompleteItems() {
         do {
             // 1. Fetch Request 생성
             let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "FinancialPlan")
             fetchRequest.predicate = NSPredicate(format: "isCompleted == %@", NSNumber(value: true))
+            
+            // 2. 일괄 삭제 요청 생성
+            let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+            
+            // 3. 일괄 삭제 실행
+            try manager.executeDeleteRequest(batchDeleteRequest)
+            
+            print("Incomplete items deleted successfully")
+        } catch {
+            print("Failed to delete incomplete items: \(error)")
+        }
+    }
+    func deleteIncompleteItems() {
+        do {
+            // 1. Fetch Request 생성
+            let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "FinancialPlan")
+            fetchRequest.predicate = NSPredicate(format: "isCompleted == %@", NSNumber(value: false))
             
             // 2. 일괄 삭제 요청 생성
             let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
@@ -234,6 +251,7 @@ class FinancialPlanService {
     private func convertToDTO(_ plan: FinancialPlan) -> FinancialPlanDTO {
         return FinancialPlanDTO(
             id: plan.id,
+            key: plan.key ?? UUID(),
             title: plan.title ?? "",
             amount: plan.amount,
             deposit: plan.deposit,
@@ -250,6 +268,7 @@ class FinancialPlanService {
 
 struct FinancialPlanDTO {
     var id: String
+    var key: UUID
     var title: String
     var amount: Int64
     var deposit: Int64
@@ -268,4 +287,37 @@ enum ValidationError: Error {
     case negativeDeposit
     case invalidDateRange
     case depositExceedsAmount
+}
+
+
+extension FinancialPlanService {
+    // 코어 데이터 -> 파이어베이스
+    func migrateFinancialPlansToFirebase(completion: @escaping (Result<Void, Error>) -> Void) {
+        let context = FinancialPlanManager.shared.context // CoreData 컨텍스트 가져오기
+        let fetchRequest: NSFetchRequest<FinancialPlan> = FinancialPlan.fetchRequest()
+        
+        do {
+            let plans = try context.fetch(fetchRequest)
+            let group = DispatchGroup()
+            
+            for plan in plans {
+                group.enter()
+                FirebaseFirestoreManager.shared.saveFinancialPlan(plan: plan) { result in
+                    switch result {
+                    case .success:
+                        print("Successfully migrated plan: \(String(describing: plan.key))")
+                    case .failure(let error):
+                        print("Failed to migrate plan: \(String(describing: plan.key)), error: \(error)")
+                    }
+                    group.leave()
+                }
+            }
+            
+            group.notify(queue: .main) {
+                completion(.success(()))
+            }
+        } catch {
+            completion(.failure(error))
+        }
+    }
 }

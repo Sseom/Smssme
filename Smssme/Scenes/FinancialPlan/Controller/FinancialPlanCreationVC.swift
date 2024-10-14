@@ -47,6 +47,7 @@ class FinancialPlanCreationVC: UIViewController, UITextFieldDelegate {
     }
     
     override func loadView() {
+
         view = creationView
     }
     

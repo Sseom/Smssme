@@ -78,6 +78,7 @@ extension FinancialPlanEditPlanVC {
         do {
             let updateDTO = FinancialPlanDTO(
                 id: planDTO.id,
+                key: planDTO.key,
                 title: planTitle,
                 amount: amount,
                 deposit: deposit,

@@ -8,6 +8,52 @@
 import CoreData
 import UIKit
 
+import FirebaseAuth
+
+extension FinancialPlanSelectionVC {
+    private func migrateDataToFirebase() {
+        guard Auth.auth().currentUser != nil else {
+            print("사용자가 로그인되어 있지 않습니다.")
+            return
+        }
+        
+        // 마이그레이션 시작
+        planService.migrateFinancialPlansToFirebase { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success:
+                    print("모든 금융 계획이 성공적으로 마이그레이션되었습니다.")
+                    self?.updateUIAfterMigration()
+                case .failure(let error):
+                    print("마이그레이션 실패: \(error)")
+//                    self?.showMigrationErrorAlert(error: error)
+                    self?.showAlert(message: "데이터 마이그레이션 중 오류가 발생했습니다: \(error.localizedDescription)", AlertTitle: "마이그레이션 오류", buttonClickTitle: "확인")
+                }
+            }
+        }
+    }
+    
+    private func updateUIAfterMigration() {
+        // 어쩌면 ui업데이트가 필요한가??
+    }
+    
+    private func syncDataFromFirebase() {
+        guard Auth.auth().currentUser != nil else {
+            print("사용자가 로그인되어 있지 않습니다.")
+            return
+        }
+        
+        FirebaseFirestoreManager.shared.syncFinancialPlansToCoreData { result in
+            switch result {
+            case .success():
+                print("데이터 동기화 완료")
+            case .failure(let error):
+                print("동기화 실패: \(error)")
+            }
+        }
+    }
+}
+
 protocol FinancialPlanCreateDelegate: AnyObject {
     func didCreateFinancialPlan(_ plan: FinancialPlanDTO)
 }
@@ -22,7 +68,12 @@ final class FinancialPlanSelectionVC: UIViewController {
         selectionView.collectionView.dataSource = self
         selectionView.collectionView.delegate = self
         view.backgroundColor = UIColor(hex: "#e9f3fd")
-        tabBarController?.tabBar.backgroundColor = .white 
+        tabBarController?.tabBar.backgroundColor = .white
+        
+        //        migrateDataToFirebase()
+        syncDataFromFirebase()
+        //        planService.deleteIncompleteItems()
+        //        print("디버깅데이터: \(planService.fetchAllFinancialPlans())")
     }
     
     override func loadView() {

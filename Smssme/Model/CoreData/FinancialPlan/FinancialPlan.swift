@@ -106,3 +106,25 @@ enum PlanType: Int16, CaseIterable {
 
 // 차트 공용메서드를 위한 프로토콜
 extension FinancialPlan: ChartDataConvertible {}
+
+
+
+// 서버
+
+extension FinancialPlan {
+    func toFirestoreData() -> [String: Any] {
+        return [
+            "key": key?.uuidString ?? UUID().uuidString,
+            "title": title ?? "",
+            "startDate": startDate ?? Date(),
+            "endDate": endDate ?? Date(),
+            "amount": amount,
+            "deposit": deposit,
+            "planType": planType,
+            "isCompleted": isCompleted,
+            "completionDate": completionDate ?? Date(),
+        ]
+    }
+}
+
+
