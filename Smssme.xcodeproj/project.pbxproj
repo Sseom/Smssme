@@ -97,9 +97,19 @@
 		9F06D31A2C801D1F00DFF5B0 /* FinancialPlanConfirmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F06D3192C801D1F00DFF5B0 /* FinancialPlanConfirmVC.swift */; };
 		9F20E3712C9C0143003FF56E /* BenefitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F20E3702C9C0143003FF56E /* BenefitView.swift */; };
 		9F20E39A2CA1A822003FF56E /* DateFormatter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F20E3992CA1A822003FF56E /* DateFormatter+.swift */; };
+		9F2A371B2CB9AA2E003E9CBB /* MoneyDiaryCreationVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2A371A2CB9AA2E003E9CBB /* MoneyDiaryCreationVM.swift */; };
 		9F2FA5852C868EB100A9731D /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2FA5842C868EB100A9731D /* DateManager.swift */; };
 		9F86E6CD2C92AB5F00619F7D /* AutomaticTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F86E6CC2C92AB5F00619F7D /* AutomaticTransactionView.swift */; };
 		9F86E6CF2C92AB7100619F7D /* AutomaticTransactionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F86E6CE2C92AB7100619F7D /* AutomaticTransactionVC.swift */; };
+		9FE27AE62CAF868E00E5C63B /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 9FE27AE52CAF868E00E5C63B /* RxCocoa */; };
+		9FE27AE82CAF868E00E5C63B /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 9FE27AE72CAF868E00E5C63B /* RxRelay */; };
+		9FE27AEA2CAF868E00E5C63B /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9FE27AE92CAF868E00E5C63B /* RxSwift */; };
+		9FE27AEC2CAF86C200E5C63B /* AutomaticTransactionVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE27AEB2CAF86C200E5C63B /* AutomaticTransactionVM.swift */; };
+		9FE27AF12CAFA79000E5C63B /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE27AF02CAFA79000E5C63B /* String+.swift */; };
+		9FE27AF32CAFC96700E5C63B /* DailyTransactionVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE27AF22CAFC96700E5C63B /* DailyTransactionVM.swift */; };
+		9FE27B0B2CB37D0A00E5C63B /* MoneyDiaryVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE27B0A2CB37D0A00E5C63B /* MoneyDiaryVM.swift */; };
+		9FE27B0E2CB37DC300E5C63B /* DiaryCalendarVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE27B0D2CB37DC300E5C63B /* DiaryCalendarVM.swift */; };
+		9FE27B102CB37F1800E5C63B /* UIViewController+Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE27B0F2CB37F1800E5C63B /* UIViewController+Reactive.swift */; };
 		9FE549BF2C801E4D00E6075E /* FinancialPlanConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE549BE2C801E4D00E6075E /* FinancialPlanConfirmView.swift */; };
 		9FF702DB2C966B3F00890E77 /* RegexManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF702DA2C966B3F00890E77 /* RegexManager.swift */; };
 		CA9C1B902CAC2F50001E17C8 /* SecretsConfig.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CA9C1B8E2CAC2F50001E17C8 /* SecretsConfig.xcconfig */; };
@@ -217,9 +227,16 @@
 		9F06D3192C801D1F00DFF5B0 /* FinancialPlanConfirmVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanConfirmVC.swift; sourceTree = "<group>"; };
 		9F20E3702C9C0143003FF56E /* BenefitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenefitView.swift; sourceTree = "<group>"; };
 		9F20E3992CA1A822003FF56E /* DateFormatter+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+.swift"; sourceTree = "<group>"; };
+		9F2A371A2CB9AA2E003E9CBB /* MoneyDiaryCreationVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDiaryCreationVM.swift; sourceTree = "<group>"; };
 		9F2FA5842C868EB100A9731D /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		9F86E6CC2C92AB5F00619F7D /* AutomaticTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomaticTransactionView.swift; sourceTree = "<group>"; };
 		9F86E6CE2C92AB7100619F7D /* AutomaticTransactionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomaticTransactionVC.swift; sourceTree = "<group>"; };
+		9FE27AEB2CAF86C200E5C63B /* AutomaticTransactionVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomaticTransactionVM.swift; sourceTree = "<group>"; };
+		9FE27AF02CAFA79000E5C63B /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
+		9FE27AF22CAFC96700E5C63B /* DailyTransactionVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTransactionVM.swift; sourceTree = "<group>"; };
+		9FE27B0A2CB37D0A00E5C63B /* MoneyDiaryVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDiaryVM.swift; sourceTree = "<group>"; };
+		9FE27B0D2CB37DC300E5C63B /* DiaryCalendarVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCalendarVM.swift; sourceTree = "<group>"; };
+		9FE27B0F2CB37F1800E5C63B /* UIViewController+Reactive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Reactive.swift"; sourceTree = "<group>"; };
 		9FE549BE2C801E4D00E6075E /* FinancialPlanConfirmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialPlanConfirmView.swift; sourceTree = "<group>"; };
 		9FF702DA2C966B3F00890E77 /* RegexManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexManager.swift; sourceTree = "<group>"; };
 		CA9C1B8E2CAC2F50001E17C8 /* SecretsConfig.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = SecretsConfig.xcconfig; sourceTree = "<group>"; };
@@ -250,10 +267,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FE27AE82CAF868E00E5C63B /* RxRelay in Frameworks */,
 				E5FBA1332C7CCCBE00D26E5F /* SnapKit in Frameworks */,
 				5FE3DDD92CA3ACCB0015B14E /* FirebaseFirestore in Frameworks */,
+				9FE27AE62CAF868E00E5C63B /* RxCocoa in Frameworks */,
 				5FE3DDD72CA3ACCB0015B14E /* FirebaseAuth in Frameworks */,
 				74707F802C806A5900F7000C /* DGCharts in Frameworks */,
+				9FE27AEA2CAF868E00E5C63B /* RxSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,6 +418,7 @@
 		740350B32C805FB900122B2E /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				9FE27AEF2CAFA78300E5C63B /* Extension */,
 				7457E7D72CA13BCC00481C5F /* Date */,
 				7457E7D62CA13BA500481C5F /* Formatter */,
 				7457E7D52CA13B6900481C5F /* Chart */,
@@ -474,7 +495,6 @@
 				746F80942C8842C800BBAEAF /* DailyTransactionVC.swift */,
 				746F80892C88424000BBAEAF /* DailyTransactionCell.swift */,
 				746F80882C88424000BBAEAF /* DailyTransactionView.swift */,
-				9F20E3702C9C0143003FF56E /* BenefitView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -735,8 +755,8 @@
 		9FE27AD72CAF7FBC00E5C63B /* DailyTransactionView */ = {
 			isa = PBXGroup;
 			children = (
-				9FE27ADF2CAF80A000E5C63B /* ViewModel */,
 				7457E7BC2CA135E600481C5F /* View */,
+				9FE27ADF2CAF80A000E5C63B /* ViewModel */,
 			);
 			path = DailyTransactionView;
 			sourceTree = "<group>";
@@ -792,6 +812,7 @@
 				746F80752C8841F300BBAEAF /* MoneyDiaryEditView.swift */,
 				746F808D2C8842B200BBAEAF /* MoneyDiaryEditVC.swift */,
 				E517F33F2C89A41900CB8680 /* MoneyDiaryCreationVC.swift */,
+				9F20E3702C9C0143003FF56E /* BenefitView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -799,6 +820,7 @@
 		9FE27ADE2CAF809800E5C63B /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				9F2A371A2CB9AA2E003E9CBB /* MoneyDiaryCreationVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -806,6 +828,7 @@
 		9FE27ADF2CAF80A000E5C63B /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				9FE27AF22CAFC96700E5C63B /* DailyTransactionVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -825,6 +848,8 @@
 		9FE27AE12CAF80A900E5C63B /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				9FE27B0A2CB37D0A00E5C63B /* MoneyDiaryVM.swift */,
+				9FE27B0D2CB37DC300E5C63B /* DiaryCalendarVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -841,8 +866,18 @@
 		9FE27AE32CAF80D200E5C63B /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				9FE27AEB2CAF86C200E5C63B /* AutomaticTransactionVM.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9FE27AEF2CAFA78300E5C63B /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				9FE27AF02CAFA79000E5C63B /* String+.swift */,
+				9FE27B0F2CB37F1800E5C63B /* UIViewController+Reactive.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		E5FBA1462C7EC64500D26E5F /* FinancialPlan */ = {
@@ -875,6 +910,9 @@
 				74707F7F2C806A5900F7000C /* DGCharts */,
 				5FE3DDD62CA3ACCB0015B14E /* FirebaseAuth */,
 				5FE3DDD82CA3ACCB0015B14E /* FirebaseFirestore */,
+				9FE27AE52CAF868E00E5C63B /* RxCocoa */,
+				9FE27AE72CAF868E00E5C63B /* RxRelay */,
+				9FE27AE92CAF868E00E5C63B /* RxSwift */,
 			);
 			productName = Smssme;
 			productReference = 740350532C773E9B00122B2E /* Smssme.app */;
@@ -908,6 +946,7 @@
 				E5FBA1312C7CCCBE00D26E5F /* XCRemoteSwiftPackageReference "SnapKit" */,
 				74707F7E2C806A5900F7000C /* XCRemoteSwiftPackageReference "Charts" */,
 				5FE3DDD52CA3ACCB0015B14E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				9FE27AE42CAF868E00E5C63B /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = 740350542C773E9B00122B2E /* Products */;
 			projectDirPath = "";
@@ -941,6 +980,7 @@
 				7457E7E62CA57ED500481C5F /* FutureGraphVC.swift in Sources */,
 				7457E7D12CA13A7200481C5F /* ReauthenticationVC.swift in Sources */,
 				E50498702CA5CB8D0014B8EF /* FinancialPlanCompleteView.swift in Sources */,
+				9FE27B0E2CB37DC300E5C63B /* DiaryCalendarVM.swift in Sources */,
 				7457E7D02CA13A4F00481C5F /* LoginVC.swift in Sources */,
 				74707F942C81B5DF00F7000C /* Assets+CoreDataClass.swift in Sources */,
 				9F2FA5852C868EB100A9731D /* DateManager.swift in Sources */,
@@ -992,6 +1032,7 @@
 				9F86E6CD2C92AB5F00619F7D /* AutomaticTransactionView.swift in Sources */,
 				E5B9268E2CA54B1F0027984E /* CompleteModalView.swift in Sources */,
 				746F80812C8841F300BBAEAF /* MoneyDiaryBudgetEditCell.swift in Sources */,
+				9FE27AF32CAFC96700E5C63B /* DailyTransactionVM.swift in Sources */,
 				9F06D3122C7EFF9D00DFF5B0 /* DateModel.swift in Sources */,
 				E5B9267D2CA2DF280027984E /* UILabelFactory.swift in Sources */,
 				5FE400822C99A43A001D0FD1 /* ResetPasswordView.swift in Sources */,
@@ -1016,6 +1057,7 @@
 				E5B9268C2CA54B080027984E /* CompleteModalVC.swift in Sources */,
 				746F80852C8841F300BBAEAF /* MoneyDiaryBudgetEditView.swift in Sources */,
 				E5B926892CA328AC0027984E /* FinancialPlanCompleteCell.swift in Sources */,
+				9FE27B102CB37F1800E5C63B /* UIViewController+Reactive.swift in Sources */,
 				746F80952C8842C800BBAEAF /* DailyTransactionVC.swift in Sources */,
 				5F413EFF2C805CC200004703 /* MypageView.swift in Sources */,
 				5F3EAE192C7E182400FF15E5 /* LoginView.swift in Sources */,
@@ -1030,15 +1072,19 @@
 				746F80922C8842B200BBAEAF /* MoneyDiaryBudgetEditVC.swift in Sources */,
 				5FE4006F2C917B4E001D0FD1 /* FirebaseAuthManager.swift in Sources */,
 				9FF702DB2C966B3F00890E77 /* RegexManager.swift in Sources */,
+				9F2A371B2CB9AA2E003E9CBB /* MoneyDiaryCreationVM.swift in Sources */,
 				5FA88FFE2C8544DB00549363 /* SplashViewController.swift in Sources */,
 				5FE4006D2C917A92001D0FD1 /* UserProfileModel.swift in Sources */,
+				9FE27B0B2CB37D0A00E5C63B /* MoneyDiaryVM.swift in Sources */,
 				746F80842C8841F300BBAEAF /* MoneyDiaryView.swift in Sources */,
 				5F3EAE562C7EFAFA00FF15E5 /* EditUserInfoView.swift in Sources */,
 				5FE4009A2CA087A9001D0FD1 /* StockIndexCell.swift in Sources */,
 				7457E7C72CA139A000481C5F /* FinancialPlanSelectionVC.swift in Sources */,
+				9FE27AF12CAFA79000E5C63B /* String+.swift in Sources */,
 				5F413F012C805CED00004703 /* MypageVC.swift in Sources */,
 				740350612C773E9B00122B2E /* Smssme.xcdatamodeld in Sources */,
 				746F808A2C88424000BBAEAF /* DailyTransactionView.swift in Sources */,
+				9FE27AEC2CAF86C200E5C63B /* AutomaticTransactionVM.swift in Sources */,
 				7457E7CD2CA139ED00481C5F /* FinancialPlanCell.swift in Sources */,
 				74707F7D2C8069A600F7000C /* MainPageVC.swift in Sources */,
 				9F86E6CF2C92AB7100619F7D /* AutomaticTransactionVC.swift in Sources */,
@@ -1300,6 +1346,14 @@
 				minimumVersion = 5.1.0;
 			};
 		};
+		9FE27AE42CAF868E00E5C63B /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.7.1;
+			};
+		};
 		E5FBA1312C7CCCBE00D26E5F /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -1325,6 +1379,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 74707F7E2C806A5900F7000C /* XCRemoteSwiftPackageReference "Charts" */;
 			productName = DGCharts;
+		};
+		9FE27AE52CAF868E00E5C63B /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FE27AE42CAF868E00E5C63B /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		9FE27AE72CAF868E00E5C63B /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FE27AE42CAF868E00E5C63B /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		9FE27AE92CAF868E00E5C63B /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FE27AE42CAF868E00E5C63B /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
 		};
 		E5FBA1322C7CCCBE00D26E5F /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
