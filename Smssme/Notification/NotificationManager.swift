@@ -27,42 +27,48 @@ class NotificationManager {
     }
     
     // 테스트
-//    func test() {
-//        let content = UNMutableNotificationContent()
-//        content.title = "이번 달에도 잘해냈어요!👍"
-//        content.body = "돈 관리, 나의 새로운 취미! 🎨 하지만 돈이 없으면 취미도 없다구요...빨리 들어오세요!"
-//        content.sound = .default
-//        
-//        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
-//        
-//        let request = UNNotificationRequest(identifier: "test", content: content, trigger: trigger)
-//        
-//        UNUserNotificationCenter.current().add(request) { error in
-//            if let error = error {
-//                print("알림 등록 중 오류 발생: \(error)")
-//            }
-//        }
-//    }
-        
+    //    func test() {
+    //        let content = UNMutableNotificationContent()
+    //        content.title = "이번 달에도 잘해냈어요!👍"
+    //        content.body = "돈 관리, 나의 새로운 취미! 🎨 하지만 돈이 없으면 취미도 없다구요...빨리 들어오세요!"
+    //        content.sound = .default
+    //
+    //        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
+    //
+    //        let request = UNNotificationRequest(identifier: "test", content: content, trigger: trigger)
+    //
+    //        UNUserNotificationCenter.current().add(request) { error in
+    //            if let error = error {
+    //                print("알림 등록 중 오류 발생: \(error)")
+    //            }
+    //        }
+    //    }
+    
     // 마이페이지 알림 토글 활성화 설정
-//    func setNotificationEnabled(userID: String?) {
-//        guard let userId = userID else {return}
-//        
-//        FirebaseFirestoreManager.shared.fetchUserData(uid: userId) { [weak self] result in
-//            switch result {
-//            case .success(let data):
-//                if let isEnabled = data["notificationsEnabled"] as? Bool , isEnabled {
-//                    // 알림 설정이 활성화된 경우
-////                    self?.test()
-//                    self?.firstDayOfMonthNotification()
-//                    self?.lastDayOfMonthNotification()
-//                }
-//            case .failure(let error):
-//                print("사용자 데이터를 가져오는 도중 오류 발생:\(error.localizedDescription)")
-//            }
-//        }
-//        
-//    }
+    func setNotificationEnabled(userID: String?) {
+        if let userId = userID {
+            FirebaseFirestoreManager.shared.fetchUserData(uid: userId) { [weak self] result in
+                switch result {
+                case .success(let data):
+                    if let isEnabled = data["notificationsEnabled"] as? Bool , isEnabled {
+                        // 알림 설정이 활성화된 경우
+                        self?.everyDayNotificaion()
+                        self?.firstDayOfMonthNotification()
+                        self?.lastDayOfMonthNotification()
+                    }
+                case .failure(let error):
+                    print("사용자 데이터를 가져오는 도중 오류 발생:\(error.localizedDescription)")
+                }
+            }
+        } else {
+            // 비회원 로그인 시 알림 설정
+            self.everyDayNotificaion()
+            self.firstDayOfMonthNotification()
+            self.lastDayOfMonthNotification()
+        }
+        
+        
+    }
     
     // 알림 생성
     func createNotification(identifier: String, title: String, body: String, trigger: UNNotificationTrigger?, repeats: Bool) {
@@ -80,6 +86,30 @@ class NotificationManager {
                 print("알림 등록 실패: \(error)")
             } else {
                 print("알림 등록 성공: \(identifier)")
+            }
+        }
+    }
+    
+    // 매일 오후 9시 알림
+    func everyDayNotificaion() {
+        let content = UNMutableNotificationContent()
+        //        content.title = ""
+        content.body = "오늘 가계부 작성은 잊지 않으셨죠?😎"
+        content.sound = .default
+        
+        // 날짜 컴포넌트 설정
+        var dateComponents = DateComponents()
+        dateComponents.hour = 21
+        dateComponents.minute = 0
+        
+        // 트리거 설정 (매일 반복)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+        
+        let request = UNNotificationRequest(identifier: "everyDayNotificaion", content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print("알림 등록 중 오류 발생: \(error)")
             }
         }
     }
@@ -112,8 +142,8 @@ class NotificationManager {
             let lastDay = range.count
             var dateComponents = calendar.dateComponents([.year, .month], from: currentDate)
             dateComponents.day = lastDay
-            dateComponents.hour = 21  // 오후 9시
-            dateComponents.minute = 0
+            dateComponents.hour = 21  // 오후 9시 30분
+            dateComponents.minute = 30
             
             return dateComponents
         }

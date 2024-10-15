@@ -278,7 +278,7 @@ class FutureGraphVC: UIViewController {
         
         updateFirstChartData(yearsArray: yearsArray)
         
-        futureGraphView.firstView.scrollView.isScrollEnabled = true
+//        futureGraphView.firstView.scrollView.isScrollEnabled = true
         futureGraphView.firstView.tableView.isHidden = false
         futureGraphView.firstView.tableView.reloadData()
     }

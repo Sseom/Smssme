@@ -37,12 +37,23 @@ class TabBarController: UITabBarController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
         var tabFrame = self.tabBar.frame
-        tabFrame.size.height = 90
+        let screenHeight = UIScreen.main.bounds.height
+        let tabBarHeightProportion: CGFloat
+        if isIPadMini() {
+          tabBarHeightProportion = 0.08 // iPad mini에 대해 8%로 설정
+        } else {
+          tabBarHeightProportion = 0.11 // 다른 기기들에 대해 11%로 유지
+        }
+        tabFrame.size.height = screenHeight * tabBarHeightProportion
         tabFrame.origin.y = self.view.frame.size.height - tabFrame.size.height
         self.tabBar.frame = tabFrame
-    }
+      }
+    
+      private func isIPadMini() -> Bool {
+        let deviceModel = UIDevice.current.model
+        return deviceModel == "iPad"
+      }
     
     func configureController() {
         let mainPage = tabBarNavigationController(

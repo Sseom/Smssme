@@ -16,7 +16,6 @@ class FutureGraphSecondView: UIView {
     
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.isScrollEnabled = false
         return scrollView
     }()
     
